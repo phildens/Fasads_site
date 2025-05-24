@@ -9,7 +9,8 @@
 
 <h1>главная страница</h1>
     <script>
-fetch('http://127.0.0.1:8000/products/?format=json')
+        var adress = 'http://127.0.0.1:8000'
+fetch(adress + '/products/?format=json')
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP ошибка! Код: ${response.status}`);
