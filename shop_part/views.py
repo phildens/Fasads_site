@@ -6,3 +6,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdate
 class ProductListView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+def index(request):
+    return render(request, 'index.html')
