@@ -2,3 +2,6 @@
 .DS_Store
 .env
 mysite_nginx.conf
+venvsite
+static
+media
