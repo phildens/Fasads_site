@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from shop_part.views import ProductListView
 from shop_part import views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',  views.index),
+    path('',  views.index,),
     path('products/', ProductListView.as_view(), name='products'),
-]
+    
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
