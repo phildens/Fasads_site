@@ -1,0 +1,90 @@
+.dot {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .dot.active {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    .menu-image {
+      margin-top: 5px;
+    }
+    .nav-link .menu-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(66, 34, 35, 1);
+      margin-right: 20px;
+    }
+    .nav-link .menu-toggle span {
+      display: block;
+      width: 30px;
+      height: 3px;
+      background: #fff;
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+    
+    
+    
+    #blur-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.13);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      transition: opacity .2s;
+      cursor: pointer;
+    }
+    #blur-bg.active {
+      display: block;
+      opacity: 1;
+    }
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100%;
+      background: #fff;
+      overflow-y: auto;
+      transition: right 0.3s ease-in-out;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .side-menu.active {
+      right: 0;
+    }
+    .side-menu .logo img {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    .side-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .side-menu li {
+      margin-bottom: 15px;
+    }
+    .side-menu a {
+      text-decoration: none;
+      color: #421e23;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .side-menu .contacts {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #421e23;
+    }

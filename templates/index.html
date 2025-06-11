@@ -5,469 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/slider.css' %}">
+  <link rel="stylesheet" href="{% static 'css/search.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/menu.css' %}">
   <style>
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background-color: rgba(66, 34, 35, 1);
-    }
-    .a {
-      color: rgba(241, 237, 226, 0.6);
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 200;
-      font-size: 16px;
-      line-height: 100%;
-    }
-    .conteiner {
-      background-color: rgba(66, 34, 35, 1);
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    .header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 20px;
-      position: relative;
-      flex-shrink: 0;
-    }
-    .logo img {
-      width: 100%;
-      max-width: 131px;
-      height: auto;
-    }
-    .nav-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      font-size: 16px;
-      color: #4A4A4A;
-      list-style-type: none;
-      margin-left: 30px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 400;
-      line-height: 100%;
-    }
-    .nav-link {
-      color: rgba(255, 246, 243, 1);
-      text-decoration: none;
-    }
-    @media (max-width: 1024px) {
-      .nav-list {
-        gap: 15px;
-        margin-left: 10px;
-      }
-      .header {
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px 0;
-      }
-    }
-    @media (max-width: 768px) {
-      .nav-list {
-        flex-direction: column;
-        gap: 12px;
-        margin-left: 0;
-      }
-      .header {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-    @media (max-width: 480px) {
-      .nav-list {
-        font-size: 14px;
-      }
-      .header {
-        flex-direction: column;
-        gap: 7px;
-      }
-      .logo img {
-        max-width: 90px;
-      }
-    }
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      padding: 24px;
-      flex-shrink: 0;
-    }
-    .search-bar input {
-      width: 100%;
-      max-width: 1170px;
-      height: 80px;
-      min-width: 1170px;
-      padding: 12px 24px;
-      border-radius: 24px;
-      font-size: 16px;
-      border: none;
-      outline: none;
-      box-sizing: border-box;
-      max-width: 600px;
-    }
-    .slider {
-      position: relative;
-      width: 90%;
-      max-width: 1300px;
-      min-height: 585px;
-      margin: 20px auto;
-      margin-top: -40px;
-      margin-bottom: 0;
-      overflow: hidden;
-      flex-shrink: 0;
-      border-radius: 12px;
-    }
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      height: 585px;
-    }
-    .slide {
-      flex: 0 0 100%;
-      display: flex;
-      align-items: stretch;
-      height: 585px;
-      box-sizing: border-box;
-      position: relative;
-      background: none;
-    }
-    .slide-text {
-      flex: 1 1 40%;
-      min-width: 350px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      z-index: 2;
-      color: rgba(241, 237, 226, 1);
-      padding: 0 0 0 40px;
-    }
-    .slide-text .big{
-      font-family: NAMU;
-      font-weight: 300;
-      font-size: 80px;
-      line-height: 100%;
-      letter-spacing: 0%;
-      text-transform: uppercase;
-      margin: 0 0 18px 0;
-    }
-    .slide-text .medium{
-      font-family: NAMU;
-      font-weight: 300;
-      font-size: 28px;
-      line-height: 100%;
-      letter-spacing: 0%;
-      text-transform: uppercase;
-      margin: 0 0 24px 0;
-    }
-    .slide-text .min{
-      font-family: Muller;
-      font-weight: 300;
-      font-size: 18px;
-      line-height: 130%;
-      letter-spacing: 0%;
-      color:rgba(241, 237, 226, 0.6);
-      margin-top: 32px;
-      margin-bottom: 0;
-    }
-    .slide-buttons {
-      display: flex;
-      gap: 18px;
-      margin-top: 12px;
-    }
-    .slide-btn {
-      padding: 16px 32px;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .2s, color .2s, border .2s;
-    }
-    .slide-btn.white {
-      background: #fff;
-      color: #421e23;
-    }
-    .slide-btn.white:hover {
-      background: #ececec;
-      color: #421e23;
-    }
-    .slide-btn.green {
-      background: #4BB543;
-      color: #fff;
-    }
-    .slide-btn.green:hover {
-      background: #38912e;
-      color: #fff;
-    }
-    .slide-image {
-      flex: 1 1 60%;
-      min-width: 756px;
-      min-height: 585px;
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 1;
-      -webkit-filter: drop-shadow(10px 2px 10px #000);
-      filter: drop-shadow(10px 2px 10px #000);
-    }
-    .slide-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: right;
-      min-width: 756px;
-      min-height: 585px;
-      border-radius: 0 12px 12px 0;
-      display: block;
-    }
-    .dots {
-      position: absolute;
-      bottom: 18px;
-      left: 40px;
-      display: flex;
-      gap: 10px;
-      z-index: 10;
-    }
-    .dot {
-      width: 12px;
-      height: 12px;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .dot.active {
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-    .menu-image {
-      margin-top: 5px;
-    }
-    .nav-link .menu-toggle {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      top: 20px;
-      right: 20px;
-      background-color: rgba(66, 34, 35, 1);
-      margin-right: 20px;
-    }
-    .nav-link .menu-toggle span {
-      display: block;
-      width: 30px;
-      height: 3px;
-      background: #fff;
-      margin: 6px 0;
-      transition: 0.4s;
-    }
-    .side-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 80%;
-      max-width: 300px;
-      height: 100%;
-      background: #fff;
-      overflow-y: auto;
-      transition: right 0.3s ease-in-out;
-      z-index: 1000;
-      padding: 20px;
-    }
-    .side-menu.active {
-      right: 0;
-    }
-    .side-menu .logo img {
-      width: 100px;
-      margin-bottom: 20px;
-    }
-    .side-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .side-menu li {
-      margin-bottom: 15px;
-    }
-    .side-menu a {
-      text-decoration: none;
-      color: #421e23;
-      font-size: 16px;
-      font-weight: 500;
-    }
-    .side-menu .contacts {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #421e23;
-    }
-    /* ====== Footer ====== */
-    .footer-wrapper {
-      background: #fafafa;
-      color: #421e23;
-      padding: 60px 0 32px 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', 'Arial', sans-serif;
-      align-items: center;
-      width: 100%;
-    }
-    .footer-cards {
-      max-width: 1240px;
-      margin: 0 auto 52px auto;
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
-    }
-    .footer-cards-row {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-    .footer-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px 0 rgba(51,51,51,.03);
-      padding: 32px 18px 18px 18px;
-      width: 100%;
-      max-width: 250px;
-      min-width: 200px;
-      min-height: 230px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      transition: box-shadow 0.15s;
-    }
-    .footer-card--empty {
-      background: none;
-      box-shadow: none;
-      pointer-events: none;
-    }
-    .footer-card img {
-      width: 120px;
-      height: 90px;
-      object-fit: contain;
-      margin-bottom: 14px;
-    }
-    .footer-card-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: #242424;
-      margin-bottom: 20px;
-      line-height: 120%;
-    }
-    .footer-card-link {
-      font-size: 14px;
-      color: #421e23;
-      text-decoration: underline;
-      margin-top: auto;
-      transition: opacity 0.15s;
-    }
-    .footer-card-link:hover {
-      opacity: 0.7;
-    }
-    .footer-main {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    .footer-title {
-      margin-bottom: 36px;
-    }
-    .footer-headline {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 38px;
-      font-weight: 600;
-      color: #421e23;
-      letter-spacing: 0;
-      line-height: 100%;
-    }
-    .footer-desc {
-      font-size: 17px;
-      font-weight: 400;
-      color: #421e23;
-      vertical-align: middle;
-      display: inline;
-      margin-left: 8px;
-    }
-    .footer-subdesc {
-      font-size: 15px;
-      color: #421e23;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-    .footer-extra {
-      font-size: 15px;
-      color: #421e23;
-      margin-bottom: 24px;
-      line-height: 1.4;
-    }
-    .footer-link {
-      color: #421e23;
-      text-decoration: underline;
-      font-size: 15px;
-      transition: opacity 0.2s;
-    }
-    .footer-link:hover {
-      opacity: 0.8;
-    }
-    @media (max-width: 1100px) {
-      .footer-cards-row {
-        gap: 18px;
-      }
-      .footer-card {
-        padding: 24px 8px 12px 8px;
-        min-width: 140px;
-        max-width: 160px;
-      }
-      .footer-card img { width: 80px; height: 60px; }
-    }
-    @media (max-width: 700px) {
-      .footer-main { padding: 0 8px; }
-      .footer-headline { font-size: 26px; }
-      .footer-desc { font-size: 14px; }
-      .footer-cards { gap: 18px; }
-      .footer-cards-row { gap: 8px; }
-    }
-    @media (max-width: 600px) {
-      .footer-cards-row {
-        flex-direction: column;
-        gap: 8px;
-      }
-      .footer-card {
-        max-width: 100%;
-        min-width: 0;
-        width: 100%;
-        margin: 0 auto;
-        align-items: flex-start;
-      }
-    }
-    
-    #blur-bg {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.13);
-      backdrop-filter: blur(8px);
-      z-index: 999;
-      transition: opacity .2s;
-      cursor: pointer;
-    }
-    #blur-bg.active {
-      display: block;
-      opacity: 1;
-    }
-  </style>
+</style>
 </head>
 <body>
   <div class="conteiner">
@@ -516,8 +60,8 @@
           <li><a href="#" class="nav-link">Галерея</a></li>
           <li><a href="#" class="nav-link">Вопросы-ответы</a></li>
           <li><a href="#" class="nav-link">Контакты</a></li>
-          <li><a href="#" class="nav-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
-          <li><a href="#" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
+          <li><a href="tel:+7(951)940-12-49" class="nav-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
+          <li><a href="mailto:evrokrovliof@mail.ru" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
           <li><img src="{%static 'imgfolder/bol.svg'%}" alt=""></li>
           <li class="nav-link">
             <button class="menu-toggle" id="menuToggle">
@@ -530,7 +74,7 @@
 
     <!-- Search -->
     <div class="search-bar">
-      <input id="search" type="search" placeholder="&#x1F50D; Start typing to search..." list="search-suggestions" autocomplete="off"/>
+      <input id="search" type="search" list="search-suggestions" autocomplete="off"/>
       <datalist id="search-suggestions">
         <option value="Кирпич">
         <option value="фасад">
@@ -565,7 +109,7 @@
               Его спокойный оттенок символизирует надежность <br>
               и долговечность, которые он приносит в до</p>
           </div>
-          <div class="slide-image" >
+          <div class="slide-image2" >
             <img src="{% static 'imgfolder/png2.png' %}" alt="" >
           </div>
         </div>
@@ -579,8 +123,8 @@
             <p class="min">Кирпич ручной формовки, который идеально <br>
               подойдет под вашу идею</p>
           </div>
-          <div class="slide-image">
-            <img src="{% static 'imgfolder/png3.svg' %}" alt="">
+          <div class="slide-image3">
+            <img src="{% static 'imgfolder/png3.png' %}" alt="">
           </div>
         </div>
       </div>
@@ -663,19 +207,154 @@
     <div class="footer-main">
       <div class="footer-title">
         <span class="footer-headline">СОВРЕМЕННЫЕ</span>
-        <span class="footer-headline">ФАСАДЫ — <span class="footer-desc">ваш надёжный партнер в мире облицовочных материалов с <b>2006</b> года.</span></span>
+        <span class="footer-headline">ФАСАДЫ — <span class="footer-desc">ваш надёжный партнер в мире облицовочных материалов с <b>2006</b> года.<br>
+         Ранее известные как «Кровли из Европы» и «Европейские фасады»,<br>
+        мы прошли значительный путь и адаптировались к изменениям, сохраняя при этом основные принципы.</span></span>
       </div>
-      <div class="footer-subdesc">
-        Ранее известные как «Кровли из Европы» и «Европейские фасады»,<br>
-        мы прошли значительный путь и адаптировались к изменениям, сохраняя при этом основные принципы.
-      </div>
+      
+       
+      
       <div class="footer-extra">
-        Наш опыт охватывает как частный сектор, так и многоквартирное и социальное строительство, что подтверждает нашу компетентность.
+        Наш опыт охватывает как частный<br> сектор, так и многоэтажное<br> и социальное строительство, что<br> подтверждает нашу компетентность.
         <br>
         <a href="#" class="footer-link">Перейти к разделу</a>
       </div>
     </div>
+    <div class="stats-section">
+  <div class="stats-card">
+    <div class="img-status">
+      <img src="{% static 'imgfolder/status1.png' %}" alt="">
+    </div>
+    <div class="stats-main">25</div>
+    <div class="stats-desc">
+      являемся официальными дилерами 22 заводов-производителей, включая такие заводы, как ЛСР, Ликолор и Сириус Керамикс
+    </div>
   </div>
+  <div class="stats-card">
+    
+        
+    </svg>
+     <div class="img-status">
+      <img src="{% static 'imgfolder/status2.png' %}" alt="">
+    </div>
+    <div class="stats-main">+1500</div>
+    <div class="stats-desc">
+      реализовали около 1500 проектов, среди которых – такие знаковые объекты, как Павлово, художественная галерея, гостиница, ЖК «UNO»
+    </div>
+  </div>
+  <div class="stats-card">
+    `
+     <div class="img-status">
+      <img src="{% static 'imgfolder/status3.png' %}" alt="">
+    </div>
+    <div class="stats-main">&gt;300</div>
+    <div class="stats-desc">
+      в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать из более, чем 300 позиций товаров
+    </div>
+  </div>
+</div>
+<div class="logos-section">
+  <div class="logos-section-title">
+    Мы являемся официальными дилерами 22 заводов-производителей
+  </div>
+  <div class="logos-grid">
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo1.png' %}" alt="Пятый элемент">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo2.png' %}" alt="ARHIO">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo3.png' %}" alt="Recke Brickerei">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo4.png' %}" alt="Laterem Antique">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo5.png' %}" alt="Skriaibin Ceramics">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo6.png' %}" alt="ЛСР">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo7.png' %}" alt="Царский Кирпич">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo8.png' %}" alt="Ströher">
+    </div>
+  </div>
+</div>
+<div class="contacts-section">
+  <div class="contacts-grid">
+    <div class="contacts-card">
+      <div class="contacts-title">Расположение</div>
+      <div class="contacts-body">
+        Газеты Звезда, 13, 4 этаж <br>
+        <span class="contacts-link"><b>ТЦ ЗВЕЗДА</b></span>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Режим работы</div>
+      <div class="contacts-body">
+        пн–пт 09:00–18:00 <br>
+        <span class="contacts-note">В выходные не работаем</span>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Контактная информация</div>
+      <div class="contacts-body">
+        <a class="contacts-link" href="tel:+79519401249">+7 (951) 940-12-49</a>
+        <div class="contacts-note">Приём звонков: с 9:00–18:00</div>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Карта с указанием адреса офиса</div>
+      <div class="contacts-body">
+        <span class="contacts-link"><b>2ГИС</b></span><br>
+        <a class="contacts-link" href="#" target="_blank">Как до нас добраться</a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="footer-top">
+    <nav class="footer-menu">
+      <a href="#">Продукция</a>
+      <a href="#">Галерея</a>
+      <a href="#">Вопросы-ответы</a>
+      <a href="#">Контакты</a>
+    </nav>
+    <div class="footer-info-block">
+      <div class="footer-info">
+        <div class="footer-info-title">Пермь, Газеты Звезда 13, 4 этаж</div>
+        <div class="footer-info-sub">контактный адрес шоу-рума</div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-info-title"><a href="tel:+79519401249" style="color:#28221e;text-decoration:none;">+7 (951) 940-12-49</a></div>
+        <div class="footer-info-sub">номер для связи</div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-info-title"><a href="mailto:evrokrovliof@mail.ru" style="color:#28221e;text-decoration:none;">evrokrovliof@mail.ru</a></div>
+        <div class="footer-info-sub">электронная почта</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="footer-bottom-title">Информация</div>
+    <div class="footer-bottom-links">
+      <a href="#">Политика конфиденциальности</a>
+      <a href="#">Пользовательское соглашение</a>
+      <a href="#">Политика использования Cookies</a>
+      <a href="#">Сообщить об ошибке</a>
+    </div>
+    <div class="footer-bottom-row">
+      <span>&copy; 2025 Современные фасады. Все права сайта защищены</span>
+    </div>
+  </div>
+</footer>
+  </div>
+  
 
   <!-- Scripts -->
   <script>
