@@ -1,4 +1,16 @@
 /* ====== Footer ====== */
+    @font-face {
+    font-family: 'head';
+    src: url('../font/head.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    }
+    @font-face {
+    font-family: 'head2';
+    src: url('../font/head2.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    }
     .footer-wrapper {
       background: #fafafa;
       color: #421e23;
@@ -23,14 +35,15 @@
       gap: 32px;
     }
     .footer-card {
+
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 2px 12px 0 rgba(51,51,51,.03);
       padding: 32px 18px 18px 18px;
       width: 100%;
-      max-width: 250px;
-      min-width: 200px;
-      min-height: 230px;
+      min-width: 367px;
+      
+      min-height: 388px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -43,17 +56,19 @@
       pointer-events: none;
     }
     .footer-card img {
-      width: 120px;
-      height: 90px;
+      display: block;
       object-fit: contain;
-      margin-bottom: 14px;
+      
     }
     .footer-card-title {
-      font-size: 15px;
+      font-size: 22px;
       font-weight: 500;
-      color: #242424;
+      color: rgba(66, 34, 35, 1);
       margin-bottom: 20px;
       line-height: 120%;
+      font-family: 'head';
+      line-height: 100%;
+
     }
     .footer-card-link {
       font-size: 14px;
@@ -233,21 +248,25 @@
   font-family: 'Montserrat', 'Arial', sans-serif;
 }
 .contacts-title {
-  font-size: 1.06rem;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 400;
   margin-bottom: 10px;
-  color: #2a1a1a;
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
 }
 .contacts-body {
-  font-size: 1rem;
-  color: #222;
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+  font-size: 20px;
+  font-weight: 300;
   margin-bottom: 6px;
+
 }
 .contacts-link, .contacts-link:visited {
-  color: #c0392b;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.15s;
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+  font-size: 20px;
+  font-weight: 300;
 }
 .contacts-link:hover {
   color: #d35400;
