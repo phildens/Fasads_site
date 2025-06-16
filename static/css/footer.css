@@ -6,6 +6,12 @@
     font-style: normal;
     }
     @font-face {
+    font-family: 'namu';
+    src: url('../font/namu-1750.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    }
+    @font-face {
     font-family: 'head2';
     src: url('../font/head2.otf') format('opentype');
     font-weight: normal;
@@ -401,4 +407,187 @@
 }
 
 
+
+
+
+
+
+
+
+
+.callback-form-section {
+  max-width: 1440px;
+  min-height: 800px;
+  margin: 36px auto 44px auto;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(60,60,60,0.04);
+  font-family: 'Montserrat', Arial, sans-serif;
+  box-sizing: border-box;
+  padding: 100px;
+}
+
+.callback-form-title {
+  font-family: 'namu';
+  font-size: 28px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 1);
+  margin-bottom: 10px;
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 100%;
+}
+.callback-form-subtitle {
+  font-family: 'head2';
+  color: rgba(129, 129, 129, 1);
+  font-size: 20px;
+  font-weight: 400;
+  margin: 40px;
+  margin-bottom: 38px;
+  margin-left: 50px;
+  max-width: 480px;
+  line-height: 100%;
+}
+.callback-form-row {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 22px;
+}
+.callback-form-fields {
+  flex: 2;
+}
+.callback-form-fields label {
+  font-size: 1.07rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+  display: block;
+  color: #191919;
+}
+.callback-form-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 26px;
+  margin-bottom: 18px;
+}
+.callback-form-fields input {
+  width: 100%;
+  max-width: 300px;
+  min-height: 74px;
+  
+  border: 1.5px solid #e4e4e4;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  background: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  transition: border .14s;
+}
+.callback-form-fields input:focus,
+.callback-form-fields textarea:focus {
+  outline: none;
+  border: 1.5px solid #a4cc6a;
+}
+.callback-form-fields textarea {
+  width: 100%;
+  min-width: 455px;
+  max-height: 188px;
+  
+  border: 1.5px solid #e4e4e4;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  background: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  resize: vertical;
+  transition: border .14s;
+}
+.callback-form-info {
+  flex: 1;
+}
+.callback-form-info label {
+  font-size: 1.07rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #191919;
+  display: block;
+}
+.callback-form-info textarea {
+  width: 100%;
+  min-height: 170px;
+  min-width: 455px;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  background: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  resize: vertical;
+  margin-bottom: 0;
+  transition: border .14s;
+}
+.callback-form-info textarea:focus {
+  border: 1.5px solid #a4cc6a;
+  outline: none;
+}
+.callback-form-bottom {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.callback-form-note {
+  color: #666;
+  font-size: 0.96rem;
+  margin-left: 2px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 520px;
+}
+.callback-form-note svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1.5px;
+}
+.callback-form-btn {
+  padding: 13px 38px;
+  background: #328400;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.11rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: auto;
+  box-shadow: 2px 4px 0 #9bc18a;
+  transition: background .16s, box-shadow .16s;
+}
+.callback-form-btn:hover {
+  background: #246a00;
+  box-shadow: 1px 2px 0 #82a571;
+}
+@media (max-width: 900px) {
+  .callback-form-row {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .callback-form-section {
+    padding: 28px 7vw 20px 7vw;
+  }
+}
+@media (max-width: 600px) {
+  .callback-form-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .callback-form-section {
+    padding: 16px 2vw 10px 2vw;
+  }
+  .callback-form-btn {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 18px;
+  }
+}
 

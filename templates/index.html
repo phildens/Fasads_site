@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
   <link rel="stylesheet" href="{% static 'css/menu.css' %}">
   <style>
+    html {
+  scroll-behavior: smooth;
+}
+
 </style>
 </head>
 <body>
@@ -39,11 +43,43 @@
         <li><strong>Помощь</strong></li>
         <li><a href="#">Вопросы-ответы</a></li>
       </ul>
-      <div class="contacts">
-        <div><img src="{% static 'imgfolder/menu1.png' %}" alt=""> Пермь, Газеты Звезда, 13, 4 этаж</div>
-        <div> +7(951)940-12-49</div>
-        <div> <a href="#">Telegram</a> | <a href="#">Whatsapp</a></div>
-      </div>
+      <div class="mini-contacts-card">
+  <div class="mini-contact-row">
+    <span class="mini-contact-icon">
+      <!-- Локация -->
+      <img src="{% static 'imgfolder/location.png' %}" alt="Локация" />
+    </span>
+    <span class="mini-contact-text">
+      Пермь, Газеты Звезда,<br>13, 4 этаж
+    </span>
+  </div>
+  <div class="mini-contact-row">
+    <span class="mini-contact-icon">
+      <!-- Телефон -->
+      <img src="{% static 'imgfolder/phone.png' %}" alt="Телефон" />
+    </span>
+    <span class="mini-contact-text">
+      <a href="tel:+79519401249">+7 (951) 940-12-49</a>
+    </span>
+  </div>
+  <div class="mini-contact-row">
+    <span class="mini-contact-icon">
+      <!-- Соцсети -->
+      <img src="{% static 'imgfolder/message.png' %}" alt="Связь" />
+    </span>
+    <span class="mini-contact-text">
+      <a href="#">Написать нам в Telegram</a><br>
+      <a href="#">Написать нам на Whatsapp</a>
+    </span>
+  </div>
+  <div class="mini-contact-note">
+    <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16" style="width:17px;height:17px;vertical-align:middle"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
+    <span>
+      Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.
+    </span>
+  </div>
+</div>
+
     </nav>
 
     <!-- БЛЮР -->
@@ -90,7 +126,7 @@
             <h2 class="big">НОВИНКА<br><p class="medium">Коллекция Halb от RECKE</p> </h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
-              <button class="slide-btn green">Оставить заявку</button>
+              <button class="slide-btn green"><a href="#callback-form" style="text-decoration: none; color: inherit;" >Оставить заявку</a></button>
             </div>
             <p class="min">Представьте фасады, играющие переливами света<br> и тени благодаря обновленным текстурам, где каждый<br> кирпич рассказывает свою историю, создавая<br> неповторимую атмосферу</p>
           </div>
@@ -103,7 +139,7 @@
             <h2 class="big">фавориты<br><p class="medium">хранитель времени</p> </h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
-              <button class="slide-btn green">Оставить заявку</button>
+              <button class="slide-btn green"><a href="#callback-form" style="text-decoration: none; color: inherit;">Оставить заявку</a></button>
             </div>
             <p class="min">Кирпич, наполненный духом вулкана Сагынды.<br> 
               Его спокойный оттенок символизирует надежность <br>
@@ -118,7 +154,7 @@
             <h2 class="big">фавориты<br><p class="medium">Скрябин керамикс,54</p></h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
-              <button class="slide-btn green">Оставить заявку</button>
+              <button class="slide-btn green"><a href="#callback-form" style="text-decoration: none; color: inherit;" >Оставить заявку</a></button>
             </div>
             <p class="min">Кирпич ручной формовки, который идеально <br>
               подойдет под вашу идею</p>
@@ -283,6 +319,37 @@
       <img src="{% static 'imgfolder/logo8.png' %}" alt="Ströher">
     </div>
   </div>
+</div>
+<div class="callback-form-section" id="callback-form" >
+  <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
+  <div class="callback-form-subtitle">
+    Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре.<br>
+    Наши специалисты найдут решение даже для самых смелых архитектурных решений
+  </div>
+  <form>
+    <div class="callback-form-row">
+      <div class="callback-form-fields">
+        <label>Сведения о заявителе</label>
+        <div class="callback-form-fields-grid">
+          <input type="text" placeholder="Имя" name="name" required>
+          <input type="email" placeholder="Email" name="email" required>
+          <input type="text" placeholder="Фамилия" name="surname">
+          <input type="text" placeholder="Телефон" name="phone" required>
+        </div>
+      </div>
+      <div class="callback-form-info">
+        <label>Информация о проекте</label>
+        <textarea placeholder="Краткое описание" name="about"></textarea>
+      </div>
+    </div>
+    <div class="callback-form-bottom">
+      <div class="callback-form-note">
+        <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
+        Мы гарантируем полное соблюдение ваших интеллектуальных прав на разработку и конфиденциальности предоставленной информации.
+      </div>
+      <button type="submit" class="callback-form-btn">Оставить заявку</button>
+    </div>
+  </form>
 </div>
 <div class="contacts-section">
   <div class="contacts-grid">

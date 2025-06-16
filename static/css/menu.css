@@ -1,3 +1,53 @@
+.mini-contacts-card {
+  width: 301px;
+  min-height: 355px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 16px;
+  color: #232323;
+  position: relative;
+}
+.mini-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+.mini-contact-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+.mini-contact-text a {
+  color: #232323;
+  text-decoration: none;
+  transition: color 0.14s;
+}
+.mini-contact-text a:hover {
+  color: #3ca1e8;
+  text-decoration: underline;
+}
+.mini-contact-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: #777;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.mini-contact-note svg {
+  flex-shrink: 0;
+}
+
+
+
+
+
+
 .dot {
       width: 12px;
       height: 12px;
