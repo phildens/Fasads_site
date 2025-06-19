@@ -16,13 +16,20 @@
 }
 @font-face {
     font-family: 'head';
-    src: url('../font/head.otf') format('opentype');
+    src: url("{% static 'font/head.otf' %}") format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'head2';
-    src: url('../font/head2.otf') format('opentype');
+    src: url("{% static 'font/head2.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'NAMU';
+    src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -52,7 +59,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     position: relative;
     flex-shrink: 0;
 }
@@ -63,14 +70,17 @@ body {
 }
 .nav-list {
     display: flex;
+    
+    align-items: center;
+    
     margin: 0;
     padding-top: 30px;
     flex-wrap: wrap;
-    gap: 36px;
+    gap: 43px;
     font-size: 16px;
     color:rgba(255, 246, 243, 1);
     list-style-type: none;
-    margin-left: 30px;
+    
     font-family: 'head', Arial, sans-serif; /* вот так! */
     font-weight: 500;
     font-size: 16px;
@@ -83,7 +93,6 @@ body {
     padding-top: 30px;
     flex-wrap: wrap;
     gap: 30px;
-    font-size: 16px;
     color:rgba(255, 246, 243, 1);
     list-style-type: none;
     margin-left: 30px;
@@ -112,17 +121,18 @@ body {
     }
 .search-bar input {
     padding-top:0 ;
-    width: 100%;
-    max-width: 1170px;
+    /* width: 100%; */
+    /* max-width: 1170px; */
+    width: 1200px;
     height: 80px;
-    min-width: 1170px;
+    /* min-width: 1170px; */
     padding: 12px 24px;
     border-radius: 7px;
     font-size: 16px;
     border: none;
     outline: none;
     box-sizing: border-box;
-    max-width: 600px;
+    /* max-width: 600px; */
 }
 
 
@@ -137,7 +147,7 @@ body {
 
 @font-face {
     font-family: 'head';
-    src: url('../font/head.otf') format('opentype');
+    src: url("{% static 'font/head.otf' %}") format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -147,7 +157,7 @@ body {
     .slider {
       position: relative;
       width: 90%;
-      max-width: 1250px;
+      max-width: 1280px;
       min-height: 585px;
       margin: 20px auto;
       margin-top: -40px;
@@ -158,7 +168,7 @@ body {
     }
     .slides {
       display: flex;
-      transition: transform 0.5s ease-in-out;
+      transition: transform 0.7s cubic-bezier(0.33,1,0.68,1); 
       height: 585px;
     }
     .slide {
@@ -476,19 +486,19 @@ body {
     /* ====== Footer ====== */
     @font-face {
     font-family: 'head';
-    src: url('../font/head.otf') format('opentype');
+    src: url("{% static 'font/head.otf' %}") format('opentype');
     font-weight: normal;
     font-style: normal;
     }
     @font-face {
     font-family: 'namu';
-    src: url('../font/namu-1750.otf') format('opentype');
+    src: url("{% static 'font/NAMU-typefaces2019/Desktop/OTF/namu-1750.otf' %}") format('opentype');
     font-weight: normal;
     font-style: normal;
     }
     @font-face {
     font-family: 'head2';
-    src: url('../font/head2.otf') format('opentype');
+    src: url("{% static 'font/head2.otf' %}") format('opentype');
     font-weight: normal;
     font-style: normal;
     }
@@ -513,8 +523,9 @@ body {
     .footer-cards-row {
       display: flex;
       align-items: center;
-      gap: 32px;
-      max-width: 1250px;
+      gap: 50px;
+      max-width: 1200px;
+      min-width: 1200px;
     }
     .footer-card {
 
@@ -564,9 +575,10 @@ body {
     }
     .footer-main {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      
       align-items: center;
-      max-width: 1240px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -615,45 +627,7 @@ body {
     
 
 
-    .stats-section {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin: 32px 0 48px 0;
-}
-.stats-card {
-  background: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  width: 371px;
-  min-height: 172px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px 18px 18px 18px;
-  box-sizing: border-box;
-  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
-  transition: box-shadow 0.12s;
-}
-.stats-card svg {
-  margin-bottom: 8px;
-  width: 58px;
-  height: 58px;
-}
-.stats-card .stats-main {
-  font-size: 2.2rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #633C34;
-  font-family: 'Montserrat', 'Arial', sans-serif;
-}
-.stats-card .stats-desc {
-  color: #633C34;
-  font-size: 1rem;
-  text-align: center;
-  line-height: 1.3;
-  font-family: 'Montserrat', 'Arial', sans-serif;
-}
+    
 
 
 
@@ -665,6 +639,9 @@ body {
   text-align: center;
 }
 .logos-section-title {
+  width: 1170px;
+  display: inline-block;
+  text-align: left;
   color: #3a2220;
   font-family: 'Montserrat', 'Arial', sans-serif;
   font-size: 1.1rem;
@@ -676,7 +653,7 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   justify-items: center;
-  max-width: 1170px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .logo-card {
@@ -687,7 +664,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 269px;
-  width: 269px;
+  width: 280px;
   
   transition: box-shadow 0.16s;
 }
@@ -713,7 +690,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 28px 32px;
-  max-width: 1168px;
+  max-width: 1200px;
   margin: 0 auto 0 auto;
 }
 .contacts-card {
@@ -759,22 +736,15 @@ body {
   font-size: 0.97rem;
   margin-top: 4px;
 }
-@media (max-width: 850px) {
-  .contacts-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    max-width: 97vw;
-  }
-  .contacts-section {
-    padding: 24px 0;
-  }
-}
+
 
 
 
 
 .site-footer {
   background: #fafafa;
+  position: relative;
+  height: 278px;
   border-top: 2px solid #d1cfcf;
   padding: 34px 0 14px 0;
   font-family: 'Montserrat', 'Arial', sans-serif;
@@ -793,6 +763,7 @@ body {
 }
 .footer-top .footer-menu {
   display: flex;
+  padding-bottom: 18px;
   gap: 30px;
   flex-wrap: wrap;
   flex: 1;
@@ -871,26 +842,6 @@ body {
   font-size: 13px;
   color: #b0b0b0;
 }
-@media (max-width: 700px) {
-  .footer-top, .footer-bottom {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .footer-bottom-row {
-    flex-direction: column;
-    gap: 7px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
 .callback-form-section {
   max-width: 1440px;
   min-height: 800px;
@@ -1050,15 +1001,32 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-/* ВЫРАВНИВАНИЕ КАРТОЧЕК ПО ЦЕНТРУ И ОДИНАКОВЫЕ РАЗМЕРЫ ДЛЯ ВСЕХ */
 
 
+.stats-section {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  width: 1200px;
+  margin: 0 auto 48px auto;
+  background: #fafafa;
+  padding: 48px 0;
+}
 
-
-
-
-/* Адаптация под мобильные — карточки растягиваются */
-
+.stats-card {
+  width: 367px;
+  height: 454px;
+  background:rgba(255, 255, 255, 1);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(51,51,51,.06);
+  overflow: visible;
+  position: relative;
+  
+  
+}
+.stats-png1{
+  
+}
 
 </style>
 </head>
@@ -1133,12 +1101,14 @@ body {
     <div id="blur-bg"></div>
 
     <!-- Header -->
-    <header class="header">
-      <div class="logo img">
-        <img src="{% static 'imgfolder/logo.svg' %}" alt="">
-      </div>
+    <header >
+      <div class="header">
+        
       <nav class="nav">
         <ul class="nav-list">
+          <div class="logo img">
+            <img src="{% static 'imgfolder/logo.svg' %}" alt="">
+          </div>
           <li><a href="#" class="nav-link">Продукция</a></li>
           <li><a href="#" class="nav-link">Галерея</a></li>
           <li><a href="#" class="nav-link">Вопросы-ответы</a></li>
@@ -1153,6 +1123,8 @@ body {
           </li>
         </ul>
       </nav>
+      </div>
+      
     </header>
 
     <!-- Search -->
@@ -1173,7 +1145,7 @@ body {
             <h2 class="big">НОВИНКА<br><p class="medium">Коллекция Halb от RECKE</p> </h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
-              <button class="slide-btn green"><a href="#callback-form" style="text-decoration: none; color: inherit;" >Оставить заявку</a></button>
+              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
             </div>
             <p class="min">Представьте фасады, играющие переливами света<br> и тени благодаря обновленным текстурам, где каждый<br> кирпич рассказывает свою историю, создавая<br> неповторимую атмосферу</p>
           </div>
@@ -1186,7 +1158,7 @@ body {
             <h2 class="big">фавориты<br><p class="medium">хранитель времени</p> </h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
-              <button class="slide-btn green"><a href="#callback-form" style="text-decoration: none; color: inherit;">Оставить заявку</a></button>
+              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
             </div>
             <p class="min">Кирпич, наполненный духом вулкана Сагынды.<br> 
               Его спокойный оттенок символизирует надежность <br>
@@ -1201,7 +1173,7 @@ body {
             <h2 class="big">фавориты<br><p class="medium">Скрябин керамикс,54</p></h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
-              <button class="slide-btn green"><a href="#callback-form" style="text-decoration: none; color: inherit;" >Оставить заявку</a></button>
+              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
             </div>
             <p class="min">Кирпич ручной формовки, который идеально <br>
               подойдет под вашу идею</p>
@@ -1287,59 +1259,269 @@ body {
         <div class="footer-card footer-card--empty"></div>
       </div>
     </div>
-    <div class="footer-main">
-      <div class="footer-title">
-        <span class="footer-headline">СОВРЕМЕННЫЕ</span>
-        <span class="footer-headline">ФАСАДЫ — <span class="footer-desc">ваш надёжный партнер в мире облицовочных материалов с <b>2006</b> года.<br>
-         Ранее известные как «Кровли из Европы» и «Европейские фасады»,<br>
-        мы прошли значительный путь и адаптировались к изменениям, сохраняя при этом основные принципы.</span></span>
+
+
+    <div style="width: 1200px;
+                height: 590px;
+                display: flex;
+                position: relative;
+                justify-content: center;
+                gap: 50px;
+                width: 1200px;
+                margin: 0 auto 48px auto;
+                background:#fafafa;
+                ">
+      <div style="position: absolute;
+                  top: 118px;
+                  left: 146px;
+                  font-family:'NAMU';
+                  font-weight: 300;
+                  font-size: 64px;
+                  line-height: 100%;
+                  letter-spacing: 0%;
+                  text-transform: uppercase;
+                  color: rgba(66, 34, 35, 1);
+                  ">
+        Современные
       </div>
-      
-       
-      
-      <div class="footer-extra">
-        Наш опыт охватывает как частный<br> сектор, так и многоэтажное<br> и социальное строительство, что<br> подтверждает нашу компетентность.
-        <br>
-        <a href="#" class="footer-link">Перейти к разделу</a>
+      <div style="position: absolute;
+                  top: 195px;
+                  left: 0px;
+                  font-family:'NAMU';
+                  font-weight: 300;
+                  font-size: 64px;
+                  line-height: 100%;
+                  letter-spacing: 0%;
+                  text-transform: uppercase;
+                  color: rgba(66, 34, 35, 1);">
+        фасады —
       </div>
-    </div>
-    <div class="stats-section">
-  <div class="stats-card">
-    <div class="img-status">
-      <img src="{% static 'imgfolder/status1.png' %}" alt="">
-    </div>
-    <div class="stats-main">25</div>
-    <div class="stats-desc">
-      являемся официальными дилерами 22 заводов-производителей, включая такие заводы, как ЛСР, Ликолор и Сириус Керамикс
-    </div>
-  </div>
-  <div class="stats-card">
-    
+      <div style="position: absolute;
+                  top: 195px;
+                  left: 400px;
+                  font-family:'head';
+                  font-weight: 400;
+                  font-size: 22px;
+                  line-height: 100%;
+                  letter-spacing: 0%;
+                  color: rgba(66, 34, 35, 1);
+                  ">
+        ваш надежный партнер в мире облицовочных материалов с 2006 года. Ранее известные как «Кровли из Европы» и «Европейские фасады», 
+мы прошли значительный путь и адаптировались к изменениям, 
+сохранив при этом основные принципы
+      </div>
+      <div style="position: absolute;
+                  width: 400px;
+                  height: 110px;
+                  top: 335px;
+                  left: 0px;
+                  font-family:'head2';
+                  font-weight: 400;
+                  font-size: 22px;
+                  line-height: 100%;
+                  letter-spacing: 0%;
+                  color:rgba(0, 0, 0, 0.6);">
+        Наш опыт охватывает как частный сектор, так многоэтажное 
+<br>и социальное строительство, что подтверждает нашу компетентность
+      </div>
+      <div style="position: absolute;
+                  top: 429px;
+                  left: 0px;
+                  font-family:'head2';
+                  font-weight: 400;
+                  font-size: 22px;
+                  line-height: 100%;
+                  letter-spacing: 0%;
+                  color:rgba(0, 0, 0, 0.6);
+                  text-decoration: underline;
+                  text-decoration: none;">
+        <a style="color: inherit;" href="#">Перейти к разделу</a>
         
-    </svg>
-     <div class="img-status">
-      <img src="{% static 'imgfolder/status2.png' %}" alt="">
+      </div>
+
     </div>
-    <div class="stats-main">+1500</div>
-    <div class="stats-desc">
-      реализовали около 1500 проектов, среди которых – такие знаковые объекты, как Павлово, художественная галерея, гостиница, ЖК «UNO»
+  
+    <div class="stats-section">
+      <div class="stats-card">
+        <div style="position: absolute;
+                    top: 60px; 
+                    left: 145px;">
+          <img style="width: 162; height: 189px;" src="{% static 'imgfolder/status1.png' %}" alt="">
+        </div>
+        <div style="display: flex;
+                    position: absolute;
+                    align-items: center;;
+                    top: 222px; 
+                    left: 25px; 
+                    width: 275px;
+                    height: 64px;
+                    font-family: 'head';
+                    font-size: 64px;">
+          25
+        </div>
+        <div style="position: absolute;
+                    top: 305px; 
+                    left: 25px;
+                    width: 330px;
+                    height: 110px;
+                    font-family: 'head2';
+                    font-size: 22px;
+                    font-weight: 400;
+                    color: rgba(0, 0, 0, 0.6);
+                    line-height: 100%;">
+          являемся официальными дилерами 22 заводов-производителей, включая такие заводы, как ЛСР, Ликолор и Скрябин Керамикс
+        </div>
+      </div>
+      <div class="stats-card">
+        <div style="position: absolute;
+                    top: 37px; 
+                    left: 156px; ">
+          <img style="width: 188px;" src="{% static 'imgfolder/status2.png' %}" alt="">
+        </div>
+        <div style="display: flex;
+                    position: absolute;
+                    align-items: center;;
+                    top: 222px; 
+                    left: 21px; 
+                    width: 275px;
+                    height: 64px;
+                    font-family: 'head';
+                    font-size: 64px;">
+           +1500
+        </div>
+        <div style="position: absolute;
+                    top: 305px; 
+                    left: 20px;
+                    width: 350px;
+                    height: 110px;
+                    font-family: 'head2';
+                    font-size: 22px;
+                    font-weight: 400;
+                    color: rgba(0, 0, 0, 0.6);
+                    line-height: 100%;">
+          реализовали около 1500 проектов, среди которых — такие значимые объекты, как Пермская художественная галерея, гостиница, ЖК «UNO»
+        </div>
+      </div>
+      <div class="stats-card">
+        <div style="position: absolute;
+                    top: 41px; 
+                    left: 115px;">
+          <img src="{% static 'imgfolder/status3.png' %}" alt="">
+        </div>
+        <div style="display: flex;
+                    position: absolute;
+                    align-items: center;
+                    top: 222px;
+                    left: 32px; 
+                    width: 275px;
+                    height: 64px;
+                    font-family: 'head';
+                    font-size: 64px;">
+          >300
+        </div>
+        <div style="position: absolute;
+                    top: 305px; 
+                    left: 31px;
+                    width: 333px;
+                    height: 110px;
+                    font-family: 'head2';
+                    font-size: 22px;
+                    font-weight: 400;
+                    color: rgba(0, 0, 0, 0.6);
+                    line-height: 100%;">
+          в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать из более, чем 300 позиций товаров
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="stats-card">
-    `
-     <div class="img-status">
-      <img src="{% static 'imgfolder/status3.png' %}" alt="">
+
+    <div style="width: 1436px;
+                height: 1043px;
+                display: flex;
+                justify-content: center;
+                margin: 0 auto 48px auto;
+                position: relative;">
+      <div style="
+                  position: absolute;
+                  font-family: 'head';
+                  font-size: 24px;
+                  color: rgba(66, 34, 35, 1);
+                  left: 130px;
+                  bottom: 1019px;">
+        Галерея объектов
+      </div>
+      <div style="width: 505.7px;
+                  height: 337px;
+                  position: absolute;
+                  top: 38px;
+                  left: 0px;
+                  ">
+        <img src="{% static 'imgfolder/gal1.png' %}" alt="">
+      </div>
+      <div style="width: 504.2px;
+                  height: 336px;
+                  position: absolute;
+                  top: 389px;
+                  left: 0px;">
+        <img src="{% static 'imgfolder/gal2.png' %}" alt="">
+      </div>
+      <div style="width: 505px;
+                  height: 282px;
+                  position: absolute;
+                  top: 737px;
+                  left: 0px;">
+        <img src="{% static 'imgfolder/gal3.png' %}" alt="">
+      </div>
+      <div style="width: 421.66px;
+                  height: 281px;
+                  position: absolute;
+                  top: 38px;
+                  left: 11.3px+505px;">
+        <img src="{% static 'imgfolder/gal4.png' %}" alt="">
+      </div>
+      <div style="width: 421.46px;
+                  height: 316px;
+                  position: absolute;
+                  top: 331px;
+                  left: 11.3px+505px;">
+        <img src="{% static 'imgfolder/gal5.png' %}" alt="">
+      </div>
+      <div style="width: 421px;
+                  height: 360px;
+                  position: absolute;
+                  top: 659px;
+                  left: 11.3px+505px;">
+        <img src="{% static 'imgfolder/gal6.png' %}" alt="">
+      </div>
+      <div style="width: 485px;
+                  height: 323px;
+                  position: absolute;
+                  top: 38px;
+                  left: 939px;">
+        <img src="{% static 'imgfolder/gal7.png' %}" alt="">
+      </div>
+      <div style="width: 485px;
+                  height: 647px;
+                  position: absolute;
+                  top: 372px;
+                  left: 939px;">
+        <img src="{% static 'imgfolder/gal8.png' %}" alt="">
+      </div>
     </div>
-    <div class="stats-main">&gt;300</div>
-    <div class="stats-desc">
-      в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать из более, чем 300 позиций товаров
-    </div>
-  </div>
-</div>
+
+
+
+
+
+
+
+
 <div class="logos-section">
-  <div class="logos-section-title">
-    Мы являемся официальными дилерами 22 заводов-производителей
+  <div style=" justify-items: center;">
+    <div class="logos-section-title">
+        <p>Мы являемся официальными дилерами 22 заводов-производителей</p> 
   </div>
+  </div>
+  
   <div class="logos-grid">
     <div class="logo-card">
       <img src="{% static 'imgfolder/logo1.png' %}" alt="Пятый элемент">
@@ -1404,7 +1586,7 @@ body {
       <div class="contacts-title">Расположение</div>
       <div class="contacts-body">
         <div >
-          <img style="max-width: 300px; margin: 0 auto;" src="{% static 'imgfolder/contact.png' %}" alt="">
+          
         </div>
         Газеты Звезда, 13, 4 этаж <br>
         <span class="contacts-link"><b>ТЦ ЗВЕЗДА</b></span>
@@ -1471,19 +1653,18 @@ body {
       </div>
     </div>
   </div>
-  
-  <div class="footer-bottom">
-    <div class="footer-bottom-title">Информация</div>
-    <div class="footer-bottom-links">
-      <a href="#">Политика конфиденциальности</a>
-      <a href="#">Пользовательское соглашение</a>
-      <a href="#">Политика использования Cookies</a>
-      <a href="#">Сообщить об ошибке</a>
-    </div>
-    <div class="footer-bottom-row">
-      <span>&copy; 2025 Современные фасады. Все права сайта защищены</span>
-    </div>
-  </div>
+      
+      <a style="position: absolute;top: 144px;left: 521px; color: inherit;color: rgba(0, 0, 0, 0.7);text-decoration: none;" href="#">Информация</a>
+      <div style="display: flex;flex-direction: column;position: absolute;top: 196px;left: 521px;color: rgba(0, 0, 0, 0.6);text-decoration: none;">
+        <a style="color: inherit;text-decoration: none;" href="#">Политика конфиденциальности</a>
+        <a style="margin-top: 20px; margin-bottom: 20px;color: inherit; text-decoration: none;" href="#">Пользовательское соглашение</a>
+        <a style="color: inherit;text-decoration: none;" href="#">Политика использования Cookies</a>
+      </div>
+      
+      <a style="position: absolute;top: 230px;left: 781px;color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="#">Сообщить об ошибке</a>
+    
+      <span style="position: absolute;top: 264px;left: 781px;color: rgba(0, 0, 0, 0.6); ">&copy; 2025 Современные фасады. Все права сайта защищены</span>
+    
 </footer>
   </div>
   </div>
@@ -1491,24 +1672,30 @@ body {
   <!-- Scripts -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const slides = document.querySelector('.slides');
-      const dots = document.querySelectorAll('.dot');
-      let currentIndex = 0;
+  const slides = document.querySelector('.slides');
+  const dots = document.querySelectorAll('.dot');
+  let currentIndex = 0;
 
-      dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-          currentIndex = parseInt(dot.dataset.index);
-          updateSlide();
-        });
-      });
-
-      function updateSlide() {
-        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[currentIndex].classList.add('active');
-      }
-
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      currentIndex = parseInt(dot.dataset.index);
       updateSlide();
+    });
+  });
+
+  function updateSlide() {
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[currentIndex].classList.add('active');
+  }
+
+  updateSlide();
+
+  // АВТОПРОКРУТКА КАЖДЫЕ 5 СЕКУНД
+  setInterval(function() {
+    currentIndex = (currentIndex + 1) % dots.length;
+    updateSlide();
+  }, 5000);
 
       const menuToggle = document.getElementById('menuToggle');
       const sideMenu = document.getElementById('sideMenu');
