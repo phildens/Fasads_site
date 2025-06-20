@@ -7,11 +7,11 @@ myenv
 .DS_Store
 .AppleDouble
 .LSOverride
-
+FasadSiteDjango/__pycache__
 # Icon must end with two \r
 Icon
 
-
+static
 # Thumbnails
 ._*
 

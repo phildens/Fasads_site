@@ -18,6 +18,14 @@ p {margin: 0;
 padding: 0;}
 @font-face {
 
+  font-family: "Muller-ultralight"; 
+
+  src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
   font-family: "Muller-medium"; 
 
   src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype"); 
@@ -40,7 +48,14 @@ padding: 0;}
   font-style: normal; 
   font-weight: normal; 
 }
+@font-face {
 
+  font-family: "Namu-light"; 
+
+  src: url("{% static 'font/NAMU1750.otf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
 @font-face {
     font-family: 'head';
     src: url("{% static 'font/head.otf' %}") format('opentype');
@@ -219,7 +234,7 @@ body {
       padding: 0 0 0 40px;
     }
     .slide-text .big{
-      font-family: 'head';
+      font-family: 'Namu-light';
       font-weight: 300;
       font-size: 80px;
       line-height: 100%;
@@ -228,8 +243,8 @@ body {
       margin: 0 0 18px 0;
     }
     .slide-text .medium{
-      font-family: 'head';
-      font-weight: 300;
+      font-family: 'Namu-light';
+      font-weight: 200;
       font-size: 36px;
       line-height: 100%;
       letter-spacing: 0%;
@@ -237,7 +252,7 @@ body {
       margin: 0 0 24px 0;
     }
     .slide-text .min{
-      font-family: 'Muller-light';
+      font-family: 'Muller-ultralight';
 
       font-size: 16px;
       line-height: 100%;
@@ -255,12 +270,16 @@ body {
       padding: 18px 25px;
       border: none;
       border-radius: 8px;
-      font-size: 18px;
-      font-family: 'head';
+      font-size: 16px;
+      font-family: 'Muller-regular';
       font-weight: 500;
       cursor: pointer;
       transition: background .2s, color .2s, border .2s;
       text-decoration: none;
+    }
+
+    .slide-vtn a {
+      margin-top: 10px ;
     }
     .slide-btn.white {
       background: #fff;
@@ -325,6 +344,7 @@ body {
     .slide-image3 {
       flex: 1 1 60%;
       width: 756px;
+      padding-left: 100px;
       height: 585px;
       height: 100%;
       position: relative;
@@ -560,7 +580,7 @@ body {
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 2px 12px 0 rgba(51,51,51,.03);
-      padding: 32px 18px 18px 18px;
+      padding: 32px 18px 18px 35px;
       width: 100%;
       min-width: 367px;
       max-width: 367px;
@@ -1183,7 +1203,7 @@ body {
       <div class="slides">
         <div class="slide">
           <div class="slide-text">
-            <h2 class="big">НОВИНКА<br><p class="medium">Коллекция Halb от RECKE</p> </h2>
+            <h2 class="big">НОВИНКА<br><div style="height: 5px;"></div><p class="medium">Коллекция Halb от RECKE</p> </h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
               <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
@@ -1196,14 +1216,14 @@ body {
         </div>
         <div class="slide">
           <div class="slide-text">
-            <h2 class="big">фавориты<br><p class="medium">хранитель времени</p> </h2>
+            <h2 class="big">фавориты<br><div style="height: 5px;"></div><p class="medium">хранитель времени</p> </h2>
             <div class="slide-buttons">
-              <button class="slide-btn white">Узнать подробнее</button>
+              <button class="slide-btn white"><p>Узнать подробнее</p></button>
               <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
             </div>
             <p class="min">Кирпич, наполненный духом вулкана Сагынды.<br> 
               Его спокойный оттенок символизирует надежность <br>
-              и долговечность, которые он приносит в до</p>
+              и долговечность, которые он приносит в дом</p>
           </div>
           <div class="slide-image2" >
             <img src="{% static 'imgfolder/png2.png' %}" alt="" >
@@ -1211,7 +1231,7 @@ body {
         </div>
         <div class="slide">
           <div class="slide-text">
-            <h2 class="big">фавориты<br><p class="medium">Скрябин керамикс,54</p></h2>
+            <h2 class="big">фавориты<br><div style="height: 5px;"></div><p class="medium">Скрябин керамикс, 54</p></h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
               <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
@@ -1272,7 +1292,7 @@ body {
       <div class="footer-cards-row">
         <div class="footer-card">
           <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
-          <img src="{% static 'imgfolder/f7.png' %}" alt="Архитектурные фасадные декоры">
+          <img src="{% static 'imgfolder/f7.png' %}" alt="Архитектурные фасадные декоры" style="height: 317px;">
           <a class="footer-card-link" href="#">Перейти к разделу</a>
         </div>
         <div class="footer-card">
@@ -1770,20 +1790,6 @@ body {
     });
 
     
-    const adress = 'http://127.0.0.1:8000';
-    fetch(adress + '/products/?format=json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP ошибка! Код: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Данные из API:', data);
-      })
-      .catch(error => {
-        console.error('Ошибка при выполнении запроса:', error);
-      });
   </script>
 </body>
 </html>
