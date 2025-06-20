@@ -1,38 +1,27 @@
 from django.db import models
 
 
-# Create your models here.
-class Product(models.Model):
-    name = models.CharField(max_length=100)
-    price = models.FloatField()
-    description = models.TextField()
- 
-
-class WaterResistant(models.Model):
-    name = models.CharField(max_length=100)
-
-
-class Strength(models.Model):
-    name = models.CharField(max_length=100)
-
-class Format(models.Model):
-    name = models.CharField(max_length=100)
-
 class Type(models.Model):
     name = models.CharField(max_length=100)
 
-class Kind(models.Model):
+    def __str__(self):
+        return self.name
+
+
+class Category(models.Model):
     name = models.CharField(max_length=100)
+    link_name = models.CharField(max_length=100, null=True)
 
-class Color(models.Model):
+    def __str__(self):
+        return self.name
+
+
+class Product(models.Model):
     name = models.CharField(max_length=100)
+    card_image = models.ImageField(null=True, blank=True)
+    type = models.ForeignKey(Type, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    description = models.TextField(null=True, blank=True)
 
-
-class Manifacter(models.Model):
-    name = models.CharField(max_length=100)
-
-
-class FreezeDefend(models.Model):
-    name = models.CharField(max_length=100)
-
-
+    def __str__(self):
+        return self.name + " " + self.type.name
