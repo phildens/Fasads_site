@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My amazing blog{% endblock %}
+
+{% block content %}
+    {% include "cat_line.html" with link="Главная Керамкирпич" %}
+
+    <div style="width: 371px; height: 491px; border-radius: 10px; background-color: white; align-content: space-between;">
+        <div>
+        <img src="{% static 'imgfolder/items_images/image_49.png' %}" alt="" style="width: 371px; height: 261px; border-radius: 10px;">
+        </div>
+        <div style="width: 293px; height: 122px;  margin-bottom: 50px; margin-left: 39px; display: flex; align-self:flex-end; margin-top: 57px;">
+            
+            <div style="display: flex; width: 292px; justify-content: space-between;">
+                <p style="align-self:self-end;">Прайс лист</p>
+                <div style="align-self:flex-end; justify-self:flex-end; display: flex;">
+                <div style="width: 56px; height: 47.26px; border-radius: 10px; background-color: #422223;margin-right: 12px;"><img src="" alt=""></div>
+                <div style="width: 56px; height: 47.26px; border-radius: 10px; background-color: #327F00;"><img src="" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
