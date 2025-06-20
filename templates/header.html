@@ -1,0 +1,82 @@
+{% load static %}
+<style>
+    .nav-light {
+        margin-right: 40px;
+        color: #422223;
+        font-family: Muller-ultralight;
+        text-decoration: none;
+    }
+    .nav{
+
+        width: 1200px;
+        align-items: center;
+    }
+   
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      flex-shrink: 0;
+    }
+    .search-bar input {
+    padding-top:0 ;
+    /* width: 100%; */
+    /* max-width: 1170px; */
+    width: 1200px;
+    height: 80px;
+    /* min-width: 1170px; */
+    padding: 12px 24px;
+    border-radius: 7px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    /* max-width: 600px; */
+}
+</style>
+<header style="align-items: center;">
+    <div style="display: flex; justify-items: center; justify-content: center;">
+        
+   
+    <ul class="nav" style="width: 1200px;">
+        <li>
+<img src="{% static 'imgfolder/logo-site.png' %}" alt="" style="width: 176px;">
+        </li>
+  <li class="nav-light">
+    <a class="nav-light" href="#">Продукция</a>
+  </li>
+  <li class="nav-light">
+    <a class="nav-light" href="#">Галерея</a>
+  </li>
+  <li class="nav-light">
+    <a class="nav-light" href="#">Вопросы-ответы</a>
+  </li>
+  <li class="nav-light">
+    <a class="nav-light" href="#">Контакты</a>
+  </li>
+    <li class="nav-bold">
+    <a href="tel:+79519401249">+7 (951) 940-12-49</a>
+    <p class="navgray">Номер для связи</p>
+  </li>
+  <li class="nav-bold">
+    <a href="mailto:evrokrovliof@mail.ru">evrokrovliof@mail.ru</a>
+    <p class="navgray">электронная почта</p>
+  </li>
+ <li>
+    <img src="{% static 'imgfolder/heart.png' %}" alt="" style="width: 26px;">
+ </li>
+ <li>
+    <img src="{% static 'imgfolder/menu_icon.png' %}" alt="" style="width: 26px;">
+ </li>
+</ul>
+ </div>
+   <div class="search-bar">
+      <input id="search" type="search" list="search-suggestions" autocomplete="off"/>
+      <datalist id="search-suggestions">
+        <option value="Кирпич">
+        <option value="фасад">
+        <option value="камень">
+      </datalist>
+    </div>
+
+</header>
