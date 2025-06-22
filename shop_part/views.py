@@ -25,3 +25,7 @@ def category(request):
     products = ProductInCatSerializer(products, many=True, context={'request': request})
     print(products.data[0])
     return render(request, 'category.html', {'products': products.data, 'cat_name': ["Главная",cat_id.name]})
+
+
+def about(request):
+    return render(request, 'about.html')

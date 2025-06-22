@@ -1264,12 +1264,12 @@ body {
         <div class="footer-card">
           <div class="footer-card-title">Керамический<br>облицовочный кирпич</div>
           <img src="{% static 'imgfolder/f2.png' %}" alt="Керамический облицовочный кирпич">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'cats' %}?cat_name=ceram-face-brick">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Клинкерная плитка<br>и плитка под кирпич</div>
           <img src="{% static 'imgfolder/f3.png' %}" alt="Клинкерная плитка">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'cats' %}?cat_name=tile">Перейти к разделу</a>
         </div>
       </div>
       <div class="footer-cards-row">
