@@ -22,8 +22,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',  views.index,),
+    path('',  views.index, name='home'),
+    path('categories', views.category, name='cats'),
+    path('about', views.about, name='about'),
     path('product', views.products),
     path('products/', ProductListView.as_view(), name='products'),
     
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
