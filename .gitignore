@@ -1,6 +1,7 @@
 .idea
 .DS_Store
 myenv
+staticfiles
 # Created by https://www.gitignore.io
 
 ### OSX ###
