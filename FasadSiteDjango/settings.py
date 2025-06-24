@@ -10,12 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import json
 
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,7 @@ SECRET_KEY = 'django-insecure-osykeufd%)o^tok%1c^dmw_bbgf79-76js009c$_$#=gqim3v7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['164.215.97.73', '127.0.0.1','localhost']
+ALLOWED_HOSTS = ['modernfasad.ru', '164.215.97.73', '127.0.0.1','localhost']
 
 
 # Application definition
@@ -74,18 +75,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'FasadSiteDjango.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = json.loads(os.getenv("DATABASE"))
 
 
 # Password validation
@@ -121,9 +115,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-load_dotenv()
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [BASE_DIR / "static_dev"]
 
 # STORAGES = {
@@ -131,7 +124,7 @@ STATICFILES_DIRS = [BASE_DIR / "static_dev"]
 #         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
 #     },
 # }
-MEDIA_URL = '/media/'
+MEDIA_URL = '/uploads/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
