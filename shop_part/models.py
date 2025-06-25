@@ -81,7 +81,7 @@ class Product(models.Model):
     formats = models.ManyToManyField(Format)
     color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True)
     frosen_defend = models.ForeignKey(FrosenDefender, on_delete=models.SET_NULL, null=True)
-    strength_grade = models.ManyToManyField(StrengthGrade)
+    strength_grade = models.ForeignKey(StrengthGrade, on_delete=models.SET_NULL, null=True)
     water_resistance = models.ForeignKey(WaterResistance, on_delete=models.SET_NULL, null=True)
     emptiness = models.ManyToManyField(Emptiness)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True)
