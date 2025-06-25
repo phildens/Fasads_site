@@ -2,7 +2,7 @@ from django.shortcuts import render
 from shop_part.models import Product
 from shop_part.serializers import ProductSerializer, ProductInCatSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
-from shop_part.models import Category, Product, Type
+from shop_part.models import Category, Product, TypeMaterial
 
 
 # Create your views here.
