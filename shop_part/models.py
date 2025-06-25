@@ -65,8 +65,10 @@ class Emptiness(models.Model):
     def __str__(self):
         return self.name
 
+
 class ProductType(models.Model):
     name = models.CharField(max_length=100)
+
     def __str__(self):
         return self.name
 
@@ -86,11 +88,13 @@ class Product(models.Model):
     emptiness = models.ManyToManyField(Emptiness)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True)
 
-
-
-
     def __str__(self):
         return self.name + " " + self.type.name
+
+
+class Gallery(models.Model):
+    image = models.ImageField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
 
 
 class Questions(models.Model):

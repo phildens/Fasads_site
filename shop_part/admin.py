@@ -1,15 +1,23 @@
 from django.contrib import admin
 
 from shop_part.models import Product, TypeMaterial, Category, Format, Color, FrosenDefender, Manufactor, StrengthGrade, \
-    WaterResistance, Emptiness, Questions, ProductType
+    WaterResistance, Emptiness, Questions, ProductType, Gallery
 
 
 # Register your models here.
+
+class GalleryInline(admin.TabularInline):
+    fk_name = 'product'
+    model = Gallery
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [GalleryInline, ]
     list_display = ('name', 'card_image', 'type_material', 'description')
     search_fields = ('name', 'type_material', 'description')
     list_filter = ('name', 'type_material', 'description')
+
 
 @admin.register(ProductType)
 class ProductTypeAdmin(admin.ModelAdmin):
