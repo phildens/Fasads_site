@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from shop_part.models import Product, TypeMaterial, Category, Format, Color, FrosenDefender, Manufactor, StrengthGrade, \
-    WaterResistance, Emptiness, Questions
+    WaterResistance, Emptiness, Questions, ProductType
 
 
 # Register your models here.
@@ -10,6 +10,10 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'card_image', 'type_material', 'description')
     search_fields = ('name', 'type_material', 'description')
     list_filter = ('name', 'type_material', 'description')
+
+@admin.register(ProductType)
+class ProductTypeAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 
 @admin.register(TypeMaterial)
