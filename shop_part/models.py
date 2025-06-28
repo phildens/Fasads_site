@@ -89,7 +89,7 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.name + " " + self.type.name
+        return self.name + " " + self.manufacturer.name + " " + self.product_type.name
 
 
 class Gallery(models.Model):
