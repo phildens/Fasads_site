@@ -1,13 +1,12 @@
 /* Контейнер для аккордеона */
 .accordion-container {
-  width: 500px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 /* Стили для вкладок аккордеона */
 .accordion-tab {
-  background-color: #f2f2f2;
-  color: #444;
+  /*color: #444;*/
   cursor: pointer;
   padding: 18px;
   width: 100%;
