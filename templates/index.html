@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <title>Document</title>
  <!--    <link rel="stylesheet" href="{% static 'css/header.css' %}">
   <link rel="stylesheet" href="{% static 'css/slider.css' %}">
@@ -1494,8 +1495,12 @@ body {
         </div>
       </div>
     </div>
+                                                              <!--КАРУСЕЛЬ-->
 
-    <div style="width: 1436px;
+   <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false" style="width: auto;height: auto;">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div style="width: 1436px;
                 height: 1043px;
                 display: flex;
                 justify-content: center;
@@ -1507,8 +1512,8 @@ body {
                   font-size: 24px;
                   color: rgba(66, 34, 35, 1);
                   left: 130px;
-                  bottom: 1019px;">
-        Галерея объектов
+                  bottom: 1013px;">
+        <p>Галерея объектов</p>
       </div>
       <div style="width: 505.7px;
                   height: 337px;
@@ -1536,40 +1541,136 @@ body {
                   height: 281px;
                   position: absolute;
                   top: 38px;
-                  left: 11.3px+505px;">
+                  left: 514px;">
         <img src="{% static 'imgfolder/gal4.png' %}" alt="">
       </div>
       <div style="width: 421.46px;
                   height: 316px;
                   position: absolute;
                   top: 331px;
-                  left: 11.3px+505px;">
+                  left: 514px;">
         <img src="{% static 'imgfolder/gal5.png' %}" alt="">
       </div>
       <div style="width: 421px;
                   height: 360px;
                   position: absolute;
                   top: 659px;
-                  left: 11.3px+505px;">
+                  left: 514px;">
         <img src="{% static 'imgfolder/gal6.png' %}" alt="">
       </div>
       <div style="width: 485px;
                   height: 323px;
                   position: absolute;
                   top: 38px;
-                  left: 939px;">
+                  left: 950px;">
         <img src="{% static 'imgfolder/gal7.png' %}" alt="">
       </div>
       <div style="width: 485px;
                   height: 647px;
                   position: absolute;
                   top: 372px;
-                  left: 939px;">
+                  left: 950px;">
         <img src="{% static 'imgfolder/gal8.png' %}" alt="">
       </div>
     </div>
+    </div> 
+
+  <div class="carousel-item ">
+      <div style="width: 1436px;
+                height: 1043px;
+                display: flex;
+                justify-content: center;
+                margin: 0 auto 48px auto;
+                position: relative;">
+      <div style="
+                  position: absolute;
+                  font-family: 'head';
+                  font-size: 24px;
+                  color: rgba(66, 34, 35, 1);
+                  left: 130px;
+                  bottom: 1013px;">
+        <p>Галерея объектов</p>
+      </div>
+      <div style="width: 505.7px;
+                  height: 337px;
+                  position: absolute;
+                  top: 38px;
+                  left: 0px;
+                  ">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+"  src="{% static 'imgfolder/gal9.png' %}" alt="">
+      </div>
+      <div style="width: 504.2px;
+                  height: 336px;
+                  position: absolute;
+                  top: 389px;
+                  left: 0px;">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+" src="{% static 'imgfolder/gal10.png' %}" alt="">
+      </div>
+      <div style="width: 505px;
+                  height: 282px;
+                  position: absolute;
+                  top: 737px;
+                  left: 0px;">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+" src="{% static 'imgfolder/gal11.png' %}" alt="">
+      </div>
+      <div style="width: 421.66px;
+                  height: 281px;
+                  position: absolute;
+                  top: 38px;
+                  left: 516.3px;">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+" src="{% static 'imgfolder/gal12.png' %}" alt="">
+      </div>
+      <div style="width: 421.46px;
+                  height: 316px;
+                  position: absolute;
+                  top: 331px;
+                  left: 516.3px;">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+" src="{% static 'imgfolder/gal13.png' %}" alt="">
+      </div>
+      <div style="width: 421px;
+                  height: 360px;
+                  position: absolute;
+                  top: 659px;
+                  left: 516.3px;">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+" src="{% static 'imgfolder/gal14.png' %}" alt="">
+      </div>
+      <div style="width: 485px;
+                  height: 323px;
+                  position: absolute;
+                  top: 38px;
+                  left: 950px;">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+" src="{% static 'imgfolder/gal15.png' %}" alt="">
+      </div>
+      <div style="width: 485px;
+                  height: 647px;
+                  position: absolute;
+                  top: 372px;
+                  left: 950px;">
+        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+" src="{% static 'imgfolder/gal16.png' %}" alt="">
+      </div>
+    </div>
+  </div>
+  </div>
+   
+</div>
+
+                                                              
+    
+ 
 
 
+
+
+
+  
 
 
 
@@ -1745,7 +1846,7 @@ body {
   </div>
 
   <!-- Scripts -->
-  <script>
+  <script >
     document.addEventListener('DOMContentLoaded', function() {
   const slides = document.querySelector('.slides');
   const dots = document.querySelectorAll('.dot');
@@ -1792,5 +1893,6 @@ body {
 
     
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
