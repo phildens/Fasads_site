@@ -1,24 +1,163 @@
 {% load static %}
-<style>
-    .nav-light {
-        margin-right: 40px;
-        color: #422223;
-        font-family: Muller-ultralight;
-        text-decoration: none;
-    }
-    .nav{
+<style>  html {
+  scroll-behavior: smooth;
+}
+p {margin: 0;
+padding: 0;}
+@font-face {
 
-        width: 1200px;
-        align-items: center;
-    }
-   
-    .search-bar {
+  font-family: "Muller-ultralight"; 
+
+  src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-medium"; 
+
+  src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-light"; 
+
+  src: url("{% static 'font/Muller-Light.otf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-regular"; 
+
+  src: url("{% static 'font/Muller-Regular.otf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Namu-light"; 
+
+  src: url("{% static 'font/NAMU1750.otf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+    font-family: 'head';
+    src: url("{% static 'font/head.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'head2';
+    src: url("{% static 'font/head2.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'NAMU';
+    src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+.a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:rgba(66, 34, 35, 0.6);
+    margin: 0;
+    font-family: 'head2';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 100%;
+}
+.conteiner {
+    background-color: rgba(66, 34, 35, 1);
+    width: 100%;
+    min-height: 7px;
+    min-width: 1440px;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px 20px; */
+    position: relative;
+    
+    flex-shrink: 0;
+}
+.logo img {
+    width: 100%;
+    
+    
+    height: auto;
+}
+.nav-list {
+    display: flex;
+    max-width: 1200px;
+    align-items: center;
+    width: 1200px;
+    margin: 0;
+    padding-top: 30px;
+    padding-left: 0px;
+    flex-wrap: wrap;
+    gap: 37.2px;
+    font-size: 16px;
+    color:rgba(66, 34, 35, 1);
+    list-style-type: none;
+    
+    font-family: 'head', Arial, sans-serif; /* вот так! */
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0;
+}
+.nav-list2 {
+    display: flex;
+    margin: 0;
+    padding-top: 30px;
+    flex-wrap: wrap;
+    gap: 30px;
+    color:rgba(255, 246, 243, 1);
+    list-style-type: none;
+    margin-left: 30px;
+    font-family: 'head2', Arial, sans-serif; /* вот так! */
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0;
+}
+
+
+.nav-link,
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active {
+    color:rgba(66, 34, 35, 1);
+    text-decoration: none;
+    padding: 0px;
+}
+
+
+
+
+.search-bar {
       display: flex;
       justify-content: center;
       padding: 24px;
+      padding-top: 0px;
       flex-shrink: 0;
     }
-    .search-bar input {
+.search-bar input {
     padding-top:0 ;
     /* width: 100%; */
     /* max-width: 1170px; */
@@ -33,44 +172,241 @@
     box-sizing: border-box;
     /* max-width: 600px; */
 }
-</style>
-<header style="align-items: center;">
-    <div style="display: flex; justify-items: center; justify-content: center;">
+
+
+
+  .mini-contacts-card {
+  width: 301px;
+  min-height: 355px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 16px;
+  color: #232323;
+  position: relative;
+}
+.mini-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+.mini-contact-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+.mini-contact-text a {
+  color: #232323;
+  text-decoration: none;
+  transition: color 0.14s;
+}
+.mini-contact-text a:hover {
+  color: #3ca1e8;
+  text-decoration: underline;
+}
+.mini-contact-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: #777;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.mini-contact-note svg {
+  flex-shrink: 0;
+}
+
+
+
+  .menu-image {
+      margin-top: 5px;
+    }
+    .nav-link .menu-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      top: 20px;
+      right: 20px;
+      
+      
+    }
+    .nav-link .menu-toggle span {
+      display: block;
+      width: 30px;
+      height: 3px;
+      background: #690505;
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+    
+    
+    
+    #blur-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.13);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      transition: opacity .2s;
+      cursor: pointer;
+    }
+    #blur-bg.active {
+      display: block;
+      opacity: 1;
+
+    }
+.side-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100%;
+      background: #fff;
+      overflow-y: auto;
+      transition: right 0.3s ease-in-out;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .side-menu.active {
+      right: 0;
+    }
+    .side-menu .logo img {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    .side-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .side-menu li {
+      margin-bottom: 15px;
+    }
+    .side-menu a {
+      text-decoration: none;
+      color: #421e23;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .side-menu .contacts {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #421e23;
+    }
+
+@font-face {
+    font-family: 'head';
+    src: url("{% static 'font/head.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}</style>
+</head>
+
+    
+    <!-- Боковое меню -->
+    <nav class="side-menu" id="sideMenu">
+      <div class="logo img">
+        <img src="{% static 'imgfolder/header.png' %}" alt="">
+      </div>
+      <ul>
+        <li><strong>Деятельность</strong></li>
+        <li><a href="#">О нас</a></li>
+        <li><strong>Продукция</strong></li>
+        <li><a href="#">Клинкерный облицовочный кирпич</a></li>
+        <li><a href="#">Керамический облицовочный кирпич</a></li>
+        <li><a href="#">Клинкерная плитка</a></li>
+        <li><a href="#">Брусчатка</a></li>
+        <li><a href="#">Ригельный кирпич</a></li>
+        <li><a href="#">Навесные вентилируемые системы</a></li>
+        <li><a href="#">Архитектурные фасадные декоры</a></li>
+        <li><a href="#">Гиперпрессованный кирпич</a></li>
+        <li><strong>Наши объекты</strong></li>
+        <li><a href="#">Фотографии выполненных объектов</a></li>
+        <li><strong>Наши партнеры</strong></li>
+        <li><a href="#">Дилеры заводов</a></li>
+        <li><strong>Помощь</strong></li>
+        <li><a href="#">Вопросы-ответы</a></li>
+      </ul>
+      <div class="mini-contacts-card">
+  <div class="mini-contact-row">
+    <span class="mini-contact-icon">
+      <!-- Локация -->
+      <img src="{% static 'imgfolder/location.png' %}" alt="Локация" />
+    </span>
+    <span class="mini-contact-text">
+      Пермь, Газеты Звезда,<br>13, 4 этаж
+    </span>
+  </div>
+  <div class="mini-contact-row">
+    <span class="mini-contact-icon">
+      <!-- Телефон -->
+      <img src="{% static 'imgfolder/phone.png' %}" alt="Телефон" />
+    </span>
+    <span class="mini-contact-text">
+      <a href="tel:+79519401249">+7 (951) 940-12-49</a>
+    </span>
+  </div>
+  <div class="mini-contact-row">
+    <span class="mini-contact-icon">
+      <!-- Соцсети -->
+      <img src="{% static 'imgfolder/message.png' %}" alt="Связь" />
+    </span>
+    <span class="mini-contact-text">
+      <a href="#">Написать нам в Telegram</a><br>
+      <a href="#">Написать нам на Whatsapp</a>
+    </span>
+  </div>
+  <div class="mini-contact-note">
+    <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16" style="width:17px;height:17px;vertical-align:middle"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
+    <span>
+      Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.
+    </span>
+  </div>
+</div>
+
+    </nav>
+
+    <!-- БЛЮР -->
+    <div id="blur-bg"></div>
+
+    <!-- Header -->
+    <header >
+      <div class="header">
         
-   
-    <ul class="nav" style="max-width: 1200px;">
-        <li>
-<img src="{% static 'imgfolder/logo-site.png' %}" alt="" style="width: 176px;">
-        </li>
-  <li class="nav-light">
-    <a class="nav-light" href="#">Продукция</a>
-  </li>
-  <li class="nav-light">
-    <a class="nav-light" href="#">Галерея</a>
-  </li>
-  <li class="nav-light">
-    <a class="nav-light" href="#">Вопросы-ответы</a>
-  </li>
-  <li class="nav-light">
-    <a class="nav-light" href="#">Контакты</a>
-  </li>
-    <li class="nav-bold">
-    <a href="tel:+79519401249">+7 (951) 940-12-49</a>
-    <p class="navgray">Номер для связи</p>
-  </li>
-  <li class="nav-bold">
-    <a href="mailto:evrokrovliof@mail.ru">evrokrovliof@mail.ru</a>
-    <p class="navgray">электронная почта</p>
-  </li>
- <li>
-    <img src="{% static 'imgfolder/heart.png' %}" alt="" style="width: 26px;">
- </li>
- <li>
-    <img src="{% static 'imgfolder/menu_icon.png' %}" alt="" style="width: 26px;">
- </li>
-</ul>
- </div>
-   <div class="search-bar">
+      <nav class="nav">
+        <ul class="nav-list">
+          <div class="logo img">
+            <img src="{% static 'imgfolder/header.png' %}" alt="">
+          </div>
+          <li><a href="#" class="nav-link">Продукция</a></li>
+          <li><a href="#" class="nav-link">Галерея</a></li>
+          <li><a href="#" class="nav-link">Вопросы-ответы</a></li>
+          <li><a href="#" class="nav-link">Контакты</a></li>
+          <li><a href="tel:+7(951)940-12-49" class="nav-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
+          <li><a href="mailto:evrokrovliof@mail.ru" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
+          <li><img src="{%static 'imgfolder/bol2.svg'%}" alt=""></li>
+          <li class="nav-link">
+            <button class="menu-toggle" id="menuToggle">
+              <img src="{% static 'imgfolder/menu2.svg' %}" alt="" class="menu-image">
+            </button>
+          </li>
+        </ul>
+      </nav>
+      </div>
+      
+    </header>
+
+    <!-- Search -->
+    <div class="search-bar">
       <input id="search" type="search" list="search-suggestions" autocomplete="off"/>
       <datalist id="search-suggestions">
         <option value="Кирпич">
@@ -78,5 +414,23 @@
         <option value="камень">
       </datalist>
     </div>
+  </div>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const blurBg = document.getElementById('blur-bg');
 
-</header>
+    // Открытие меню
+    menuToggle.addEventListener('click', function () {
+      sideMenu.classList.add('active');
+      blurBg.classList.add('active');
+    });
+
+    // Закрытие при клике на блюр
+    blurBg.addEventListener('click', function () {
+      sideMenu.classList.remove('active');
+      blurBg.classList.remove('active');
+    });
+  });
+</script>

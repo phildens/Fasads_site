@@ -79,7 +79,7 @@ TEMPLATES = [
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-DATABASES = json.loads(os.getenv("DATABASE"))
+DATABASES ={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
 
 
 # Password validation
