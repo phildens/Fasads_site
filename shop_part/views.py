@@ -2,7 +2,7 @@ from django.shortcuts import render
 from shop_part.models import Product
 from shop_part.serializers import ProductSerializer, ProductInCatSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
-from shop_part.models import Category, Product, TypeMaterial
+from shop_part.models import Category, Product, TypeMaterial, Questions
 
 
 # Create your views here.
@@ -24,7 +24,7 @@ def category(request):
     products = Product.objects.filter(category=cat_id)
     products = ProductInCatSerializer(products, many=True, context={'request': request})
     print(products.data[0])
-    return render(request, 'category.html', {'products': products.data, 'cat_name': ["Главная",cat_id.name]})
+    return render(request, 'category.html', {'products': products.data, 'cat_name': ["Главная",cat_id.name], 'questions' : Questions.objects.all()})
 
 
 def about(request):
