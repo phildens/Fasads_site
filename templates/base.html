@@ -60,17 +60,18 @@
 {% block content %}{% endblock %}
 
 {#    ОТВЕТЫ НА ВОПРОСЫ#}
-
+ <div class="accordion-container">
 {% for question in questions %}
 
 
-    <div class="accordion-container">
+   
     <button class="accordion-tab">{{ question.name }}</button>
 
     <div class="accordion-panel">
         <p>{{ question.description }}</p>
     </div>
-
+    
+    <div style="background-color: black; height: 1px"></div>
 
 
 
@@ -80,6 +81,8 @@
 
 </div>
 
+
+<div style="height: 128px"></div>
 {#    ФУТЕР#}
 
 
@@ -149,10 +152,10 @@ for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
         this.classList.toggle("active");
         var panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
+        if (panel.style.height) {
+            panel.style.height = null;
         } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
+            panel.style.height = "100" + "px";
         }
     });
 }</script>

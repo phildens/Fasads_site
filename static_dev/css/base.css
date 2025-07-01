@@ -6,7 +6,6 @@
 
 /* Стили для вкладок аккордеона */
 .accordion-tab {
-  /*color: #444;*/
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -20,14 +19,13 @@
 /* Стили для активной вкладки */
 .active,
 .accordion-tab:hover {
-  background-color: #ccc;
 }
 
 /* Стили для панели аккордеона */
 .accordion-panel {
   padding: 0 18px;
   background-color: white;
-  max-height: 0;
   overflow: hidden;
+  height: 0;
   transition: max-height 0.2s ease-out;
 }
