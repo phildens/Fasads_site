@@ -549,11 +549,13 @@ body {
     font-style: normal;
     }
     .footer-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       background: #fafafa;
       color: #421e23;
-      padding: 60px 0 32px 0;
+      padding: 127px 0 32px 0;
       box-sizing: border-box;
-      font-family: 'Montserrat', 'Arial', sans-serif;
       align-items: center;
       width: 100%;
     }
@@ -736,7 +738,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 28px 32px;
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto 0 auto;
 }
 .contacts-card {
@@ -749,8 +751,8 @@ body {
   box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  font-family: 'Montserrat', 'Arial', sans-serif;
+  justify-content: space-between;
+  font-family: 'head';
 }
 .contacts-title {
   font-size: 22px;
@@ -771,6 +773,7 @@ body {
   color:rgba(0, 0, 0, 1);
   font-family: 'head2';
   font-size: 20px;
+  text-decoration: none;
   font-weight: 300;
 }
 .contacts-link:hover {
@@ -778,9 +781,11 @@ body {
   text-decoration: underline;
 }
 .contacts-note {
+  font-family: 'head2';
   color: #e15a6a;
-  font-size: 0.97rem;
+  font-size: 20px;
   margin-top: 4px;
+  text-decoration: none;
 }
 
 
@@ -898,13 +903,13 @@ body {
   color: #b0b0b0;
 }
 .callback-form-section {
-  max-width: 1440px;
+  width: 1440px;
   min-height: 800px;
   margin: 36px auto 44px auto;
   background: rgba(255, 255, 255, 1);
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(60,60,60,0.04);
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: 'head2';
   box-sizing: border-box;
   padding: 100px;
 }
@@ -920,7 +925,8 @@ body {
   line-height: 100%;
 }
 .callback-form-subtitle {
-  font-family: 'head2';
+  font-family: 'Muller-light';
+  font-weight: 400;
   color: rgba(129, 129, 129, 1);
   font-size: 20px;
   font-weight: 400;
@@ -1493,8 +1499,19 @@ body {
       </div>
     </div>
                                                               <!--КАРУСЕЛЬ-->
-
+                                                              
+    <div style="
+                  margin-left: 130px;
+                  margin-right: 1070px;
+                  font-family: 'head';
+                  font-size: 24px;
+                  color: rgba(66, 34, 35, 1);
+                  left: 130px;
+                  bottom: 1013px;">
+        <p>Галерея объектов</p>
+      </div>
    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false" style="width: auto;height: auto;">
+    
   <div class="carousel-inner">
     <div class="carousel-item active">
       <div style="width: 1436px;
@@ -1503,15 +1520,7 @@ body {
                 justify-content: center;
                 margin: 0 auto 48px auto;
                 position: relative;">
-      <div style="
-                  position: absolute;
-                  font-family: 'head';
-                  font-size: 24px;
-                  color: rgba(66, 34, 35, 1);
-                  left: 130px;
-                  bottom: 1013px;">
-        <p>Галерея объектов</p>
-      </div>
+      
       <div style="width: 505.7px;
                   height: 337px;
                   position: absolute;
@@ -1579,15 +1588,7 @@ body {
                 justify-content: center;
                 margin: 0 auto 48px auto;
                 position: relative;">
-      <div style="
-                  position: absolute;
-                  font-family: 'head';
-                  font-size: 24px;
-                  color: rgba(66, 34, 35, 1);
-                  left: 130px;
-                  bottom: 1013px;">
-        <p>Галерея объектов</p>
-      </div>
+      
       <div style="width: 505.7px;
                   height: 337px;
                   position: absolute;
@@ -1655,8 +1656,8 @@ body {
       </div>
     </div>
   </div>
-  </div>
-   
+  
+  </div> 
 </div>
 
                                                               
@@ -1748,7 +1749,7 @@ body {
           
         </div>
         Газеты Звезда, 13, 4 этаж <br>
-        <span class="contacts-link"><b>ТЦ ЗВЕЗДА</b></span>
+        <span class="contacts-note"><b>ТЦ ЗВЕЗДА</b></span>
       </div>
     </div>
     <div class="contacts-card">
@@ -1784,7 +1785,7 @@ body {
     </div>
 
 
-        <a class="contacts-link" href="https://go.2gis.com/CIzER" target="_blank">Как до нас добраться</a>
+        <a class="contacts-note" href="https://go.2gis.com/CIzER" target="_blank">Как до нас добраться</a>
       </div>
     </div>
   </div>

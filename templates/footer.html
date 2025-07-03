@@ -1,2 +1,198 @@
 {% load static %}
+<style>
+.contacts-section {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 40px 0 36px 0;
+  margin: 0 0 40px 0;
+  
+}
+.contacts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 32px;
+  width: 1200px;
+  margin: 0 auto 0 auto;
+}
+.contacts-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 26px 24px 28px 24px;
+  height: 340px;
+  width: 569px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'head';
+}
+.contacts-title {
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+}
+.contacts-body {
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 6px;
+
+}
+.contacts-link, .contacts-link:visited {
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: 300;
+}
+.contacts-link:hover {
+  color: #d35400;
+  text-decoration: underline;
+}
+.contacts-note {
+  font-family: 'head2';
+  color: #e15a6a;
+  font-size: 20px;
+  margin-top: 4px;
+  text-decoration: none;
+}
+
+
+
+
+
+.logos-section {
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 36px 0 30px 0;
+  margin: 0 0 48px 0;
+  text-align: center;
+}
+.logos-section-title {
+  width: 1200px;
+  display: inline-block;
+  text-align: left;
+  color: #3a2220;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+.logos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 269px;
+  width: 280px;
+  
+  transition: box-shadow 0.16s;
+}
+.logo-card img {
+  width: 100%;
+  height: 100%;
+  max-height: 200px;
+  max-width: 200px;
+  object-fit: contain;
+}
+</style>
+
+
+
+<div class="logos-section">
+  <div style=" justify-items: center;">
+    <div class="logos-section-title">
+        <p>Мы являемся официальными дилерами 22 заводов-производителей</p> 
+  </div>
+  </div>
+  
+  <div class="logos-grid">
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo1.png' %}" alt="Пятый элемент">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo2.png' %}" alt="ARHIO">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo3.png' %}" alt="Recke Brickerei">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo4.png' %}" alt="Laterem Antique">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo5.png' %}" alt="Skriaibin Ceramics">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo6.png' %}" alt="ЛСР">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo7.png' %}" alt="Царский Кирпич">
+    </div>
+    <div class="logo-card">
+      <img src="{% static 'imgfolder/logo8.png' %}" alt="Ströher">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="contacts-section">
+  <div class="contacts-grid">
+    <div class="contacts-card">
+      <div class="contacts-title">Расположение</div>
+      <div class="contacts-body">
+        <div >
+          
+        </div>
+        Газеты Звезда, 13, 4 этаж <br>
+        <span class="contacts-note"><b>ТЦ ЗВЕЗДА</b></span>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Режим работы</div>
+      <div class="contacts-body">
+        пн–пт 09:00–18:00 <br>
+        <span class="contacts-note">В выходные не работаем</span>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Контактная информация</div>
+      <div class="contacts-body">
+        <a class="contacts-link" href="tel:+79519401249">+7 (951) 940-12-49</a>
+        <div class="contacts-note">Приём звонков: с 9:00–18:00</div>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Карта с указанием адреса офиса</div>
+      <div class="contacts-body">
+        
+        <div style="max-width: 600px; margin: 0 auto;">
+        <iframe
+        width="100%"
+        height="250px"
+        frameborder="0"
+        scrolling="no"
+        marginheight="0"
+        marginwidth="0"
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3A3e0ca89687f8fa169e7ba1ea01a97845935621b5755aeb66eed1aba51ce37cc8&amp;source=constructor"
+        style="border-radius:8px;">
+      </iframe>
+      <br>
+    </div>
 

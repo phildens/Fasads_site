@@ -107,3 +107,113 @@
   font-size: 13px;
   color: #b0b0b0;
 }
+
+
+
+.logos-section {
+  background: rgba(245, 245, 245, 1);
+  border-radius: 10px;
+  padding: 36px 0 30px 0;
+  margin: 0 0 48px 0;
+  text-align: center;
+}
+.logos-section-title {
+  width: 1200px;
+  display: inline-block;
+  text-align: left;
+  color: #3a2220;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+.logos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 269px;
+  width: 280px;
+  
+  transition: box-shadow 0.16s;
+}
+.logo-card img {
+  width: 100%;
+  height: 100%;
+  max-height: 200px;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+
+
+.contacts-section {
+  background: rgba(245, 245, 245, 1);
+  border-radius: 12px;
+  padding: 40px 0 36px 0;
+  margin: 0 0 40px 0;
+  
+}
+.contacts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 32px;
+  width: 1200px;
+  margin: 0 auto 0 auto;
+}
+.contacts-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 26px 24px 28px 24px;
+  height: 340px;
+  width: 569px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'head';
+}
+.contacts-title {
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+}
+.contacts-body {
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 6px;
+
+}
+.contacts-link, .contacts-link:visited {
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: 300;
+}
+.contacts-link:hover {
+  color: #d35400;
+  text-decoration: underline;
+}
+.contacts-note {
+  font-family: 'head2';
+  color: #e15a6a;
+  font-size: 20px;
+  margin-top: 4px;
+  text-decoration: none;
+}
