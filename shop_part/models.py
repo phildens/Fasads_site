@@ -34,6 +34,9 @@ class Color(models.Model):
 class FrosenDefender(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name = "Марка прочности"
+        verbose_name_plural = "Марка прочности"
     def __str__(self):
         return self.name
 
@@ -48,6 +51,9 @@ class Manufactor(models.Model):
 class StrengthGrade(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name = "Морозостойкость"
+        verbose_name_plural = "Морозостойкость"
     def __str__(self):
         return self.name
 
