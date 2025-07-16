@@ -73,6 +73,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face{
+  font-family: 'SGB';
+    src: url("{% static 'font/SGB.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 
@@ -246,6 +252,44 @@
       margin-right: 33px;
       filter: invert(40%) hue-rotate(180deg) saturate(3); 
     }
+    .gradient-text {
+      font-family: 'SGB';font-size: 120px;font-weight: 700;line-height: 120%;
+      background: linear-gradient(90deg, #FAD656 0%, #FFFFFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+    .card-slider{
+      width: 529px;
+      height: 237px;
+      background-color:rgba(71, 0, 186, 1);
+      
+      border-radius: 20px;
+    }
+    .text-card-slider-2{
+      font-family: 'Muller-Regular';
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 100%;
+      color:rgba(211, 216, 252, 1) ;
+      position: absolute;
+      left: 36px;
+      top: 167px;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .text-card-slider-1{
+      font-family: 'Muller-Regular';
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 100%;
+      color:rgba(211, 216, 252, 1) ;
+      position: absolute;
+      left: 34px;
+      top: 36px;
+    }
   </style>
  
 </head>
@@ -281,7 +325,14 @@
       <div class="card"><img style="width: 204px;height: 71px;position: absolute;left: 54px;top: 23px;" src="{% static 'imgfolder/card51.png' %}" alt=""><img style="width: 204px;height: 71px;position: absolute;left: 54px;top: 104px;" src="{% static 'imgfolder/card52.png' %}" alt=""><p class="card-text">Последний SALE<br>января 2025</p></div>
     </div>
     <div class="conteiner-slider">
-    <div class="slider">
+      <h1 style="font-size: 46px;font-weight: 700;line-height: 100%;color: rgba(247, 246, 251, 1);font-family: 'SGB';position: absolute;left: 75px;top: 75px;"> Бытовая химия со всего мира</h1>
+      <div style="display: flex;flex-direction: row;align-items: center; position: absolute;left: 75px;top: 100px;"><img class="" src="{% static 'imgfolder/slide.png' %}" alt=""><img  src="{% static 'imgfolder/M.png' %}" alt=""><p style=" font-family: 'SGB';font-size: 120px;font-weight: 700;line-height: 120%;color: rgba(250, 214, 86, 1);">ой </p><img  src="{% static 'imgfolder/D.png' %}" alt=""><p class="gradient-text">одыр </p></div>
+      <p style="font-family: 'Muller-Regular';font-size: 18px;color: rgba(210, 216, 252, 1);line-height: 100%;font-weight: 400;position: absolute;left: 75px;top:250px ;">Наша миссия — обеспечивать чистоту и комфорт, предлагая клиентам<br> качественные и надёжные средства, созданные с применением передовых <br>международных технологий и соответствующие современным стандартам.<br> Мы предоставляем свободу выбора, делая доступными инновационные<br> продукты, основанные на последних мировых достижениях и полностью<br> соответствующие потребностям и ожиданиям наших клиентов</p>
+      <div class="card-slider" style="position: absolute;right: 78px;top: 75px;"><p class="text-card-slider-1">Более 1000 продуктов, которые созданы для того,<br> чтобы вернуть вашему дому прежний облик и блеск,<br> доступны к заказу прямо сейчас</p>
+      <button class="text-card-slider-2" ><p >Перейти в каталог</p></button><button style="position: absolute;left: 428px;top:144px ;background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;"><img  src="{% static 'imgfolder/card-slider.png' %}" alt=""></button></div>
+      <div class="card-slider" style="position: absolute;right: 78px;bottom: 41px;"><P class="text-card-slider-1">Комплекс услуг в области профессиональной<br> уборки помещений</P>
+      <button class="text-card-slider-2"><p >Перейти в каталог</p></button><button style="position: absolute;left: 428px;top:144px ;background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;"><img  src="{% static 'imgfolder/card-slider.png' %}" alt=""></button></div>
+    <!--<div class="slider">
       <div class="slides">
         <div class="slide">
           <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
@@ -307,8 +358,9 @@
           <span class="dot" data-index="2"></span>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
+  <div ></div>
 </div>
 
 
