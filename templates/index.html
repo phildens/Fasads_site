@@ -79,9 +79,30 @@
     font-weight: normal;
     font-style: normal;
 }
-
-
-
+@font-face{
+  font-family: 'mnb';
+    src: url("{% static 'font/mnb.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+  font-family: 'mnm';
+    src: url("{% static 'font/mnm.ttf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+  font-family: 'mnh';
+    src: url("{% static 'font/mnh.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+  font-family: 'Bold';
+    src: url("{% static 'font/muller-bold.ttf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 
     .conteiner{
       display: flex;
@@ -229,14 +250,14 @@
       
     }
     .slide-text {
-      flex: 1 1 40%;
-      min-width: 350px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      z-index: 2;
-      color: rgba(241, 237, 226, 1);
-      padding: 0 0 0 40px;
+      position: absolute;
+      bottom: 13px;
+      left: 16px;
+      color: rgba(223, 223, 223, 1);
+      font-family: 'Muller-Regular';
+      font-size: 14px;
+      line-height: 100%;
+      font-weight: 400;
     }
     .dots {
       position: absolute;
@@ -247,13 +268,14 @@
       z-index: 10;
     }
     .slide-img{
-      width: 158px;
+      position: relative;
+      width: 194px;
       height: 148px;
       margin-right: 33px;
-      filter: invert(40%) hue-rotate(180deg) saturate(3); 
+      
     }
     .gradient-text {
-      font-family: 'SGB';font-size: 120px;font-weight: 700;line-height: 120%;
+      font-family: 'SGB';font-size: 96px;font-weight: 700;line-height: 120%;
       background: linear-gradient(90deg, #FAD656 0%, #FFFFFF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -264,7 +286,7 @@
       width: 529px;
       height: 237px;
       background-color:rgba(71, 0, 186, 1);
-      
+      z-index: 2;
       border-radius: 20px;
     }
     .text-card-slider-2{
@@ -290,6 +312,304 @@
       left: 34px;
       top: 36px;
     }
+
+
+
+
+
+
+    .card-sections{
+      margin-top: 45px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      max-width: 1400px;
+      gap: 30px;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .section{
+      position: relative;
+      min-width: 485px;
+      height: 460px;
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 1);
+      flex-shrink: 0;
+    }
+    .section-img{
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 254px;
+      height: 477px;
+    }
+    .text-section{
+      font-family: 'Muller-medium';
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 100%;
+      position: absolute;
+      left:37px ;
+      top: 47px;
+    }
+    .text-section-2{
+      font-family: 'Muller-Regular';
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 100%;
+      color: rgba(45, 0, 142, 1);
+      position: absolute;
+      left: 37px;
+      bottom: 48px;
+      background-color: inherit;
+      border: none;
+      padding: 0;
+
+    }
+
+
+
+
+    .inf-cards{
+      margin-top: 128px;
+      width: 1400px;
+      height: 760px;
+      position: relative;
+      gap: 13px;
+    }
+    .inf-card{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 472px;
+      height: 340px;
+      padding-top:  26px; 
+      padding-left: 29px;
+      border-radius: 20px;
+      
+    }
+    .text-inf{
+      font-family: "Muller-Medium";
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 100%;
+      color: rgba(255, 255, 255, 1);
+    }
+    .text-inf-2{
+      font-family: "head2";
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 100%;
+      color: rgba(255, 255, 255, 1);
+    }
+    
+    
+    
+    .text{
+      position: relative;
+      width: 1400px;
+      height: 687px;
+    }
+    .info{
+      position: relative;
+      width: 1400px;
+      height: 774px;
+      background-color: rgba(45, 0, 142, 1);
+      border-radius: 30px;
+    }
+
+
+
+    .big-info{
+      font-family: 'Muller-Medium';
+      font-size: 64px;
+      line-height: 100%;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 1);
+      
+    }
+    .small-info{
+      font-family: 'Muller-medium';
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 100%;
+      color: rgba(255, 255, 255, 1);
+    }
+
+
+
+
+
+
+
+
+
+    .contacts-section {
+  
+  border-radius: 12px;
+  padding: 40px 0 36px 0;
+  margin: 0 0 40px 0;
+  max-width: 100vw;
+}
+.contacts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 32px;
+  max-width: 1400px;
+  margin: 0 auto 0 auto;
+}
+.contacts-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 26px 24px 28px 24px;
+  min-height: 340px;
+  min-width: 685px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+}
+.contacts-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color:rgba(0, 0, 0, 1);
+  font-family: 'Muller-Medium';
+}
+.contacts-body {
+  color:rgba(0, 0, 0, 1);
+  font-family: 'head2';
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  text-decoration: none;
+  color: inherit;
+
+}
+
+
+
+
+.contacts-note {
+  font-family: 'Muller-Light';
+  color:#D21515;
+  font-size: 20px;
+  margin-top: 4px;
+}
+.site-footer {
+ 
+  position: relative;
+  height: 278px;
+  border-top: 2px solid #d1cfcf;
+  padding: 34px 0 14px 0;
+  font-family: 'Muller-Regular';
+  color:rgba(0, 0, 0, 0.6);
+  font-size: 18px;
+  margin-top: 0;
+}
+.footer-top {
+  width: 1400px;
+  margin: 0 auto 22px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 40px;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.footer-top .footer-menu {
+  display: flex;
+  padding-bottom: 18px;
+  gap: 36px;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: flex-end;
+}
+.footer-top .footer-menu a {
+  color:rgba(0, 0, 0, 0.6);
+  font-family: 'head2';
+  text-decoration: none;
+  font-weight: 400;
+  
+  font-size: 18px;
+}
+
+
+.footer-top .footer-info-block {
+  display: flex;
+  flex-direction: row;
+  gap: 34px;
+  flex-shrink: 0;
+  align-items: flex-end;
+}
+.footer-top .footer-info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-right: 10px;
+}
+.footer-info a{
+  color: #422223;
+}
+.footer-top .footer-info .footer-info-title {
+  font-family: 'Muller-medium';
+  font-weight: 600; 
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 18px;
+}
+.footer-top .footer-info .footer-info-sub {
+  color: #b4b4b4;
+  font-family: 'Muller-light';
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+
+
+
+
+
+.contacts-wrapper {
+  width: 1400px;
+  margin-top: 136px;
+  font-family: Arial, sans-serif;
+}
+
+.contacts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;           /* отступы сверху/снизу при желании */
+}
+
+.contacts__title {
+  font-family: 'Muller-Medium';
+  font-size: 32px;
+  font-weight: 500;
+  color:rgba(0, 0, 0, 1);
+}
+
+.contacts__info {
+  display: flex;
+  gap: 30px;                 /* расстояние между блоками справа */
+}
+
+.contacts__item {
+  font-family: 'Muller-Regular';
+  font-size: 20px;
+  font-weight: 400;
+  color:rgba(0, 0, 0, 1);
+  white-space: nowrap;       /* чтобы «пн–пт» не переносилось */
+}
+
+.contacts__divider {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 1);
+  margin: 0;                 /* чтобы линия шла точно от края контейнера */
+}
   </style>
  
 </head>
@@ -332,24 +652,24 @@
       <button class="text-card-slider-2" ><p >Перейти в каталог</p></button><button style="position: absolute;left: 428px;top:144px ;background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;"><img  src="{% static 'imgfolder/card-slider.png' %}" alt=""></button></div>
       <div class="card-slider" style="position: absolute;right: 78px;bottom: 41px;"><P class="text-card-slider-1">Комплекс услуг в области профессиональной<br> уборки помещений</P>
       <button class="text-card-slider-2"><p >Перейти в каталог</p></button><button style="position: absolute;left: 428px;top:144px ;background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;"><img  src="{% static 'imgfolder/card-slider.png' %}" alt=""></button></div>
-    <!--<div class="slider">
+    <div class="slider">
       <div class="slides">
         <div class="slide">
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">LAVABUCATO<br> средство для<br> стирки</p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">LANA E<br> DELICATE<br> гель для стирки <br>шерсти и шёлка</p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">Burti Color New <br>средство <br>для стирки <br>цветных тканей</p></div>
         </div> 
 
         <div class="slide">
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">Sano Jet <br>средство для <br>чистки ванной<br> комнаты</p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">Sano Antikalk WC <br>средство для<br> чистки унитазов</p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">LAVABUCATO <br>COLORI <br>средство<br> для стирки</p></div>
         </div>
         
         <div class="slide">
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
-          <div><img class="slide-img" src="{% static 'imgfolder/slide11.png' %}" alt=""><p></p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">Heltmann Kraft <br>Reiniger<br> средство для<br> снятия накипи</p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text">Astonish Grease <br>Lifter<br> средство для <br>чистки духовки<br> и гриля</p></div>
+          <div class="slide-img"><img  src="{% static 'imgfolder/slide11.png' %}" alt=""><p class="slide-text"> Pieras Propolinse <br>Gold<br> ополаскиватель<br> для полости рта</p></div>
         </div>
       
   <div class="dots">
@@ -358,9 +678,150 @@
           <span class="dot" data-index="2"></span>
         </div>
       </div>
-    </div>-->
+    </div>
   </div>
-  <div ></div>
+  <div class="card-sections">
+    <div class="section"><button class="text-section-2"><p >Перейти к разделу</p></button><p class="text-section">Уборка офисов, помещений <br>и медицинских учреждений</p><img class="section-img" src="{% static 'imgfolder/section1.png' %}" alt=""></div>
+    <div class="section"><button class="text-section-2"><p >Перейти к разделу</p></button><p class="text-section">Уборка частных домов <br>и коттеджей</p><img class="section-img" src="{% static 'imgfolder/section2.png' %}" alt=""></div>
+    <div class="section"><button class="text-section-2"><p >Перейти к разделу</p></button><p class="text-section">Товары бытовой <br>и профессиональной химии</p></div>
+  </div>
+  <div class="inf-cards">
+    <div style="position: absolute;"><p style="font-family: 'Muller-Medium';font-weight: 500;font-size: 32px;line-height: 100%;color: rgba(0, 0, 0, 1);">Мой Додыр<br>это про:</p></div>
+    <div class="inf-card" style="position: absolute;right: 547px;top: 67px;background: radial-gradient(50% 50% at 50% 50%, #4700BA 0%, #2D008E 100%);"><p class="text-inf">Широкий ассортимент</p><p class="text-inf-2">Мы предлагаем уникальные <br>товары для уборки, стирки и<br> чистки из разных уголков мира.<br> В наличии продукция из<br> Германии, Финляндии, Испании,<br> Великобритании, Израиля.</p></div>
+    <div class="inf-card" style="position: absolute;right: 62px;top: 17px;background-color: rgba(250, 214, 86, 1)"><p class="text-inf">Высокое качество продукции</p><p class="text-inf-2">Почти весь ассортимент произведён<br> за рубежом для внутреннего рынка,<br> что гарантирует экологическую<br> чистоту, эффективность и<br> соответствие строгим стандартам.</p></div>
+    <div class="inf-card" style="position: absolute;right: 547px;top: 420px;background-color: rgba(250, 214, 86, 1)"><p class="text-inf">Лидерство и доверие</p><p class="text-inf-2">Магазин "МойДодыр"<br> зарекомендовал себя как эксперт <br>в сфере бытовой химии.<br> Мы понимаем потребности наших<br> клиентов и предлагаем только <br>лучшие товары и решения.</p></div>
+    <div class="inf-card" style="position: absolute;right: 62px;top: 370px;background: radial-gradient(50% 50% at 50% 50%, #4700BA 0%, #2D008E 100%);"><p class="text-inf">Индивидуальный подход</p><p class="text-inf-2">В отличие от однообразных <br>маркетплейсов, мы предоставляем каждому клиенту персональное<br> обслуживание и с удовольствием<br> ответим на любые ваши вопросы</p></div>
+
+  </div>
+  <div class="text">
+    <div style="width: 332px;height: 32px;position: absolute;left: 0;top: 108px;"><p style=" font-family: 'Muller-Medium';font-size: 32px;font-weight: 500;line-height: 100%;">Мы гордимся</p></div>
+    <div style="width: 757px;height: 153px;position: absolute;left: 443px;top: 110px;display: flex;flex-direction: column;justify-content: space-between;"><p style=" font-family: 'Muller-Medium';font-size: 22px;font-weight: 500;line-height: 100%;">Мы гордимся тем, что являемся лидером на рынке импортной бытовой химии в г. Перми!</p><p style=" font-family: 'inter-regular';font-size: 22px;font-weight: 400;line-height: 100%;">Уникальный ассортимент, высокий уровень обслуживания и преданность качеству позволили нам заслужить репутацию лучшего магазина по продаже импортной бытовой химии в городе</p></div>
+    <div style="width: 360px;height: 64px;position: absolute;left: 0;top: 354px;"><p style=" font-family: 'Muller-Medium';font-size: 32px;font-weight: 500;line-height: 100%;">Почему стоит выбрать нас?</p></div>
+    <div style="width: 757px;height: 198px;position: absolute;left: 443px;top: 364px;"><p style=" font-family: 'Muller-Medium';font-size: 22px;font-weight: 500;line-height: 100%;">Более 20 лет безупречной репутации</p><p style=" font-family: 'inter-regular';font-size: 22px;font-weight: 400;line-height: 100%;">Мы работаем на базе розничного магазина с уникальным ассортиментом и гордимся доверием наших клиентов</p><p style=" font-family: 'Muller-Medium';font-size: 22px;font-weight: 500;line-height: 100%;">Большой выбор и качество обслуживания</p><p style=" font-family: 'inter-regular';font-size: 22px;font-weight: 400;line-height: 100%;">У нас есть всё для решения задач по стирке и уборке, а индивидуальный подход к каждому клиенту приятно удивит вас.</p></div>
+  </div>
+  <div class="info">
+    <div style="display: flex;flex-direction: row;align-items: center; position: absolute;left: 115px;top: 50px;"><p style=" font-family: 'SGB';font-size: 96px;font-weight: 700;line-height: 100%;color: rgba(250, 214, 86, 1);">мой </p><p class="gradient-text">додыр </p></div>
+    <div><img style="position: absolute;left: 0;bottom: 0;width:671px ;height: 600px;" src="{% static 'imgfolder/planet.png' %}" alt=""></div>
+    <div><p style="font-family: 'Muller-Regular';font-size: 18px;font-weight: 400;line-height: 100%;color: rgba(210, 216, 252, 1);position: absolute;right: 96px;top: 96px;">Мы предлагаем уникальные товары для уборки, стирки и чистки из<br> разных уголков мира. В наличии продукция из Германии, Финляндии,<br> Италии, Испании, Великобритании, Израиля, Японии и Южной Кореи.</p></div>
+    <div style="position: absolute;left: 682px;top: 223px;width: 133px;height: 121px;"><p class="big-info" >+50</p><p class="small-info">отечественных и зарубежных поставщиков</p></div>
+    <div style="position: absolute;left: 918px;top: 223px;width: 332px;height: 139px;"><p class="big-info" >с 1996 </p><p class="small-info">года налажены прочные и деловые отношения со многими ведущими отечественными и зарубежными фирмами-производителями </p></div>
+    <div style="position: absolute;left: 682px;top: 438px;width: 210px;height: 121px;"><p class="big-info" >№ 1</p><p class="small-info">лидер на рынке импортной бытовой химии по городу Перми</p></div>
+    <div style="position: absolute;left: 918px;top: 438px; width: 398px;height: 139px;"><p class="big-info" >с 2003</p><p class="small-info">году в Перми открылся специализированный магазин бытовой химии "МойДодыр", который с первых дней завоевал довериеи признание покупателей</p></div>
+  </div>
+
+<section class="contacts-wrapper">
+  <div class="contacts">
+    <div class="contacts__title">Контакты</div>
+    <div class="contacts__info">
+      <div class="contacts__item">пн–пт 11:00–20:00</div>
+      <div class="contacts__item">сб–вс 12:00–19:00</div>
+      <div class="contacts__item">Луначарского, 51</div>
+    </div>
+  </div>
+  <hr class="contacts__divider">
+</section>
+
+
+
+
+  <div class="contacts-section">
+  <div class="contacts-grid">
+    <div class="contacts-card">
+      <div class="contacts-title">Расположение</div>
+      <div class="contacts-body">
+        Луначарского, 51<br>
+        <div class="contacts-note">Доставка во все районы города</div>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Будни</div>
+      <div class="contacts-body">
+        пн–пт 11:00–20:00 <br>
+        <div class="contacts-note">Режим работы в рабочие дни</div>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Контактная информация</div>
+      <div class="contacts-body">
+        <a class="contacts-body" href="tel:+7(342)214-46-97">+7 (342) 214-46-97</a>
+        <div class="contacts-note">Приём звонков: с 8:00–22:00</div>
+      </div>
+    </div>
+    <div class="contacts-card">
+      <div class="contacts-title">Выходные</div>
+      <div class="contacts-body">
+        
+        
+
+
+        <div class="contacts-body">
+        сб-вс 12:00–19:00<br>
+        <div class="contacts-note">Режим работы в выходные</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="width: 1400px;height: 142px;margin-top: 127px;margin-bottom: 175px;">
+  <div><p style="font-family: 'Muller-Medium';font-size: 32px;font-weight: 500;line-height: 100%;color: rgba(0, 0, 0, 1);">Обсудить проект</p></div>
+  <div><p style="font-family: 'inter-regular';font-weight: 400;font-size: 18px;line-height: 100%;letter-spacing: 0%;" >выберите тип проекта</p></div>
+  <div><p style="font-family: 'inter-regular';font-weight: 400;font-size: 24px;line-height: 100%;letter-spacing: 0%;">Уборка офисов, помещений и медицинских учреждений</p>
+       <img  src="{% static 'imgfolder/i.png' %}" ><img  src="{% static 'imgfolder/Arrow.png' %}" >
+       <p style="font-family: 'inter-regular';font-weight: 400;font-size: 24px;line-height: 100%;letter-spacing: 0%;">Уборка частных домов и коттеджей</p>
+       <img  src="{% static 'imgfolder/i.png' %}" ><img  src="{% static 'imgfolder/Arrow.png' %}" ></div>
+</div>
+
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <nav class="footer-menu">
+      <a href="#">Деятельность</a>
+      <a href="#">клининг</a>
+      <a href="#">Продукция</a>
+      <a href="#">Вопросы-ответы</a>
+      <a href="#">Контакты</a>
+    </nav>
+    <nav class="footer-menu">
+      <a href="malito:moydodyr1@perm.raid.ru">moydodyr1@perm.raid.ru</a>
+      <a href="tel:+7(342)214-46-97">(342) 214-46-97</a>
+    </nav>
+    <div class="footer-info-block">
+      
+    </div>
+  </div>
+  <div style="height: 30px;"></div>
+  <div style="display: flex; justify-content: center;">
+      <div class="footer-group" style="width: 1400px; display: flex;justify-content: space-between;padding-right: 120px; ">
+           <div><img  src="{% static 'imgfolder/мой додыр.png' %}" alt="" style="height: 62px; width: 318px; "></div>
+        <div style="display: flex; align-items: end;">
+                    
+                    <div style="display: flex;flex-direction: column;color: rgba(0, 0, 0, 0.6);text-decoration: none;">
+                      <a style="color: inherit;color: rgba(0, 0, 0, 0.7);text-decoration: none; border-bottom: 30px;" href="#">Информация</a>
+                    <div style="height: 36px;"></div>
+                      <a style="color: inherit;text-decoration: none;" href="#">Политика конфиденциальности</a>
+                      <a style="margin-top: 20px; margin-bottom: 20px;color: inherit; text-decoration: none;" href="#">Пользовательское соглашение</a>
+                      <a style="color: inherit;text-decoration: none;" href="#">Политика использования Cookies</a>
+                    </div>
+                    <div style="margin-left: 37px;">
+                    <a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="#">Сообщить об ошибке</a>
+                    <div style="height: 18px;"></div>
+                    <div style="display: flex;">
+                      
+                      
+                    <span style="color: rgba(0, 0, 0, 0.6); font-family: 'Muller-light';"> 2024 Мой Додыр. Все права сайта защищены</span>
+                    </div>
+                    </div>
+                    </div>
+      </div>
+    </div>
+
+</footer>
+      <div style="height: 40px"></div>
+  </div>
+  </div>
+
 </div>
 
 
