@@ -1,0 +1,21 @@
+.stats-section {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  width: 1200px;
+  margin: 0 auto 48px auto;
+
+  padding: 48px 0;
+}
+
+.stats-card {
+  width: 367px;
+  height: 454px;
+
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(51,51,51,.06);
+  overflow: visible;
+  position: relative;
+  
+  
+}
