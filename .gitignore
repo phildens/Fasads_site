@@ -15,7 +15,7 @@ Icon
 static
 # Thumbnails
 ._*
-FasadSiteDjango/shop_part/migrations/__pycache__
+shop_part/migrations/__pycache__
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
