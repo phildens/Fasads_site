@@ -21,5 +21,42 @@
 }
 
 .info_holder {
-    max-width: 1200px;
+    
+    
+   
+}
+
+.feature-grid {
+      width: 1200px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid #ddd;       /* общая рамка вокруг всех колонок */
+      
+    }
+
+.feature-grid .column {
+    padding: 20px;
+    border-right: 1px solid #ddd; /* разделители между колонками */
+    border-bottom: 1px solid #ddd;/* если будут строки ниже */
+}
+.feature-grid .column:last-child {
+    border-right: none;           /* у последней колонки убрать правую границу */
+}
+
+/* Примеры подсветки: */
+.highlight-left   { border-left: 4px solid #2a9df4; }
+.highlight-right  { border-right: 4px solid #e94e77; }
+.highlight-top    { border-top: 4px solid #8ac926; }
+.highlight-bottom { border-bottom: 4px solid #ffb703; }
+
+/* Заголовки и текст внутри */
+.column h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+.column p {
+    margin: 8px 0 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
 }
