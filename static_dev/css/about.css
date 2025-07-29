@@ -30,36 +30,53 @@
       width: 1200px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      border: 1px solid #ddd;       /* общая рамка вокруг всех колонок */
-      
+
     }
 
-.feature-grid .column {
-    padding: 20px;
-    border-right: 1px solid #ddd; /* разделители между колонками */
-    border-bottom: 1px solid #ddd;/* если будут строки ниже */
-}
-.feature-grid .column:last-child {
-    border-right: none;           /* у последней колонки убрать правую границу */
-}
+
+/*.feature-grid .column:last-child {*/
+/*    border-right: none;           !* у последней колонки убрать правую границу *!*/
+/*}*/
 
 /* Примеры подсветки: */
-.highlight-left   { border-left: 4px solid #2a9df4; }
-.highlight-right  { border-right: 4px solid #e94e77; }
-.highlight-top    { border-top: 4px solid #8ac926; }
-.highlight-bottom { border-bottom: 4px solid #ffb703; }
+.highlight-left   { border-left: 1px solid #626262; }
+.highlight-right  { border-right: 1px solid #626262; }
+.highlight-top    { border-top: 1px solid #626262; }
+.highlight-bottom { border-bottom: 1px solid #626262; }
 
 /* Заголовки и текст внутри */
 .column h3 {
+    font-family: Muller-medium;
     margin-top: 0;
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: 500;
+    color: #422223;
+    width: 228px;
 }
 .column{
     height: 354px;
 }
+.column.small {
+    height: 258px;
+}
+.descript {
+     display: flex;
+
+  flex-direction: column;
+  justify-content: space-between; /* раздвигаем элементы по высоте контейнера */
+  padding-bottom: 44px;
+}
 .column p {
-    margin: 8px 0 0;
-    font-size: 14px;
-    line-height: 1.4;
+    font-family: Muller-regular;
+    line-height: 100%;
+    font-weight: 400;
+
+    letter-spacing: 0;
+    font-size: 20px;
     color: #555;
+    opacity: 60%;
+}
+
+.halfm * {
+    margin-left: 31px;
 }
