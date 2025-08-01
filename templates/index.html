@@ -770,20 +770,19 @@ body {
   margin-bottom: 6px;
 
 }
-.contacts-link, .contacts-link:visited {
-  color:rgba(0, 0, 0, 1);
-  font-family: 'head2';
+.contacts-link {
+  color:rgba(210, 21, 21, 1);
+  font-family: 'Muller-light';
   font-size: 20px;
   font-weight: 300;
 }
-.contacts-link:hover {
-  color: #d35400;
-  text-decoration: underline;
-}
+
+
 .contacts-note {
-  color: #e15a6a;
-  font-size: 0.97rem;
+  color:rgba(210, 21, 21, 1);
+  font-size: 20px;
   margin-top: 4px;
+  font-family: 'Muller-light';
 }
 
 
@@ -855,7 +854,7 @@ body {
 }
 .footer-top .footer-info .footer-info-sub {
   color: #b4b4b4;
-  font-family: Muller-light;
+  font-family: 'Muller-light';
   font-size: 13px;
   margin-top: 2px;
 }
@@ -900,7 +899,29 @@ body {
   font-size: 13px;
   color: #b0b0b0;
 }
+.call{
+  position: relative;
+}
+::placeholder {
+  position: absolute;
+  left: 22px;
+  top: 32px;
+  font-family: 'head2';
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+}
+textarea::placeholder{
+  position: absolute;
+  left: 37px;
+  top: 137px;
+  font-family: 'head2';
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+}
 .callback-form-section {
+  position: relative;
   max-width: 1440px;
   min-height: 800px;
   margin: 36px auto 44px auto;
@@ -913,30 +934,36 @@ body {
 }
 
 .callback-form-title {
+  position: absolute;
+  left: 139px;
+  top:138px ;
   font-family: 'namu';
   font-size: 28px;
   font-weight: 300;
   color: rgba(0, 0, 0, 1);
-  margin-bottom: 10px;
+  
   text-align: left;
   letter-spacing: 0;
   line-height: 100%;
 }
 .callback-form-subtitle {
+  position: absolute;
+  left: 136px;
+  top: 211px;
   font-family: 'head2';
   color: rgba(129, 129, 129, 1);
   font-size: 20px;
   font-weight: 400;
-  margin: 40px;
-  margin-bottom: 38px;
-  margin-left: 50px;
-  max-width: 480px;
+  
+  width: 480px;
   line-height: 100%;
 }
 .callback-form-row {
   display: flex;
   gap: 48px;
-  margin-bottom: 22px;
+  position: absolute;
+  left: 135px;
+  top: 387px;
 }
 .callback-form-fields {
   flex: 2;
@@ -951,13 +978,13 @@ body {
 .callback-form-fields-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 22px 26px;
+  gap: 36px 66px;
   margin-bottom: 18px;
 }
 .callback-form-fields input {
-  width: 100%;
-  max-width: 300px;
-  min-height: 74px;
+  
+  width: 300px;
+  height: 74px;
   
   border: 1.5px solid #e4e4e4;
   border-radius: 8px;
@@ -972,9 +999,9 @@ body {
   border: 1.5px solid #a4cc6a;
 }
 .callback-form-fields textarea {
-  width: 100%;
-  min-width: 455px;
-  max-height: 188px;
+  
+  width: 455px;
+  height: 188px;
   
   border: 1.5px solid #e4e4e4;
   border-radius: 8px;
@@ -986,6 +1013,7 @@ body {
 }
 .callback-form-info {
   flex: 1;
+  height: 188px;
 }
 .callback-form-info label {
   font-size: 1.07rem;
@@ -995,9 +1023,9 @@ body {
   display: block;
 }
 .callback-form-info textarea {
-  width: 100%;
-  min-height: 170px;
-  min-width: 455px;
+  
+  height: 188px;
+  width: 455px;
   border: 1.5px solid #e4e4e4;
   border-radius: 8px;
   font-size: 1.05rem;
@@ -1014,16 +1042,21 @@ body {
 .callback-form-bottom {
   display: flex;
   align-items: center;
-  margin-top: 16px;
-  gap: 22px;
+  position: absolute;
+  left: 136px;
+  top: 672px;
+  gap: 556px;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 .callback-form-note {
-  color: #666;
-  font-size: 0.96rem;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "head2";
   margin-left: 2px;
   display: flex;
+  line-height: 100%;
   align-items: flex-start;
   gap: 8px;
   max-width: 520px;
@@ -1086,7 +1119,7 @@ body {
   
 }
 .footer-group a {
-  font-family: Muller-light;
+  font-family: 'Muller-light';
 
 }
 
@@ -1172,7 +1205,7 @@ body {
             <img src="{% static 'imgfolder/logo.svg' %}" alt="">
           </div>
           <li><a href="#" class="na-link">Продукция</a></li>
-          <li><a href="#" class="na-link">Галерея</a></li>
+          <li><a href="{% url 'galery' %}?galery_name=galery" class="na-link">Галерея</a></li>
           <li><a href="#" class="na-link">Вопросы-ответы</a></li>
           <li><a href="#" class="na-link">Контакты</a></li>
           <li><a href="tel:+7(951)940-12-49" class="na-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
@@ -1293,7 +1326,7 @@ body {
       <div class="footer-cards-row">
         <div class="footer-card">
           <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
-          <img src="{% static 'imgfolder/f7.png' %}" alt="Архитектурные фасадные декоры" style="height: 317px;">
+          <img src="{% static 'imgfolder/f7.png' %}" alt="Архитектурные фасадные декоры" style="height: 237px;">
           <a class="footer-card-link" href="#">Перейти к разделу</a>
         </div>
         <div class="footer-card">
@@ -1707,32 +1740,49 @@ body {
     </div>
   </div>
 </div>
+<div style="width: 1200px;height: 700px;margin: 36px auto 44px auto;">
+    <p>Статьи</p>
+    </div>
 <div class="callback-form-section" id="callback-form" >
+  <p style="position: absolute;left: 135px;top: 94px;font-family: 'head2';font-size: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.7);">Оставить заявку</p>
   <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
   <div class="callback-form-subtitle">
     Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре.<br>
     Наши специалисты найдут решение даже для самых смелых архитектурных решений
   </div>
+
+
+
   <form>
     <div class="callback-form-row">
       <div class="callback-form-fields">
-        <label>Сведения о заявителе</label>
+        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения о заявителе</label>
         <div class="callback-form-fields-grid">
-          <input type="text" placeholder="Имя" name="name" required>
+          <input type="text" class="call" placeholder="Имя" name="name" required>
           <input type="email" placeholder="Email" name="email" required>
           <input type="text" placeholder="Фамилия" name="surname">
           <input type="text" placeholder="Телефон" name="phone" required>
         </div>
       </div>
+
+
+
+
       <div class="callback-form-info">
-        <label>Информация о проекте</label>
+        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Информация о проекте</label>
         <textarea placeholder="Краткое описание" name="about"></textarea>
       </div>
     </div>
+
+    
+
+
+
+
     <div class="callback-form-bottom">
       <div class="callback-form-note">
         <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
-        Мы гарантируем полное соблюдение ваших интеллектуальных прав на разработку и конфиденциальности предоставленной информации.
+        Мы гарантируем полное соблюдение ваших <br>интеллектуальных прав на разработку<br> и конфиденциальности предоставленной информации.
       </div>
       <button type="submit" class="callback-form-btn">Оставить заявку</button>
     </div>
@@ -1760,20 +1810,19 @@ body {
     <div class="contacts-card">
       <div class="contacts-title">Контактная информация</div>
       <div class="contacts-body">
-        <a class="contacts-link" href="tel:+79519401249">+7 (951) 940-12-49</a>
+        <a style="text-decoration: none;color: inherit;" href="tel:+79519401249">+7 (951) 940-12-49</a>
         <div class="contacts-note">Приём звонков: с 9:00–18:00</div>
       </div>
     </div>
     <div class="contacts-card">
       <div class="contacts-title">Карта с указанием адреса офиса</div>
       <div class="contacts-body">
+        2ГИС<br>        
         
-        
-        
-    </div>
+    
 
 
-        <a class="contacts-link" href="https://go.2gis.com/CIzER" target="_blank">Как до нас добраться</a>
+        <a class="contacts-link" style="text-decoration: none;" href="https://go.2gis.com/CIzER" target="_blank">Как до нас добраться</a>
       </div>
     </div>
   </div>

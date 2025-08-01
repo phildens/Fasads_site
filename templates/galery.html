@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %} {# а не {% статическая нагрузка %} #}
+
+{% block title %}Галерея{% endblock %}
+
+{% block content %}
+  <h1>Галерея</h1>
+  <div class="gallery">
+    {% for img in images %}
+      <img src="{% static img.url %}" alt="{{ img.alt }}">
+    {% empty %}
+      <p>Изображения отсутствуют.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

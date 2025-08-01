@@ -27,6 +27,7 @@ urlpatterns = [
     path('about', views.about, name='about'),
     path('product', views.products),
     path('products/', ProductListView.as_view(), name='products'),
+    path('galery/', views.galery, name='galery'),
     
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:

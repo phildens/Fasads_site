@@ -2,7 +2,7 @@ from django.shortcuts import render
 from shop_part.models import Product
 from shop_part.serializers import ProductSerializer, ProductInCatSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
-from shop_part.models import Category, Product, TypeMaterial, Questions
+from shop_part.models import Category, Product, TypeMaterial, Questions, Galery
 
 
 # Create your views here.
@@ -17,6 +17,11 @@ def index(request):
 
 def products(request):
     return render(request, 'category.html')
+
+def galery(request):
+    
+    
+    return render(request, 'galery.html')
 
 
 def category(request):
