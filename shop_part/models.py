@@ -120,3 +120,26 @@ class Questions(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class BigGalery(models.Model):
+    position = models.IntegerField(default=0, help_text='Позиция в списке', verbose_name='позиция в списке')
+    name = models.CharField(max_length=100, help_text="Имя объекта", verbose_name="имя(текст на картинке)")
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Товар отображаемый при наведении на точку")
+    card_image = models.ImageField(null=True, blank=True, help_text="Изображение в галерее", verbose_name='Фото карточки объекта в общем списке')
+
+    class Meta:
+        verbose_name = "Галерея объектов"
+        verbose_name_plural = "Галерея объектов"
+
+    def __str__(self):
+        return self.name
+
+class SmallGallery(models.Model):
+    image = models.ImageField(verbose_name='Фото объекта')
+    object = models.ForeignKey(BigGalery, on_delete=models.CASCADE, related_name='images')
+
+    class Meta:
+        verbose_name='Фото объекта при открытии'
+        verbose_name_plural=('Фото объекта при открытии')
+
