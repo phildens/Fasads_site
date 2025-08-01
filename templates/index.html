@@ -1171,7 +1171,7 @@ body {
           <li><a href="#" class="nav-link">Продукция</a></li>
           <li><a href="#" class="nav-link">Галерея</a></li>
           <li><a href="#" class="nav-link">Вопросы-ответы</a></li>
-          <li><a href="#" class="nav-link">Контакты</a></li>
+          <li><a href="{% url 'about' %}" class="nav-link">Контакты</a></li>
           <li><a href="tel:+7(951)940-12-49" class="nav-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
           <li><a href="mailto:evrokrovliof@mail.ru" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
           <li><img src="{%static 'imgfolder/bol.svg'%}" alt=""></li>
@@ -1795,7 +1795,7 @@ body {
       <a href="#">Продукция</a>
       <a href="#">Галерея</a>
       <a href="#">Вопросы-ответы</a>
-      <a href="#">Контакты</a>
+      <a href="{% url 'cats' %}">Контакты</a>
     </nav>
     <div class="footer-info-block">
       <div class="footer-info">
