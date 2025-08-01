@@ -1171,12 +1171,14 @@ body {
           <div class="logo img">
             <img src="{% static 'imgfolder/logo.svg' %}" alt="">
           </div>
-          <li><a href="#" class="na-link">Продукция</a></li>
-          <li><a href="#" class="na-link">Галерея</a></li>
-          <li><a href="#" class="na-link">Вопросы-ответы</a></li>
-          <li><a href="#" class="na-link">Контакты</a></li>
-          <li><a href="tel:+7(951)940-12-49" class="na-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
-          <li><a href="mailto:evrokrovliof@mail.ru" class="na-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
+
+          <li><a href="#" class="nav-link">Продукция</a></li>
+          <li><a href="#" class="nav-link">Галерея</a></li>
+          <li><a href="#" class="nav-link">Вопросы-ответы</a></li>
+          <li><a href="{% url 'about' %}" class="nav-link">Контакты</a></li>
+          <li><a href="tel:+7(951)940-12-49" class="nav-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
+          <li><a href="mailto:evrokrovliof@mail.ru" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
+
           <li><img src="{%static 'imgfolder/bol.svg'%}" alt=""></li>
           <li class="na-link">
             <button class="menu-toggle" id="menuToggle">
@@ -1784,8 +1786,10 @@ body {
       <a href="#">Продукция</a>
       <a href="#">Галерея</a>
       <a href="#">Вопросы-ответы</a>
-      <a href="#">Контакты</a>
-    </na>
+
+      <a href="{% url 'about' %}">Контакты</a>
+    </nav>
+
     <div class="footer-info-block">
       <div class="footer-info">
         <div class="footer-info-title"> <p>Пермь, Газеты Звезда 13, 4 этаж</p></div>
