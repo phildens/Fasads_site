@@ -1,15 +1,264 @@
 {% extends "base.html" %}
-{% load static %} {# а не {% статическая нагрузка %} #}
+{% load static %}
 
-{% block title %}Галерея{% endblock %}
+{% block title %}Галерея объектов{% endblock %}
 
 {% block content %}
-  <h1>Галерея</h1>
-  <div class="gallery">
-    {% for img in images %}
-      <img src="{% static img.url %}" alt="{{ img.alt }}">
+  <div class="gallery-grid">
+    {% for item in items %}
+      <div class="gallery-card" data-id="{{ item.id }}">
+        {# карточка в списке #}
+        {% if item.card_image %}
+          <img src="{{ item.card_image.url }}"
+               alt="{{ item.name }}"
+               class="card-thumb">
+        {% endif %}
+        <div class="card-title">{{ item.name }}</div>
+
+        {# точка, при клике на которую показывается подсказка #}
+        <span class="card-dot" data-id="{{ item.id }}"></span>
+        {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
+        <div class="card-tooltip" id="tooltip-{{ item.id }}"><p style="display: flex;align-items: center; width: 98px;height: 89px;">{{ item.product }}</p></div>
+
+        {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
+        <div class="modal" id="modal-{{ item.id }}">
+          <div class="modal-content">
+            <span class="close" data-id="{{ item.id }}">&times;</span>
+
+            <!-- контейнер слайдов -->
+            <div class="slides-container" data-id="{{ item.id }}">
+              {% for slide in item.images.all %}
+                <div class="slide">
+                  <img src="{{ slide.image.url }}" alt="{{ item.name }}">
+                </div>
+              {% endfor %}
+            </div>
+
+            
+
+            <!-- точки -->
+            <div class="dots" data-id="{{ item.id }}">
+              {% for slide in item.images.all %}
+                <span class="dot" data-id="{{ item.id }}" data-index="{{ forloop.counter0 }}"></span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {# --- /МОДАЛКА --- #}
+
+      </div>
     {% empty %}
-      <p>Изображения отсутствуют.</p>
+      <p>Галерея пуста.</p>
     {% endfor %}
   </div>
+
+  <script>
+    const slideIndices = {};
+    const autoTimers = {};
+
+    // Открытие модалки при клике на карточку
+    document.querySelectorAll('.card-thumb').forEach(img => {
+      img.addEventListener('click', e => {
+        const id = e.target.closest('.gallery-card').dataset.id;
+        openSlider(id);
+      });
+    });
+
+    // Закрытие модалки по кнопке
+    document.querySelectorAll('.close').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.dataset.id));
+    });
+    // Закрытие по клику на фон
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal(modal.id.replace('modal-',''));
+      });
+    });
+
+    // показываем/скрываем подсказку при клике на точку
+    document.querySelectorAll('.card-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const id = dot.dataset.id;
+        const tip = document.getElementById(`tooltip-${id}`);
+        tip.style.display = tip.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    function openSlider(id) {
+      const modal = document.getElementById(`modal-${id}`);
+      modal.style.display = 'flex';
+      slideIndices[id] = 0;
+      showSlide(id, 0);
+      modal.querySelector(`.prev[data-id="${id}"]`).onclick = () => plusSlide(id, -1);
+      modal.querySelector(`.next[data-id="${id}"]`).onclick = () => plusSlide(id, 1);
+      modal.querySelectorAll(`.dot[data-id="${id}"]`).forEach(dot => {
+        dot.onclick = () => showSlide(id, +dot.dataset.index);
+      });
+      clearInterval(autoTimers[id]);
+      autoTimers[id] = setInterval(() => plusSlide(id, 1), 5000);
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(`modal-${id}`);
+      modal.style.display = 'none';
+      clearInterval(autoTimers[id]);
+    }
+
+    function plusSlide(id, delta) {
+      const slides = document.querySelectorAll(`#modal-${id} .slide`);
+      let idx = slideIndices[id] + delta;
+      if (idx < 0) idx = slides.length - 1;
+      if (idx >= slides.length) idx = 0;
+      showSlide(id, idx);
+    }
+
+    function showSlide(id, n) {
+      const slides = document.querySelectorAll(`#modal-${id} .slide`);
+      const dots = document.querySelectorAll(`#modal-${id} .dot`);
+      slides.forEach((s, i) => s.classList.toggle('active', i === n));
+      dots.forEach((d, i) => d.classList.toggle('active', i === n));
+      slideIndices[id] = n;
+    }
+  </script>
+
+  <style>
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width:900px) { .gallery-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:600px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    .gallery-card {
+      width: 370px;
+      height: 454px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .card-thumb { width: 100%; }
+    .card-title {
+      position: absolute;
+      bottom: 36px;
+      left: 25px;
+      color: rgba(255,255,255,1);
+      font-size:24px;
+      line-height:100%;
+      font-weight:500;
+      font-family:'head';
+      width:270px;
+    }
+
+    /* точка */
+    .card-dot {
+      position: absolute;
+      top: 47%;
+      left: 40%;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+    /* подсказка */
+    .card-tooltip {
+      display: none;
+      position: absolute;
+      top: 26%;
+      left: 24%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      
+      border-radius: 4px;
+      color: rgba(0, 0, 0, 1);
+      font-size: 16px;
+      width: 98px;
+      height: 89px;
+      line-height: 100%;
+      text-align: center;
+      vertical-align: middle;
+      font-family: 'head';
+      box-shadow: 5px 10px 10px 0px rgba(0, 0, 0, 0.5);
+
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      position: relative;
+      max-width: 667px;
+      max-height: 818px;
+      overflow: hidden;
+    }
+
+    .slides-container {
+      display: flex;
+      width: 100%;
+      transition: transform 0.5s ease;
+    }
+    .slide {
+      flex: 0 0 100%;
+      display: block;
+    }
+    .slide img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: rgba(247,247,247,1);
+      padding: 0 .5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .prev { left: 10px; } .next { right: 10px; }
+
+    .dots {
+      position: absolute;
+      left: 46%;
+      bottom: 5%;
+      text-align: center;
+    }
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 4px;
+      background: rgba(247,247,247,1);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .dot.active { background: rgba(217,217,217,0.67); }
+
+    .close {
+      position: absolute;
+      top: 37px;
+      right: 48px;
+      font-size: 2rem;
+      color: #fff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(0,0,0,0.4);
+    }
+  </style>
 {% endblock %}

@@ -3,32 +3,42 @@ URL configuration for FasadSiteDjango project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
-from shop_part.views import ProductListView
-from shop_part import views
 from django.conf import settings
 from django.conf.urls.static import static
+
+from shop_part import views
+from shop_part.views import ProductListView
+
 urlpatterns = [
+    # Админка
     path('admin/', admin.site.urls),
-    path('',  views.index, name='home'),
+
+    # Главная страница
+    path('', views.index, name='home'),
+
+    # Страница категорий (рендерит category.html)
     path('categories', views.category, name='cats'),
+
+    # Страница «О нас»
     path('about', views.about, name='about'),
-    path('product', views.products),
-    path('products/', ProductListView.as_view(), name='products'),
+
+    # Страница одного продукта (рендерит category.html, если надо)
+    path('product', views.products, name='product_detail'),
+
+    # DRF API: список продуктов в JSON
+    path('products/', ProductListView.as_view(), name='products_api'),
+
+    # Страница галереи объектов
     path('galery/', views.galery, name='galery'),
-    
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+# Статика (CSS, JS, шрифты) — отдаётся через STATIC_URL
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Медиа (загруженные изображения) — работает только при DEBUG=True
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
