@@ -16,9 +16,10 @@
         <div class="card-title">{{ item.name }}</div>
 
         {# точка, при клике на которую показывается подсказка #}
+        
         <span class="card-dot" data-id="{{ item.id }}"></span>
         {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
-        <div class="card-tooltip" id="tooltip-{{ item.id }}"><p style="display: flex;align-items: center; width: 98px;height: 89px;">{{ item.product }}</p></div>
+        <div  class="card-tooltip" id="tooltip-{{ item.id }}"><p style="display: flex;align-items: center; width: 98px;height: 89px;">{{ item.product }}</p></div>
 
         {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
         <div class="modal" id="modal-{{ item.id }}">
@@ -56,6 +57,10 @@
     const slideIndices = {};
   const autoTimers = {};
 
+
+
+
+
   // Открытие модалки при клике на карточку
   document.querySelectorAll('.card-thumb').forEach(img => {
     img.addEventListener('click', e => {
@@ -76,12 +81,50 @@
   });
   // Показываем/скрываем подсказку при клике на точку
   document.querySelectorAll('.card-dot').forEach(dot => {
-    dot.addEventListener('click', () => {
-      const id = dot.dataset.id;
-      const tip = document.getElementById(`tooltip-${id}`);
-      tip.style.display = tip.style.display === 'block' ? 'none' : 'block';
-    });
+  const id = dot.dataset.id;
+  const tip = document.getElementById(`tooltip-${id}`);
+  let pinned = false;
+
+  // Наведение — показываем, если не закреплено
+  dot.addEventListener('mouseenter', () => {
+    if (!pinned) {
+      tip.classList.add('visible');
+    }
   });
+
+  // Уход мышки — скрываем, если не закреплено
+  dot.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+      if (!pinned && !tip.matches(':hover')) {
+        tip.classList.remove('visible');
+      }
+    }, 150);
+  });
+
+  // Клик — переключает закрепление
+  dot.addEventListener('click', () => {
+    pinned = !pinned;
+    if (pinned) {
+      tip.classList.add('visible');
+    } else {
+      tip.classList.remove('visible');
+    }
+  });
+
+  // Если мышка ушла с самой подсказки — скрываем, если не закреплено
+  tip.addEventListener('mouseleave', () => {
+    if (!pinned) {
+      tip.classList.remove('visible');
+    }
+  });
+
+  // Навёлся на подсказку — оставляем открытой
+  tip.addEventListener('mouseenter', () => {
+    tip.classList.add('visible');
+  });
+});
+
+
 
   function openSlider(id) {
     const modal = document.getElementById(`modal-${id}`);
@@ -153,6 +196,8 @@
       font-weight:500;
       font-family:'head';
       width:270px;
+      overflow: hidden;
+      text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
     }
 
     /* точка */
@@ -169,25 +214,32 @@
     }
     /* подсказка */
     .card-tooltip {
-      display: none;
-      position: absolute;
-      top: 26%;
-      left: 24%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
-      
-      border-radius: 4px;
-      color: rgba(0, 0, 0, 1);
-      font-size: 16px;
-      width: 98px;
-      height: 89px;
-      line-height: 100%;
-      text-align: center;
-      vertical-align: middle;
-      font-family: 'head';
-      box-shadow: 5px 10px 10px 0px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  top: 26%;
+  left: 24%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.9);
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 1);
+  font-size: 16px;
+  width: 98px;
+  height: 89px;
+  line-height: 100%;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'head';
+  text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* чтобы не мигало при исчезновении */
+}
 
-    }
+.card-tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
     .modal {
       display: none;
@@ -214,7 +266,7 @@
       display: block;
     }
     .slide img {
-      width: 100%;
+      width: 105%;
       height: auto;
       border-radius: 8px;
     }
@@ -254,13 +306,19 @@
       right: 48px;
       font-size: 2rem;
       color: #fff;
-      border-radius: 50%;
+      z-index: 3;
       width: 30px;
       height: 30px;
       line-height: 30px;
       text-align: center;
       cursor: pointer;
-      background: rgba(0,0,0,0.4);
+      
     }
+
+
+
+
+  
+  
   </style>
 {% endblock %}
