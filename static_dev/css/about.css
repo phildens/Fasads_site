@@ -269,3 +269,220 @@
   padding: 48px 0;
 }
 
+
+.column img {
+  margin-left: 1px;
+  margin-right: 1px;
+  width: 297px;
+}
+/*_________________________-*/
+
+
+
+
+/* контейнер слайдера */
+.slider {
+  max-width: 1200px;
+  max-width: calc(4 * 282px + 3 * 20px); /* чтобы на больших экранах не расползалось */
+  margin: 50px auto;
+  display: flex;
+  gap: 20px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+
+  /* прячем скроллбар */
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.slider::-webkit-scrollbar {
+  display: none;
+}
+.slider.active {
+  cursor: grabbing;
+}
+
+/* карточка */
+.slide {
+  flex: 0 0 282px;
+  height: 269px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+.slide img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+
+  /* блокируем native drag */
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 3 карточки при ширине ≤1200px (вычитаем 2 gap по 20px) */
+@media (max-width: 1200px) {
+  .slide {
+    flex: 0 0 calc((100% - 40px) / 3);
+  }
+}
+
+/* 2 карточки при ширине ≤900px (вычитаем 1 gap по 20px) */
+@media (max-width: 900px) {
+  .slide {
+    flex: 0 0 calc((100% - 20px) / 2);
+  }
+}
+
+/* 1 карточка при ширине ≤600px */
+@media (max-width: 600px) {
+  .slide {
+    flex: 0 0 100%;
+  }
+}
+
+
+
+
+/*Что о нас говрят клиенты*/
+
+/* защита от «переполнения» при паддингах */
+*,*::before,*::after{ box-sizing: border-box; }
+
+:root{
+  --card-w: 567px;
+  --card-h: 269px;     /* высота макета */
+  --gap: 32px;
+}
+
+/* Сетка списка: 2 колонки -> 1 колонка, когда не помещается */
+/*.reviews{ padding:24px 16px; }*/
+.reviews-grid{
+
+  display:grid;
+  gap:var(--gap);
+  /* карточка может сжиматься до 100%, но не больше макетной ширины */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-w)), 1fr));
+  justify-items:center; /* центрируем карточки в колонках */
+  max-width: 1200px;
+}
+
+/* Карточка: сетка из двух строк — верх и низ */
+.review-card{
+  width:100%;
+  max-width:var(--card-w);
+  min-height:var(--card-h);
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 24px rgba(0,0,0,.06);
+
+  /* точные отступы по макету */
+  padding:30px 40px 21px 42px;
+
+  display:grid;
+  grid-template-rows:auto 1fr auto; /* верх, «воздух», низ */
+  row-gap:0;
+}
+
+/* Верхний контейнер */
+.review-top{ display:grid; gap:8px; align-content:start; }
+.review-name{
+  font-family: Muller-medium;
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 500;
+    color: #422223;
+    width: 228px;
+  margin:0;
+  /*font:600 28px/1.15 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;*/
+  /*color:#3a2323;*/
+}
+.review-date{
+  margin:0;
+  font-family: Muller-regular;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+
+
+  color:#422223;
+  opacity: 50%;
+}
+
+/* Нижний ряд: текст слева, кнопка справа, прибиты к низу */
+.review-bottom-row{
+  grid-row:3;                /* нижняя строка карточки */
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items:end;
+  column-gap:16px;
+}
+.review-bottom{
+  margin:0 0 6px 0;          /* 27 снизу (разница с 21 у кнопки = 6px) */
+  font-family: Muller-regular;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color:#422223;
+  opacity: 60%;
+}
+
+/* Кнопка-«пилюля» со стрелкой: 40 справа, 21 снизу уже учтены паддингом */
+.review-cta{
+  width:var(--arrow-size);
+  height:var(--arrow-size);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#f2f2f2;
+  border-radius:20px;
+  text-decoration:none;
+}
+.review-cta:hover{ filter:brightness(.98); transform: translateX(1px); }
+
+/* Доп. страховка на очень узких экранах: уменьшаем шрифт, если нужно */
+/* Можно убрать, если не требуется */
+@media (max-width: 360px){
+  .review-name{ font-size:24px; }
+  .review-date,.review-bottom{ font-size:18px; }
+}
+
+.small-h {
+  color: #422223;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0%;
+  font-family: Muller-medium;
+}
+
+.menu-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      top: 20px;
+      right: 20px;
+
+
+    }
+
+
+.small-under {
+  font-family: Muller-light;
+  color: #818181;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
