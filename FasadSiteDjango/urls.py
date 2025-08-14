@@ -27,6 +27,7 @@ urlpatterns = [
     path('about', views.about, name='about'),
     path('product', views.products),
     path('products/', ProductListView.as_view(), name='products'),
+    path("contact-request/create/", views.contact_request_create, name="contact_request_create"),
     
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:

@@ -1,0 +1,241 @@
+{% load static %}
+
+<div id="contact-modal" class="cm-modal" aria-hidden="true">
+  <div class="cm-modal__backdrop" data-close></div>
+
+  <div class="cm-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="cm-title">
+    <button class="cm-modal__close" type="button" aria-label="Закрыть" data-close>&times;</button>
+
+    <div class="cm-modal__grid">
+      <!-- Левая колонка -->
+      <div class="cm-left">
+        <div class="cm-eyebrow">Обсудить проект</div>
+        <h2 class="cm-title" id="cm-title">
+          Оставить заявку с полным описанием задачи на обратный звонок
+        </h2>
+
+        <p class="cm-note">
+          <span class="cm-i" aria-hidden="true">i</span>
+          Мы гарантируем полное соблюдение ваших интеллектуальных прав на разработку и конфиденциальности предоставленной информации.
+        </p>
+      </div>
+
+      <!-- Правая колонка (форма) -->
+      <div class="cm-right">
+        <form id="contact-form" action="{% url 'contact_request_create' %}" method="post" novalidate>
+          {% csrf_token %}
+
+          <fieldset class="cm-fieldset">
+            <legend class="cm-legend">Сведения о заявителе</legend>
+
+            <div class="cm-row">
+              <label class="cm-field">
+                <input name="first_name" placeholder="Имя" required>
+              </label>
+
+              <label class="cm-field">
+                <input name="email" type="email" placeholder="Email" required>
+              </label>
+            </div>
+
+            <div class="cm-row">
+              <label class="cm-field">
+                <input name="last_name" placeholder="Фамилия">
+              </label>
+
+              <label class="cm-field">
+                <input name="phone" placeholder="Телефон">
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="cm-fieldset">
+            <legend class="cm-legend">Информация о проекте</legend>
+            <label class="cm-field cm-field--block">
+              <textarea name="description" placeholder="Краткое описание" rows="4"></textarea>
+            </label>
+          </fieldset>
+
+          <div class="cm-actions">
+            <button class="cm-btn" type="submit">
+              Отправить <span class="cm-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="cm-toast" class="cm-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<style>
+/* ====== БАЗА МОДАЛКИ ====== */
+.cm-modal{
+  position: fixed; inset: 0; z-index: 9999;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .2s ease, visibility .2s ease;
+}
+.cm-modal.cm-modal--open{
+  opacity: 1; visibility: visible; pointer-events: auto;
+}
+.cm-modal__backdrop{
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.cm-modal__dialog{
+  position: relative;
+  max-width: 1100px;
+  margin: 48px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.12);
+  overflow: hidden;
+}
+.cm-modal__close{
+  position: absolute; top: 12px; right: 16px;
+  font-size: 28px; line-height: 1; border: 0; background: transparent; cursor: pointer;
+}
+
+/* ====== Лэйаут ====== */
+.cm-modal__grid{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  padding: 48px 56px;
+}
+.cm-left .cm-eyebrow{ color:#808080; margin-bottom: 16px; }
+.cm-left .cm-title{ font-size: 28px; line-height: 1.3; margin: 0 0 32px; }
+.cm-note{ display:flex; gap:10px; font-size:14px; color:#6B6B6B; margin-top: 60px; }
+.cm-i{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:18px; height:18px; border-radius:50%; border:1px solid #CFCFCF; font-size:12px;
+}
+
+/* ====== Поля ====== */
+.cm-legend{ font-weight:600; margin: 0 0 14px; }
+.cm-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+.cm-field{ display:block; }
+.cm-field input, .cm-field textarea{
+  width:100%; box-sizing: border-box;
+  border:1px solid #e6e6e6; border-radius:12px;
+  padding:14px 16px; font-size:16px; outline: none; background:#fff;
+}
+.cm-field input:focus, .cm-field textarea:focus{ border-color:#000; }
+.cm-field--block{ display:block; }
+.cm-actions{ display:flex; justify-content:flex-end; margin-top: 16px; }
+.cm-btn{
+  display:inline-flex; align-items:center; gap: 10px;
+  padding: 16px 28px; border-radius:14px; border:0; cursor:pointer;
+  background:#000; color:#fff; font-size:16px;
+}
+.cm-arrow{ font-size:18px; }
+
+/* Ошибки */
+.cm-field input.has-error, .cm-field textarea.has-error{
+  border-color: #E64646;
+}
+
+/* Toast */
+.cm-toast{
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #111; color:#fff; padding: 12px 16px; border-radius: 12px;
+  opacity:0; pointer-events:none; transition: opacity .2s ease;
+}
+.cm-toast.show{ opacity:1; }
+
+/* Адаптив */
+@media (max-width: 980px){
+  .cm-modal__grid{ grid-template-columns: 1fr; padding: 28px 20px; gap:24px; }
+  .cm-note{ margin-top: 24px; }
+  .cm-row{ grid-template-columns: 1fr; }
+}
+</style>
+
+<script>
+(() => {
+  const modal  = document.getElementById("contact-modal");
+  const form   = modal.querySelector("#contact-form");
+  const toast  = document.getElementById("cm-toast");
+  const backdrop = modal.querySelector(".cm-modal__backdrop");
+
+  function openModal(){
+    modal.classList.add("cm-modal--open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    modal.classList.remove("cm-modal--open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2800);
+  }
+  function highlightErrors(errors){
+    for (const [name] of Object.entries(errors || {})) {
+      const field = form.querySelector(`[name="${name}"]`);
+      if (field){
+        field.classList.add("has-error");
+        field.addEventListener("input", () => field.classList.remove("has-error"), { once:true });
+      }
+    }
+  }
+
+  // Открытие по data-атрибуту на любой кнопке
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-modal-target]");
+    if (btn && btn.getAttribute("data-modal-target") === "#contact-modal") {
+      e.preventDefault();
+      openModal();
+    }
+  });
+
+  // Закрытия
+  modal.addEventListener("click", (e) => {
+    if (e.target.hasAttribute("data-close") || e.target === backdrop) closeModal();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+  // Отправка формы через fetch + CSRF
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+
+    const fd = new FormData(form);
+    const csrf = form.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrf,
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: fd
+      });
+
+      if(!res.ok){
+        const data = await res.json().catch(() => ({}));
+        highlightErrors(data.errors);
+        throw new Error("Ошибка валидации");
+      }
+
+      showToast("Заявка отправлена. Спасибо!");
+      form.reset();
+      closeModal();
+
+    } catch (err) {
+      showToast("Не удалось отправить. Проверьте поля и повторите.");
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
+</script>

@@ -74,3 +74,12 @@ class EmptinessAdmin(admin.ModelAdmin):
 @admin.register(Questions)
 class QuestionsAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
+
+from .models import ContactRequest
+
+@admin.register(ContactRequest)
+class ContactRequestAdmin(admin.ModelAdmin):
+    list_display  = ("first_name", "last_name", "email", "phone", "created_at")
+    search_fields = ("first_name", "last_name", "email", "phone", "description")
+    list_filter   = ("created_at",)
+    readonly_fields = ("created_at",)

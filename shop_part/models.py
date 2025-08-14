@@ -109,3 +109,23 @@ class Questions(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+
+# Форма обратной связи
+class ContactRequest(models.Model):
+    first_name   = models.CharField("Имя", max_length=100)
+    last_name    = models.CharField("Фамилия", max_length=100, blank=True)
+    email        = models.EmailField("Email")
+    phone        = models.CharField("Телефон", max_length=30, blank=True)
+    description  = models.TextField("Краткое описание", blank=True)
+    created_at   = models.DateTimeField("Создано", auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Заявка на обратный звонок"
+        verbose_name_plural = "Заявки на обратный звонок"
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} — {self.email}"
