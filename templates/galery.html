@@ -4,6 +4,9 @@
 {% block title %}Галерея объектов{% endblock %}
 
 {% block content %}
+<div style="display:flex;
+  justify-content:center;   /* по центру горизонтально */
+  width:100%;">
   <div class="gallery-grid">
     {% for item in items %}
       <div class="gallery-card" data-id="{{ item.id }}">
@@ -16,10 +19,17 @@
         <div class="card-title">{{ item.name }}</div>
 
         {# точка, при клике на которую показывается подсказка #}
+        <img src="{% static 'imgfolder/dot.png' %}" class="card-dot" data-id="{{ item.id }}">
         
-        <span class="card-dot" data-id="{{ item.id }}"></span>
+        
         {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
-        <div  class="card-tooltip" id="tooltip-{{ item.id }}"><p style="display: flex;align-items: center; width: 98px;height: 89px;">{{ item.product }}</p></div>
+        <div  class="card-tooltip" id="tooltip-{{ item.id }}">
+          <p class="tooltip-text"
+   style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;">
+  {{ item.product|escape }}
+</p>
+
+</div>
 
         {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
         <div class="modal" id="modal-{{ item.id }}">
@@ -52,7 +62,7 @@
       <p>Галерея пуста.</p>
     {% endfor %}
   </div>
-
+</div>
   <script>
     const slideIndices = {};
   const autoTimers = {};
@@ -164,18 +174,36 @@
     modal.querySelectorAll(`.dot[data-id=\"${id}\"]`).forEach((d,i) => d.classList.toggle('active', i===n));
     slideIndices[id] = n;
   }
+  document.querySelectorAll('.tooltip-text').forEach(el => {
+  el.innerHTML = el.textContent.trim().replace(/\s+/g, '\n'); // каждое слово с новой строки
+});
   </script>
 
   <style>
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    @media (max-width:900px) { .gallery-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width:600px) { .gallery-grid { grid-template-columns: 1fr; } }
+    .gallery-grid{
+  display:grid;
+  gap:30px;
+}
+
+/* 3 колонки */
+@media (min-width: 1110px){
+  .gallery-grid{ grid-template-columns: repeat(3, 370px); }
+}
+
+/* 2 колонки */
+@media (max-width: 1110px) and (min-width: 740px){
+  .gallery-grid{ grid-template-columns: repeat(2, 370px); }
+}
+
+/* 1 колонка */
+@media (max-width: 739px){
+  .gallery-grid{ grid-template-columns: 370px; }
+}
+
+/* очень узкие экраны — чтобы не было горизонтального скролла */
+@media (max-width: 400px){
+  .gallery-grid{ grid-template-columns: min(370px, 100% - 32px); }
+}
 
     .gallery-card {
       width: 370px;
@@ -214,6 +242,7 @@
     }
     /* подсказка */
     .card-tooltip {
+  
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease;
@@ -225,7 +254,7 @@
   border-radius: 4px;
   color: rgba(0, 0, 0, 1);
   font-size: 16px;
-  width: 98px;
+  min-width: 98px;
   height: 89px;
   line-height: 100%;
   text-align: center;
@@ -245,7 +274,8 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+
       justify-content: center;
       align-items: center;
     }
