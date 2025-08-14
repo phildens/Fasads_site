@@ -2,8 +2,16 @@ from django.shortcuts import render
 from shop_part.models import Product
 from shop_part.serializers import ProductSerializer, ProductInCatSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
-from shop_part.models import Category, Product, TypeMaterial, Questions
+from shop_part.models import Category, Product, TypeMaterial, Questions, Galery
+from django.shortcuts import render
+from .models import BigGalery
 
+def galery(request):
+    # та самая коллекция карточек — сортируем по position и сразу подтягиваем связанные SmallGallery
+    items = BigGalery.objects.all().order_by('position').prefetch_related('images')
+    return render(request, 'galery.html', {
+        'items': items,
+    })
 
 # Create your views here.
 class ProductListView(ListAPIView):
@@ -17,6 +25,8 @@ def index(request):
 
 def products(request):
     return render(request, 'category.html')
+
+
 
 
 def category(request):
