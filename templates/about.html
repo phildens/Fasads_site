@@ -43,14 +43,14 @@
       <div style="position: absolute;
                   top: 195px;
                   left: 400px;
-                  font-family:'head';
+                  font-family:'Muller-regular';
                   font-weight: 400;
                   font-size: 22px;
                   line-height: 100%;
                   letter-spacing: 0%;
                   color: rgba(66, 34, 35, 1);
                   ">
-        ваш надежный партнер в мире облицовочных материалов с 2006 года. Ранее известные как «Кровли из Европы» и «Европейские фасады», 
+        ваш надежный партнер в мире облицовочных материалов с <strong style="font-weight: 500; font-family: Muller-medium">2006 года</strong>. Ранее известные как <strong style="font-weight: 500; font-family: Muller-medium">«Кровли из Европы» и «Европейские фасады»</strong>, 
 мы прошли значительный путь и адаптировались к изменениям, 
 сохранив при этом основные принципы
       </div>
@@ -59,7 +59,7 @@
                   height: 110px;
                   top: 335px;
                   left: 0px;
-                  font-family:'head2';
+                  font-family:'Muller-regular';
                   font-weight: 400;
                   font-size: 22px;
                   line-height: 100%;
@@ -188,92 +188,137 @@
         <!-- основные принцыпы -->
 
     <div class="info_holder">
-        <h5>Основные принципы</h5>
+        <h5 class="mini-headr">Основные принципы</h5>
          
   <div class="feature-grid">
       <!-- Первая строка -->
-      <div class="column highlight-left">
+      <div class="column small descript highlight-right highlight-bottom">
         <h3>Честные и прозрачные цены</h3>
-        <p>Мы придерживаемся стабильной ценовой политики, чтобы вы всегда знали, что получаете лучшее предложение.</p>
+        <p>Мы придерживаемся стабильной ценовой <br> политики, чтобы вы всегда знали, что получаете <br> лучшее предложение</p>
       </div>
-      <div class="column highlight-top">
+      <div class="column small descript highlight-bottom halfm">
         <h3>Непревзойденное качество</h3>
-        <p>Наша цель — предоставить материалы, которые будут радовать вас долгие годы.</p>
+        <p>Наша цель - предоставить материалы, которые будут радовать вас долгие годы</p>
       </div>
-      <div class="column highlight-bottom">
+      <div class="column small descript highlight-bottom halfm">
         <h3>Разнообразие решений</h3>
-        <p>У нас вы найдёте множество привлекательных материалов, которые подчеркнут индивидуальность вашего проекта.</p>
+        <p>У нас вы найдёте множество привлекательных материалов, которые подчеркнут индивидуальность вашего проекта</p>
       </div>
-      <div class="column highlight-right">
+      <div class="column small descript highlight-right highlight-bottom halfm">
         <h3>Ценность времени</h3>
-        <p>Мы понимаем, как важно время, и стремимся доставить всё точно в срок, либо заранее сообщим об изменениях.</p>
+        <p>Мы понимаем, как важно время, и стремимся доставить всё точно в срок, либо заранее сообщим об изменениях</p>
       </div>
 
-      <!-- Вторая строка -->
-      <div class="column highlight-left">
-        <h3>Масштаб и опыт</h3>
-        <p>19 лет успешной работы и более 1500 реализованных объектов...</p>
+      <!-- Вторая строка кортинки домов -->
+      <div class="column highlight-right" style="height: 206px">
+          <img src="{% static 'imgfolder/about_first_row/image 88.png' %}" alt="">
       </div>
-      <div class="column highlight-top">
-        <h3>Отечественный продукт</h3>
-        <p>Технологии современного российского производства клинкерного кирпича...</p>
+      <div class="column highlight-right" style="height: 206px">
+          <img src="{% static 'imgfolder/about_first_row/image 85.png' %}" alt="">
       </div>
-      <div class="column highlight-bottom">
-        <h3>Премиальный импорт</h3>
-        <p>Оригинальный немецкий клинкер напрямую от производителя...</p>
+      <div class="column" style="height: 206px">
+          <img src="{% static 'imgfolder/about_first_row/image 86.png' %}" alt="">
       </div>
-      <div class="column highlight-right">
-        <h3>Индивидуальный подход</h3>
-        <p>Подберём материалы максимально подходящие под ваш проект...</p>
+      <div class="column" style="height: 206px">
+          <img src="{% static 'imgfolder/about_first_row/image 87.png' %}" alt="">
       </div>
+      <!-- третья строка почему выбирают нас  -->
+      <div class="column minheight ">
+          <div style="height: 64px"></div>
+          <h5 class="mini-headr">Почему выбирают нас</h5>
+      </div>
+      <div class="column minheight highlight-right ">
+      </div>
+      <div class="column minheight highlight-right ">
+      </div>
+      <div class="column minheight ">
+      </div>
+
+
+
+    </div>
+    
+        
     </div>
 
-    </div>
 
 
-
-            <!-- почему выбирают нас -->
+            <!-- вторая таблица -->
 
 
     <div class="info_holder">
-        <h5>Почему выбирают нас</h5>
+     
          
   <div class="feature-grid">
-      <!-- Первая строка -->
-      <div class="column highlight-left">
+            {#      первая строка#}
+      <div class="column highlight-bottom descript medium">
         <h3>Масштаб и опыт</h3>
-        <p>19 лет успешной работы 
-и более 1500 реализованных объектов. Благодаря опыту мы точно знаем добросовестных производителей</p>
+        <p>19 лет успешной работы и более 1500 реализованных объектов. Благодаря опыту мы точно знаем добросовестных производителей</p>
       </div>
-      <div class="column highlight-top">
-        <h3>Непревзойденное качество</h3>
-        <p>Наша цель — предоставить материалы, которые будут радовать вас долгие годы.</p>
+      <div class="column highlight-bottom highlight-right halfm descript medium">
+        <h3>Отечественный продукт</h3>
+        <p>Технологии <br> современного <br> российского <br> производства <br>клинкерного и <br>керамического кирпича позволяют создавать продукт устойчивый к особенностям нашей окружающей среды</p>
       </div>
-      <div class="column highlight-bottom">
-        <h3>Разнообразие решений</h3>
-        <p>У нас вы найдёте множество привлекательных материалов, которые подчеркнут индивидуальность вашего проекта.</p>
+      <div class="column highlight-bottom highlight-right halfm descript medium">
+        <h3>Премиальный импорт</h3>
+        <p>Оригинальный немецкий клинкер напрямую от производителя!. Предоставляем <br>документы, подтверждающие европейское качество и соответствие стандартам DIN и ISO</p>
       </div>
-      <div class="column highlight-right">
-        <h3>Ценность времени</h3>
-        <p>Мы понимаем, как важно время, и стремимся доставить всё точно в срок, либо заранее сообщим об изменениях.</p>
+      <div class="column highlight-bottom halfm descript medium">
+        <h3>Индивидуальный подход</h3>
+        <p>Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре. Наши специалисты найдут решение даже для самых смелых архитектурных решений</p>
+      </div>
+      
+      
+      
+      
+      <!-- вторая строка -->
+      
+      
+      
+      
+      
+      
+      <div class="column highlight-right descript medium">
+          <div class="mg-head-about-top">
+        <h3 class="mg-head-about-top">Открытость</h3>
+              </div>
+        <p style="width: 241px">Мы не скрываем <br>достоинства и <br>недостатки нашего продукта и смело можем рассказать о трудностях с которыми вы можете столкнуться при выкладке, например, как избежать высылов</p>
+      </div>
+      <div class="column halfm descript medium">
+          <div class="mg-head-about-top">
+        <h3>Визуализация проекта</h3>
+              </div>
+        <p>Предоставляем бесплатный 3D-макет объекта при заказе от определенного объема товара</p>
+      </div>
+      <div class="column halfm descript medium">
+          <div class="mg-head-about-top">
+        <h3>Прямые поставки</h3>
+          </div>
+        <p>Выгодные условия сотрудничества благодаря статусу официальных дилеров 22 производственных предприятий</p>
+      </div>
+      <div class="column highlight-right halfm descript medium">
+          <div class="mg-head-about-top">
+        <h3>Сервисная поддержка</h3>
+          </div>    
+        <p>Наши специалисты на связи даже после завершения сделки</p>
       </div>
 
-      <!-- Вторая строка -->
-      <div class="column highlight-left">
-        <h3>Масштаб и опыт</h3>
-        <p>19 лет успешной работы и более 1500 реализованных объектов...</p>
+      
+{#      Картинки2#}
+      
+      
+      
+      <div class="column highlight-right" style="height: 200px">
+          <img src="{% static 'imgfolder/about_first_row/image 92.png' %}" alt="">
       </div>
-      <div class="column highlight-top">
-        <h3>Отечественный продукт</h3>
-        <p>Технологии современного российского производства клинкерного кирпича...</p>
+      <div class="column " style="height: 200px">
+          <img src="{% static 'imgfolder/about_first_row/image 89.png' %}" alt="">
       </div>
-      <div class="column highlight-bottom">
-        <h3>Премиальный импорт</h3>
-        <p>Оригинальный немецкий клинкер напрямую от производителя...</p>
+      <div class="column" style="height: 200px">
+          <img src="{% static 'imgfolder/about_first_row/image 90.png' %}" alt="">
       </div>
-      <div class="column highlight-right">
-        <h3>Индивидуальный подход</h3>
-        <p>Подберём материалы максимально подходящие под ваш проект...</p>
+      <div class="column highlight-right" style="height: 200px">
+          <img src="{% static 'imgfolder/about_first_row/image 91.png' %}" alt="">
       </div>
     </div>
 
@@ -281,4 +326,485 @@
     </div>
 </div>
 
+    
+    <div style="height: 130px"></div>
+    
+    
+<div class="callback-form-section" id="callback-form" >
+  <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
+  <div class="callback-form-subtitle">
+    Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре.<br>
+    Наши специалисты найдут решение даже для самых смелых архитектурных решений
+  </div>
+  <form>
+    <div class="callback-form-row">
+      <div class="callback-form-fields">
+        <label>Сведения о заявителе</label>
+        <div class="callback-form-fields-grid">
+          <input type="text" placeholder="Имя" name="name" required>
+          <input type="email" placeholder="Email" name="email" required>
+          <input type="text" placeholder="Фамилия" name="surname">
+          <input type="text" placeholder="Телефон" name="phone" required>
+        </div>
+      </div>
+      <div class="callback-form-info">
+        <label>Информация о проекте</label>
+        <textarea placeholder="Краткое описание" name="about"></textarea>
+      </div>
+    </div>
+    <div class="callback-form-bottom">
+      <div class="callback-form-note">
+        <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
+        Мы гарантируем полное соблюдение ваших интеллектуальных прав на разработку и конфиденциальности предоставленной информации.
+      </div>
+      <button type="submit" class="callback-form-btn">Оставить заявку</button>
+    </div>
+  </form>
+</div>
+    
+    
+{#    Наша миссия#}
+    <div>
+    <div style="height: 800px; background-color: white; display: flex;  justify-content: center;  border-radius: 16px">
+        <div>
+            <div style="height: 26px"></div>
+                <div style="max-height: 107px; width: 1200px; display: flex; justify-content: space-between; align-items: center">
+                    <img src="{% static "imgfolder/image-Photoroom (60) 1.png" %}" alt="" style="width: 186px">
+                    
+                    <div style="text-align: center; cursor: pointer" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'">
+                        <p class="small-h">Пермь, Газеты Звезда, 13, 4 этаж</p>
+                        <p class="small-under">контактный адрес шоу-рума</p>
+                    </div>
+                    <div style="text-align: center; cursor: pointer" onclick="location.href='tel:+7(951)940-12-49'">
+                        <p class="small-h">+7 (951) 940-12-49</p>
+                        <p class="small-under">номер для связи</p>
+                    </div>
+                    <div style="text-align: center; cursor: pointer" onclick="location.href='mailto:evrokrovliof@mail.ru'">
+                        <p class="small-h">evrokrovliof@mail.ru</p>
+                        <p class="small-under">электронная почта</p>
+                    </div>
+                    <div style="text-align: center; cursor: pointer" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'">
+                        <p class="small-h">Как до нас доехать</p>
+                        <p class="small-under">карта с указанием адреса</p>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center">
+                        <img style="height: 26px; margin-right: 23px" src="{%static 'imgfolder/bol2.svg'%}" alt="">
+                        
+                        <button class="menu-toggle" id="menuToggle">
+                        <img src="{% static 'imgfolder/menu2.svg' %}" alt="" class="menu-image">
+                        </button>
+                    </div>
+                
+                </div>
+                <div style="height: 110px"></div>
+        
+                <div style="display: flex; justify-content: center; align-items: center">
+                    <div style="display: flex; flex-direction: column; align-items: flex-end">
+                        <p style="width: 584px; font-weight: 500; font-family: Muller-medium; font-size: 20px; color: #422223; opacity:60%; text-align: right">Мы не просто поставляем материалы – мы помогаем воплощать самые смелые идеи в реальность и создавать облик города.  Архитектура должна быть не просто функциональной, но и вдохновляющей. Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в него частичку своей души и профессионализма.</p>
+                        
+                        <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
+                        
+                        <p style="width: 574px; font-family: Muller-regular; font-size: 20px; line-height: 100%; letter-spacing: 0%; text-align: right; color: #42222399; opacity: 60%;">Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами 
+мы формируем облик будущего, превращая смелые
+концепции в осязаемые формы</p>
+                        
+                        <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
+                        
+                        <p style="width: 434px ;font-size: 18px; font-family: Muller-medium; line-height: 100%; letter-spacing: 0%; color: black; opacity: 60%; font-weight: 500; text-align: right">Руководитель ООО «Современные фасады» Светлана Олеговна Алтухова</p>
+                        
+                    </div>
+                    <div style="width: 25px"></div>
+                    <div style="display: flex; height: 390px">
+                        <p style=" font-weight: 300; font-size: 28px; line-height: 100%;letter-spacing: 0; color: #422223; font-family: namu">«</p>
+                        <div>
+                            <p style="width: 482px; font-weight: 300; font-size: 28px; line-height: 120%;letter-spacing: 0%; color: #422223; font-family: namu; text-transform: uppercase; font-style: 1750;">Наша миссия — превращать мечты об идеальной архитектуре в реальность, делая мир вокруг нас красивее и уютнее.Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в него частичку своей души и профессионализма.»</p>
+                        <div style="height: 27px"></div>
+                            <button style="margin-right: 17px ;font-family: Muller-medium; font-size: 16px; line-height: 100%; letter-spacing: 0%; width: 197px; height: 60px; border-radius: 16px; background-color: #F5F5F5; color: #2B292F; border: none">Перейти в каталог</button>
+                        <button class="ll" style="font-family: Muller-medium; font-weight: 500;  font-size: 16px; width: 197px; height: 60px; border-radius: 16px; background-color: #327F00; color: #FFF6F3; border: none; box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.25) ">Оставить заявку</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    <div style="height: 150px"></div>
+    
+    
+    
+    
+    
+    
+    
+{#-----слайдер партнеры-----#}
+    
+    
+      <div style="display: flex; justify-content: center;">
+  <div>
+    <h4 class="mini-headr">Мы являемся официальными торговыми партнёрами</h4>
+
+    <div class="slider" id="slider">
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 134px"
+          src="{% static 'imgfolder/partners images/image-Photoroom (71) 4.png' %}"
+          alt="1"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 38px"
+          src="{% static 'imgfolder/partners images/image 96-1.png' %}"
+          alt="2"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 45px"
+          src="{% static 'imgfolder/partners images/image 96.png' %}"
+          alt="3"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="width: 140px"
+          src="{% static 'imgfolder/partners images/NOVA-_1_ 4.png' %}"
+          alt="4"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          src="{% static 'imgfolder/partners images/Группа-компаний-Альфа-_1_ 4.png' %}"
+          alt="5"
+        />
+      </div>
+        
+    </div>
+  </div>
+      
+</div>
+    
+    <div style="height: 120px"></div>
+    
+    
+{#    Что о нас говорят клиенты#}
+    
+    <div style="display: flex; justify-content: center;">
+<div style="width: 1200px">
+      <h4 class="mini-headr">Что о нас говорят клиенты</h4>
+    
+<section class="reviews">
+  <div class="reviews-grid">
+    <article class="review-card">
+      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
+      <div class="review-top">
+        <h3 class="review-name">Сергей Галкин</h3>
+        <time class="review-date" datetime="2022-08-13">от 13.08.2022</time>
+      </div>
+
+      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
+      <div class="review-bottom-row">
+        <p class="review-bottom">
+          Неплохой выбор неординарного кирпича, качествен . . .
+        </p>
+        <a class="review-cta" href="#" aria-label="Читать отзыв">
+            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
+          </svg>
+        </a>
+      </div>
+    </article>
+
+      
+      
+{#      КАРТОЧКА#}
+      
+      
+      <article class="review-card">
+      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
+      <div class="review-top">
+        <h3 class="review-name">Елена Павлова</h3>
+        <time class="review-date" datetime="2022-08-13">от 8.09.2022</time>
+      </div>
+
+      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
+      <div class="review-bottom-row">
+        <p class="review-bottom">
+          В январе 2022 г. при выборе кирпича для облицовки дома пол . . .
+        </p>
+        <a class="review-cta" href="#" aria-label="Читать отзыв">
+            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
+          </svg>
+        </a>
+      </div>
+    </article>
+      
+      
+      {#      КАРТОЧКА#}
+      
+      
+      <article class="review-card">
+      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
+      <div class="review-top">
+        <h3 class="review-name">Ирина Шишкина</h3>
+        <time class="review-date" datetime="2022-08-13">от 7.08.2024</time>
+      </div>
+
+      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
+      <div class="review-bottom-row">
+        <p class="review-bottom">
+          Большое спасибо за помощь в выборе кирпича облиц . . .
+        </p>
+        <a class="review-cta" href="#" aria-label="Читать отзыв">
+            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
+          </svg>
+        </a>
+      </div>
+    </article>
+      {#      КАРТОЧКА#}
+      
+      
+      <article class="review-card">
+      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
+      <div class="review-top">
+        <h3 class="review-name">Елена Бурдина</h3>
+        <time class="review-date" datetime="2022-08-13">от 13.11.2024</time>
+      </div>
+
+      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
+      <div class="review-bottom-row">
+        <p class="review-bottom">
+          Большой выбор кирпичей, клинкерной плитки, брусчат . . .
+        </p>
+        <a class="review-cta" href="#" aria-label="Читать отзыв">
+            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
+          </svg>
+        </a>
+      </div>
+    </article>
+      
+      {#      КАРТОЧКА#}
+      
+      
+      <article class="review-card">
+      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
+      <div class="review-top">
+        <h3 class="review-name">Тимофей Москотин</h3>
+        <time class="review-date" datetime="2022-08-13">от 11.04.2025</time>
+      </div>
+
+      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
+      <div class="review-bottom-row">
+        <p class="review-bottom">
+          Покупали кирпич в прошлом году, все вовремя привезли, бой мин . . .
+        </p>
+        <a class="review-cta" href="#" aria-label="Читать отзыв">
+            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
+          </svg>
+        </a>
+      </div>
+    </article>
+      
+      {#      КАРТОЧКА#}
+      
+      
+      <article class="review-card">
+      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
+      <div class="review-top">
+        <h3 class="review-name">Владимир Малышевский</h3>
+        <time class="review-date" datetime="2022-08-13">от 18.04.2025</time>
+      </div>
+
+      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
+      <div class="review-bottom-row">
+        <p class="review-bottom">
+          Хорошая, ответственная компания. Рекомендую . . .
+        </p>
+        <a class="review-cta" href="#" aria-label="Читать отзыв">
+            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
+          </svg>
+        </a>
+      </div>
+    </article>
+      
+  </div>
+</section>
+
+
+    
+</div>
+</div>
+    
+    <div style="height: 120px"></div>
+    
+    
+    
+    
+    
+    {#    ------Сертификаты------#}
+<div style="display: flex; justify-content: center;">
+<div style="width: 1200px">
+      <h4 class="mini-headr">Сертификаты</h4>
+    <div class="slider" id="slider">
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 156px"
+          src="{% static 'imgfolder/sertificats/sert1.png' %}"
+          alt="1"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 173px"
+          src="{% static 'imgfolder/sertificats/sert2.png' %}"
+          alt="2"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 163px"
+          src="{% static 'imgfolder/sertificats/srt3.png' %}"
+          alt="3"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="width: 118px"
+          src="{% static 'imgfolder/sertificats/sret4.png' %}"
+          alt="4"
+        />
+      </div>
+      
+    </div>
+    
+</div>
+  
+    
+</div>
+    
+     {#    ------Награды------#}
+<div style="display: flex; justify-content: center;">
+<div style="width: 1200px">
+      <h4 class="mini-headr">Награды</h4>
+    <div class="slider" id="slider">
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 151px"
+          src="{% static 'imgfolder/prises/sert1.png' %}"
+          alt="1"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 155px"
+          src="{% static 'imgfolder/prises/Scan 2.png' %}"
+          alt="2"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 200px"
+          src="{% static 'imgfolder/prises/sert3.png' %}"
+          alt="3"
+        />
+      </div>
+      <div class="slide">
+        <img
+          draggable="false"
+          style="height: 184px"
+          src="{% static 'imgfolder/prises/sert4.png' %}"
+          alt="4"
+        />
+      </div>
+      
+        <div class="slide">
+        <img
+          draggable="false",
+          style="height: 130px"
+          src="{% static 'imgfolder/prises/prize6.png' %}"
+          alt="6"
+        />
+      </div>
+    </div>
+    
+</div>
+  
+    
+</div>
+    
+{#    ------код для работы слайдера------#}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const slider = document.getElementById('slider');
+  let isDown     = false;
+  let startX     = 0;
+  let scrollLeft = 0;
+
+  slider.addEventListener('mousedown', e => {
+    isDown = true;
+    slider.classList.add('active');
+
+    // точка клика внутри слайдера
+    startX     = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+
+    // чтобы не выделять ничего
+    e.preventDefault();
+  });
+
+  slider.addEventListener('mouseleave', () => endDrag());
+  slider.addEventListener('mouseup',     () => endDrag());
+
+  slider.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    const x    = e.pageX - slider.offsetLeft;
+    const walk = x - startX;
+    slider.scrollLeft = scrollLeft - walk;
+  });
+
+  slider.addEventListener('dragstart', e => {
+    // блокируем нативный drag картинок
+    e.preventDefault();
+  });
+
+  function endDrag() {
+    isDown = false;
+    slider.classList.remove('active');
+  }
+
+  // ————— hint при прокрутке страницы —————
+  const observer = new IntersectionObserver((entries, obs) => {
+    for (let entry of entries) {
+      if (entry.isIntersecting) {
+        // прокрутим чуть вправо и обратно
+        slider.scrollBy({ left: 80, behavior: 'smooth' });
+        setTimeout(() => {
+          slider.scrollTo({ left: 0, behavior: 'smooth' });
+        }, 600);
+        obs.disconnect();
+      }
+    }
+  }, { threshold: 0.5 });
+
+  observer.observe(slider);
+});
+
+  </script>
 {% endblock %}

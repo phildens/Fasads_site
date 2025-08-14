@@ -30,33 +30,458 @@
       width: 1200px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      border: 1px solid #ddd;       /* общая рамка вокруг всех колонок */
-      
+
     }
 
-.feature-grid .column {
-    padding: 20px;
-    border-right: 1px solid #ddd; /* разделители между колонками */
-    border-bottom: 1px solid #ddd;/* если будут строки ниже */
-}
-.feature-grid .column:last-child {
-    border-right: none;           /* у последней колонки убрать правую границу */
-}
+
+/*.feature-grid .column:last-child {*/
+/*    border-right: none;           !* у последней колонки убрать правую границу *!*/
+/*}*/
 
 /* Примеры подсветки: */
-.highlight-left   { border-left: 4px solid #2a9df4; }
-.highlight-right  { border-right: 4px solid #e94e77; }
-.highlight-top    { border-top: 4px solid #8ac926; }
-.highlight-bottom { border-bottom: 4px solid #ffb703; }
+.highlight-left   { border-left: 1px solid #626262; }
+.highlight-right  { border-right: 1px solid #626262; }
+.highlight-top    { border-top: 1px solid #626262; }
+.highlight-bottom { border-bottom: 1px solid #626262; }
 
 /* Заголовки и текст внутри */
 .column h3 {
+    font-family: Muller-medium;
     margin-top: 0;
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: 500;
+    color: #422223;
+    width: 228px;
+}
+.column{
+    height: 354px;
+}
+.column.small {
+    height: 214px;
+}
+.column.medium {
+    height: 300px;
+}
+.mg-head-about-top {
+    margin-top: 35px;
+}
+.descript {
+     display: flex;
+
+  flex-direction: column;
+  justify-content: space-between; /* раздвигаем элементы по высоте контейнера */
+  padding-bottom: 44px;
 }
 .column p {
-    margin: 8px 0 0;
-    font-size: 14px;
-    line-height: 1.4;
+    font-family: Muller-regular;
+    line-height: 100%;
+    font-weight: 400;
+
+    letter-spacing: 0;
+    font-size: 20px;
     color: #555;
+    opacity: 60%;
+}
+.column img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 35px;
+}
+.halfm * {
+    margin-left: 31px;
+}
+.minheight {
+    height: 213px;
+}
+
+
+
+
+/* форма       */
+.callback-form-section {
+  max-width: 1440px;
+  min-height: 800px;
+  margin: 36px auto 44px auto;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(60,60,60,0.04);
+  font-family: 'Montserrat', Arial, sans-serif;
+  box-sizing: border-box;
+  padding: 100px;
+}
+
+.callback-form-title {
+  font-family: 'namu';
+  font-size: 28px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 1);
+  margin-bottom: 10px;
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 100%;
+}
+.callback-form-subtitle {
+  font-family: 'head2';
+  color: rgba(129, 129, 129, 1);
+  font-size: 20px;
+  font-weight: 400;
+  margin: 40px;
+  margin-bottom: 38px;
+  margin-left: 50px;
+  max-width: 480px;
+  line-height: 100%;
+}
+.callback-form-row {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 22px;
+}
+.callback-form-fields {
+  flex: 2;
+}
+.callback-form-fields label {
+  font-size: 1.07rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+  display: block;
+  color: #191919;
+}
+.callback-form-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 26px;
+  margin-bottom: 18px;
+}
+.callback-form-fields input {
+  width: 100%;
+  max-width: 300px;
+  min-height: 74px;
+
+  border: 1.5px solid #e4e4e4;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  background: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  transition: border .14s;
+}
+.callback-form-fields input:focus,
+.callback-form-fields textarea:focus {
+  outline: none;
+  border: 1.5px solid #a4cc6a;
+}
+.callback-form-fields textarea {
+  width: 100%;
+  min-width: 455px;
+  max-height: 188px;
+
+  border: 1.5px solid #e4e4e4;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  background: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  resize: vertical;
+  transition: border .14s;
+}
+.callback-form-info {
+  flex: 1;
+}
+.callback-form-info label {
+  font-size: 1.07rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #191919;
+  display: block;
+}
+.callback-form-info textarea {
+  width: 100%;
+  min-height: 170px;
+  min-width: 455px;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  background: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  resize: vertical;
+  margin-bottom: 0;
+  transition: border .14s;
+}
+.callback-form-info textarea:focus {
+  border: 1.5px solid #a4cc6a;
+  outline: none;
+}
+.callback-form-bottom {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.callback-form-note {
+  color: #666;
+  font-size: 0.96rem;
+  margin-left: 2px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 520px;
+}
+.callback-form-note svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1.5px;
+}
+.callback-form-btn {
+  padding: 13px 38px;
+  background: #328400;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.11rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: auto;
+  box-shadow: 2px 4px 0 #9bc18a;
+  transition: background .16s, box-shadow .16s;
+}
+.callback-form-btn:hover {
+  background: #246a00;
+  box-shadow: 1px 2px 0 #82a571;
+}
+
+
+.papa-con{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.stats-section {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  width: 1200px;
+  margin: 0 auto 48px auto;
+  padding: 48px 0;
+}
+
+
+.column img {
+  margin-left: 1px;
+  margin-right: 1px;
+  width: 297px;
+}
+/*_________________________-*/
+
+
+
+
+/* контейнер слайдера */
+.slider {
+  max-width: 1200px;
+  max-width: calc(4 * 282px + 3 * 20px); /* чтобы на больших экранах не расползалось */
+  margin: 50px auto;
+  display: flex;
+  gap: 20px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+
+  /* прячем скроллбар */
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.slider::-webkit-scrollbar {
+  display: none;
+}
+.slider.active {
+  cursor: grabbing;
+}
+
+/* карточка */
+.slide {
+  flex: 0 0 282px;
+  height: 269px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+.slide img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+
+  /* блокируем native drag */
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 3 карточки при ширине ≤1200px (вычитаем 2 gap по 20px) */
+@media (max-width: 1200px) {
+  .slide {
+    flex: 0 0 calc((100% - 40px) / 3);
+  }
+}
+
+/* 2 карточки при ширине ≤900px (вычитаем 1 gap по 20px) */
+@media (max-width: 900px) {
+  .slide {
+    flex: 0 0 calc((100% - 20px) / 2);
+  }
+}
+
+/* 1 карточка при ширине ≤600px */
+@media (max-width: 600px) {
+  .slide {
+    flex: 0 0 100%;
+  }
+}
+
+
+
+
+/*Что о нас говрят клиенты*/
+
+/* защита от «переполнения» при паддингах */
+*,*::before,*::after{ box-sizing: border-box; }
+
+:root{
+  --card-w: 567px;
+  --card-h: 269px;     /* высота макета */
+  --gap: 32px;
+}
+
+/* Сетка списка: 2 колонки -> 1 колонка, когда не помещается */
+/*.reviews{ padding:24px 16px; }*/
+.reviews-grid{
+
+  display:grid;
+  gap:var(--gap);
+  /* карточка может сжиматься до 100%, но не больше макетной ширины */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-w)), 1fr));
+  justify-items:center; /* центрируем карточки в колонках */
+  max-width: 1200px;
+}
+
+/* Карточка: сетка из двух строк — верх и низ */
+.review-card{
+  width:100%;
+  max-width:var(--card-w);
+  min-height:var(--card-h);
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 24px rgba(0,0,0,.06);
+
+  /* точные отступы по макету */
+  padding:30px 40px 21px 42px;
+
+  display:grid;
+  grid-template-rows:auto 1fr auto; /* верх, «воздух», низ */
+  row-gap:0;
+}
+
+/* Верхний контейнер */
+.review-top{ display:grid; gap:8px; align-content:start; }
+.review-name{
+  font-family: Muller-medium;
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 500;
+    color: #422223;
+    width: 228px;
+  margin:0;
+  /*font:600 28px/1.15 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;*/
+  /*color:#3a2323;*/
+}
+.review-date{
+  margin:0;
+  font-family: Muller-regular;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+
+
+  color:#422223;
+  opacity: 50%;
+}
+
+/* Нижний ряд: текст слева, кнопка справа, прибиты к низу */
+.review-bottom-row{
+  grid-row:3;                /* нижняя строка карточки */
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items:end;
+  column-gap:16px;
+}
+.review-bottom{
+  margin:0 0 6px 0;          /* 27 снизу (разница с 21 у кнопки = 6px) */
+  font-family: Muller-regular;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color:#422223;
+  opacity: 60%;
+}
+
+/* Кнопка-«пилюля» со стрелкой: 40 справа, 21 снизу уже учтены паддингом */
+.review-cta{
+  width:var(--arrow-size);
+  height:var(--arrow-size);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#f2f2f2;
+  border-radius:20px;
+  text-decoration:none;
+}
+.review-cta:hover{ filter:brightness(.98); transform: translateX(1px); }
+
+/* Доп. страховка на очень узких экранах: уменьшаем шрифт, если нужно */
+/* Можно убрать, если не требуется */
+@media (max-width: 360px){
+  .review-name{ font-size:24px; }
+  .review-date,.review-bottom{ font-size:18px; }
+}
+
+.small-h {
+  color: #422223;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0%;
+  font-family: Muller-medium;
+}
+
+.menu-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      top: 20px;
+      right: 20px;
+
+
+    }
+
+
+.small-under {
+  font-family: Muller-light;
+  color: #818181;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
 }

@@ -177,19 +177,20 @@ padding: 0;}
 
   .mini-contacts-card {
   width: 301px;
-  min-height: 355px;
+  
   background: #fff;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: Muller-medium;
   font-size: 16px;
-  color: #232323;
+  color: #422223;
+      font-weight: 500;
   position: relative;
 }
 .mini-contact-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 13px;
 }
 .mini-contact-icon img {
@@ -200,7 +201,7 @@ padding: 0;}
   margin-top: 2px;
 }
 .mini-contact-text a {
-  color: #232323;
+  color: #422223;
   text-decoration: none;
   transition: color 0.14s;
 }
@@ -232,8 +233,8 @@ padding: 0;}
       z-index: 1001;
       top: 20px;
       right: 20px;
-      
-      
+
+
     }
     .nav-link .menu-toggle span {
       display: block;
@@ -263,19 +264,7 @@ padding: 0;}
       opacity: 1;
 
     }
-.side-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 80%;
-      max-width: 300px;
-      height: 100%;
-      background: #fff;
-      overflow-y: auto;
-      transition: right 0.3s ease-in-out;
-      z-index: 1000;
-      padding: 20px;
-    }
+
     .side-menu.active {
       right: 0;
     }
@@ -314,13 +303,14 @@ padding: 0;}
     
     <!-- Боковое меню -->
     <nav class="side-menu" id="sideMenu">
-      <div class="logo img">
-        <img src="{% static 'imgfolder/header.png' %}" alt="">
+      <div class="logo img" id="closemenu" style="cursor: pointer">
+        <img style="width: 220px; margin-right: 50px" src="{% static 'imgfolder/image-Photoroom (40) 3.png' %}" alt="">
+          <img style="height: 60px; width: 80px" src="{% static 'imgfolder/Group 306.png' %}" alt="">
       </div>
-      <ul>
-        <li><strong>Деятельность</strong></li>
-        <li><a href="#">О нас</a></li>
-        <li><strong>Продукция</strong></li>
+      <ul class="menuuu">
+        <li><strong style="font-family: Muller-medium; font-weight: 500; font-size: 20px; line-height: 100%">Деятельность</strong></li>
+        <li style="margin-bottom: 30px"><a href="{% url 'about' %}">О нас</a></li>
+        <li><strong style="font-family: Muller-medium; font-weight: 500; font-size: 20px; line-height: 100%">Продукция</strong></li>
         <li><a href="#">Клинкерный облицовочный кирпич</a></li>
         <li><a href="#">Керамический облицовочный кирпич</a></li>
         <li><a href="#">Клинкерная плитка</a></li>
@@ -328,19 +318,19 @@ padding: 0;}
         <li><a href="#">Ригельный кирпич</a></li>
         <li><a href="#">Навесные вентилируемые системы</a></li>
         <li><a href="#">Архитектурные фасадные декоры</a></li>
-        <li><a href="#">Гиперпрессованный кирпич</a></li>
-        <li><strong>Наши объекты</strong></li>
-        <li><a href="#">Фотографии выполненных объектов</a></li>
-        <li><strong>Наши партнеры</strong></li>
-        <li><a href="#">Дилеры заводов</a></li>
-        <li><strong>Помощь</strong></li>
-        <li><a href="#">Вопросы-ответы</a></li>
+        <li style="margin-bottom: 30px"><a href="#">Гиперпрессованный кирпич</a></li>
+        <li><strong style="font-family: Muller-medium; font-weight: 500; font-size: 20px; line-height: 100%">Наши объекты</strong></li>
+        <li style="margin-bottom: 30px"><a href="#">Фотографии выполненных объектов</a></li>
+        <li><strong style="font-family: Muller-medium; font-weight: 500; font-size: 20px; line-height: 100%">Наши партнеры</strong></li>
+        <li style="margin-bottom: 70px"><a href="#">Дилеры заводов</a></li>
+        <li><strong style="font-family: Muller-medium; font-weight: 500; font-size: 20px; line-height: 100%">Помощь</strong></li>
+        <li style="margin-bottom: 30px"><a href="#">Вопросы-ответы</a></li>
       </ul>
       <div class="mini-contacts-card">
   <div class="mini-contact-row">
     <span class="mini-contact-icon">
       <!-- Локация -->
-      <img src="{% static 'imgfolder/location.png' %}" alt="Локация" />
+      <img style="width: 60px; height: 60px" src="{% static 'imgfolder/location.png' %}" alt="Локация" />
     </span>
     <span class="mini-contact-text">
       Пермь, Газеты Звезда,<br>13, 4 этаж
@@ -349,7 +339,7 @@ padding: 0;}
   <div class="mini-contact-row">
     <span class="mini-contact-icon">
       <!-- Телефон -->
-      <img src="{% static 'imgfolder/phone.png' %}" alt="Телефон" />
+      <img style="width: 60px; height: 60px" src="{% static 'imgfolder/phone.png' %}" alt="Телефон" />
     </span>
     <span class="mini-contact-text">
       <a href="tel:+79519401249">+7 (951) 940-12-49</a>
@@ -358,11 +348,11 @@ padding: 0;}
   <div class="mini-contact-row">
     <span class="mini-contact-icon">
       <!-- Соцсети -->
-      <img src="{% static 'imgfolder/message.png' %}" alt="Связь" />
+      <img style="width: 60px; height: 60px" src="{% static 'imgfolder/message.png' %}" alt="Связь" />
     </span>
     <span class="mini-contact-text">
-      <a href="#">Написать нам в Telegram</a><br>
-      <a href="#">Написать нам на Whatsapp</a>
+      <a style="color: #575757" href="#">Написать нам в Telegram</a><br>
+      <a style="color: #575757" href="#">Написать нам на Whatsapp</a>
     </span>
   </div>
   <div class="mini-contact-note">
@@ -420,7 +410,7 @@ padding: 0;}
     const menuToggle = document.getElementById('menuToggle');
     const sideMenu = document.getElementById('sideMenu');
     const blurBg = document.getElementById('blur-bg');
-
+    const closeMwnu = document.getElementById('closemenu')
     // Открытие меню
     menuToggle.addEventListener('click', function () {
       sideMenu.classList.add('active');
@@ -432,5 +422,10 @@ padding: 0;}
       sideMenu.classList.remove('active');
       blurBg.classList.remove('active');
     });
+    closeMwnu.addEventListener('click', function () {
+      sideMenu.classList.remove('active');
+      blurBg.classList.remove('active');
+    });
   });
+  
 </script>

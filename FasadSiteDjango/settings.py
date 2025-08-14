@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-osykeufd%)o^tok%1c^dmw_bbgf79-76js009c$_$#=gqim3v7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['modernfasad.ru', '164.215.97.73', '127.0.0.1','localhost']
+ALLOWED_HOSTS = ['modernfasad.ru', '164.215.97.73', '127.0.0.1','localhost', '*']
 
 
 # Application definition
