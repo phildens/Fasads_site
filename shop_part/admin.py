@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from shop_part.models import Product, TypeMaterial, Category, Format, Color, FrosenDefender, Manufactor, StrengthGrade, \
-    WaterResistance, Emptiness, Questions, ProductType, Gallery ,Galery, BigGalery,SmallGallery
+    WaterResistance, Emptiness, Questions, ProductType, Gallery, BigGalery,SmallGallery
 
 
 # Register your models here.
@@ -46,9 +46,9 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 
-@admin.register(Galery)
-class GaleryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+# @admin.register(Gallery)
+# class GaleryAdmin(admin.ModelAdmin):
+#     list_display = ('name',)
 
 
 
