@@ -8,6 +8,16 @@ from django.views.decorators.http import require_POST
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from .models import ContactRequest
+from shop_part.models import Category, Product, TypeMaterial, Questions, Galery
+from django.shortcuts import render
+from .models import BigGalery
+
+def galery(request):
+    # та самая коллекция карточек — сортируем по position и сразу подтягиваем связанные SmallGallery
+    items = BigGalery.objects.all().order_by('position').prefetch_related('images')
+    return render(request, 'galery.html', {
+        'items': items,
+    })
 
 # Create your views here.
 class ProductListView(ListAPIView):

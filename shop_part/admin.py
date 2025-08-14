@@ -1,16 +1,26 @@
 from django.contrib import admin
 
 from shop_part.models import Product, TypeMaterial, Category, Format, Color, FrosenDefender, Manufactor, StrengthGrade, \
-    WaterResistance, Emptiness, Questions, ProductType, Gallery
+    WaterResistance, Emptiness, Questions, ProductType, Gallery ,Galery, BigGalery,SmallGallery
 
 
 # Register your models here.
+class SmallGalleryInline(admin.TabularInline):
+    model = SmallGallery
+    fk_name = 'object'
 
+@admin.register(BigGalery)
+class BigGaleryAdmin(admin.ModelAdmin):
+    inlines = [SmallGalleryInline]
+
+# Галерея объектов
 class GalleryInline(admin.TabularInline):
     fk_name = 'product'
     model = Gallery
 
 
+
+# Товары
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [GalleryInline, ]
@@ -34,6 +44,13 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+
+@admin.register(Galery)
+class GaleryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+
 
 
 @admin.register(Format)
