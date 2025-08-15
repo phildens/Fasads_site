@@ -80,7 +80,7 @@ padding: 0;}
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
-    background-color: rgba(66, 34, 35, 1);
+    background-color:rgba(245, 245, 245, 1) ;
 }
 .a {
     color: rgba(241, 237, 226, 0.6);
@@ -343,6 +343,7 @@ body {
       display: block;
     }
     .slide-image3 {
+      margin-left: 100px;
       flex: 1 1 60%;
       width: 756px;
       padding-left: 100px;
@@ -552,6 +553,10 @@ body {
     font-style: normal;
     }
     .footer-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       background: #fafafa;
       color: #421e23;
       padding: 60px 0 32px 0;
@@ -564,11 +569,29 @@ body {
       max-width: 1240px;
       margin: 0 auto 52px auto;
       padding: 0 16px;
-      display: flex;
+      display: grid;
       flex-direction: column;
       align-items: center;
       gap: 32px;
     }
+    @media (min-width: 1110px){
+  .footer-cards { grid-template-columns: repeat(3, 370px); }
+}
+
+/* 2 колонки */
+@media (max-width: 1110px) and (min-width: 740px){
+  .footer-cards { grid-template-columns: repeat(2, 370px); }
+}
+
+/* 1 колонка */
+@media (max-width: 739px){
+  .footer-cards { grid-template-columns: 370px; }
+}
+
+/* очень узкие экраны — чтобы не было горизонтального скролла */
+@media (max-width: 400px){
+  .footer-cards { grid-template-columns: min(370px, 100% - 32px); }
+}
     .footer-cards-row {
       display: flex;
       align-items: center;
@@ -728,6 +751,36 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .contacts-section {
   background: #fafafa;
   border-radius: 12px;
@@ -742,18 +795,32 @@ body {
   max-width: 1200px;
   margin: 0 auto 0 auto;
 }
+@media (max-width: 739px){
+  .contacts-grid { grid-template-columns: 370px; }
+}
+
+
 .contacts-card {
   background: #fff;
   border-radius: 12px;
   padding: 26px 24px 28px 24px;
   min-height: 340px;
-  min-width: 569px;
+  max-width: 569px;
+  width: 569px;
   box-sizing: border-box;
   box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+/* Для мобильных — только max-width */
+@media (max-width: 1200px) {
+  .contacts-card {
+    width: auto;       /* убираем фиксированную ширину */
+    max-width: 569px;   /* чтобы не вылезало за экран */
+  }
 }
 .contacts-title {
   font-size: 22px;
@@ -1123,6 +1190,23 @@ textarea::placeholder{
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -1293,7 +1377,7 @@ textarea::placeholder{
 
   <div class="footer-wrapper">
     <div class="footer-cards">
-      <div class="footer-cards-row">
+     
         <div class="footer-card">
           <div class="footer-card-title">Клинкерный<br>облицовочный кирпич</div>
           <img src="{% static 'imgfolder/f1.png' %}" alt="Клинкерный облицовочный кирпич">
@@ -1309,8 +1393,8 @@ textarea::placeholder{
           <img src="{% static 'imgfolder/f3.png' %}" alt="Клинкерная плитка">
           <a class="footer-card-link" href="{% url 'cats' %}?cat_name=tile">Перейти к разделу</a>
         </div>
-      </div>
-      <div class="footer-cards-row">
+      
+      
         <div class="footer-card">
           <div class="footer-card-title">Брусчатка</div>
           <img src="{% static 'imgfolder/f4.png' %}" alt="Брусчатка">
@@ -1326,8 +1410,8 @@ textarea::placeholder{
           <img src="{% static 'imgfolder/f6.png' %}" alt="Навесные вентилируемые системы">
           <a class="footer-card-link" href="#">Перейти к разделу</a>
         </div>
-      </div>
-      <div class="footer-cards-row">
+      
+      
         <div class="footer-card">
           <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
           <img src="{% static 'imgfolder/f7.png' %}" alt="Архитектурные фасадные декоры" style="height: 237px;">
@@ -1343,8 +1427,8 @@ textarea::placeholder{
           <img src="{% static 'imgfolder/f9.png' %}" alt="Кровельные материалы">
           <a class="footer-card-link" href="#">Перейти к разделу</a>
         </div>
-      </div>
-      <div class="footer-cards-row">
+      
+      
         <div class="footer-card">
           <div class="footer-card-title">Керамические блоки</div>
           <img src="{% static 'imgfolder/f10.png' %}" alt="Керамические блоки">
@@ -1357,7 +1441,7 @@ textarea::placeholder{
         </div>
         <div class="footer-card footer-card--empty"></div>
       </div>
-    </div>
+    
 
 
     <div style="width: 1200px;
