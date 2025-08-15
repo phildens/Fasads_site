@@ -90,7 +90,8 @@ class EmptinessAdmin(admin.ModelAdmin):
 
 @admin.register(Questions)
 class QuestionsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
+    list_display = ("name",)
+    search_fields = ("name", "description")
 
 from .models import ContactRequest
 

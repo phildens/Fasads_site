@@ -11,7 +11,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from shop_part import views
-from shop_part.views import ProductListView
+from shop_part.views import ProductListView, FAQView
 
 urlpatterns = [
     # Админка
@@ -35,6 +35,7 @@ urlpatterns = [
     # Страница галереи объектов
     path('galery/', views.galery, name='galery'),
     path("contact-request/create/", views.contact_request_create, name="contact_request_create"),
+    path("faq/", FAQView.as_view(), name="faq"),
 ]
 
 # Статика (CSS, JS, шрифты) — отдаётся через STATIC_URL

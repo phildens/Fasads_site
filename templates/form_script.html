@@ -1,105 +1,110 @@
-{% load static %}
 <script>
-(function(){
-  const root = document.getElementById('callback-form');
-  if (!root) return;
+document.addEventListener("DOMContentLoaded", function () {
+  // найдём все формы блока "callback", даже если их несколько на странице
+  const forms = document.querySelectorAll(".callback-form-section form");
+  if (!forms.length) return;
 
-  const form = root.querySelector('form');
-
-  // ставим action/method программно (разметку не редактируем)
-  form.setAttribute('action', "{% url 'contact_request_create' %}");
-  form.setAttribute('method', 'post');
-
-  // получаем CSRF из cookie (стандартно для Django)
-  function getCookie(name){
-    const m = document.cookie.match(new RegExp('(^|; )' + name + '=([^;]+)'));
+  // CSRF из cookie
+  function getCookie(name) {
+    const m = document.cookie.match(new RegExp("(^|; )" + name + "=([^;]+)"));
     return m ? decodeURIComponent(m[2]) : null;
   }
-  const csrftoken = getCookie('csrftoken');
+  const csrftoken = getCookie("csrftoken");
 
-  // простая подсветка ошибок
-  function highlightErrors(errors){
-    // снимаем прошлые состояния
-    form.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
-
-    if(!errors) return;
-    for (const [name] of Object.entries(errors)){
-      const field = form.querySelector(`[name="${name}"]`);
-      if (field){
-        field.classList.add('has-error');
-        field.addEventListener('input', ()=> field.classList.remove('has-error'), {once:true});
-      }
-    }
-  }
-
-  // лёгкий тост
-  function toast(msg){
-    let node = document.getElementById('cb-toast');
-    if(!node){
-      node = document.createElement('div');
-      node.id = 'cb-toast';
-      node.style.position = 'fixed';
-      node.style.left = '50%';
-      node.style.bottom = '24px';
-      node.style.transform = 'translateX(-50%)';
-      node.style.background = '#111';
-      node.style.color = '#fff';
-      node.style.padding = '10px 14px';
-      node.style.borderRadius = '10px';
-      node.style.zIndex = '99999';
-      node.style.opacity = '0';
-      node.style.transition = 'opacity .2s';
+  function toast(msg) {
+    let node = document.getElementById("cb-toast");
+    if (!node) {
+      node = document.createElement("div");
+      node.id = "cb-toast";
+      Object.assign(node.style, {
+        position: "fixed", left: "50%", bottom: "24px", transform: "translateX(-50%)",
+        background: "#111", color: "#fff", padding: "10px 14px", borderRadius: "10px",
+        zIndex: 99999, opacity: 0, transition: "opacity .2s"
+      });
       document.body.appendChild(node);
     }
     node.textContent = msg;
-    node.style.opacity = '1';
-    setTimeout(()=> node.style.opacity = '0', 2500);
+    node.style.opacity = "1";
+    setTimeout(() => (node.style.opacity = "0"), 2500);
   }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  function highlightErrors(form, errors){
+    form.querySelectorAll(".has-error").forEach(el => el.classList.remove("has-error"));
+    if (!errors) return;
+    for (const name of Object.keys(errors)) {
+      const field = form.querySelector(`[name="${name}"]`);
+      if (field) {
+        field.classList.add("has-error");
+        field.addEventListener("input", () => field.classList.remove("has-error"), { once: true });
+      }
+    }
+  }
 
-    const btn = form.querySelector('button[type="submit"]') || form.querySelector('.callback-form-btn');
-    if (btn) btn.disabled = true;
+  // настройка каждой формы
+  forms.forEach((form) => {
+    // если action не задан — проставим эндпоинт
+    if (!form.getAttribute("action")) {
+      form.setAttribute("action", "{% url 'contact_request_create' %}");
+    }
+    // метод всегда POST
+    form.setAttribute("method", "post");
 
-    // читаем ваши поля
-    const fd = new FormData(form);
+    // единый обработчик отправки
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault(); // БЛОКИРУЕМ обычный сабмит для КАЖДОЙ формы
 
-    // переводим в "канонические" поля бэкенда
-    const payload = new FormData();
-    payload.append('first_name',  fd.get('name')    || '');
-    payload.append('last_name',   fd.get('surname') || '');
-    payload.append('email',       fd.get('email')   || '');
-    payload.append('phone',       fd.get('phone')   || '');
-    payload.append('description', fd.get('about')   || '');
+      const btn = form.querySelector('button[type="submit"]') || form.querySelector(".callback-form-btn");
+      if (btn) btn.disabled = true;
 
-    try{
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: {
-          'X-CSRFToken': csrftoken || '',
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: payload
-      });
+      const fd = new FormData(form);
 
-      const data = await res.json().catch(()=> ({}));
+      // Определяем, какая схема полей у этой формы
+      const usesCanonical = !!(fd.has("first_name") || form.querySelector('[name="first_name"]'));
 
-      if(!res.ok || !data.ok){
-        highlightErrors(data.errors);
-        throw new Error('validation');
+      let body;
+      if (usesCanonical) {
+        // форма уже использует first_name/last_name/description → отправляем как есть
+        body = new FormData(form);
+      } else {
+        // форма с name/surname/about → маппим в канонические поля бэкенда
+        body = new FormData();
+        body.append("first_name",  fd.get("name")    || "");
+        body.append("last_name",   fd.get("surname") || "");
+        body.append("email",       fd.get("email")   || "");
+        body.append("phone",       fd.get("phone")   || "");
+        body.append("description", fd.get("about")   || "");
+        // если в форме есть скрытый csrf, тоже приложим
+        const csrfField = form.querySelector('input[name="csrfmiddlewaretoken"]');
+        if (csrfField) body.append("csrfmiddlewaretoken", csrfField.value);
       }
 
-      form.reset();
-      toast('Заявка отправлена. Спасибо!');
-      // если форма в модалке — можешь закрыть здесь, например:
-      // document.querySelector('[data-close]')?.click();
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": (form.querySelector('input[name="csrfmiddlewaretoken"]')?.value) || csrftoken || "",
+            "X-Requested-With": "XMLHttpRequest"
+          },
+          body
+        });
 
-    } catch(err){
-      toast('Не удалось отправить. Проверьте поля и повторите.');
-    } finally {
-      if (btn) btn.disabled = false;
-    }
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          highlightErrors(form, data.errors);
+          throw new Error("validation");
+        }
+
+        form.reset();
+        toast("Заявка отправлена. Спасибо!");
+        // если форма в модалке — можно закрыть модалку тут:
+        // form.closest(".cm-modal")?.classList.remove("cm-modal--open");
+
+      } catch (err) {
+        toast("Не удалось отправить. Проверьте поля и повторите.");
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }, { passive: false }); // важно: чтобы preventDefault точно сработал на некоторых браузерах
   });
-})();
+});
 </script>

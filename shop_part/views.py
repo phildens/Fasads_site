@@ -4,6 +4,7 @@ from shop_part.serializers import ProductSerializer, ProductInCatSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
 from shop_part.models import Category, Product, TypeMaterial, Questions
 from django.http import JsonResponse
+from django.views.generic import ListView
 from django.views.decorators.http import require_POST
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -44,6 +45,11 @@ def category(request):
 def about(request):
     return render(request, 'about.html')
 
+class FAQView(ListView):
+    model = Questions
+    template_name = "accordion.html"   # см. файл ниже
+    context_object_name = "questions"
+    queryset = Questions.objects.all().order_by("id")
 @require_POST
 def contact_request_create(request):
     # простая валидация
