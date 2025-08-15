@@ -1000,7 +1000,7 @@ body {
 .call{
   position: relative;
 }
-::placeholder {
+.callback-form-fields-grid input::placeholder {
   position: absolute;
   left: 22px;
   top: 32px;
@@ -1039,7 +1039,7 @@ textarea::placeholder{
   font-size: 28px;
   font-weight: 300;
   color: rgba(0, 0, 0, 1);
-  
+
   text-align: left;
   letter-spacing: 0;
   line-height: 100%;
@@ -1052,7 +1052,7 @@ textarea::placeholder{
   color: rgba(129, 129, 129, 1);
   font-size: 20px;
   font-weight: 400;
-  
+
   width: 480px;
   line-height: 100%;
 }
@@ -1080,10 +1080,10 @@ textarea::placeholder{
   margin-bottom: 18px;
 }
 .callback-form-fields input {
-  
+
   width: 300px;
   height: 74px;
-  
+
   border: 1.5px solid #e4e4e4;
   border-radius: 8px;
   font-size: 1.05rem;
@@ -1097,10 +1097,10 @@ textarea::placeholder{
   border: 1.5px solid #a4cc6a;
 }
 .callback-form-fields textarea {
-  
+
   width: 455px;
   height: 188px;
-  
+
   border: 1.5px solid #e4e4e4;
   border-radius: 8px;
   font-size: 1.05rem;
@@ -1121,7 +1121,7 @@ textarea::placeholder{
   display: block;
 }
 .callback-form-info textarea {
-  
+
   height: 188px;
   width: 455px;
   border: 1.5px solid #e4e4e4;
@@ -1893,9 +1893,9 @@ textarea::placeholder{
       </div>
     </div>
 
+    
 
 
-{% include "form_script.html" %}
 
 
     <div class="callback-form-bottom">
@@ -1907,6 +1907,14 @@ textarea::placeholder{
     </div>
   </form>
 </div>
+    
+    <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
+
+<style>
+/* лёгкая подсветка ошибок полей, не мешает вашему дизайну */
+#callback-form input.has-error,
+#callback-form textarea.has-error { border-color:#E64646 !important; }
+</style>
 <div class="contacts-section">
   <div class="contacts-grid">
     <div class="contacts-card">
