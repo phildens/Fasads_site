@@ -130,3 +130,6 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+TEMPLATES[0]["OPTIONS"]["context_processors"] += [
+    "shop_part.context_processors.faq_questions",
+]

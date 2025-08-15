@@ -45,7 +45,7 @@
 
             font-family: "Muller-regular";
 
-            src: url("{% static 'font/Muller-Regular.otf' %}") format("truetype");
+            src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype");
             font-style: normal;
             font-weight: normal;
         }
@@ -60,14 +60,16 @@
 
 {#    ОТВЕТЫ НА ВОПРОСЫ#}
  <div class="accordion-container">
+ 
+
 {% for question in questions %}
 
 
    
-    <button class="accordion-tab">{{ question.name }}</button>
+    <button class="accordion-tab">{{ question.name|linebreaksbr }}</button>
 
     <div class="accordion-panel">
-        <p>{{ question.description }}</p>
+        <p>{{ question.description|linebreaksbr }}</p>
     </div>
     
     <div style="background-color: black; height: 1px"></div>
@@ -79,7 +81,60 @@
 
 
 </div>
+<div class="callback-form-section" id="callback-form" >
+  <p style="position: absolute;left: 135px;top: 94px;font-family: 'head2';font-size: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.7);">Оставить заявку</p>
+  <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
+  <div class="callback-form-subtitle">
+    Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре.<br>
+    Наши специалисты найдут решение даже для самых смелых архитектурных решений
+  </div>
 
+
+
+  <form>
+    <div class="callback-form-row">
+      <div class="callback-form-fields">
+        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения о заявителе</label>
+        <div class="callback-form-fields-grid">
+          <input type="text" class="call" placeholder="Имя" name="name" required>
+          <input type="email" placeholder="Email" name="email" required>
+          <input type="text" placeholder="Фамилия" name="surname">
+          <input type="text" placeholder="Телефон" name="phone" required>
+        </div>
+      </div>
+
+
+
+
+      <div class="callback-form-info">
+        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Информация о проекте</label>
+        <textarea placeholder="Краткое описание" name="about"></textarea>
+      </div>
+    </div>
+
+    
+
+
+
+
+    <div class="callback-form-bottom">
+      <div class="callback-form-note">
+        <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
+        Мы гарантируем полное соблюдение ваших <br>интеллектуальных прав на разработку<br> и конфиденциальности предоставленной информации.
+      </div>
+      <button type="submit" class="callback-form-btn">Оставить заявку</button>
+    </div>
+  </form>
+</div>
+    
+    <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
+    {% include "form_script.html" %}
+
+<style>
+/* лёгкая подсветка ошибок полей, не мешает вашему дизайну */
+#callback-form input.has-error,
+#callback-form textarea.has-error { border-color:#E64646 !important; }
+</style>
 
 <div style="height: 128px"></div>
 {#    ФУТЕР#}
@@ -144,19 +199,76 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
-<script>var acc = document.getElementsByClassName("accordion-tab");
-var i;
+<script>
+(function () {
+  const tabs = Array.from(document.getElementsByClassName("accordion-tab"));
 
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.height) {
-            panel.style.height = null;
-        } else {
-            panel.style.height = "80" + "px";
-        }
+  // Убедимся, что у панелей правильные стартовые стили
+  tabs.forEach(tab => {
+    const panel = tab.nextElementSibling;
+    if (!panel) return;
+    panel.style.overflow = "hidden";
+    panel.style.height = "0px";
+    panel.style.transition = "height .28s ease";
+  });
+
+  function closePanel(tab) {
+    const panel = tab.nextElementSibling;
+    if (!panel) return;
+    tab.classList.remove("active");
+    // если панель в auto — сначала зафиксируем текущее значение, затем анимируем к 0
+    if (panel.style.height === "auto") {
+      panel.style.height = panel.scrollHeight + "px";
+      requestAnimationFrame(() => panel.style.height = "0px");
+    } else {
+      panel.style.height = panel.scrollHeight + "px";
+      requestAnimationFrame(() => panel.style.height = "0px");
+    }
+    panel.addEventListener("transitionend", function te() {
+      // после закрытия ничего не держим
+      if (tab.classList.contains("active") === false) {
+        panel.style.height = "0px";
+      }
+      panel.removeEventListener("transitionend", te);
     });
-}</script>
+  }
+
+  function openPanel(tab) {
+    const panel = tab.nextElementSibling;
+    if (!panel) return;
+    tab.classList.add("active");
+    // из 0px к контентной высоте
+    panel.style.height = panel.scrollHeight + "px";
+    // после анимации ставим auto, чтобы держать динамический контент
+    panel.addEventListener("transitionend", function te() {
+      if (tab.classList.contains("active")) {
+        panel.style.height = "auto";
+      }
+      panel.removeEventListener("transitionend", te);
+    });
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", function () {
+      const isOpen = this.classList.contains("active");
+
+      // 1) закрыть все прочие
+      tabs.forEach(t => {
+        if (t !== this && t.classList.contains("active")) {
+          closePanel(t);
+        }
+      });
+
+      // 2) переключить текущую
+      if (isOpen) {
+        closePanel(this);
+      } else {
+        openPanel(this);
+      }
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
