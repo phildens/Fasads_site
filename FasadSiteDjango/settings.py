@@ -34,6 +34,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['modernfasad.ru', '164.215.97.73', '127.0.0.1','localhost', '*']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [

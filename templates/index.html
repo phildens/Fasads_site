@@ -1193,15 +1193,28 @@ textarea::placeholder{
 
 
 .stats-section {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   gap: 50px;
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto 48px auto;
   background: #fafafa;
   padding: 48px 0;
 }
+@media (max-width: 1110px) and (min-width: 740px){
+  .stats-section { grid-template-columns: repeat(2, 370px); }
+}
 
+/* 1 колонка */
+@media (max-width: 739px){
+  .stats-section { grid-template-columns: 370px; }
+}
+
+/* очень узкие экраны — чтобы не было горизонтального скролла */
+@media (max-width: 400px){
+  .stats-section { grid-template-columns: min(370px, 100% - 32px); }
+}
 .stats-card {
   width: 367px;
   height: 454px;
@@ -1227,12 +1240,228 @@ textarea::placeholder{
 
 
 
+/* ====== tablet & down ====== */
+@media (max-width: 1200px){
+
+  /* контейнер блока */
+  #callback-form{
+    padding: 24px 16px !important;
+    min-height: auto;
+    width: 100% !important;      /* чтобы внутренняя секция влезала */
+    box-sizing: border-box;
+  }
+
+  /* отключаем абсолюты у элементов шапки/рядов */
+  #callback-form .callback-form-title,
+  #callback-form .callback-form-subtitle,
+  #callback-form .callback-form-row,
+  #callback-form .callback-form-bottom,
+  #callback-form > p{
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 0 14px 0;
+  }
+
+  /* сетки в колонку */
+  .callback-form-row{
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .callback-form-fields-grid{
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  /* поля и текстовые области — на всю ширину и компактнее */
+  .callback-form-fields input,
+  .callback-form-fields textarea,
+  .callback-form-info textarea{
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+  .callback-form-fields input{ height: 52px; }
+  .callback-form-fields textarea,
+  .callback-form-info textarea{ min-height: 120px; height: auto; }
+
+  /* сбрасываем твои абсолютные плейсхолдеры */
+  .callback-form-fields-grid input::placeholder,
+  #callback-form textarea::placeholder{
+    position: static;
+    left: auto; top: auto;
+    font-size: 16px;
+  }
+
+  /* низ формы */
+  .callback-form-bottom{
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .callback-form-btn{
+    width: 100%;
+    max-width: 360px;
+    margin-left: 0;
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  /* немного уменьшаем типографику */
+  .callback-form-title{ font-size: 26px !important; line-height: 1.15; }
+  .callback-form-subtitle{ font-size: 16px !important; line-height: 1.35; width: auto !important; }
+}
+
+/* ====== phones ====== */
+@media (max-width: 600px){
+  #callback-form{ padding: 18px 12px !important; }
+  .callback-form-title{ font-size: 22px !important; }
+  .callback-form-subtitle{ font-size: 14px !important; }
+  .callback-form-note{ font-size: 13px; line-height: 1.3; }
+}
+
+/* страховка от горизонтального скролла из-за внешнего inline-обёртки */
+@media (max-width: 1200px){
+  html, body{ overflow-x: clip; }
+}
+
+
+/* ===== phones: 420px и ниже — ужимаем типографику и включаем мягкие переносы ===== */
+@media (max-width: 420px){
+  #callback-form{
+    padding: 18px 12px !important;
+    box-sizing: border-box;
+  }
+
+  /* Заголовок: меньше кегль + безопасные переносы */
+  #callback-form .callback-form-title{
+    font-size: clamp(20px, 7vw, 24px) !important;
+    line-height: 1.15;
+    letter-spacing: 0 !important;
+    word-break: normal !important;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-wrap: balance; /* если поддерживается — красивее балансирует строки */
+  }
+
+  /* Подзаголовок: компактнее и обязательно в ширину контейнера */
+  #callback-form .callback-form-subtitle{
+    width: 100% !important;
+    max-width: none !important;
+    font-size: 14px !important;
+    line-height: 1.4;
+    word-break: normal;
+    overflow-wrap: anywhere; /* если слишком длинно — всё равно переносим */
+    hyphens: auto;
+  }
+
+  /* Малый заголовок и подписи групп */
+  #callback-form > p{ font-size: 16px !important; }
+  #callback-form .group-title{ font-size: 18px !important; }
+
+  /* Примечание внизу — чтобы не выпирало */
+  .callback-form-note{
+    font-size: 12.5px;
+    line-height: 1.3;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Чуть компактнее поля и кнопка */
+  .callback-form-fields input{ height: 48px; }
+  .callback-form-fields textarea,
+  .callback-form-info textarea{ min-height: 110px; }
+  .callback-form-btn{
+    font-size: 15px;
+    padding: 12px 18px;
+  }
+
+  /* Плейсхолдеры тоже уменьшим */
+  .callback-form-fields-grid input::placeholder,
+  #callback-form textarea::placeholder{ font-size: 15px; }
+}
 
 
 
 
+/* ===== Сбрасываем фиксированную ширину внешнего inline-контейнера на мобилке ===== */
+@media (max-width: 768px){
+  /* ловим тот самый div со style="width: 1440px; ..." */
+  div[style*="width: 1440px"]{
+    width: 100% !important;
+    height: auto !important;
+    margin: 16px auto !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+}
 
+/* ===== Мобильный текст: делаем влезаемым и с переносами ===== */
+@media (max-width: 480px){
+  /* сам белый блок */
+  #callback-form{
+    padding: 16px 12px !important;
+    min-height: auto !important;
+    box-sizing: border-box;
+  }
 
+  /* заголовок */
+  #callback-form .callback-form-title{
+    font-size: clamp(18px, 7.2vw, 22px) !important; /* уменьшаем кегль */
+    line-height: 1.15 !important;
+    letter-spacing: 0 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important; /* мягкие переносы даже в длинных словах */
+    hyphens: auto;                      /* переносы по слогам (lang="ru" желательно) */
+  }
+
+  /* подзаголовок */
+  #callback-form .callback-form-subtitle{
+    width: 100% !important;
+    max-width: none !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    margin-bottom: 12px !important;
+  }
+
+  /* мелкий заголовок и подписи */
+  #callback-form > p{ font-size: 16px !important; margin: 0 0 8px !important; }
+  .group-title{ font-size: 18px !important; }
+
+  /* поля компактнее */
+  .callback-form-fields-grid{ grid-template-columns: 1fr !important; gap: 12px !important; }
+  .callback-form-fields input{ height: 48px !important; font-size: 15px !important; padding: 12px 14px !important; }
+  .callback-form-fields textarea,
+  .callback-form-info textarea{ min-height: 110px !important; font-size: 15px !important; padding: 12px 14px !important; }
+
+  /* плейсхолдеры — без абсолютного позиционирования */
+  .callback-form-fields-grid input::placeholder,
+  #callback-form textarea::placeholder{
+    position: static !important;
+    left: auto !important; top: auto !important;
+    font-size: 15px !important;
+  }
+
+  /* подвал формы */
+  .callback-form-bottom{
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    margin-top: 8px !important;
+  }
+  .callback-form-note{ font-size: 12.5px !important; line-height: 1.3 !important; }
+  .callback-form-btn{ width: 100% !important; max-width: 360px; font-size: 15px !important; padding: 12px 18px !important; }
+}
 
 
 
@@ -1649,166 +1878,210 @@ textarea::placeholder{
     </div>
                                                               <!--КАРУСЕЛЬ-->
 
-<div style="
-                  
-                  margin: 0 auto 0px auto;
-                  width: 1188px;
-                  font-family: 'head';
-                  font-size: 24px;
-                  color: rgba(66, 34, 35, 1);
-                  left: 130px;
-                  bottom: 1013px;">
-        <p>Галерея объектов</p>
-      </div>
-   <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false" style="width: auto;height: auto;">
-  <div class="carousel-inner">
-    
-    <div class="carousel-item active">
-      <div style="width: 1436px;
-                height: 1043px;
-                display: flex;
-                justify-content: center;
-                margin: 0 auto 48px auto;
-                position: relative;">
-      
-      <div style="width: 505.7px;
-                  height: 337px;
-                  position: absolute;
-                  top: 38px;
-                  left: 0px;
-                  ">
-        <img src="{% static 'imgfolder/gal1.png' %}" alt="">
-      </div>
-      <div style="width: 504.2px;
-                  height: 336px;
-                  position: absolute;
-                  top: 389px;
-                  left: 0px;">
-        <img src="{% static 'imgfolder/gal2.png' %}" alt="">
-      </div>
-      <div style="width: 505px;
-                  height: 282px;
-                  position: absolute;
-                  top: 737px;
-                  left: 0px;">
-        <img src="{% static 'imgfolder/gal3.png' %}" alt="">
-      </div>
-      <div style="width: 421.66px;
-                  height: 281px;
-                  position: absolute;
-                  top: 38px;
-                  left: 514px;">
-        <img src="{% static 'imgfolder/gal4.png' %}" alt="">
-      </div>
-      <div style="width: 421.46px;
-                  height: 316px;
-                  position: absolute;
-                  top: 331px;
-                  left: 514px;">
-        <img src="{% static 'imgfolder/gal5.png' %}" alt="">
-      </div>
-      <div style="width: 421px;
-                  height: 360px;
-                  position: absolute;
-                  top: 659px;
-                  left: 514px;">
-        <img src="{% static 'imgfolder/gal6.png' %}" alt="">
-      </div>
-      <div style="width: 485px;
-                  height: 323px;
-                  position: absolute;
-                  top: 38px;
-                  left: 950px;">
-        <img src="{% static 'imgfolder/gal7.png' %}" alt="">
-      </div>
-      <div style="width: 485px;
-                  height: 647px;
-                  position: absolute;
-                  top: 372px;
-                  left: 950px;">
-        <img src="{% static 'imgfolder/gal8.png' %}" alt="">
-      </div>
-    </div>
-    </div> 
+<!-- Требуется Bootstrap 5 (css/js) в base.html -->
 
-  <div class="carousel-item ">
-      <div style="width: 1436px;
-                height: 1043px;
-                display: flex;
-                justify-content: center;
-                margin: 0 auto 48px auto;
-                position: relative;">
-      
-      <div style="width: 505.7px;
-                  height: 337px;
-                  position: absolute;
-                  top: 38px;
-                  left: 0px;
-                  ">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-"  src="{% static 'imgfolder/gal9.png' %}" alt="">
-      </div>
-      <div style="width: 504.2px;
-                  height: 336px;
-                  position: absolute;
-                  top: 389px;
-                  left: 0px;">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-" src="{% static 'imgfolder/gal10.png' %}" alt="">
-      </div>
-      <div style="width: 505px;
-                  height: 282px;
-                  position: absolute;
-                  top: 737px;
-                  left: 0px;">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-" src="{% static 'imgfolder/gal11.png' %}" alt="">
-      </div>
-      <div style="width: 421.66px;
-                  height: 281px;
-                  position: absolute;
-                  top: 38px;
-                  left: 516.3px;">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-" src="{% static 'imgfolder/gal12.png' %}" alt="">
-      </div>
-      <div style="width: 421.46px;
-                  height: 316px;
-                  position: absolute;
-                  top: 331px;
-                  left: 516.3px;">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-" src="{% static 'imgfolder/gal13.png' %}" alt="">
-      </div>
-      <div style="width: 421px;
-                  height: 360px;
-                  position: absolute;
-                  top: 659px;
-                  left: 516.3px;">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-" src="{% static 'imgfolder/gal14.png' %}" alt="">
-      </div>
-      <div style="width: 485px;
-                  height: 323px;
-                  position: absolute;
-                  top: 38px;
-                  left: 950px;">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-" src="{% static 'imgfolder/gal15.png' %}" alt="">
-      </div>
-      <div style="width: 485px;
-                  height: 647px;
-                  position: absolute;
-                  top: 372px;
-                  left: 950px;">
-        <img style="border-radius: 10px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-" src="{% static 'imgfolder/gal16.png' %}" alt="">
+<!-- Заголовок (десктоп-стили оставлены инлайном) -->
+<div class="gallery-page-title"
+     style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
+  <p>Галерея объектов</p>
+</div>
+
+<!-- Слайдер -->
+<div id="carouselExampleSlidesOnly" class="carousel slide"
+     data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false"
+     style="width: auto; height: auto;">
+
+  <div class="carousel-inner">
+
+    <!-- СЛАЙД 1 -->
+    <div class="carousel-item active">
+      <div class="collage"
+           style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
+
+        <div class="tile" style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
+          <img src="{% static 'imgfolder/gal1.png' %}" alt="gal1">
+        </div>
+
+        <div class="tile" style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
+          <img src="{% static 'imgfolder/gal2.png' %}" alt="gal2">
+        </div>
+
+        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
+          <img src="{% static 'imgfolder/gal3.png' %}" alt="gal3">
+        </div>
+
+        <div class="tile" style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 514px;">
+          <img src="{% static 'imgfolder/gal4.png' %}" alt="gal4">
+        </div>
+
+        <div class="tile" style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 514px;">
+          <img src="{% static 'imgfolder/gal5.png' %}" alt="gal5">
+        </div>
+
+        <div class="tile" style="width: 421px; height: 360px; position: absolute; top: 659px; left: 514px;">
+          <img src="{% static 'imgfolder/gal6.png' %}" alt="gal6">
+        </div>
+
+        <div class="tile" style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
+          <img src="{% static 'imgfolder/gal7.png' %}" alt="gal7">
+        </div>
+
+        <div class="tile" style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
+          <img src="{% static 'imgfolder/gal8.png' %}" alt="gal8">
+        </div>
+
       </div>
     </div>
+
+    <!-- СЛАЙД 2 -->
+    <div class="carousel-item">
+      <div class="collage"
+           style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
+
+        <div class="tile" style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal9.png' %}" alt="gal9">
+        </div>
+
+        <div class="tile" style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal10.png' %}" alt="gal10">
+        </div>
+
+        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal11.png' %}" alt="gal11">
+        </div>
+
+        <div class="tile" style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 516.3px;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal12.png' %}" alt="gal12">
+        </div>
+
+        <div class="tile" style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 516.3px;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal13.png' %}" alt="gal13">
+        </div>
+
+        <div class="tile" style="width: 421px; height: 360px; position: absolute; top: 659px; left: 516.3px;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal14.png' %}" alt="gal14">
+        </div>
+
+        <div class="tile" style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal15.png' %}" alt="gal15">
+        </div>
+
+        <div class="tile" style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
+          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal16.png' %}" alt="gal16">
+        </div>
+
+      </div>
+    </div>
+
   </div>
-  </div>
-   
 </div>
+
+<!-- АДАПТИВ ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ -->
+<style>
+  /* базовое: убираем baseline-зазор */
+  .carousel .collage img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:10px;
+  }
+
+  /* планшеты и телефоны — превращаем коллаж в сетку 2 колонки */
+  @media (max-width: 992px){
+    .carousel .collage{
+      width: 100% !important;
+      height: auto !important;
+      margin: 0 auto 20px !important;
+      padding: 0 12px 12px;
+      position: static !important;
+
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      justify-items: stretch;
+      align-items: stretch;
+    }
+    .carousel .collage .tile{
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+    .carousel .collage .tile img{
+      width: 100%;
+      height: auto;              /* сохраняем пропорции */
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+      border-radius: 10px;
+      object-fit: cover;
+    }
+  }
+
+  /* очень узкие телефоны — одна колонка */
+  @media (max-width: 576px){
+    .carousel .collage{
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 0 10px 12px;
+    }
+    /* поджимаем заголовок */
+    .gallery-page-title, .gallery-page-title p{
+      font-size: 18px !important;
+      margin: 0 10px 10px !important;
+    }
+  }
+
+  /* Если нужно ровнять карточки по высоте на мобиле, можно отмечать нужные .tile классом .crop */
+  /* @media (max-width: 992px){
+       .carousel .collage .tile.crop{ aspect-ratio: 4 / 3; }
+       .carousel .collage .tile.crop img{ height: 100%; object-fit: cover; }
+     } */
+      /* телефоны: 1 колонка */
+@media (max-width: 576px){
+  .carousel .collage{
+    width:100% !important; height:auto !important;
+    margin:0 auto 20px !important; padding:0 10px 12px;
+    position:static !important;
+    display:grid !important;
+    grid-template-columns: 1fr;
+    gap:10px;
+  }
+  .carousel .collage .tile{
+    position:static !important; width:100% !important; height:auto !important;
+    aspect-ratio:auto;
+  }
+  .carousel .collage .tile img{ width:100%; height:auto; display:block; border-radius:10px; object-fit:cover; }
+}
+
+/* ПЛАНШЕТЫ: РОВНО 4 × 2 */
+@media (min-width: 768px) and (max-width: 1199.98px){
+  .carousel .collage{
+    width:100% !important; height:auto !important;
+    margin:0 auto 20px !important; padding:0 12px 12px;
+    position:static !important;
+
+    display:grid !important;
+    grid-template-columns: repeat(2, 1fr);   /* 4 колонки */
+    grid-template-rows: repeat(4, 1fr);      /* 2 ряда */
+    gap:12px;
+    align-items:stretch; justify-items:stretch;
+  }
+  .carousel .collage .tile{
+    position:static !important;
+    width:100% !important; height:auto !important;
+    aspect-ratio: 4 / 3;                     /* одинаковая высота карточек */
+  }
+  .carousel .collage .tile img{
+    width:100%; height:100%;
+    display:block; object-fit:cover;
+    border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+}
+
+/* базовое: убираем baseline-зазор у картинок (на всех экранах) */
+.carousel .collage img{ display:block; }
+
+</style>
+
 
                                                               
     
