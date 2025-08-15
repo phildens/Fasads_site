@@ -47,11 +47,13 @@ def about(request):
 @require_POST
 def contact_request_create(request):
     # простая валидация
-    first_name  = (request.POST.get("first_name") or "").strip()
-    last_name   = (request.POST.get("last_name") or "").strip()
-    email       = (request.POST.get("email") or "").strip()
-    phone       = (request.POST.get("phone") or "").strip()
-    description = (request.POST.get("description") or "").strip()
+    data = request.POST
+    # Маппинг: принимаем и "старые" и ваши имена полей
+    first_name  = (data.get("first_name") or data.get("name") or "").strip()
+    last_name   = (data.get("last_name") or data.get("surname") or "").strip()
+    email       = (data.get("email") or "").strip()
+    phone       = (data.get("phone") or "").strip()
+    description = (data.get("description") or data.get("about") or "").strip()
 
     errors = {}
     if not first_name:

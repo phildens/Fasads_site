@@ -1244,7 +1244,7 @@ textarea::placeholder{
             <h2 class="big">НОВИНКА<br><div style="height: 5px;"></div><p class="medium">Коллекция Halb от RECKE</p> </h2>
             <div class="slide-buttons">
               <button class="slide-btn white">Узнать подробнее</button>
-              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
+              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;" data-modal-target="#contact-modal">Оставить заявку</a>
             </div>
             <p class="min">Представьте фасады, играющие переливами света<br> и тени благодаря обновленным текстурам, где каждый<br> кирпич рассказывает свою историю, создавая<br> неповторимую атмосферу</p>
           </div>
@@ -1778,9 +1778,9 @@ textarea::placeholder{
       </div>
     </div>
 
-    
 
 
+{% include "form_script.html" %}
 
 
     <div class="callback-form-bottom">
@@ -1933,6 +1933,7 @@ textarea::placeholder{
 
     
   </script>
+  {% include "contact_modal.html" %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
