@@ -29,6 +29,9 @@ class ProductListView(ListAPIView):
 def index(request):
     return render(request, 'index.html')
 
+def yandex_find(request):
+    return render(request, 'yandex_94334ec1e6b86559.html')
+
 
 def products(request):
     return render(request, 'category.html')

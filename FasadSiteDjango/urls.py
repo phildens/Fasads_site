@@ -36,6 +36,7 @@ urlpatterns = [
     path('galery/', views.galery, name='galery'),
     path("contact-request/create/", views.contact_request_create, name="contact_request_create"),
     path("faq/", FAQView.as_view(), name="faq"),
+    path("yandex_94334ec1e6b86559.html", views.yandex_find, name="yand"),
 ]
 
 # Статика (CSS, JS, шрифты) — отдаётся через STATIC_URL
