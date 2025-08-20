@@ -33,7 +33,7 @@
 
 
 
-
+ <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
 
 
@@ -733,51 +733,6 @@ body {
     
 
 
-
-.logos-section {
-  background: #fafafa;
-  border-radius: 10px;
-  padding: 36px 0 30px 0;
-  margin: 0 0 48px 0;
-  text-align: center;
-}
-.logos-section-title {
-  width: 1200px;
-  display: inline-block;
-  text-align: left;
-  color: #3a2220;
-  font-family: 'Montserrat', 'Arial', sans-serif;
-  font-size: 1.1rem;
-  margin-bottom: 24px;
-  font-weight: 500;
-}
-.logos-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  justify-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.logo-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 269px;
-  width: 280px;
-  
-  transition: box-shadow 0.16s;
-}
-.logo-card img {
-  width: 100%;
-  height: 100%;
-  max-height: 200px;
-  max-width: 200px;
-  object-fit: contain;
-}
 
 
 
@@ -2099,39 +2054,124 @@ textarea::placeholder{
 
 
 <div class="logos-section">
-  <div style=" justify-items: center;">
+  <div class="logos-inner">
     <div class="logos-section-title">
-        <p>Мы являемся официальными дилерами 22 заводов-производителей</p> 
-  </div>
-  </div>
-  
-  <div class="logos-grid">
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo1.png' %}" alt="Пятый элемент">
+      <p>Мы являемся официальными дилерами 22 заводов-производителей</p>
     </div>
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo2.png' %}" alt="ARHIO">
-    </div>
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo3.png' %}" alt="Recke Brickerei">
-    </div>
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo4.png' %}" alt="Laterem Antique">
-    </div>
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo5.png' %}" alt="Skriaibin Ceramics">
-    </div>
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo6.png' %}" alt="ЛСР">
-    </div>
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo7.png' %}" alt="Царский Кирпич">
-    </div>
-    <div class="logo-card">
-      <img src="{% static 'imgfolder/logo8.png' %}" alt="Ströher">
+
+    <div class="logos-grid" id="logos-slider">
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo1.png' %}" alt="Пятый элемент">
+      </div>
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo2.png' %}" alt="ARHIO">
+      </div>
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo3.png' %}" alt="Recke Brickerei">
+      </div>
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo4.png' %}" alt="Laterem Antique">
+      </div>
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo5.png' %}" alt="Skriaibin Ceramics">
+      </div>
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo6.png' %}" alt="ЛСР">
+      </div>
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo7.png' %}" alt="Царский Кирпич">
+      </div>
+      <div class="logo-card">
+        <img draggable="false" src="{% static 'imgfolder/logo8.png' %}" alt="Ströher">
+      </div>
     </div>
   </div>
 </div>
+
+      
+    <script>
+(function(){
+  const slider = document.getElementById('logos-slider');
+  if (!slider) return;
+
+  // Drag/Swipe прокрутка
+  let isDown = false, startX = 0, startLeft = 0;
+  const onPointerDown = (e) => {
+    if (window.matchMedia('(min-width: 901px)').matches) return;
+    isDown = true;
+    slider.classList.add('dragging');
+    startX = (e.pageX !== undefined) ? e.pageX : (e.touches && e.touches[0].pageX);
+    startLeft = slider.scrollLeft;
+    pauseAutoplay();
+  };
+  const onPointerMove = (e) => {
+    if (!isDown) return;
+    const x = (e.pageX !== undefined) ? e.pageX : (e.touches && e.touches[0].pageX);
+    slider.scrollLeft = startLeft + (startX - x);
+  };
+  const onPointerUp = () => {
+    if (!isDown) return;
+    isDown = false;
+    slider.classList.remove('dragging');
+    resumeAutoplaySoon();
+  };
+
+  slider.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+  slider.addEventListener('touchstart', onPointerDown, {passive: true});
+  slider.addEventListener('touchmove', onPointerMove, {passive: true});
+  slider.addEventListener('touchend', onPointerUp);
+
+  // Автопрокрутка
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let autoTimer = null, resumeTimer = null;
+
+  function cardStep(){
+    const card = slider.querySelector('.logo-card');
+    if (!card) return 0;
+    const gap = parseFloat(getComputedStyle(slider).gap || '0');
+    return card.offsetWidth + gap;
+    // в режиме grid gap не мешает, но автоскролл работает только в mobile режиме
+  }
+
+  function tick(){
+    if (window.matchMedia('(min-width: 901px)').matches) return;
+    const step = cardStep();
+    if (!step) return;
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    const next = (slider.scrollLeft + step >= maxScroll - 2) ? 0 : (slider.scrollLeft + step);
+    slider.scrollTo({ left: next, behavior: 'smooth' });
+  }
+
+  function startAutoplay(){
+    if (reduceMotion || autoTimer) return;
+    autoTimer = setInterval(tick, 2500);
+  }
+  function pauseAutoplay(){
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
+  }
+  function resumeAutoplaySoon(){
+    if (reduceMotion) return;
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(startAutoplay, 1800);
+  }
+
+  slider.addEventListener('wheel', () => { pauseAutoplay(); resumeAutoplaySoon(); }, {passive: true});
+  window.addEventListener('resize', () => { pauseAutoplay(); resumeAutoplaySoon(); });
+
+  // защитимся от перетаскивания изображений
+  slider.querySelectorAll('img').forEach(img => img.setAttribute('draggable','false'));
+
+  // старт
+  startAutoplay();
+})();
+</script>
+
+      
+      
+      
 <div style="width: 1200px;height: 700px;margin: 36px auto 44px auto;">
     <p>Статьи</p>
     </div>

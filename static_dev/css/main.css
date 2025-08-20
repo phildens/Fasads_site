@@ -1,0 +1,168 @@
+
+
+
+
+
+/* Секция и контейнер */
+
+/* 1) Секция должна растягиваться на всю ширину вьюпорта */
+.logos-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  /* если где-то наследуется фиксированный container-стиль */
+  box-sizing: border-box;
+  text-align: left;              /* заголовок слева */
+}
+
+/* 2) Внутренний контейнер: ограничиваем контент, а не секцию */
+.logos-section .logos-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;               /* безопасные боковые поля на мобиле */
+}
+
+/* 3) Заголовок — не инлайн-блок и с переносами */
+.logos-section-title {
+  display: block;                /* чтобы не центрировался как inline-block */
+  margin-bottom: 24px;
+}
+
+.logos-section-title p {
+  margin: 0;
+  white-space: normal !important;   /* выключаем возможный nowrap */
+  overflow-wrap: anywhere;          /* если попадутся длинные «слова» */
+  word-break: break-word;
+}
+
+/* чуть больше воздуха на очень узких экранах */
+@media (max-width: 480px) {
+  .logos-section .logos-inner { padding: 0 20px; }
+}
+
+
+
+/* --- Десктоп: сетка 2×4 --- */
+.logos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  justify-items: center;
+}
+
+/* Карточки и изображения */
+.logo-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 269px;
+  width: 280px;
+  transition: box-shadow 0.16s;
+}
+
+.logo-card img {
+  width: 100%;
+  height: 100%;
+  max-height: 200px;
+  max-width: 200px;
+  object-fit: contain;
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --- Планшет/мобила: превращаем в горизонтальный слайдер --- */
+@media (max-width: 1024px) {
+  .logos-grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 4px 12px; /* небольшой внутренний отступ */
+    overscroll-behavior-x: contain;
+  }
+  .logos-grid::-webkit-scrollbar { display: none; }
+
+  .logo-card {
+    flex: 0 0 auto;
+    width: clamp(180px, 70vw, 280px);
+    height: clamp(140px, 40vw, 269px);
+    scroll-snap-align: center;
+  }
+}
+
+/* Курсор при перетаскивании (меняется из JS) */
+.logos-grid.dragging { cursor: grabbing; }
+
+/* секция и контейнер оставляем как у вас */
+
+.logos-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* Заголовок */
+.logos-section-title { margin-bottom: 24px; }
+.logos-section-title p { margin: 0; white-space: normal; overflow-wrap: anywhere; }
+
+/* ===== ГРИД ПО УМОЛЧАНИЮ (large + medium) =====
+   авто-подбор колонок: 4 → 3 → 2 без переломов */
+.logos-grid {
+  display: grid;
+  /* карточка ужимается до 260px, дальше становится 1fr */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  justify-items: center;
+}
+
+/* Карточка растягивается на всю доступную ширину ячейки */
+.logo-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(51,51,51,.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;                  /* <— вместо фикс. 280px */
+  height: clamp(200px, 22vw, 269px);  /* адаптивная высота */
+  transition: box-shadow 0.16s;
+}
+
+.logo-card img {
+  max-width: 70%;               /* чтобы логотипы не прилипали к краям */
+  max-height: 70%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ===== МОБИЛЬНЫЙ/УЗКИЙ — СЛАЙДЕР ===== */
+@media (max-width: 900px) {
+  .logos-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+    padding: 8px 4px 12px;
+    overscroll-behavior-x: contain;
+  }
+  .logos-grid::-webkit-scrollbar { display: none; }
+
+  .logo-card {
+    flex: 0 0 auto;
+    width: clamp(200px, 70vw, 280px);
+    height: clamp(160px, 42vw, 269px);
+    scroll-snap-align: center;
+  }
+}
