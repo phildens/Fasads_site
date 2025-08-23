@@ -107,3 +107,95 @@
   font-size: 13px;
   color: #b0b0b0;
 }
+/* ===== Адаптация ТОЛЬКО ниже 1200px. Десктоп остаётся как в исходнике ===== */
+@media (max-width: 1199.98px){
+
+  /* футер свободной высоты на маленьких экранах */
+  .site-footer{
+    height: auto;
+    padding-bottom: 24px;
+  }
+
+  /* верхняя полоса: меню и инфоблок становятся колонкой */
+  .footer-top{
+    gap: 18px 24px;
+    align-items: flex-start;
+  }
+
+  .footer-top .footer-menu{
+    width: 100%;
+    gap: 10px 22px;
+    padding-bottom: 10px;
+  }
+
+  .footer-top .footer-info-block{
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    align-items: flex-start;
+  }
+  .footer-top .footer-info{
+    margin-right: 0;
+    min-width: 220px;
+  }
+
+  /* — средняя полоса — */
+  /* Перекрываем инлайны только на малых ширинах */
+  .site-footer .footer-group{
+    width: 100% !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Логотип: снимаем фикс. размеры и правый отступ */
+  .site-footer .footer-group img{
+    width: clamp(220px, 42vw, 383px) !important;
+    height: auto !important;
+    margin-right: 0 !important;
+  }
+
+  /* Колонка ссылок + копирайт укладываются столбцом */
+  .site-footer .footer-group > div:last-child{
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 16px;
+    flex-direction: column;
+  }
+}
+
+/* планшеты */
+@media (max-width: 992px){
+  .footer-top .footer-info{ min-width: 200px; }
+  .site-footer .footer-group{
+    justify-content: flex-start !important;
+  }
+}
+
+/* мобильные ≤ 768 */
+@media (max-width: 768px){
+  .footer-top .footer-menu{
+    justify-content: flex-start;
+  }
+  .footer-top .footer-info-block{
+    justify-content: flex-start;
+  }
+
+  .site-footer .footer-group{
+    justify-content: center !important;
+    text-align: center;
+  }
+  .site-footer .footer-group > div:last-child{
+    align-items: center !important;
+  }
+
+  .footer-top .footer-info .footer-info-title{ font-size: 14px; }
+  .footer-top .footer-info .footer-info-sub{ font-size: 12px; }
+}
+
+/* маленькие мобильные ≤ 480 */
+@media (max-width: 480px){
+  .site-footer{ padding-top: 22px; padding-bottom: 20px; }
+  .footer-top .footer-menu a{ font-size: 14px; }
+  .footer-top .footer-info{ min-width: 0; }
+}

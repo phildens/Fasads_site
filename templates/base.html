@@ -104,121 +104,17 @@
 
 
 </div>
-<div class="callback-form-section" id="callback-form" >
-  <p style="position: absolute;left: 135px;top: 94px;font-family: 'head2';font-size: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.7);">Оставить заявку</p>
-  <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
-  <div class="callback-form-subtitle">
-    Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре.<br>
-    Наши специалисты найдут решение даже для самых смелых архитектурных решений
-  </div>
 
 
-
-  <form>
-    <div class="callback-form-row">
-      <div class="callback-form-fields">
-        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения о заявителе</label>
-        <div class="callback-form-fields-grid">
-          <input type="text" class="call" placeholder="Имя" name="name" required>
-          <input type="email" placeholder="Email" name="email" required>
-          <input type="text" placeholder="Фамилия" name="surname">
-          <input type="text" placeholder="Телефон" name="phone" required>
-        </div>
-      </div>
-
-
-
-
-      <div class="callback-form-info">
-        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Информация о проекте</label>
-        <textarea placeholder="Краткое описание" name="about"></textarea>
-      </div>
-    </div>
-
-    
-
-
-
-
-    <div class="callback-form-bottom">
-      <div class="callback-form-note">
-        <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
-        Мы гарантируем полное соблюдение ваших <br>интеллектуальных прав на разработку<br> и конфиденциальности предоставленной информации.
-      </div>
-      <button type="submit" class="callback-form-btn">Оставить заявку</button>
-    </div>
-  </form>
-</div>
-    
-    <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
-    {% include "form_script.html" %}
-
-<style>
-/* лёгкая подсветка ошибок полей, не мешает вашему дизайну */
-#callback-form input.has-error,
-#callback-form textarea.has-error { border-color:#E64646 !important; }
-</style>
+{% include 'contact_main_form.html' %}
 
 <div style="height: 128px"></div>
 {#    ФУТЕР#}
 
+{% include 'footer.html' %}
 
-<footer class="site-footer">
-    <div class="footer-top">
-        <nav class="footer-menu">
-            <a href="#">Продукция</a>
-            <a href="#">Галерея</a>
-            <a href="#">Вопросы-ответы</a>
-            <a href="#">Контакты</a>
-        </nav>
-        <div class="footer-info-block">
-            <div class="footer-info">
-                <div class="footer-info-title"><a>Пермь, Газеты Звезда 13, 4 этаж</a></div>
-                <div class="footer-info-sub">контактный адрес шоу-рума</div>
-            </div>
-            <div class="footer-info">
-                <div class="footer-info-title"><a href="tel:+79519401249" style="text-decoration:none;">+7 (951)
-                    940-12-49</a></div>
-                <div class="footer-info-sub">номер для связи</div>
-            </div>
-            <div class="footer-info">
-                <div class="footer-info-title"><a href="mailto:evrokrovliof@mail.ru" style="text-decoration:none;">evrokrovliof@mail.ru</a>
-                </div>
-                <div class="footer-info-sub">электронная почта</div>
-            </div>
-        </div>
-    </div>
-    <div style="height: 30px;"></div>
-    <div style="display: flex; justify-content: center;">
-        <div class="footer-group" style="width: 1200px; display: flex; justify-content: right;">
-            <div><img src="{% static 'imgfolder/dark-logo-footer.png' %}" alt=""
-                      style="height: 189px; width: 383px; margin-right: 100px"></div>
-            <div style="display: flex; align-items: end;">
-
-                <div style="display: flex;flex-direction: column;color: rgba(0, 0, 0, 0.6);text-decoration: none;">
-                    <a style="color: inherit;color: rgba(0, 0, 0, 0.7);text-decoration: none; border-bottom: 30px;"
-                       href="#">Информация</a>
-                    <div style="height: 36px;"></div>
-                    <a style="color: inherit;text-decoration: none;" href="#">Политика конфиденциальности</a>
-                    <a style="margin-top: 20px; margin-bottom: 20px;color: inherit; text-decoration: none;" href="#">Пользовательское
-                        соглашение</a>
-                    <a style="color: inherit;text-decoration: none;" href="#">Политика использования Cookies</a>
-                </div>
-                <div style="margin-left: 37px;">
-                    <a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="#">Сообщить об ошибке</a>
-                    <div style="height: 18px;"></div>
-                    <div style="display: flex;">
-                        <p style="margin: 0px 4px 0px 0px;">&copy;</p>
-
-                        <span style="color: rgba(0, 0, 0, 0.6); font-family: Muller-light;"> 2025 Современные фасады. Все права сайта защищены</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="height: 50px"></div>
 {% include "contact_modal.html" %}
-</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
