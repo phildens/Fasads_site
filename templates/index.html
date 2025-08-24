@@ -34,7 +34,7 @@
 
 
  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-
+ <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 
 
  <!--    <link rel="stylesheet" href="{% static 'css/header.css' %}">
@@ -842,116 +842,8 @@ body {
 
 
 
-.site-footer {
-  background: #fafafa;
-  position: relative;
-  height: 278px;
-  border-top: 2px solid #d1cfcf;
-  padding: 34px 0 14px 0;
-  font-family: 'Montserrat', 'Arial', sans-serif;
-  color: #28221e;
-  font-size: 15px;
-  margin-top: 0;
-}
-.footer-top {
-  max-width: 1180px;
-  margin: 0 auto 22px auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px 40px;
-  align-items: flex-end;
-  justify-content: flex-start;
-}
-.footer-top .footer-menu {
-  display: flex;
-  padding-bottom: 18px;
-  gap: 30px;
-  flex-wrap: wrap;
-  flex: 1;
-}
-.footer-top .footer-menu a {
-  color: #28221e;
-  font-family: Muller-regular;
-  text-decoration: none;
-  font-weight: 400;
-  transition: color .16s;
-  font-size: 15px;
-}
-.footer-top .footer-menu a:hover {
-  color: #a34b38;
-  text-decoration: underline;
-}
-.footer-top .footer-info-block {
-  display: flex;
-  flex-direction: row;
-  gap: 34px;
-  flex-shrink: 0;
-  align-items: flex-end;
-}
-.footer-top .footer-info {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  font-size: 14px;
-  line-height: 1.2;
-  margin-right: 10px;
-}
-.footer-info a{
-  color: #422223;
-}
-.footer-top .footer-info .footer-info-title {
-  font-family: Muller-medium;
-  /* font-weight: 600; */
-  color: #422223;
-  font-size: 15px;
-}
-.footer-top .footer-info .footer-info-sub {
-  color: #b4b4b4;
-  font-family: 'Muller-light';
-  font-size: 13px;
-  margin-top: 2px;
-}
 
 
-.site-footer hr {
-  border: none;
-  border-top: 1px solid #d1cfcf;
-  margin: 18px 0 28px 0;
-}
-.footer-bottom {
-  max-width: 980px;
-  margin: 0 auto;
-  color: #6e6867;
-  font-size: 13px;
-}
-.footer-bottom .footer-bottom-title {
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-.footer-bottom-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px 38px;
-  margin: 10px 0 0 0;
-}
-.footer-bottom-links a {
-  color: #8f8a86;
-  text-decoration: none;
-  transition: color .15s;
-  font-size: 13px;
-}
-.footer-bottom-links a:hover {
-  color: #e15a6a;
-  text-decoration: underline;
-}
-.footer-bottom-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 8px;
-  font-size: 13px;
-  color: #b0b0b0;
-}
 .call{
   position: relative;
 }
@@ -1435,86 +1327,8 @@ textarea::placeholder{
       </div>
     
 
+    {% include 'description_item.html' %}
 
-    <div style="width: 1200px;
-                height: 590px;
-                display: flex;
-                position: relative;
-                justify-content: center;
-                gap: 50px;
-                width: 1200px;
-                margin: 0 auto 48px auto;
-                background:#fafafa;
-                ">
-      <div style="position: absolute;
-                  top: 118px;
-                  left: 146px;
-                  font-family:'NAMU';
-                  font-weight: 300;
-                  font-size: 64px;
-                  line-height: 100%;
-                  letter-spacing: 0%;
-                  text-transform: uppercase;
-                  color: rgba(66, 34, 35, 1);
-                  ">
-        Современные
-      </div>
-      <div style="position: absolute;
-                  top: 195px;
-                  left: 0px;
-                  font-family:'NAMU';
-                  font-weight: 300;
-                  font-size: 64px;
-                  line-height: 100%;
-                  letter-spacing: 0%;
-                  text-transform: uppercase;
-                  color: rgba(66, 34, 35, 1);">
-        фасады —
-      </div>
-      <div style="position: absolute;
-                  top: 195px;
-                  left: 400px;
-                  font-family:'head';
-                  font-weight: 400;
-                  font-size: 22px;
-                  line-height: 100%;
-                  letter-spacing: 0%;
-                  color: rgba(66, 34, 35, 1);
-                  ">
-        ваш надежный партнер в мире облицовочных материалов с 2006 года. Ранее известные как «Кровли из Европы» и «Европейские фасады», 
-мы прошли значительный путь и адаптировались к изменениям, 
-сохранив при этом основные принципы
-      </div>
-      <div style="position: absolute;
-                  width: 400px;
-                  height: 110px;
-                  top: 335px;
-                  left: 0px;
-                  font-family:'head2';
-                  font-weight: 400;
-                  font-size: 22px;
-                  line-height: 100%;
-                  letter-spacing: 0%;
-                  color:rgba(0, 0, 0, 0.6);">
-        Наш опыт охватывает как частный сектор, так многоэтажное 
-<br>и социальное строительство, что подтверждает нашу компетентность
-      </div>
-      <div style="position: absolute;
-                  top: 429px;
-                  left: 0px;
-                  font-family:'head2';
-                  font-weight: 400;
-                  font-size: 22px;
-                  line-height: 100%;
-                  letter-spacing: 0%;
-                  color:rgba(0, 0, 0, 0.6);
-                  text-decoration: underline;
-                  text-decoration: none;">
-        <a style="color: inherit;" href="#">Перейти к разделу</a>
-        
-      </div>
-
-    </div>
   
     <div class="stats-section">
       <div class="stats-card">
@@ -1864,62 +1678,12 @@ textarea::placeholder{
     </div>
   </div>
 </div>
-<footer class="site-footer">
-  <div class="footer-top">
-    <na class="footer-menu">
-      <a href="#">Продукция</a>
-      <a href="#">Галерея</a>
-      <a href="#">Вопросы-ответы</a>
 
-      <a href="{% url 'about' %}">Контакты</a>
-    </nav>
-
-    <div class="footer-info-block">
-      <div class="footer-info">
-        <div class="footer-info-title"> <p>Пермь, Газеты Звезда 13, 4 этаж</p></div>
-        <div class="footer-info-sub">контактный адрес шоу-рума </div>
-      </div>
-      <div class="footer-info">
-        <div class="footer-info-title"><a href="tel:+79519401249" style="text-decoration:none;">+7 (951) 940-12-49</a></div>
-        <div class="footer-info-sub">номер для связи</div>
-      </div>
-      <div class="footer-info">
-        <div class="footer-info-title"><a href="mailto:evrokrovliof@mail.ru" style="text-decoration:none;">evrokrovliof@mail.ru</a></div>
-        <div class="footer-info-sub">электронная почта</div>
-      </div>
-    </div>
-  </div>
-  <div style="height: 30px;"></div>
-  <div style="display: flex; justify-content: center;">
-      <div class="footer-group" style="width: 1200px; display: flex; justify-content: right;">
-        <div style="display: flex; align-items: end;">
-                    
-                    <div style="display: flex;flex-direction: column;color: rgba(0, 0, 0, 0.6);text-decoration: none;">
-                      <a style="color: inherit;color: rgba(0, 0, 0, 0.7);text-decoration: none; border-bottom: 30px;" href="#">Информация</a>
-                    <div style="height: 36px;"></div>
-                      <a style="color: inherit;text-decoration: none;" href="#">Политика конфиденциальности</a>
-                      <a style="margin-top: 20px; margin-bottom: 20px;color: inherit; text-decoration: none;" href="#">Пользовательское соглашение</a>
-                      <a style="color: inherit;text-decoration: none;" href="#">Политика использования Cookies</a>
-                    </div>
-                    <div style="margin-left: 37px;">
-                    <a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="#">Сообщить об ошибке</a>
-                    <div style="height: 18px;"></div>
-                    <div style="display: flex;">
-                      <p style="margin: 0px 4px 0px 0px;">&copy;</p>
-                      
-                    <span style="color: rgba(0, 0, 0, 0.6); font-family: Muller-light;"> 2025 Современные фасады. Все права сайта защищены</span>
-                    </div>
-                    </div>
-                    </div>
-      </div>
-    </div>
-
-</footer>
       <h1 style="color: RGB(250, 250, 250)">Современные фасады</h1>
   </div>
       
   </div>
-
+{% include 'footer.html' %}
   <!-- Scripts -->
   <script >
     document.addEventListener('DOMContentLoaded', function() {

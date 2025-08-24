@@ -38,61 +38,110 @@
 /*    border-right: none;           !* у последней колонки убрать правую границу *!*/
 /*}*/
 
-/* Примеры подсветки: */
+/* ===== базовые бордеры — рисуются ТОЛЬКО по твоим классам ===== */
 .highlight-left   { border-left: 1px solid #626262; }
 .highlight-right  { border-right: 1px solid #626262; }
 .highlight-top    { border-top: 1px solid #626262; }
 .highlight-bottom { border-bottom: 1px solid #626262; }
 
-/* Заголовки и текст внутри */
-.column h3 {
-    font-family: Muller-medium;
-    margin-top: 0;
-    font-size: 22px;
-    font-weight: 500;
-    color: #422223;
-    width: 228px;
+/* ===== сетка ===== */
+.feature-grid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr)); /* как в макете: 4 колонки */
 }
-.column{
-    height: 354px;
-}
-.column.small {
-    height: 214px;
-}
-.column.medium {
-    height: 300px;
-}
-.mg-head-about-top {
-    margin-top: 35px;
-}
-.descript {
-     display: flex;
 
-  flex-direction: column;
-  justify-content: space-between; /* раздвигаем элементы по высоте контейнера */
-  padding-bottom: 44px;
+/* ячейки */
+.feature-grid > .column{
+  padding: 24px 24px 44px;
+  box-sizing: border-box;
 }
-.column p {
-    font-family: Muller-regular;
-    line-height: 100%;
-    font-weight: 400;
 
-    letter-spacing: 0;
-    font-size: 20px;
-    color: #555;
-    opacity: 60%;
+/* типографика */
+.column h3{
+  font-family: Muller-medium;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  color: #422223;
+  width: 228px; /* как в макете */
 }
-.column img {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-top: 35px;
+.column p{
+  font-family: Muller-regular;
+  line-height: 100%;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: 20px;
+  color: #555;
+  opacity: .6;
 }
-.halfm * {
-    margin-left: 31px;
+
+/* вертикальный сдвиг по макету */
+.halfm *{ margin-left: 31px; }
+
+/* изображения в «картинных» ячейках */
+.feature-grid .column img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 0; /* убираем ранее заданный отступ сверху */
 }
-.minheight {
-    height: 213px;
+
+/* отступ заголовков во второй таблице */
+.mg-head-about-top{ margin-top: 35px; }
+
+/* ===== фикс. высоты ТОЛЬКО для десктопа (как в макете) ===== */
+@media (min-width:1200px){
+  .column{ height: 354px; }
+  .column.small{ height: 214px; }
+  .column.medium{ height: 300px; }
+  .minheight{ height: 213px; }
 }
+
+/* ===== планшеты: 2 колонки, пересчитываем бордеры ===== */
+@media (max-width:1199.98px){
+  .feature-grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  /* сбрасываем бордеры, заданные под 4-колоночный десктоп */
+  .feature-grid > .column{
+    border: none !important;
+    height: auto;           /* отключаем фикс. высоты */
+    padding: 20px;
+  }
+  .column.small, .column.medium, .minheight{ height: auto; }
+  .halfm *{ margin-left: 0; }
+
+  /* рисуем сетку заново под 2 колонки */
+  .feature-grid > .column{ border-bottom: 1px solid #626262; }
+  .feature-grid > .column:nth-child(2n+1){ border-right: 1px solid #626262; } /* вертикаль между колонками */
+  .feature-grid > .column:nth-last-child(-n+2){ border-bottom: none; }        /* убираем низ у последней строки */
+
+  /* картинки по содержимому, чтобы не рвали высоту */
+  .feature-grid .column img{ height: auto; max-height: 260px; object-fit: cover; }
+}
+
+/* ===== телефоны: 1 колонка ===== */
+@media (max-width:767.98px){
+  .feature-grid{ grid-template-columns: 1fr; }
+
+  /* одноколоночная сетка: только горизонтальные линии */
+  .feature-grid > .column{
+    border-right: none !important;
+    border-left: none !important;
+    border-bottom: 1px solid #626262 !important;
+    padding: 16px;
+  }
+  .feature-grid > .column:last-child{ border-bottom: none !important; }
+
+  .column h3{ font-size: 18px; width: auto; }
+  .column p{ font-size: 16px; line-height: 1.25; }
+
+  .mg-head-about-top{ margin-top: 12px; }
+}
+
 
 
 
