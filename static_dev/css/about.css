@@ -454,28 +454,34 @@ textarea::placeholder{
 
 /*Что о нас говрят клиенты*/
 
-/* защита от «переполнения» при паддингах */
-*,*::before,*::after{ box-sizing: border-box; }
-
+*,*::before,*::after{ box-sizing:border-box; }
 :root{
   --card-w: 567px;
-  --card-h: 269px;     /* высота макета */
+  --card-h: 269px;
   --gap: 32px;
 }
 
-/* Сетка списка: 2 колонки -> 1 колонка, когда не помещается */
-/*.reviews{ padding:24px 16px; }*/
-.reviews-grid{
-
-  display:grid;
-  gap:var(--gap);
-  /* карточка может сжиматься до 100%, но не больше макетной ширины */
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-w)), 1fr));
-  justify-items:center; /* центрируем карточки в колонках */
-  max-width: 1200px;
+/* Контейнер 1200px, на десктопе пиксель-в-пиксель */
+.container-1200{
+  width:1200px;
+  margin:0 auto;
+}
+@media (max-width:1260px){
+  /* Только при уменьшении — делаем резиновым */
+  .container-1200{ width:100% !important; max-width:1200px; padding:0 16px; }
 }
 
-/* Карточка: сетка из двух строк — верх и низ */
+/* Сетка карточек (десктоп) */
+.reviews-grid{
+  display:grid;
+  gap:var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-w)), 1fr));
+  justify-items:center;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+/* Карточка */
 .review-card{
   width:100%;
   max-width:var(--card-w);
@@ -483,106 +489,105 @@ textarea::placeholder{
   background:#fff;
   border-radius:16px;
   box-shadow:0 6px 24px rgba(0,0,0,.06);
-
-  /* точные отступы по макету */
   padding:30px 40px 21px 42px;
 
   display:grid;
-  grid-template-rows:auto 1fr auto; /* верх, «воздух», низ */
-  row-gap:0;
+  grid-template-rows:auto 1fr auto;
 }
 
-/* Верхний контейнер */
+/* Верх */
 .review-top{ display:grid; gap:8px; align-content:start; }
 .review-name{
-  font-family: Muller-medium;
-    margin-top: 0;
-    font-size: 22px;
-    font-weight: 500;
-    color: #422223;
-    width: 228px;
   margin:0;
-  /*font:600 28px/1.15 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;*/
-  /*color:#3a2323;*/
+  font-family:Muller-medium;
+  font-size:22px;
+  font-weight:500;
+  color:#422223;
+  width:228px;
 }
 .review-date{
   margin:0;
-  font-family: Muller-regular;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 100%;
-  letter-spacing: 0;
-
-
+  font-family:Muller-regular;
+  font-size:18px;
+  font-weight:400;
+  line-height:100%;
   color:#422223;
-  opacity: 50%;
+  opacity:.5;
 }
 
-/* Нижний ряд: текст слева, кнопка справа, прибиты к низу */
+/* Низ: текст слева, стрелка справа */
 .review-bottom-row{
-  grid-row:3;                /* нижняя строка карточки */
+  grid-row:3;
   display:grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns:1fr auto;
   align-items:end;
   column-gap:16px;
 }
 .review-bottom{
-  margin:0 0 6px 0;          /* 27 снизу (разница с 21 у кнопки = 6px) */
-  font-family: Muller-regular;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 100%;
-  letter-spacing: 0%;
+  margin:0 0 6px 0;
+  font-family:Muller-regular;
+  font-weight:400;
+  font-size:20px;
+  line-height:100%;
   color:#422223;
-  opacity: 60%;
+  opacity:.6;
 }
-
-/* Кнопка-«пилюля» со стрелкой: 40 справа, 21 снизу уже учтены паддингом */
 .review-cta{
-  width:var(--arrow-size);
-  height:var(--arrow-size);
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  background:#f2f2f2;
   border-radius:20px;
   text-decoration:none;
 }
-.review-cta:hover{ filter:brightness(.98); transform: translateX(1px); }
+.review-cta:hover{ filter:brightness(.98); transform:translateX(1px); }
 
-/* Доп. страховка на очень узких экранах: уменьшаем шрифт, если нужно */
-/* Можно убрать, если не требуется */
-@media (max-width: 360px){
-  .review-name{ font-size:24px; }
-  .review-date,.review-bottom{ font-size:18px; }
+/* Мобильный режим ≤900px: превращаем сетку в слайдер */
+@media (max-width:900px){
+  .reviews-grid{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:var(--gap);
+    padding: 0 16px 10px;
+    margin: 0 -16px;           /* во весь экран */
+    max-width:none;
+    cursor:grab;
+  }
+  .reviews-grid.is-dragging{ cursor:grabbing; }
+  .reviews-grid *{
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .reviews-grid::-webkit-scrollbar{ display:none; }
+  .reviews-grid{ scrollbar-width:none; }
+
+  /* ширина карточки в карусели — почти на всю ширину экрана */
+  .reviews-grid .review-card{
+    flex:0 0 88%;
+    max-width:none;
+    scroll-snap-align:start;
+  }
+
+  /* чутка компактнее шрифты на очень узких */
+  @media (max-width:360px){
+    .review-name{ font-size:20px; }
+    .review-date,.review-bottom{ font-size:18px; }
+  }
 }
 
-.small-h {
-  color: #422223;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 100%;
-  letter-spacing: 0%;
-  font-family: Muller-medium;
+/* Доп. мелкие типографские классы (если используются где-то рядом) */
+.small-h{
+  color:#422223;
+  font-size:16px;
+  font-weight:500;
+  line-height:100%;
+  font-family:Muller-medium;
 }
-
-.menu-toggle {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      top: 20px;
-      right: 20px;
-
-
-    }
-
-
-.small-under {
-  font-family: Muller-light;
-  color: #818181;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: 0%;
+.small-under{
+  font-family:Muller-light;
+  color:#818181;
+  font-weight:300;
+  font-size:16px;
+  line-height:100%;
 }

@@ -43,11 +43,79 @@
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
   <link rel="stylesheet" href="{% static 'css/menu.css' %}">   -->
   <style>
+    :root{
+  
+  --bs-body-line-height: 1;
+  
+}
     html {
   scroll-behavior: smooth;
 }
 p {margin: 0;
 padding: 0;}
+
+@font-face {
+
+  font-family: "Muller-ultralight"; 
+
+  src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-medium"; 
+
+  src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-light"; 
+
+  src: url("{% static 'font/MullerLight.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-regular"; 
+
+  src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Namu-light"; 
+
+  src: url("{% static 'font/NAMU1750.otf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+    font-family: 'head';
+    src: url("{% static 'font/head.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'head2';
+    src: url("{% static 'font/head2.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'NAMU';
+    src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 @font-face {
 
   font-family: "Muller-ultralight"; 
@@ -416,18 +484,7 @@ body {
 
 
 
-    .mini-contacts-card {
-  width: 301px;
-  min-height: 355px;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 16px;
-  color: #232323;
-  position: relative;
-}
+    
 .mini-contact-row {
   display: flex;
   align-items: flex-start;
@@ -501,64 +558,58 @@ body {
     
     
     
-    #blur-bg {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.13);
-      backdrop-filter: blur(8px);
-      z-index: 999;
-      transition: opacity .2s;
-      cursor: pointer;
-    }
-    #blur-bg.active {
-      display: block;
-      opacity: 1;
-    }
-    .side-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 80%;
-      max-width: 300px;
-      height: 100%;
-      background: #fff;
-      overflow-y: auto;
-      transition: right 0.3s ease-in-out;
-      z-index: 1000;
-      padding: 20px;
-    }
-    .side-menu.active {
-      right: 0;
-    }
-    .side-menu .logo img {
-      width: 100px;
-      margin-bottom: 20px;
-    }
-    .side-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .side-menu li {
-      margin-bottom: 15px;
-    }
-    .side-menu a {
-      text-decoration: none;
-      color: #421e23;
-      font-size: 16px;
-      font-weight: 500;
-    }
-    .side-menu .contacts {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #421e23;
-    }
+    /* ===== САЙДБАР + БЛЮР ===== */
+.side-menu{
+  position:fixed;top:0;right:-100%;
+  width:min(86vw,420px);height:100vh;background:#fff;z-index:1003;
+  box-shadow:-12px 0 28px rgba(0,0,0,.18);transition:right .28s ease;
+  padding:22px 22px 28px;overflow-y:auto
+}
+.side-menu.active{ right:0 }
+.side-menu .logo{display:flex;align-items:center;gap:16px}
+.side-menu .logo img:first-child{width:220px;flex:0 0 auto}
+.side-menu .logo img:last-child{width:80px;height:60px;margin-left:auto;cursor:pointer} /* кнопка закрытия внутри сайдбара */
+.side-menu ul{list-style:none;margin:18px 0 0;padding:0}
+.side-menu li{margin:0 0 15px}
+.side-menu a{text-decoration:none;color:#421e23;font-size:16px;font-weight:500;}
+.side-menu .mini-contacts-card{width:auto;background:#fff;display:flex;flex-direction:column;gap:18px;font-family:Muller-medium;font-size:16px;color:#422223;font-weight:500;position:relative;margin-top:10px}
+.mini-contact-row{display:flex;align-items:center;gap:13px}
+.mini-contact-icon img{width:32px;height:32px;object-fit:contain;opacity:.85;margin-top:2px}
+.mini-contact-text a{color:#422223;text-decoration:none;transition:color .14s}
+.mini-contact-text a:hover{color:#3ca1e8;text-decoration:underline}
+.mini-contact-note{display:flex;align-items:flex-start;gap:6px;color:#777;font-size:12px;margin-top:6px}
+.mini-contact-note svg{flex-shrink:0}
+
+/* блюр-подложка */
+#blur-bg{position:fixed;inset:0;background:rgba(0,0,0,.13);backdrop-filter:blur(8px);z-index:1002;opacity:0;pointer-events:none;transition:opacity .2s}
+#blur-bg.active{opacity:1;pointer-events:auto}
+
+/* блокировка скролла при открытом меню */
+body.no-scroll{overflow:hidden}
+
+/* ========= МОБИЛЬНАЯ КНОПКА ========= */
+#mobileMenuBtn{position:fixed;right:16px;top:16px;z-index:1004;display:none;width:64px;height:48px;padding:0;border:none;background:transparent;cursor:pointer}
+#mobileMenuBtn img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* ========= АДАПТИВ ========= */
+@media (max-width:1200px){.nav-list{width:100%;max-width:100%;padding:20px}.search-bar input{width:100%}}
+@media (max-width:1024px){.conteiner{min-width:0;width:100%}.header,.search-bar{display:none!important}#mobileMenuBtn{display:block}}
+@media (prefers-reduced-motion:reduce){.side-menu{transition:none}#blur-bg{transition:none}}
+/* подстраховки */
+@media (max-width:1400px){.conteiner{min-width:0!important;width:100%}}
+@media (max-width:1280px){.header,.search-bar{display:none!important}#mobileMenuBtn{display:block!important}}
+.nav-list{width:min(1200px,100%)!important}
+.search-bar input{width:min(1200px,100%)!important}
+html,body{max-width:100%;overflow-x:hidden}
 
 
-
+.menuuu a {
+        font-family: Muller-medium;
+        font-weight: 500;
+        font-size: 16px;
+        
+        opacity: 50%;
+    }
 
 
 
@@ -667,9 +718,13 @@ body {
 
     }
     .footer-card-link {
-      font-size: 14px;
-      color: #421e23;
+      font-family: 'head2';
+      font-weight: 400;
+      font-size: 20px;
+      color: rgba(0, 0, 0, 0.6);
       text-decoration: underline;
+      text-decoration-thickness: 1px;  /* толщина */
+      text-underline-offset: 5px; 
       margin-top: auto;
       transition: opacity 0.15s;
     }
@@ -1086,7 +1141,10 @@ textarea::placeholder{
 
 
 
-
+@media (max-width: 1284px){
+  .conteiner { display: none !important; }
+  #mobileMenuBtn { display: block !important; } /* кнопка остаётся */
+}
 
 
 
@@ -1094,74 +1152,78 @@ textarea::placeholder{
 </style>
 </head>
 <body>
+  <nav class="side-menu" id="sideMenu">
+  <div class="logo img" id="closemenu" aria-label="Закрыть меню" role="button" tabindex="0">
+    <img style="min-width:229px; height:113px" src="/static/imgfolder/image-Photoroom%20(40)%203.png" alt="Логотип">
+  </div>
+
+  <ul class="menuuu">
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong></li>
+    <li style="margin-bottom:30px"><a href="{% url 'about' %}">О нас</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Продукция</strong></li>
+    <li><a href="#">Клинкерный облицовочный кирпич</a></li>
+    <li><a href="#">Керамический облицовочный кирпич</a></li>
+    <li><a href="#">Клинкерная плитка</a></li>
+    <li><a href="#">Брусчатка</a></li>
+    <li><a href="#">Ригельный кирпич</a></li>
+    <li><a href="#">Навесные вентилируемые системы</a></li>
+    <li><a href="#">Архитектурные фасадные декоры</a></li>
+    <li style="margin-bottom:30px"><a href="#">Гиперпрессованный кирпич</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
+    <li style="margin-bottom:30px"><a href="#">Фотографии выполненных объектов</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши партнеры</strong></li>
+    <li style="margin-bottom:70px"><a href="#">Дилеры заводов</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
+    <li style="margin-bottom:30px"><a href="#">Вопросы-ответы</a></li>
+  </ul>
+
+  <!-- Контакты -->
+  <div class="mini-contacts-card">
+    <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/location.png' %}" alt="Локация">
+      </span>
+      <span class="mini-contact-text">Пермь, Газеты Звезда,<br>13, 4 этаж</span>
+    </div>
+    <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/phone.png' %}" alt="Телефон">
+      </span>
+      <span class="mini-contact-text"><a href="tel:+79519401249">+7 (951) 940-12-49</a></span>
+    </div>
+    <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/message.png' %}" alt="Связь">
+      </span>
+      <span class="mini-contact-text">
+        <a style="color:#575757" href="#">Написать нам в Telegram</a><br>
+        <a style="color:#575757" href="#">Написать нам на Whatsapp</a>
+      </span>
+    </div>
+    <div class="mini-contact-note">
+      <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16" style="width:17px;height:17px;vertical-align:middle"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
+      <span>Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Блюр -->
+<div id="blur-bg" aria-hidden="true"></div>
+
+<!-- Кнопка для мобильной версии -->
+<button id="mobileMenuBtn" aria-label="Открыть меню">
+  <img src="{% static 'imgfolder/Group 306.png' %}" alt="Меню">
+</button>
   <div class="papa-con">
   <div class="conteiner">
     
     <!-- Боковое меню -->
-    <na class="side-menu" id="sideMenu">
-      <div class="logo img">
-        <img src="{% static 'imgfolder/logo-menu.svg' %}" alt="">
-      </div>
-      <ul>
-        <li><strong>Деятельность</strong></li>
-        <li><a href="{% url 'about' %}">О нас</a></li>
-        <li><strong>Продукция</strong></li>
-        <li><a href="#">Клинкерный облицовочный кирпич</a></li>
-        <li><a href="#">Керамический облицовочный кирпич</a></li>
-        <li><a href="#">Клинкерная плитка</a></li>
-        <li><a href="#">Брусчатка</a></li>
-        <li><a href="#">Ригельный кирпич</a></li>
-        <li><a href="#">Навесные вентилируемые системы</a></li>
-        <li><a href="#">Архитектурные фасадные декоры</a></li>
-        <li><a href="#">Гиперпрессованный кирпич</a></li>
-        <li><strong>Наши объекты</strong></li>
-        <li><a href="#">Фотографии выполненных объектов</a></li>
-        <li><strong>Наши партнеры</strong></li>
-        <li><a href="#">Дилеры заводов</a></li>
-        <li><strong>Помощь</strong></li>
-        <li><a href="#">Вопросы-ответы</a></li>
-      </ul>
-      <div class="mini-contacts-card">
-  <div class="mini-contact-row">
-    <span class="mini-contact-icon">
-      <!-- Локация -->
-      <img src="{% static 'imgfolder/location.png' %}" alt="Локация" />
-    </span>
-    <span class="mini-contact-text">
-      Пермь, Газеты Звезда,<br>13, 4 этаж
-    </span>
-  </div>
-  <div class="mini-contact-row">
-    <span class="mini-contact-icon">
-      <!-- Телефон -->
-      <img src="{% static 'imgfolder/phone.png' %}" alt="Телефон" />
-    </span>
-    <span class="mini-contact-text">
-      <a href="tel:+79519401249">+7 (951) 940-12-49</a>
-    </span>
-  </div>
-  <div class="mini-contact-row">
-    <span class="mini-contact-icon">
-      <!-- Соцсети -->
-      <img src="{% static 'imgfolder/message.png' %}" alt="Связь" />
-    </span>
-    <span class="mini-contact-text">
-      <a href="#">Написать нам в Telegram</a><br>
-      <a href="#">Написать нам на Whatsapp</a>
-    </span>
-  </div>
-  <div class="mini-contact-note">
-    <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16" style="width:17px;height:17px;vertical-align:middle"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
-    <span>
-      Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.
-    </span>
-  </div>
-</div>
+<!-- ======= САЙДМЕНЮ ======= -->
 
-    </na>
-
-    <!-- БЛЮР -->
-    <div id="blur-bg"></div>
 
     <!-- Header -->
     <header >
@@ -1712,28 +1774,44 @@ textarea::placeholder{
     updateSlide();
   }, 5000);
 
-      const menuToggle = document.getElementById('menuToggle');
-      const sideMenu = document.getElementById('sideMenu');
-      const blurBg = document.getElementById('blur-bg');
+      // ====== МЕНЮ ======
+  const sideMenu  = document.getElementById('sideMenu');
+  const blurBg    = document.getElementById('blur-bg');
+  const headerBtn = document.getElementById('menuToggle');    // кнопка в шапке
+  const mobileBtn = document.getElementById('mobileMenuBtn'); // мобильная кнопка
+  const closeBar  = document.getElementById('closemenu');     // клик по шапке сайдбара
 
-      
-      if (menuToggle && sideMenu && blurBg) {
-        menuToggle.addEventListener('click', () => {
-          sideMenu.classList.add('active');
-          blurBg.classList.add('active');
-        });
-        
-        blurBg.addEventListener('click', () => {
-          sideMenu.classList.remove('active');
-          blurBg.classList.remove('active');
-        });
-      }
-    });
+  function openMenu(){
+    if (!sideMenu || !blurBg) return;
+    sideMenu.classList.add('active');
+    blurBg.classList.add('active');
+    document.body.classList.add('no-scroll');
+  }
+  function closeMenu(){
+    if (!sideMenu || !blurBg) return;
+    sideMenu.classList.remove('active');
+    blurBg.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+  }
+  function toggleMenu(){
+    if (!sideMenu) return;
+    sideMenu.classList.contains('active') ? closeMenu() : openMenu();
+  }
 
-    
+  [headerBtn, mobileBtn].forEach(btn => {
+    if (btn) btn.addEventListener('click', toggleMenu);
+  });
+  if (closeBar) closeBar.addEventListener('click', closeMenu);
+  if (blurBg)   blurBg.addEventListener('click', closeMenu);
+
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 1024) closeMenu(); });
+});
   </script>
   {% include "contact_modal.html" %}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+  
 </body>
 </html>

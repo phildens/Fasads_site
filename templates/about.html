@@ -420,154 +420,189 @@
 </div>
     
     <div style="height: 120px"></div>
-    
-    
-{#    Что о нас говорят клиенты#}
-    
-    <div style="display: flex; justify-content: center;">
-<div style="width: 1200px">
-      <h4 class="mini-headr">Что о нас говорят клиенты</h4>
-    
-<section class="reviews">
-  <div class="reviews-grid">
-    <article class="review-card">
-      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
-      <div class="review-top">
-        <h3 class="review-name">Сергей Галкин</h3>
-        <time class="review-date" datetime="2022-08-13">от 13.08.2022</time>
-      </div>
+   <!-- REVIEWS SECTION -->
+<section class="reviews-section">
+  <div class="container-1200">
+    <h4 class="mini-headr">Что о нас говорят клиенты</h4>
 
-      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
-      <div class="review-bottom-row">
-        <p class="review-bottom">
-          Неплохой выбор неординарного кирпича, качествен . . .
-        </p>
-        <a class="review-cta" href="#" aria-label="Читать отзыв">
-            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
-          </svg>
-        </a>
-      </div>
-    </article>
+    <section class="reviews">
+      <!-- На десктопе: grid; На мобиле: горизонтальный слайдер -->
+      <div class="reviews-grid js-reviews-track">
 
-      
-      
-{#      КАРТОЧКА#}
-      
-      
-      <article class="review-card">
-      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
-      <div class="review-top">
-        <h3 class="review-name">Елена Павлова</h3>
-        <time class="review-date" datetime="2022-08-13">от 8.09.2022</time>
-      </div>
+        <!-- КАРТОЧКА -->
+        <article class="review-card">
+          <div class="review-top">
+            <h3 class="review-name">Сергей Галкин</h3>
+            <time class="review-date" datetime="2022-08-13">от 13.08.2022</time>
+          </div>
+          <div class="review-bottom-row">
+            <p class="review-bottom">Неплохой выбор неординарного кирпича, качествен . . .</p>
+            <a class="review-cta" href="#" aria-label="Читать отзыв">
+              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
+            </a>
+          </div>
+        </article>
 
-      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
-      <div class="review-bottom-row">
-        <p class="review-bottom">
-          В январе 2022 г. при выборе кирпича для облицовки дома пол . . .
-        </p>
-        <a class="review-cta" href="#" aria-label="Читать отзыв">
-            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
-          </svg>
-        </a>
-      </div>
-    </article>
-      
-      
-      {#      КАРТОЧКА#}
-      
-      
-      <article class="review-card">
-      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
-      <div class="review-top">
-        <h3 class="review-name">Ирина Шишкина</h3>
-        <time class="review-date" datetime="2022-08-13">от 7.08.2024</time>
-      </div>
+        <!-- КАРТОЧКА -->
+        <article class="review-card">
+          <div class="review-top">
+            <h3 class="review-name">Елена Павлова</h3>
+            <time class="review-date" datetime="2022-09-08">от 8.09.2022</time>
+          </div>
+          <div class="review-bottom-row">
+            <p class="review-bottom">В январе 2022 г. при выборе кирпича для облицовки дома пол . . .</p>
+            <a class="review-cta" href="#" aria-label="Читать отзыв">
+              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
+            </a>
+          </div>
+        </article>
 
-      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
-      <div class="review-bottom-row">
-        <p class="review-bottom">
-          Большое спасибо за помощь в выборе кирпича облиц . . .
-        </p>
-        <a class="review-cta" href="#" aria-label="Читать отзыв">
-            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
-          </svg>
-        </a>
-      </div>
-    </article>
-      {#      КАРТОЧКА#}
-      
-      
-      <article class="review-card">
-      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
-      <div class="review-top">
-        <h3 class="review-name">Елена Бурдина</h3>
-        <time class="review-date" datetime="2022-08-13">от 13.11.2024</time>
-      </div>
+        <!-- КАРТОЧКА -->
+        <article class="review-card">
+          <div class="review-top">
+            <h3 class="review-name">Ирина Шишкина</h3>
+            <time class="review-date" datetime="2024-08-07">от 7.08.2024</time>
+          </div>
+          <div class="review-bottom-row">
+            <p class="review-bottom">Большое спасибо за помощь в выборе кирпича облиц . . .</p>
+            <a class="review-cta" href="#" aria-label="Читать отзыв">
+              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
+            </a>
+          </div>
+        </article>
 
-      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
-      <div class="review-bottom-row">
-        <p class="review-bottom">
-          Большой выбор кирпичей, клинкерной плитки, брусчат . . .
-        </p>
-        <a class="review-cta" href="#" aria-label="Читать отзыв">
-            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
-          </svg>
-        </a>
-      </div>
-    </article>
-      
-      {#      КАРТОЧКА#}
-      
-      
-      <article class="review-card">
-      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
-      <div class="review-top">
-        <h3 class="review-name">Тимофей Москотин</h3>
-        <time class="review-date" datetime="2022-08-13">от 11.04.2025</time>
-      </div>
+        <!-- КАРТОЧКА -->
+        <article class="review-card">
+          <div class="review-top">
+            <h3 class="review-name">Елена Бурдина</h3>
+            <time class="review-date" datetime="2024-11-13">от 13.11.2024</time>
+          </div>
+          <div class="review-bottom-row">
+            <p class="review-bottom">Большой выбор кирпичей, клинкерной плитки, брусчат . . .</p>
+            <a class="review-cta" href="#" aria-label="Читать отзыв">
+              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
+            </a>
+          </div>
+        </article>
 
-      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
-      <div class="review-bottom-row">
-        <p class="review-bottom">
-          Покупали кирпич в прошлом году, все вовремя привезли, бой мин . . .
-        </p>
-        <a class="review-cta" href="#" aria-label="Читать отзыв">
-            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
-          </svg>
-        </a>
-      </div>
-    </article>
-      
-      {#      КАРТОЧКА#}
-      
-      
-      <article class="review-card">
-      <!-- ВЕРХНИЙ КОНТЕЙНЕР: имя + дата -->
-      <div class="review-top">
-        <h3 class="review-name">Владимир Малышевский</h3>
-        <time class="review-date" datetime="2022-08-13">от 18.04.2025</time>
-      </div>
+        <!-- КАРТОЧКА -->
+        <article class="review-card">
+          <div class="review-top">
+            <h3 class="review-name">Тимофей Москотин</h3>
+            <time class="review-date" datetime="2025-04-11">от 11.04.2025</time>
+          </div>
+          <div class="review-bottom-row">
+            <p class="review-bottom">Покупали кирпич в прошлом году, все вовремя привезли, бой мин . . .</p>
+            <a class="review-cta" href="#" aria-label="Читать отзыв">
+              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
+            </a>
+          </div>
+        </article>
 
-      <!-- НИЖНИЙ РЯД: текст слева, кнопка со стрелкой справа -->
-      <div class="review-bottom-row">
-        <p class="review-bottom">
-          Хорошая, ответственная компания. Рекомендую . . .
-        </p>
-        <a class="review-cta" href="#" aria-label="Читать отзыв">
-            <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width: 66px; height: 50px">
-          </svg>
-        </a>
+        <!-- КАРТОЧКА -->
+        <article class="review-card">
+          <div class="review-top">
+            <h3 class="review-name">Владимир Малышевский</h3>
+            <time class="review-date" datetime="2025-04-18">от 18.04.2025</time>
+          </div>
+          <div class="review-bottom-row">
+            <p class="review-bottom">Хорошая, ответственная компания. Рекомендую . . .</p>
+            <a class="review-cta" href="#" aria-label="Читать отзыв">
+              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
+            </a>
+          </div>
+        </article>
+
       </div>
-    </article>
-      
+    </section>
   </div>
 </section>
-
-
     
-</div>
-</div>
+    <script>
+/* Автопрокрутка + свайп/drag без кнопок — активируется только на мобиле */
+(function(){
+  const track = document.querySelector('.js-reviews-track');
+  if(!track) return;
+
+  const mq = window.matchMedia('(max-width: 900px)');
+
+  /* --- Drag с мышью (и тач тоже работает нативным скроллом) --- */
+  let isDown = false, startX = 0, startLeft = 0;
+  function px(e){ return e.touches ? e.touches[0].clientX : e.clientX; }
+
+  const onDown = (e) => {
+    if(!mq.matches) return;        // только в режиме слайдера
+    isDown = true;
+    track.classList.add('is-dragging');
+    startX = px(e);
+    startLeft = track.scrollLeft;
+    stopAuto();
+  };
+  const onMove = (e) => {
+    if(!isDown) return;
+    const x = px(e);
+    track.scrollLeft = startLeft - (x - startX);
+  };
+  const onUp = () => {
+    if(!isDown) return;
+    isDown = false;
+    track.classList.remove('is-dragging');
+    snapToNearest();
+    resumeAuto();
+  };
+
+  track.addEventListener('pointerdown', onDown, {passive:true});
+  window.addEventListener('pointermove', onMove, {passive:true});
+  window.addEventListener('pointerup', onUp);
+  track.addEventListener('touchstart', stopAuto, {passive:true});
+  track.addEventListener('touchend', resumeAuto, {passive:true});
+  track.addEventListener('mouseenter', stopAuto);
+  track.addEventListener('mouseleave', resumeAuto);
+
+  /* --- Автоплей --- */
+  let timer = null;
+  let current = 0;
+  const interval = 4000;
+
+  function cards(){ return Array.from(track.querySelectorAll('.review-card')); }
+  function cardOffsetLeft(el){
+    const padLeft = parseFloat(getComputedStyle(track).paddingLeft)||0;
+    return el.offsetLeft - track.offsetLeft - padLeft;
+  }
+  function scrollToIndex(i){
+    const c = cards(); if(!c[i]) return;
+    track.scrollTo({ left: cardOffsetLeft(c[i]), behavior: 'smooth' });
+  }
+  function snapToNearest(){
+    const c = cards();
+    const left = track.scrollLeft;
+    let best = 0, bestDelta = Infinity;
+    c.forEach((el, i) => {
+      const target = cardOffsetLeft(el);
+      const d = Math.abs(target - left);
+      if(d < bestDelta){ bestDelta=d; best=i; }
+    });
+    current = best;
+    scrollToIndex(best);
+  }
+  function startAuto(){
+    if(!mq.matches) return;     // автоплей только на мобиле
+    stopAuto();
+    timer = setInterval(() => {
+      const c = cards();
+      current = (current + 1) % c.length;
+      scrollToIndex(current);
+    }, interval);
+  }
+  function stopAuto(){ if(timer){ clearInterval(timer); timer=null; } }
+  function resumeAuto(){ if(!timer && mq.matches) startAuto(); }
+
+  startAuto();
+  window.addEventListener('resize', () => { stopAuto(); startAuto(); });
+})();
+</script>
+    
+    
     
     <div style="height: 120px"></div>
     
