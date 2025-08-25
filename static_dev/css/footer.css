@@ -123,12 +123,14 @@
   }
 
   .footer-top .footer-menu{
+    justify-content: center;
     width: 100%;
     gap: 10px 22px;
     padding-bottom: 10px;
   }
 
   .footer-top .footer-info-block{
+    justify-content: center;
     width: 100%;
     flex-wrap: wrap;
     gap: 12px 24px;
@@ -168,17 +170,17 @@
 @media (max-width: 992px){
   .footer-top .footer-info{ min-width: 200px; }
   .site-footer .footer-group{
-    justify-content: flex-start !important;
+    justify-content: center !important;
   }
 }
 
 /* мобильные ≤ 768 */
 @media (max-width: 768px){
   .footer-top .footer-menu{
-    justify-content: flex-start;
+    justify-content: center;
   }
   .footer-top .footer-info-block{
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .site-footer .footer-group{
