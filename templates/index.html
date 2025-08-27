@@ -611,7 +611,69 @@ html,body{max-width:100%;overflow-x:hidden}
         opacity: 50%;
     }
 
+/* общие фиксы */
+html, body { height: 100%; overflow-x: hidden; }
+html { overscroll-behavior-y: none; }          /* нет «скролл-цепочки» */
+#blur-bg { touch-action: none; }               /* бэкдроп не принимает жесты */
 
+/* скролл у сайдбара разрешён, но без проброса на фон */
+.side-menu{
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;                /* стоп цепочку на краях */
+  touch-action: pan-y;                         /* только вертикальные жесты */
+}
+
+/* правильная блокировка страницы (без «прыжка» наверх) */
+body.no-scroll{
+  position: fixed;
+  width: 100%;
+  top: var(--lock-top, 0);                     /* сюда кладём -scrollY */
+  overflow: hidden;                            /* подстраховка для десктопов */
+}
+
+/* чтобы не появлялась горизонтальная прокрутка из-за off-canvas */
+.side-menu{ right:0; transform: translateX(100%); transition: transform .28s ease; }
+.side-menu.active{ transform: translateX(0); }
+
+/* Сайдбар НЕвидим — полностью «глушим» */
+.side-menu{
+  right: 0;
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;        /* <- не участвует в отрисовке */
+  pointer-events: none;      /* <- не ловит события */
+  overflow: hidden;          /* <- нет внутреннего скролла */
+  height: 100vh;
+  transition: transform .28s ease, opacity .2s ease, visibility 0s .28s; 
+  /* visibility покажется только после завершения hide-анимации */
+}
+
+/* Сайдбар видим — включаем прокрутку только для него */
+.side-menu.active{
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  overflow-y: auto;                 /* <- скролл только когда открыт */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Блюр тоже не ловит события, пока скрыт */
+#blur-bg{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.13);
+  backdrop-filter: blur(8px);
+  z-index: 1002;
+  opacity: 0; 
+  pointer-events: none;
+  transition: opacity .2s;
+}
+#blur-bg.active{ opacity: 1; pointer-events: auto; }
+
+/* Подстраховка против гориз. полосы */
+html, body { overflow-x: hidden; }
 
 
 

@@ -272,9 +272,9 @@ html, body { max-width:100%; overflow-x:hidden; }
   <div class="header">
     <nav class="nav">
       <ul class="nav-list">
-        <div class="logo img">
-          <img src="{% static 'imgfolder/header.png' %}" alt="">
-        </div>
+        <a href="{% url 'home' %}" class="logo img">
+    <img src="{% static 'imgfolder/header.png' %}" alt="Логотип">
+</a>
         <li><a href="#" class="nav-link">Продукция</a></li>
         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
         <li><a href="#" class="nav-link">Вопросы-ответы</a></li>
