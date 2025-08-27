@@ -308,39 +308,58 @@ html, body { max-width:100%; overflow-x:hidden; }
 </button>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const sideMenu  = document.getElementById('sideMenu');
   const blurBg    = document.getElementById('blur-bg');
-  const headerBtn = document.getElementById('menuToggle');   // кнопка в хедере (ПК)
-  const mobileBtn = document.getElementById('mobileMenuBtn'); // закреплённая мобильная
-  const closeBar  = document.getElementById('closemenu');     // дубль внутри сайдбара
+  const headerBtn = document.getElementById('menuToggle');
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const closeBar  = document.getElementById('closemenu');
+
+  let scrollPos = 0;
+
+  // блокируем скролл фона на мобилках (тач/колесо)
+  const blockBgScroll = (e) => {
+    if (!sideMenu.contains(e.target)) e.preventDefault();
+  };
+
+  function lockScroll(){
+    scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
+    document.body.style.setProperty('--lock-top', `-${scrollPos}px`);
+    document.body.classList.add('no-scroll');
+    // отключаем прокрутку фона
+    document.addEventListener('touchmove', blockBgScroll, { passive: false });
+    document.addEventListener('wheel',      blockBgScroll, { passive: false });
+  }
+
+  function unlockScroll(){
+    document.body.classList.remove('no-scroll');
+    document.body.style.removeProperty('--lock-top');
+    // возвращаемся туда, где были
+    window.scrollTo(0, scrollPos);
+    // убираем блокировки
+    document.removeEventListener('touchmove', blockBgScroll);
+    document.removeEventListener('wheel',      blockBgScroll);
+  }
 
   function openMenu(){
     sideMenu.classList.add('active');
     blurBg.classList.add('active');
-    document.body.classList.add('no-scroll');
+    lockScroll();
   }
   function closeMenu(){
     sideMenu.classList.remove('active');
     blurBg.classList.remove('active');
-    document.body.classList.remove('no-scroll');
+    unlockScroll();
   }
   function toggleMenu(){
-    if (sideMenu.classList.contains('active')) { closeMenu(); }
-    else { openMenu(); }
+    sideMenu.classList.contains('active') ? closeMenu() : openMenu();
   }
 
-  [headerBtn, mobileBtn].forEach(btn => {
-    if (btn) btn.addEventListener('click', toggleMenu);
-  });
-
-  if (closeBar) closeBar.addEventListener('click', closeMenu);
+  [headerBtn, mobileBtn].forEach(btn => btn && btn.addEventListener('click', toggleMenu));
   blurBg.addEventListener('click', closeMenu);
+  closeBar && closeBar.addEventListener('click', closeMenu);
   window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-
-  // Если развернули окно до десктопа — аккуратно закрываем меню/блюр
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 1024) closeMenu();
-  });
+  window.addEventListener('resize', () => { if (window.innerWidth > 1024) closeMenu(); });
 });
 </script>
+
