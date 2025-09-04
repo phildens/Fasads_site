@@ -1,4 +1,6 @@
 {% load static %}
+{% load articles_slider %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,8 +43,11 @@
   <link rel="stylesheet" href="{% static 'css/slider.css' %}">
   <link rel="stylesheet" href="{% static 'css/search.css' %}">
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+   {% block extra_css %}{% endblock %}
   <link rel="stylesheet" href="{% static 'css/menu.css' %}">   -->
+<link rel="stylesheet" href="{% static 'articles/articles.css' %}">
   <style>
+     
     :root{
   
   --bs-body-line-height: 1;
@@ -1758,7 +1763,12 @@ textarea::placeholder{
 
       
       
-      {% include "stories.html" %}
+{#      {% include "stories.html" %}#}
+      <section class="article-slider-wrap">
+  <div class="container"><h2 class="h2">Статьи</h2></div>
+  {% articles_slider limit=0 %}
+</section>
+
 
  {% include 'contact_main_form.html' %}
     <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
@@ -1874,6 +1884,8 @@ textarea::placeholder{
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
-  
+  {% block extra_js %}{% endblock %}
+<script src="{% static 'articles/slider.js' %}"></script>
+
 </body>
 </html>

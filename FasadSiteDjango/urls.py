@@ -6,7 +6,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -37,6 +37,9 @@ urlpatterns = [
     path("contact-request/create/", views.contact_request_create, name="contact_request_create"),
     path("faq/", FAQView.as_view(), name="faq"),
     path("yandex_94334ec1e6b86559.html", views.yandex_find, name="yand"),
+
+    path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("articles/", include("articles.urls", namespace="articles")),
 ]
 
 # Статика (CSS, JS, шрифты) — отдаётся через STATIC_URL

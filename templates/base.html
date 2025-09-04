@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/about.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
 
-    <title>{% block title %}My amazing site{% endblock %}</title>
+    <title>{% block title %}Современные фасады{% endblock %}</title>
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'imgfolder/icons/apple-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'imgfolder/icons/apple-icon-60x60.png' %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static 'imgfolder/icons/apple-icon-72x72.png' %}">
@@ -188,6 +189,6 @@
   });
 })();
 </script>
-
+{% block extra_js %}{% endblock %}
 </body>
 </html>

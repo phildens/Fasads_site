@@ -1,0 +1,273 @@
+/* контейнер под контент (подстрой под свой макет) */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* шапка статьи */
+.article-hero { padding: 48px 0 8px; }
+.breadcrumbs { color: #8b8686; font-size: 18px; margin-bottom: 16px; font-family: Muller-light}
+.article-title { font-size: clamp(28px, 4vw, 56px); line-height: 1.1; margin: 0 0 10px; color: #422223; }
+.article-subtitle { max-width: 800px; color: #8b8686; font-size: 18px; font-family: Muller-light; margin-top: 46px; }
+
+/* тело статьи */
+.article-body { padding: 24px 0 56px; }
+.article-cover { width: 100%; height: auto; border-radius: 14px; margin-bottom: 24px; }
+
+/* RTF – стили для контента из редактора */
+.rtf { color: #422223; font-size: 18px; line-height: 1.75; }
+.rtf h2 { font-size: 48px; margin: 32px 0 12px; font-family: Muller-medium; font-weight: 500; line-height: 100%; letter-spacing: 0}
+.rtf h3 { font-size: clamp(20px, 2.4vw, 28px); margin: 28px 0 10px; }
+.rtf p { margin: 0 0 1em; font-family: Muller-light}
+.rtf ul, .rtf ol { padding-left: 1.2em; margin: 0 0 1em; font-family: Muller-light}
+.rtf img { max-width: 100%; height: auto; border-radius: 10px; }
+.rtf table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 16px; }
+.rtf table th, .rtf table td { padding: .6rem .8rem; border: 1px solid #e7e3e3; }
+
+/* «стили» из выпадающего списка CKEditor */
+.rtf .columns-2 { column-count: 2; column-gap: 2rem; }
+.rtf .columns-3 { column-count: 3; column-gap: 2rem; }
+@media (max-width: 900px) {
+  .rtf .columns-2, .rtf .columns-3 { column-count: 1; }
+}
+.rtf .note { background: #fff4f4; border: 1px solid #f0dcdc; padding: 14px 16px; border-radius: 12px; }
+.rtf .quote { border-left: 4px solid #d7c2c2; margin: 1rem 0; padding-left: 1rem; color: #6d5a5a; }
+.rtf .small { font-size: 0.9em; color: #6e6a6a; }
+
+/* карточки (общие для листинга и слайдера) */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
+.card { display: block; background: #472828; color: #fff; border-radius: 12px; text-decoration: none; }
+.card .card-body { padding: 22px 22px 26px; }
+.card .card-date { margin-bottom: 12px; font-family: Muller-regular;color: white; opacity: 50%; font-weight: 400;  margin-bottom: 20px}
+.card .card-title { font-size: 22px; margin: 0 0 10px; font-family: Muller-medium; font-weight: 500; padding-bottom: 220px }
+.card .card-subtitle {font-family: Muller-regular;color: white; opacity: 50%; font-weight: 400;}
+
+/* слайдер – без кнопок, автоскролл + ручная прокрутка */
+.article-slider-wrap {  padding: 24px 0 36px; }
+.articles-slider { position: relative; overflow: hidden; max-width: 1200px; margin: 0 auto;}
+.articles-slider .rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 360px);
+  gap: 24px;
+  overflow-x: auto;
+  padding: 20px 24px 30px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.articles-slider .rail::-webkit-scrollbar { height: 8px; }
+.articles-slider .rail::-webkit-scrollbar-thumb { background: #e1d6d6; border-radius: 8px; }
+.articles-slider .slide { scroll-snap-align: start; }
+
+/* пагер на странице списка */
+.pager { display: flex; gap: 12px; justify-content: center; align-items: center; margin: 22px 0 40px; }
+.pager a { color: #422223; text-decoration: none; border-bottom: 1px dotted currentColor; }
+strong {
+  font-family: Muller-regular;
+}
+/* обёртка серым фоном */
+.article-header-wrap {
+  background: #f4f4f4; /* светло-серый фон */
+  padding: 40px 0;
+}
+
+/* белый блок */
+.article-header {
+  background: #fff;
+  border-radius: 12px;
+  padding-top: 65px;
+  padding-bottom: 65px;
+  padding-left: 85px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* хлебные крошки */
+.article-header .breadcrumbs {
+  font-size: 15px;
+  color: #8d8686;
+  margin-bottom: 18px;
+}
+.article-header .breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+.article-header .breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+/* заголовок */
+.article-header .article-title {
+  font-family: Muller-medium;
+  font-weight: 500;
+  font-size: 48px;
+  color: #422223;
+  margin: 0 0 16px;
+  max-width: 650px;
+  line-height: 1.25;
+}
+
+/* подзаголовок */
+.article-header .article-subtitle {
+  font-size: 18px;
+  color: #8d8686;
+  line-height: 1.6;
+  max-width: 860px;
+  margin: 0 0 30px;
+  margin-bottom: 268px;
+}
+
+/* кнопки */
+.article-actions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  display: inline-block;
+
+  padding: 18px 56px;
+  border: 1px solid #3b2323;
+  border-radius: 40px;
+  font-family: Muller-regular;
+  font-size: 16px;
+  font-weight: 600;
+  color: #3b2323;
+  text-decoration: none;
+  transition: all .2s;
+}
+
+.btn-outline:hover {
+  background: #3b2323;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .article-header {
+    padding-left: 20px; /* уменьшенный или нулевой отступ */
+    padding-right: 20px; /* можно добавить симметрично */
+  }
+   .article-actions {
+    justify-content: center;
+  }
+}
+
+/* ==== PATCH: слайдер статей, адаптив + прокрутка, без изменения типографики ==== */
+
+/* обёртка — ничего про шрифты; только фон/внутренние отступы/переполнение */
+.article-slider-wrap{
+  padding:24px 0 36px;
+  overflow:hidden;
+}
+
+/* корень слайдера — позиционирование, чтоб ничего не накрывало */
+.articles-slider{
+  position:relative;
+  z-index:1;
+}
+
+/* рельс: только раскладка и скролл; не трогаем шрифты/отступы текста */
+.articles-slider .rail{
+  display:flex !important;                    /* надёжнее на смешанных страницах */
+  gap:24px;
+  overflow-x:auto !important;
+  overflow-y:hidden;
+  padding:20px 24px 30px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* карточка-слайд: ширина резиновая; не задаём типографику */
+.articles-slider .slide{
+  flex:0 0 clamp(260px, 32vw, 360px);
+  scroll-snap-align:start;
+}
+
+/* убираем принудительную высоту у якоря/внутреннего контейнера,
+   чтобы не было «огромного отступа» после описания */
+.articles-slider .slide.card{
+  height:auto !important;
+  min-height:0 !important;
+}
+.articles-slider .slide.card .card-body{
+  height:auto !important;
+  min-height:0 !important;
+  display:block;                              /* контент задаёт высоту */
+}
+
+/* изображения в карточках — безопасный фит */
+.articles-slider .slide.card img{
+  max-width:100%;
+  height:auto;
+}
+
+/* тонкая настройка скроллбара (не влияет на типографику) */
+.articles-slider .rail::-webkit-scrollbar{ height:8px }
+.articles-slider .rail::-webkit-scrollbar-thumb{ background:#e1d6d6; border-radius:8px }
+
+/* адаптив */
+@media (max-width: 900px){
+  .articles-slider .rail{ padding:16px 14px 22px; gap:16px; }
+  .articles-slider .slide{ flex-basis: clamp(240px, 78vw, 320px); }
+}
+
+
+/* ===== PATCH: делаем рельс прокручиваемым на любой странице ===== */
+
+/* обёртка — фон/паддинги можно оставить; главное — не скрыть события */
+.article-slider-wrap{
+  overflow: hidden;               /* ок, обрезаем фон по краям */
+}
+
+/* корень слайдера — поднимаем над фоном */
+.articles-slider{
+  position: relative;
+  z-index: 1;
+}
+
+/* РЕЛЬС: принудительно горизонтальная прокрутка + жесты */
+.articles-slider .rail{
+  display: flex !important;       /* надежнее, чем grid, когда вокруг чужие стили */
+  gap: 24px;
+  overflow-x: auto !important;    /* ВАЖНО: именно auto */
+  overflow-y: hidden;
+  padding: 20px 24px 30px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x !important; /* даём браузеру горизонтальные жесты */
+  pointer-events: auto;
+}
+
+/* дети рельсы не сжимаются, иначе не будет overflow */
+.articles-slider .rail > *{
+  flex-shrink: 0 !important;
+}
+
+/* ширина карточки — резиновая; ТИПОГРАФИКУ НЕ ТРОГАЕМ */
+.articles-slider .slide{
+  flex: 0 0 clamp(260px, 32vw, 360px);
+  scroll-snap-align: start;
+}
+
+/* убираем искусственную высоту якоря/внутренностей,
+   из-за неё был огромный пустой отступ внизу */
+.articles-slider .slide.card{
+  height: auto !important;
+  min-height: 0 !important;
+}
+.articles-slider .slide.card .card-body{
+  height: auto !important;
+  min-height: 0 !important;
+  display: block;
+}
+
+/* мелочь: колесо видно (не влияет на текст) */
+.articles-slider .rail::-webkit-scrollbar{ height:8px }
+.articles-slider .rail::-webkit-scrollbar-thumb{ background:#e1d6d6; border-radius:8px }
+
+/* АДАПТИВ — только размеры блоков, не текста */
+@media (max-width: 900px){
+  .articles-slider .rail{ padding: 16px 14px 22px; gap: 16px; }
+  .articles-slider .slide{ flex-basis: clamp(240px, 78vw, 320px); }
+}
+
+/* На всякий случай, если что-то «накрывает» слайдер */
+.articles-slider, .articles-slider .rail{ z-index: 1; }
