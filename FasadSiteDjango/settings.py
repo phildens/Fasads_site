@@ -45,8 +45,43 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop_part'
+    'shop_part',
+    "ckeditor",
+    "ckeditor_uploader",
+    "articles",
 ]
+CKEDITOR_CONFIGS = {
+    "article": {
+        "height": 400,
+        "toolbar_Basic": [],
+        "toolbar": "Custom",
+        "toolbar_Custom": [
+            {"name": "styles", "items": ["Format", "Styles"]},
+            {"name": "basicstyles", "items": ["Bold", "Italic", "Underline", "Strike", "-", "RemoveFormat"]},
+            {"name": "paragraph", "items": ["NumberedList", "BulletedList", "-", "Outdent", "Indent", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"]},
+            {"name": "links", "items": ["Link", "Unlink"]},
+            {"name": "insert", "items": ["Image", "Table", "HorizontalRule"]},
+            {"name": "clipboard", "items": ["Undo", "Redo"]},
+            {"name": "document", "items": ["Source"]},
+        ],
+        # позволяем классы/стили, чтобы применять колонки и т.п.
+        "extraAllowedContent": "*(*){*};*[*]",
+        "removeDialogTabs": "image:advanced;link:advanced",
+        "autoGrow_onStartup": True,
+        "extraPlugins": ",".join(["autogrow", "justify", "uploadimage", "div"]),
+        # выпадающий список «Styles» (не требует знания HTML со стороны редактора)
+        "stylesSet": [
+            {"name": "2 колонки", "element": "div", "attributes": {"class": "columns-2"}},
+            {"name": "3 колонки", "element": "div", "attributes": {"class": "columns-3"}},
+            {"name": "Заметка",   "element": "div", "attributes": {"class": "note"}},
+            {"name": "Цитата",    "element": "blockquote", "attributes": {"class": "quote"}},
+            {"name": "Мелкий подпункт", "element": "p", "attributes": {"class": "small"}}
+        ],
+    }
+}
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
