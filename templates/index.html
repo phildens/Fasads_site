@@ -416,6 +416,7 @@ body {
       
     }
     .slide-image img {
+      margin-right: 50px;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -438,7 +439,7 @@ body {
       
     }
     .slide-image2 img {
-      
+      margin-right: 38px;
       height: 100%;
       object-fit: cover;
       object-position: right;
@@ -717,7 +718,7 @@ html, body { overflow-x: hidden; }
     .footer-cards {
       max-width: 1240px;
       margin: 0 auto 52px auto;
-      padding: 0 16px;
+      
       display: grid;
       flex-direction: column;
       align-items: center;
@@ -1180,10 +1181,7 @@ textarea::placeholder{
   .stats-section { grid-template-columns: 370px; }
 }
 
-/* очень узкие экраны — чтобы не было горизонтального скролла */
-@media (max-width: 400px){
-  .stats-section { grid-template-columns: min(370px, 100% - 32px); }
-}
+
 .stats-card {
   width: 367px;
   height: 454px;
@@ -1214,11 +1212,171 @@ textarea::placeholder{
 }
 
 
+/* ====== MOBILE/TABLET ADAPTIVE FOR HERO ====== */
+
+/* 1) не скрываем главный контейнер на мобилках */
+@media (max-width: 1284px){
+  .conteiner{
+    display:block !important;
+    min-width:0;
+    width:100%;
+  }
+}
+
+/* 2) показываем строку поиска на мобилках (шапку — скрываем, как и было) */
+@media (max-width:1024px){
+  .header{ display:none !important; }
+  .search-bar{ display:block !important; padding:16px 12px; }
+  .search-bar input{
+    width:100% !important;
+    height:44px;
+    border-radius:12px;
+  }
+}
+
+/* 3) общие правки для слайдера на узких экранах */
+@media (max-width:1280px){
+  .slider{
+    width:100%;
+    max-width:100%;
+    min-height:auto;
+    margin:10px auto 0;
+    border-radius:12px;
+  }
+  .slides{
+    height:auto;
+  }
+  .slide{
+    height:auto;
+    padding:0px 12px 0px;
+    box-sizing:border-box;
+    background: transparent;
+    display:flex;
+    flex-direction:column; /* текст сверху, картинка снизу */
+    gap:14px;
+    margin-bottom: -10px;
+  }
+
+  .slide-text{
+    flex:0 0 auto;
+    min-width:auto;
+    padding:0 4px;
+  }
+  .slide-text .big{
+    font-size:32px;       /* было 80px */
+    line-height:1.05;
+    margin:0 0 10px;
+  }
+  .slide-text .medium{
+    font-size:20px;       /* было 36px */
+    line-height:1.1;
+    margin:0 0 12px;
+  }
+  .slide-text .min{
+    font-size:20px;       /* было 16px */
+    line-height:1.35;
+    margin-top:14px;
+  }
+
+  .slide-buttons{
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .slide-btn{
+    padding:12px 18px;
+    font-size:14px;
+    border-radius:10px;
+  }
+
+  .slide-image,
+  .slide-image2,
+  .slide-image3{
+    flex:0 0 auto;
+    width:100%;
+    height:auto;
+    min-height:0;
+    justify-content:center;
+    align-items:flex-end;
+    margin: 0;
+    padding: 0;
+    
+  }
+  .slide-image img,
+  .slide-image2 img,
+  .slide-image3 img{
+    width:100%;
+    margin: 0;
+    height:auto;            /* сохраняем пропорции */
+    min-width:0;
+    min-height:0;
+    object-fit:contain;     /* аккуратно вписываем кирпич */
+    border-radius:12px;
+    display:block;
+  }
+
+  /* точки — ближе к низу, не прилипают */
+  .dots{
+    position:static;
+    margin:10px 12px 14px;
+    justify-content:flex-start;
+  }
+}
+
+/* 4) совсем узкие экраны (iPhone SE и т.п.) */
+
+/* ===== Фиксированный логотип сверху ===== */
+.mobile-logo-bar {
+  
+  height: 60px;
+  background: #422223;         /* фон как на скрине */
+  display: none;               /* по умолчанию скрыт */
+  align-items: center;
+  padding: 0 16px;             /* отступы слева/справа */
+  z-index: 1100;               /* поверх всего */
+}
+
+.mobile-logo-bar .mobile-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* показываем только на мобильных */
+@media (max-width: 1024px) {
+  .mobile-logo-bar {
+    display: flex;
+    justify-content: flex-start; /* логотип слева */
+  }
+  
+}
+@media (max-width: 992px){
+  .dots{ display:none !important; }
+}
+
+@media (max-width: 768px) {
+  .slider,
+  .slides,
+  .slide,
+  .slide-image,
+  .slide-image2,
+  .slide-image3 {
+    height: auto !important;   /* контейнер подстраивается под картинку */
+    min-height: 0 !important;
+  }
+}
+
 
 
 </style>
 </head>
 <body>
+  <!-- Фиксированный логотип сверху -->
+<div class="mobile-logo-bar">
+  <a href="/" class="mobile-logo">
+    <img src="{% static 'imgfolder/logo.svg' %}" alt="Современные фасады">
+  </a>
+</div>
+
   <nav class="side-menu" id="sideMenu">
   <div class="logo img" id="closemenu" aria-label="Закрыть меню" role="button" tabindex="0">
     <img style="min-width:229px; height:113px" src="/static/imgfolder/image-Photoroom%20(40)%203.png" alt="Логотип">
@@ -1346,7 +1504,7 @@ textarea::placeholder{
             <p class="min">Представьте фасады, играющие переливами света<br> и тени благодаря обновленным текстурам, где каждый<br> кирпич рассказывает свою историю, создавая<br> неповторимую атмосферу</p>
           </div>
           <div class="slide-image">
-            <img src="{% static 'imgfolder\png1.png' %}" alt="">
+            <img src="{% static 'imgfolder\png12.png' %}" alt="">
           </div>
         </div>
         <div class="slide">
@@ -1361,7 +1519,7 @@ textarea::placeholder{
               и долговечность, которые он приносит в дом</p>
           </div>
           <div class="slide-image2" >
-            <img src="{% static 'imgfolder/png2.png' %}" alt="" >
+            <img src="{% static 'imgfolder/png22.png' %}" alt="" >
           </div>
         </div>
         <div class="slide">
@@ -1375,7 +1533,7 @@ textarea::placeholder{
               подойдет под вашу идею</p>
           </div>
           <div class="slide-image3">
-            <img src="{% static 'imgfolder/png3.png' %}" alt="">
+            <img src="{% static 'imgfolder/png33.png' %}" alt="">
           </div>
         </div>
       </div>

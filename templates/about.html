@@ -133,6 +133,8 @@
         </div>
 
         <!-- Вторая строка кортинки домов -->
+         <div class="feature-scroller">
+          <div class="images-strip">
         <div class="column highlight-right" style="height: 206px">
           <img src="{% static 'imgfolder/about_first_row/image 88.png' %}" alt="">
         </div>
@@ -145,7 +147,8 @@
         <div class="column" style="height: 206px">
           <img src="{% static 'imgfolder/about_first_row/image 87.png' %}" alt="">
         </div>
-
+        </div>
+        </div>
         <!-- третья строка почему выбирают нас -->
         <div class="column minheight ">
           <div style="height: 64px"></div>
@@ -211,6 +214,9 @@
         </div>
 
         {# Картинки2#}
+
+        <div class="feature-scroller">
+          <div class="images-strip">
         <div class="column highlight-right" style="height: 200px">
           <img src="{% static 'imgfolder/about_first_row/image 92.png' %}" alt="">
         </div>
@@ -223,6 +229,8 @@
         <div class="column highlight-right" style="height: 200px">
           <img src="{% static 'imgfolder/about_first_row/image 91.png' %}" alt="">
         </div>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -288,6 +296,7 @@
     
     
 {#    Наша миссия#}
+<div class="mission-desktop" style="height: 800px; background-color: white; display: flex;  justify-content: center;  border-radius: 16px">
     <div>
     <div style="height: 800px; background-color: white; display: flex;  justify-content: center;  border-radius: 16px">
         <div>
@@ -354,6 +363,57 @@
     </div>
     
     
+</div>
+
+{# ----- НОВЫЙ адаптивный блок для телефона и планшета ----- #}
+<section class="mission-responsive">
+  <div class="mr-wrap">
+
+    <!-- локальная «шапка» для мобайла/планшета: только логотип + бургер -->
+    <div class="mr-top">
+      <img src="{% static 'imgfolder/image-Photoroom (60) 1.png' %}" alt="logo" class="mr-logo">
+      <button class="mr-burger" id="menuToggleMobile">
+        <img src="{% static 'imgfolder/menu2.svg' %}" alt="menu">
+      </button>
+    </div>
+
+    <!-- большая цитата -->
+    <blockquote class="mr-quote">
+      « НАША МИССИЯ — ПРЕВРАЩАТЬ МЕЧТЫ ОБ ИДЕАЛЬНОЙ АРХИТЕКТУРЕ В РЕАЛЬНОСТЬ,
+      ДЕЛАЯ МИР ВОКРУГ НАС КРАСИВЕЕ И УЮТНЕЕ. ИМЕННО ПОЭТОМУ МЫ ТЩАТЕЛЬНО ПОДБИРАЕМ
+      ОБЛИЦОВОЧНЫЙ МАТЕРИАЛ, ВКЛАДЫВАЯ В НЕГО ЧАСТИЧКУ СВОЕЙ ДУШИ И ПРОФЕССИОНАЛИЗМА. »
+    </blockquote>
+    <hr class="mr-sep">
+    <!-- текст 1 -->
+    <p class="mr-p mr-p1">
+      Мы не просто поставляем материалы – мы помогаем воплощать самые смелые идеи в реальность
+      и создавать облик города. Архитектура должна быть не просто функциональной, но и вдохновляющей.
+      Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в него частичку своей
+      души и профессионализма.
+    </p>
+
+    <hr class="mr-sep">
+
+    <!-- текст 2 -->
+    <p class="mr-p mr-p2">
+      Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами
+      мы формируем облик будущего, превращая смелые концепции в осязаемые формы
+    </p>
+    <hr class="mr-sep">
+    <!-- КНОПКИ ДОЛЖНЫ БЫТЬ ЗДЕСЬ: между «Мы верим…» и «Руководитель ООО…» -->
+    <div class="mr-actions">
+      <button type="button" class="mr-btn mr-btn--ghost">Узнать подробнее</button>
+      <button type="button" class="mr-btn mr-btn--primary ll" data-modal-target="#contact-modal">Оставить заявку</button>
+    </div>
+
+    <!-- Руководитель -->
+    <p class="mr-lead">
+      Руководитель ООО «Современные фасады»<br>
+      Светлана Олеговна Алтухова
+    </p>
+  </div>
+</section>
+
     
     
     
