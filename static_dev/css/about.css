@@ -687,7 +687,7 @@ textarea::placeholder{
 
 /* подпись */
 .mr-lead{
-  margin: 12px 0 0 0;
+  margin: 29px 0 0 0;
   font-family:"Muller-medium";
   font-size: 14px;
   line-height: 1.25;
@@ -736,7 +736,15 @@ textarea::placeholder{
 
 /* Базово — ничего не меняем на десктопе */
 .feature-scroller { display: contents; }
-
+@media (max-width: 767.98px){
+  /* 2 равные колонки, ровняем содержимое по верху */
+  .mini-headr{
+    font-size: 20px !important;
+  }
+  .feature-grid br {
+    display: none;
+  }
+}
 /* ===== МОБИЛКА: 2 равные колонки текста + листалки из картинок ===== */
 @media (max-width: 767.98px){
   /* 2 равные колонки, ровняем содержимое по верху */
@@ -747,6 +755,7 @@ textarea::placeholder{
     align-items: start;       /* все карточки начинаются сверху */
     grid-auto-rows: 1fr;      /* строки одинаковой высоты по самой высокой ячейке */
     width: 100%;
+    margin-bottom: -14px;
   }
 
   /* Нормальный поток контента: заголовок -> текст */
@@ -762,6 +771,7 @@ textarea::placeholder{
   .feature-grid .minheight{
     height: auto !important;
     min-height: 0 !important;
+    
   }
   .halfm *{ margin-left: 0 !important; }
 
@@ -774,14 +784,15 @@ textarea::placeholder{
   /* Типографика + защита от налезаний */
   .feature-grid .column h3{
     margin: 0 0 6px 0;
-    font-size: 18px;
+    font-size: 16px;
+    
     width: auto !important;
     max-width: 100%;
     word-break: break-word;
     overflow-wrap: anywhere;
   }
   .feature-grid .column p{
-    font-size: 15px;
+    font-size: 10px;
     line-height: 1.25;
     opacity: .6;
     width: auto !important;      /* перебиваем инлайновые width типа 241px */
@@ -803,7 +814,7 @@ textarea::placeholder{
   .feature-grid .images-strip{
     grid-column: 1 / -1;
     display:flex;
-    gap: var(--strip-gap);
+    
     overflow-x:auto;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
@@ -813,7 +824,7 @@ textarea::placeholder{
     box-sizing:border-box;
   }
   .feature-grid .images-strip::-webkit-scrollbar{ display:none; }
-  .feature-grid .images-strip{ scrollbar-width:none; }
+  .feature-grid .images-strip{ scrollbar-width:none; margin-left: 1px;}
 
   .feature-grid .images-strip .column{
     flex: 0 0 calc(
