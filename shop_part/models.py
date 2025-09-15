@@ -1,101 +1,175 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class TypeMaterial(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name = "Вид материала"
+        verbose_name_plural = "Виды материалов"
+
     def __str__(self):
         return self.name
+
+
+class FilterKey(models.TextChoices):
+    MANUFACTURER = "manufacturer", "Производитель"
+    COLOR = "color", "Цвет"
+    TYPE_MATERIAL = "type_material", "Вид материала"
+    PRODUCT_TYPE = "product_type", "Тип товара"
+    FROSEN_DEFEND = "frosen_defend", "Морозостойкость"
+    STRENGTH_GRADE = "strength_grade", "Марка прочности"
+    WATER_RESISTANCE = "water_resistance", "Водопоглощение"
+    FORMAT = "format", "Формат"  # M2M formats
+    EMPTINESS = "emptiness", "Пустотность"  # M2M emptiness
 
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
     link_name = models.CharField(max_length=100, null=True)
     card_image = models.ImageField(null=True, blank=True)
+    filters_enabled = models.JSONField(default=list, blank=True,
+                                       help_text="Список ключей фильтров из FilterKey.*")
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
+    def clean(self):
+        # валидация, чтобы ключи были только из перечисления
+        if self.filters_enabled:
+            allowed = {c.value for c in FilterKey}
+            bad = [x for x in self.filters_enabled if x not in allowed]
+            if bad:
+                raise ValidationError({"filters_enabled": f"Неизвестные ключи: {bad}"})
+        return super().clean()
 
     def __str__(self):
         return self.name
 
 
 class Format(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Формат")
+
+    class Meta:
+        verbose_name = "Формат"
+        verbose_name_plural = "Форматы"
 
     def __str__(self):
         return self.name
 
 
 class Color(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Цвет")
+
+    class Meta:
+        verbose_name = "Цвет"
+        verbose_name_plural = "Цвета"
 
     def __str__(self):
         return self.name
 
 
 class FrosenDefender(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Марка прочности")
 
     class Meta:
         verbose_name = "Марка прочности"
         verbose_name_plural = "Марка прочности"
+
     def __str__(self):
         return self.name
 
 
 class Manufactor(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Производитель")
+
+    class Meta:
+        verbose_name = "Производитель"
+        verbose_name_plural = "Производители"
 
     def __str__(self):
         return self.name
 
 
 class StrengthGrade(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Морозостойкость")
 
     class Meta:
         verbose_name = "Морозостойкость"
         verbose_name_plural = "Морозостойкость"
+
     def __str__(self):
         return self.name
 
 
 class WaterResistance(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Водопоглощение")
+
+    class Meta:
+        verbose_name = "Водопоглощение"
+        verbose_name_plural = "Водопоглощение"
 
     def __str__(self):
         return self.name
 
 
 class Emptiness(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Пустотность")
+
+    class Meta:
+        verbose_name = "Пустотность"
+        verbose_name_plural = "Пустотность"
 
     def __str__(self):
         return self.name
 
 
 class ProductType(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Тип товара")
+
+    class Meta:
+        verbose_name = "Тип товара"
+        verbose_name_plural = "Типы товаров"
 
     def __str__(self):
         return self.name
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
-    card_image = models.ImageField(null=True, blank=True)
-    manufacturer = models.ForeignKey(Manufactor, on_delete=models.SET_NULL, null=True, blank=True)
-    type_material = models.ForeignKey(TypeMaterial, on_delete=models.PROTECT)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    description = models.TextField(null=True, blank=True)
-    formats = models.ManyToManyField(Format)
-    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True)
-    frosen_defend = models.ForeignKey(FrosenDefender, on_delete=models.SET_NULL, null=True)
-    strength_grade = models.ForeignKey(StrengthGrade, on_delete=models.SET_NULL, null=True)
-    water_resistance = models.ForeignKey(WaterResistance, on_delete=models.SET_NULL, null=True)
-    emptiness = models.ManyToManyField(Emptiness)
-    product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=100, verbose_name="Название товара")
+    card_image = models.ImageField(null=True, blank=True, verbose_name="Фото карточки")
+    manufacturer = models.ForeignKey(Manufactor, on_delete=models.SET_NULL, null=True, blank=True,
+                                     verbose_name="Производитель")
+    type_material = models.ForeignKey(TypeMaterial, on_delete=models.PROTECT, null=True, blank=True,
+                                      verbose_name="Вид материала")
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name="Категория")
+    description = models.TextField(null=True, blank=True, verbose_name="Описание")
+    formats = models.ManyToManyField(Format, blank=True, verbose_name="Форматы")
+    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Цвет")
+    frosen_defend = models.ForeignKey(FrosenDefender, on_delete=models.SET_NULL, null=True, blank=True,
+                                      verbose_name="Марка прочности")
+    strength_grade = models.ForeignKey(StrengthGrade, on_delete=models.SET_NULL, null=True, blank=True,
+                                       verbose_name="Морозостойкость")
+    water_resistance = models.ForeignKey(WaterResistance, on_delete=models.SET_NULL, null=True, blank=True,
+                                         verbose_name="Водопоглощение")
+    emptiness = models.ManyToManyField(Emptiness, blank=True, verbose_name="Пустотность")
+    product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, blank=True,
+                                     verbose_name="Тип товара")
+
+    class Meta:
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
 
     def __str__(self):
-        return self.name + " " + self.manufacturer.name + " " + self.product_type.name
+        name = self.name
+        if self.manufacturer:
+            name = name + " " + self.manufacturer.name
+
+        if self.product_type:
+            name = name + " " + self.product_type.name
+        return name
 
 
 class Gallery(models.Model):
@@ -111,16 +185,14 @@ class Questions(models.Model):
         return self.name
 
 
-
-
 # Форма обратной связи
 class ContactRequest(models.Model):
-    first_name   = models.CharField("Имя", max_length=100)
-    last_name    = models.CharField("Фамилия", max_length=100, blank=True)
-    email        = models.EmailField("Email")
-    phone        = models.CharField("Телефон", max_length=30, blank=True)
-    description  = models.TextField("Краткое описание", blank=True)
-    created_at   = models.DateTimeField("Создано", auto_now_add=True)
+    first_name = models.CharField("Имя", max_length=100)
+    last_name = models.CharField("Фамилия", max_length=100, blank=True)
+    email = models.EmailField("Email")
+    phone = models.CharField("Телефон", max_length=30, blank=True)
+    description = models.TextField("Краткое описание", blank=True)
+    created_at = models.DateTimeField("Создано", auto_now_add=True)
 
     class Meta:
         ordering = ["-created_at"]
@@ -134,8 +206,10 @@ class ContactRequest(models.Model):
 class BigGalery(models.Model):
     position = models.IntegerField(default=0, help_text='Позиция в списке', verbose_name='позиция в списке')
     name = models.CharField(max_length=100, help_text="Имя объекта", verbose_name="имя(текст на картинке)")
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Товар отображаемый при наведении на точку")
-    card_image = models.ImageField(null=True, blank=True, help_text="Изображение в галерее", verbose_name='Фото карточки объекта в общем списке')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True,
+                                verbose_name="Товар отображаемый при наведении на точку")
+    card_image = models.ImageField(null=True, blank=True, help_text="Изображение в галерее",
+                                   verbose_name='Фото карточки объекта в общем списке')
 
     class Meta:
         verbose_name = "Галерея объектов"
@@ -144,11 +218,11 @@ class BigGalery(models.Model):
     def __str__(self):
         return self.name
 
+
 class SmallGallery(models.Model):
     image = models.ImageField(verbose_name='Фото объекта')
     object = models.ForeignKey(BigGalery, on_delete=models.CASCADE, related_name='images')
 
     class Meta:
-        verbose_name='Фото объекта при открытии'
-        verbose_name_plural=('Фото объекта при открытии')
-
+        verbose_name = 'Фото объекта при открытии'
+        verbose_name_plural = ('Фото объекта при открытии')

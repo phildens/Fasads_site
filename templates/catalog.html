@@ -1,0 +1,471 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{% if category_slug and category_slug != "all" %}Каталог — {{ category_slug|title }}{% else %}Каталог{% endif %}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .page{max-width:1180px;margin:0 auto;padding:24px 16px 64px;font-family:Montserrat,Arial,sans-serif;box-sizing:border-box}
+  .crumbs{font-size:13px;color:#7b6a68;margin-bottom:6px}
+  .crumbs a{color:inherit;text-decoration:none}
+  .head-row{display:flex;justify-content:space-between;align-items:center;margin:8px 0 18px}
+  .title{font-size:38px;line-height:1.15;margin:0;color:#2b1b2a}
+  .sort{font-size:13px;color:#6a5f5e;display:flex;gap:8px;align-items:center}
+  .sort select{border:none;background:#f4f2f1;border-radius:8px;padding:8px 12px;outline:none}
+
+  .layout{display:grid;grid-template-columns:280px 1fr;gap:24px}
+  @media (max-width: 960px){.layout{grid-template-columns:1fr}}
+
+  /* Сайдбар фильтров */
+  .filters{position:sticky;top:12px;height:max-content}
+  @media (max-width:960px){ .filters{position:static;top:auto;margin-bottom:12px} }
+
+  .filter-accordion{border:1px solid #eee;border-radius:12px;overflow:hidden;background:#fff}
+  .filter-item + .filter-item{border-top:1px solid #eee}
+  .filter-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;user-select:none}
+  .filter-head h4{margin:0;font-size:14px;font-weight:600;color:#3a2e2d}
+  .chev{transition:transform .2s ease}
+  /* Без внутренних скроллов: просто скрываем/показываем */
+  .filter-content{display:none;padding:4px 0 10px}
+  .filter-item.open .filter-content{display:block}
+  .filter-item.open .chev{transform:rotate(180deg)}
+
+  .opt{display:flex;align-items:center;gap:8px;padding:8px 16px}
+  .opt input{width:16px;height:16px}
+
+  .actions{margin-top:12px;display:flex;gap:10px}
+  .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:12px 14px;border-radius:10px;font-size:14px;cursor:pointer}
+  .btn-primary{background:#e7e5e3}
+  .btn-dark{background:#2b1b2a;color:#fff}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media (max-width: 1100px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width: 640px){ .grid{grid-template-columns:1fr} }
+
+  .card{background:#fff;border:1px solid #eee;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .img-wrap{position:relative;background:#f6f4f3}
+  .img-wrap img{width:100%;height:220px;object-fit:cover;display:block}
+  .badge{position:absolute;left:16px;top:12px;background:#468c2c;color:#fff;padding:6px 10px;border-radius:8px;font-size:12px}
+  .body{padding:16px}
+  .name{font-size:22px;line-height:1.15;color:#2b1b2a;margin:0 0 10px}
+  .price-link{font-size:13px;color:#2b1b2а;text-decoration:underline}
+  .foot{display:flex;justify-content:flex-end;gap:10px;padding:12px 16px}
+  .icon-btn{width:40px;height:40px;border-radius:12px;border:none;background:#efefef;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .empty{padding:48px 0;text-align:center;color:#7b6a68}
+
+  .skeleton{animation:pulse 1.2s ease-in-out infinite;background:linear-gradient(90deg,#eee 25%,#f5f5f5 37%,#eee 63%);background-size:400% 100%}
+  @keyframes pulse{0%{background-position:100% 0}100%{background-position:0 0}}
+  .s-card{border-radius:16px;border:1px solid #eee;overflow:hidden}
+  .s-img{height:220px}
+  .card a{color:inherit;text-decoration:none}
+.card a:hover{text-decoration:none}
+
+  .s-line{height:18px;margin:12px 16px;border-radius:6px}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="catalog"
+     class="page"
+     data-cat-slug="{{ category_slug }}"
+     data-endpoint-category-cat="/api/categories/{slug}/"
+     data-endpoint-products-cat="/api/categories/{slug}/products/"
+     data-endpoint-filters-cat="/api/categories/{slug}/filters/"
+     data-endpoint-products-all="/api/catalog/"
+     data-endpoint-filters-all="/api/filters/">
+
+  <div class="crumbs">
+    <a href="/">Главная</a> ›
+    <span id="crumb-cat">{% if category_slug and category_slug != "all" %}{{ category_slug|title }}{% else %}Каталог{% endif %}</span>
+  </div>
+
+  <div class="head-row">
+    <h1 class="title" id="title-cat">{% if category_slug and category_slug != "all" %}{{ category_slug|title }}{% else %}Каталог{% endif %}</h1>
+    <div class="sort">
+      <span>по</span>
+      <select id="sort">
+        <option value="default">умолчанию</option>
+        <option value="name_asc">названию (А–Я)</option>
+        <option value="name_desc">названию (Я–А)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="filters">
+      <div id="filters" class="filter-accordion"></div>
+      <div class="actions">
+        <button id="apply" class="btn btn-dark" disabled>Применить фильтры</button>
+        <button id="reset" class="btn btn-primary">Сбросить</button>
+      </div>
+    </aside>
+
+    <main>
+      <div id="grid" class="grid"></div>
+      <div id="empty" class="empty" style="display:none">Ничего не найдено</div>
+    </main>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function(){
+  const root = document.getElementById("catalog");
+  const catSlug = (root.dataset.catSlug || "all").toString().trim();
+  const apiSlug = (catSlug && catSlug !== "all") ? catSlug.toLowerCase() : "all";
+
+  // endpoints
+  const epCategoryCat = root.dataset.endpointCategoryCat;
+  const epProductsCat = root.dataset.endpointProductsCat;
+  const epFiltersCat  = root.dataset.endpointFiltersCat;
+  const epProductsAll = root.dataset.endpointProductsAll;
+  const epFiltersAll  = root.dataset.endpointFiltersAll;
+
+  const $filters = document.getElementById("filters");
+  const $grid = document.getElementById("grid");
+  const $empty = document.getElementById("empty");
+  const $apply = document.getElementById("apply");
+  const $reset = document.getElementById("reset");
+  const $sort = document.getElementById("sort");
+  const $title = document.getElementById("title-cat");
+  const $crumb = document.getElementById("crumb-cat");
+
+  // Человекочитаемые названия фильтров (verbose_name)
+  const FILTER_TITLES = {
+    manufacturer: "Производитель",
+    color: "Цвет",
+    type_material: "Вид материала",
+    product_type: "Тип товара",
+    frosen_defend: "Морозостойкость",
+    strength_grade: "Марка прочности",
+    water_resistance: "Водопоглощение",
+    format: "Формат",
+    emptiness: "Пустотность"
+  };
+
+  // state
+  const state = {
+    sort: getParam("sort") || "default",
+    filters: parseFilterParams(location.search),
+    paramMap: {}
+  };
+  $sort.value = state.sort;
+
+  // helpers
+  function urlFor(tpl, slug){ return tpl.replace("{slug}", slug || "all"); }
+  function getParam(k){ return new URLSearchParams(location.search).get(k); }
+
+  function parseFilterParams(qs){
+    const params = new URLSearchParams(qs);
+    const obj = {};
+    for (const [kRaw, v] of params.entries()){
+      if (kRaw === "sort" || kRaw === "ordering") continue;
+      const k = kRaw.endsWith("[]") ? kRaw.slice(0, -2) : kRaw;
+      (obj[k] ||= []).push(v);
+    }
+    return obj;
+  }
+
+  function buildQuery(){
+    const p = new URLSearchParams();
+    if (state.sort && state.sort !== "default") {
+      p.set("sort", state.sort);
+      p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
+    }
+    Object.entries(state.filters).forEach(([k, arr]) => {
+      (arr || []).forEach(v => p.append(k, v));
+    });
+    const s = p.toString(); return s ? "?" + s : "";
+  }
+
+  function pushUrl(){ history.replaceState({}, "", location.pathname + buildQuery()); }
+  function toTitle(slug){ return (!slug || slug === "all") ? "Каталог" : slug.replace(/[-_]+/g," ").replace(/\b\w/g, ch => ch.toUpperCase()); }
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
+  function escapeAttr(s){ return escapeHtml(s).replace(/"/g,"&quot;"); }
+  function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+  const applyFiltersDebounced = debounce(applyFiltersNow, 150);
+
+  // -------- Нормализация ответов API --------
+  function normalizeValues(val){
+    if (Array.isArray(val)) {
+      return val.map(v => {
+        if (typeof v === "object") {
+          const value = String(v.value ?? v.slug ?? v.id ?? "");
+          const label = String(v.label ?? v.title ?? v.name ?? value);
+          const count = (typeof v.count === "number") ? v.count : undefined;
+          return { value, label, count };
+        } else {
+          const s = String(v);
+          return { value: s, label: s };
+        }
+      });
+    }
+    if (val && typeof val === "object") {
+      return Object.entries(val).map(([vk, vc]) => ({
+        value: String(vk),
+        label: String(vk),
+        count: (typeof vc === "number") ? vc : undefined
+      }));
+    }
+    return [];
+  }
+
+  function normalizeGroups(input){
+    if (!input) return [];
+    if (Array.isArray(input)) return input;
+
+    if (typeof input === "object") {
+      return Object.entries(input).map(([key, val]) => {
+        if (Array.isArray(val)) {
+          return { key, title: key, param: key, values: normalizeValues(val) };
+        }
+        if (val && typeof val === "object") {
+          const title = String(val.verbose_name ?? val.title ?? val.label ?? val.name ?? key);
+          const param = String(val.param ?? val.name ?? val.key ?? key);
+          const rawValues = val.values ?? val.options ?? val.items ?? val.choices ?? val;
+          return { key, title, param, values: normalizeValues(rawValues) };
+        }
+        return { key, title: key, param: key, values: [] };
+      });
+    }
+    return [];
+  }
+  // -----------------------------------------
+
+  // UI
+  function renderSkeletonCards(n=6){
+    $grid.innerHTML="";
+    for(let i=0;i<n;i++){
+      const d=document.createElement("div");
+      d.className="s-card";
+      d.innerHTML=`<div class="s-img skeleton"></div><div class="s-line skeleton" style="width:70%"></div><div class="s-line skeleton" style="width:40%"></div>`;
+      $grid.appendChild(d);
+    }
+  }
+function getProductUrl(item){
+  const id = item?.id ?? item?.pk;
+  return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';
+}
+ function renderCards(items){
+  if(!items || !items.length){
+    $grid.innerHTML = "";
+    $empty.style.display = "block";
+    return;
+  }
+  $empty.style.display = "none";
+
+  $grid.innerHTML = items.map(card=>{
+    const name = escapeHtml(card.name || "");
+    const img  = escapeHtml(card.card_image || card.image || "");
+    const price= escapeHtml(card.price_list_url || "#");
+    const href = getProductUrl(card);
+
+    return `
+      <div class="card">
+        <div class="img-wrap">
+          ${img
+            ? `<a href="${href}" aria-label="${name}">
+                 <img src="${img}" alt="${name}">
+               </a>`
+            : `<div class="s-img skeleton"></div>`}
+          <div class="badge">⭐ фаворит</div>
+        </div>
+
+        <div class="body">
+          <h3 class="name" style="margin:0 0 10px">
+            <a href="${href}">${name}</a>
+          </h3>
+          <a class="price-link" href="${href}" target="_blank" rel="noopener">прайс-лист</a>
+        </div>
+
+        <div class="foot">
+          <button class="icon-btn" title="в избранное" type="button">❤</button>
+          <button class="icon-btn" title="написать" type="button">✉</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+  function renderFilters(groups){
+    groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
+
+    $filters.innerHTML="";
+    state.paramMap = {};
+
+    (groups || []).forEach(group=>{
+      const paramName = String(group.param || group.name || group.key || group.slug || "").trim();
+      if (!paramName) return;
+
+      state.paramMap[group.key || group.name || paramName] = paramName;
+
+      const displayTitle =
+        FILTER_TITLES[paramName] ||
+        group.verbose_name ||
+        group.title || group.label || group.name || group.key || paramName;
+
+      const current = state.filters[paramName] || [];
+      const wrap = document.createElement("div");
+      wrap.className="filter-item"; /* по умолчанию СВЕРНУТО */
+      wrap.innerHTML = `
+        <div class="filter-head" role="button" tabindex="0" aria-expanded="false">
+          <h4>${escapeHtml(displayTitle)}</h4>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="#5a4a48" stroke-width="2"/></svg>
+        </div>
+        <div class="filter-content">
+          <div class="options"></div>
+        </div>`;
+
+      const options = wrap.querySelector(".options");
+
+      const values = normalizeValues(group.values || group.options || group.items || group.choices || []);
+
+      values.forEach(v=>{
+        const val = String(v.value);
+        const label = escapeHtml(v.label ?? val);
+        const count = (typeof v.count === "number") ? `&nbsp;<span style="color:#9a8f8d">(${v.count})</span>` : "";
+        const checked = current.includes(val) ? "checked" : "";
+        options.insertAdjacentHTML("beforeend",
+          `<label class="opt">
+             <input type="checkbox" data-param="${escapeAttr(paramName)}" value="${escapeAttr(val)}" ${checked}>
+             <span>${label}${count}</span>
+           </label>`);
+      });
+
+      // Тоггл аккордеона
+      const head = wrap.querySelector(".filter-head");
+      head.addEventListener("click",()=>{
+        const isOpen = wrap.classList.toggle("open");
+        head.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Автоприменение при изменении чекбокса
+      options.addEventListener("change",e=>{
+        if(e.target && e.target.matches("input[type=checkbox]")){
+          const param = e.target.dataset.param;
+          const val = e.target.value;
+          const set = new Set(state.filters[param] || []);
+          if (e.target.checked) set.add(val); else set.delete(val);
+          state.filters[param] = Array.from(set);
+          $apply.disabled = false;
+          applyFiltersDebounced();
+        }
+      });
+
+      $filters.appendChild(wrap);
+    });
+
+    if (!$filters.children.length){
+      $filters.innerHTML = `<div class="filter-item">
+        <div class="filter-head"><h4>Фильтры недоступны</h4></div>
+        <div class="filter-content" style="display:block;padding:12px 16px;color:#9a8f8d">
+          Для этой категории фильтры не настроены.
+        </div>
+      </div>`;
+    }
+  }
+
+  // data loaders
+  async function loadCategoryName(){
+    if(apiSlug==="all") return;
+    try{
+      const res=await fetch(urlFor(epCategoryCat, apiSlug), {credentials:"same-origin"});
+      if(!res.ok) return;
+      const data=await res.json();
+      const nm = data?.name || data?.title || toTitle(catSlug);
+      $title.textContent = nm; $crumb.textContent = nm;
+    }catch(_){}
+  }
+
+  async function loadFilters(){
+    const url = (apiSlug!=="all")? urlFor(epFiltersCat, apiSlug) : epFiltersAll;
+    if(!url){ renderFilters([]); return; }
+    try{
+      const res=await fetch(url,{credentials:"same-origin"});
+      if(!res.ok) throw new Error("filters "+res.status);
+      const data=await res.json();
+
+      const raw = Array.isArray(data)
+        ? data
+        : (data.groups || data.filters || data.facets || data.data || data);
+
+      const groups = normalizeGroups(raw);
+
+      if (data && (data.name || data.category_name)) {
+        const nm = data.name || data.category_name;
+        $title.textContent = nm; $crumb.textContent = nm;
+      }
+
+      renderFilters(groups);
+    }catch(e){
+      console.warn("filters load error:", e);
+      renderFilters([]);
+    }
+  }
+
+  async function loadProducts(){
+    renderSkeletonCards();
+    const base = (apiSlug!=="all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
+    const url = (apiSlug!=="all") ? (base + buildQuery()) : (base + buildQueryForAllSafe());
+
+    try{
+      const res=await fetch(url,{credentials:"same-origin"});
+      if(!res.ok) throw new Error("products "+res.status);
+      let items=await res.json();
+      items = Array.isArray(items) ? items : (items.results || []);
+
+      if(state.sort==="name_asc"||state.sort==="name_desc"){
+        items = items.slice().sort((a,b)=> (a.name||"").localeCompare(b.name||"", "ru",{sensitivity:"base"}));
+        if(state.sort==="name_desc") items.reverse();
+      }
+
+      renderCards(items);
+    }catch(e){
+      console.error("products load error:", e);
+      renderCards([]);
+    }
+  }
+
+  function buildQueryForAllSafe(){
+    if (state.sort && state.sort !== "default"){
+      const p = new URLSearchParams();
+      p.set("sort", state.sort);
+      p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
+      return "?" + p.toString();
+    }
+    return "";
+  }
+
+  // actions
+  async function applyFiltersNow(){
+    pushUrl();
+    await loadProducts();
+  }
+
+  $apply.addEventListener("click", applyFiltersNow);
+
+  $reset.addEventListener("click", async ()=>{
+    state.filters={};
+    state.sort="default";
+    $sort.value="default";
+    pushUrl();
+    await loadFilters();
+    await loadProducts();
+  });
+
+  $sort.addEventListener("change", async ()=>{
+    state.sort=$sort.value;
+    pushUrl();
+    await loadProducts();
+  });
+
+  // init
+  (async function init(){
+    await loadCategoryName();
+    await loadFilters();
+    await loadProducts();
+  })();
+})();
+</script>
+{% endblock %}

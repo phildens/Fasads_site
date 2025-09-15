@@ -1386,15 +1386,16 @@ textarea::placeholder{
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong></li>
     <li style="margin-bottom:30px"><a href="{% url 'about' %}">О нас</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Продукция</strong></li>
-    <li><a href="#">Клинкерный облицовочный кирпич</a></li>
-    <li><a href="#">Керамический облицовочный кирпич</a></li>
-    <li><a href="#">Клинкерная плитка</a></li>
-    <li><a href="#">Брусчатка</a></li>
-    <li><a href="#">Ригельный кирпич</a></li>
-    <li><a href="#">Навесные вентилируемые системы</a></li>
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%" href="{% url 'catalog_all' %}">Продукция</strong></li>
+      <li><a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a></li>
+      
+ <li><a href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Керамический облицовочный кирпич</a></li>
+    <li><a href="{% url 'catalog_category' 'clinker_tiles' %}">Клинкерная плитка</a></li>
+<li><a href="{% url 'catalog_category' 'paving_stones' %}">Брусчатка</a></li>
+<li><a href="{% url 'catalog_category' 'bolt_brick' %}">Ригельный кирпич</a></li>
+<li><a href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Навесные вентилируемые системы</a></li>
     <li><a href="#">Архитектурные фасадные декоры</a></li>
-    <li style="margin-bottom:30px"><a href="#">Гиперпрессованный кирпич</a></li>
+<li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
     <li style="margin-bottom:30px"><a href="#">Фотографии выполненных объектов</a></li>
@@ -1403,7 +1404,7 @@ textarea::placeholder{
     <li style="margin-bottom:70px"><a href="#">Дилеры заводов</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
-    <li style="margin-bottom:30px"><a href="#">Вопросы-ответы</a></li>
+    <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
   </ul>
 
   <!-- Контакты -->
@@ -1463,7 +1464,7 @@ textarea::placeholder{
 
           <li><a href="#" class="nav-link">Продукция</a></li>
            <li><a href="{% url 'galery' %}?galery_name=galery" class="na-link">Галерея</a></li>
-          <li><a href="#" class="nav-link">Вопросы-ответы</a></li>
+          <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
           <li><a href="{% url 'about' %}" class="nav-link">Контакты</a></li>
           <li><a href="tel:+7(951)940-12-49" class="nav-link">+7(951)940-12-49<br><p class="a">номер для связи</p></a></li>
           <li><a href="mailto:evrokrovliof@mail.ru" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
@@ -1552,34 +1553,34 @@ textarea::placeholder{
         <div class="footer-card">
           <div class="footer-card-title">Клинкерный<br>облицовочный кирпич</div>
           <img src="{% static 'imgfolder/f1.png' %}" alt="Клинкерный облицовочный кирпич">
-          <a class="footer-card-link" href="{% url 'cats' %}?cat_name=face-brick">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'face-brick' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Керамический<br>облицовочный кирпич</div>
           <img src="{% static 'imgfolder/f2.png' %}" alt="Керамический облицовочный кирпич">
-          <a class="footer-card-link" href="{% url 'cats' %}?cat_name=ceram-face-brick">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Клинкерная плитка<br>и плитка под кирпич</div>
           <img src="{% static 'imgfolder/f3.png' %}" alt="Клинкерная плитка">
-          <a class="footer-card-link" href="{% url 'cats' %}?cat_name=tile">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'clinker_tiles' %}">Перейти к разделу</a>
         </div>
       
       
         <div class="footer-card">
           <div class="footer-card-title">Брусчатка</div>
           <img src="{% static 'imgfolder/f4.png' %}" alt="Брусчатка">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'paving_stones' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Ригельный кирпич</div>
           <img src="{% static 'imgfolder/f5.png' %}" alt="Ригельный кирпич">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'bolt_brick' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Навесные<br>вентилируемые системы</div>
           <img src="{% static 'imgfolder/f6.png' %}" alt="Навесные вентилируемые системы">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Перейти к разделу</a>
         </div>
       
       
@@ -1591,7 +1592,7 @@ textarea::placeholder{
         <div class="footer-card">
           <div class="footer-card-title">Гиперпрессованный<br>кирпич</div>
           <img src="{% static 'imgfolder/f8.png' %}" alt="Гиперпрессованный кирпич">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Кровельные<br>материалы</div>
