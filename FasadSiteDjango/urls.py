@@ -40,6 +40,9 @@ urlpatterns = [
 
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("articles/", include("articles.urls", namespace="articles")),
+    path("", include("shop_part.urls")),
+    path("p/<int:pk>/", views.product_client_view, name="product_client_view"),
+    path('api/filters/', views.global_filters, name='api_global_filters'),
 ]
 
 # Статика (CSS, JS, шрифты) — отдаётся через STATIC_URL

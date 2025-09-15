@@ -158,11 +158,7 @@
   .column p { font-size: 16px; }
 }
 
-@media (max-width: 1199.98px) {
-  .about-features-block {
-    display: none !important;
-  }
-}
+
 
 
 /* форма       */
@@ -591,3 +587,303 @@ textarea::placeholder{
   font-size:16px;
   line-height:100%;
 }
+
+/* ===== Включаем нужный блок по брейкпоинтам ===== */
+@media (min-width: 1200px){
+  .mission-desktop{ display:block !important; }
+  .mission-responsive{ display:none !important; }
+}
+@media (max-width: 1199.98px){
+  .mission-desktop{ display:none !important; }
+  .mission-responsive{ display:block !important; }
+}
+
+/* ===== Стили адаптивного блока ===== */
+.mission-responsive{
+  width: 100%;
+  background: #fff;
+}
+.mr-wrap{
+  max-width: 1160px;          /* планшет широкий, мобайл уже — ниже переопределим */
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* мини-шапка: только лого + бургер (контакты скрыты, как просил) */
+.mr-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.mr-logo{ width: 120px; height: auto; }
+.mr-burger{
+  background: transparent;
+  border: 0;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* большая цитата */
+.mr-quote{
+  margin: 10px 0 18px 0;
+  font-family: "NAMU";
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #422223;
+  text-transform: uppercase;
+}
+
+/* параграфы в «капсулах», как на скриншоте */
+.mr-p{
+  margin: 0;
+ 
+  
+  font-weight: 500;
+  font-family: "Muller-medium";
+  font-size: 16px;
+  line-height: 1.25;
+  color: rgba(66, 34, 35, 0.6);
+  opacity: 60;
+}
+.mr-p + .mr-p{ margin-top: 10px; }
+
+/* разделительная линия */
+.mr-sep{
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.2);
+  margin: 16px 0;
+}
+
+/* блок кнопок — между «Мы верим…» и «Руководитель…» */
+.mr-actions{
+  display: flex;
+  gap: 10px;
+  margin: 12px 0 6px 0;
+}
+.mr-btn{
+  
+  height: 34px;
+  width: 120px;
+  border-radius: 12px;
+  font-family: "Muller-medium";
+  font-size: 11px;
+  cursor: pointer;
+  border: none;
+}
+.mr-btn--ghost{
+  background: #ffffff;
+  color: rgba(43, 41, 47, 1);
+}
+.mr-btn--primary{
+  background:rgba(50, 127, 0, 1);
+  color: #fff;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+/* подпись */
+.mr-lead{
+  margin: 12px 0 0 0;
+  font-family:"Muller-medium";
+  font-size: 14px;
+  line-height: 1.25;
+  color: #000;
+  opacity: .6;
+}
+
+/* ===== Планшет (768–1199): двухколоночная раскладка, без наложений ===== */
+@media (min-width: 768px) and (max-width: 1199.98px){
+  .mr-wrap{ max-width: 980px; padding: 20px; }
+
+  /* сетка: слева тексты, справа цитата */
+  .mr-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+/* ===== Телефон ≤767: как на твоём скриншоте ===== */
+@media (max-width: 767.98px){
+  .mr-wrap{ max-width: 360px; padding: 12px 16px; }
+
+  .mr-quote{
+    font-size: 16px;
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  
+  .mr-actions{ gap: 12px; }
+  
+  .mr-lead{ font-size: 13px; }
+}
+
+.mr-sep{
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.2);
+  margin: 20px 0;   /* отступ сверху и снизу */
+}
+
+
+
+
+
+
+/* Базово — ничего не меняем на десктопе */
+.feature-scroller { display: contents; }
+
+/* ===== МОБИЛКА: 2 равные колонки текста + листалки из картинок ===== */
+@media (max-width: 767.98px){
+  /* 2 равные колонки, ровняем содержимое по верху */
+  .feature-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+    align-items: start;       /* все карточки начинаются сверху */
+    grid-auto-rows: 1fr;      /* строки одинаковой высоты по самой высокой ячейке */
+    width: 100%;
+  }
+
+  /* Нормальный поток контента: заголовок -> текст */
+  .feature-grid .descript{
+    display: block !important;  /* вместо flex, чтобы p не «прибивался» вниз */
+    padding: 0 0 10px 0;
+  }
+
+  /* Снимаем жёсткие высоты и левый сдвиг */
+  .feature-grid .column,
+  .feature-grid .column.small,
+  .feature-grid .column.medium,
+  .feature-grid .minheight{
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .halfm *{ margin-left: 0 !important; }
+
+  /* Убираем границы-сетку на мобиле */
+  .highlight-left,
+  .highlight-right,
+  .highlight-top,
+  .highlight-bottom{ border: none !important; }
+
+  /* Типографика + защита от налезаний */
+  .feature-grid .column h3{
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    width: auto !important;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  .feature-grid .column p{
+    font-size: 15px;
+    line-height: 1.25;
+    opacity: .6;
+    width: auto !important;      /* перебиваем инлайновые width типа 241px */
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    margin: 0;                   /* исключим неожиданные внешние отступы */
+  }
+
+  /* Ряд «Почему выбирают нас» — на всю ширину */
+  .feature-grid .minheight{ grid-column: 1 / -1; }
+
+  /* --- Листалки с картинками оставляем как было (2 карточки на всю ширину) --- */
+  .feature-grid{
+    --strip-cards: 2;       /* видно две карточки */
+    --strip-gap: 12px;
+    --strip-edge: 16px;
+  }
+  .feature-grid .images-strip{
+    grid-column: 1 / -1;
+    display:flex;
+    gap: var(--strip-gap);
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding: 6px var(--strip-edge) 10px;
+    margin-left:  calc(-1 * var(--strip-edge));
+    margin-right: calc(-1 * var(--strip-edge));
+    box-sizing:border-box;
+  }
+  .feature-grid .images-strip::-webkit-scrollbar{ display:none; }
+  .feature-grid .images-strip{ scrollbar-width:none; }
+
+  .feature-grid .images-strip .column{
+    flex: 0 0 calc(
+      (100% - (var(--strip-gap) * (var(--strip-cards) - 1)) - (var(--strip-edge) * 2))
+      / var(--strip-cards)
+    );
+    max-width: calc(
+      (100% - (var(--strip-gap) * (var(--strip-cards) - 1)) - (var(--strip-edge) * 2))
+      / var(--strip-cards)
+    );
+    scroll-snap-align:start;
+    border:none !important;
+    box-sizing:border-box;
+  }
+  .feature-grid .images-strip img{
+    display:block;
+    width:100%;
+    height:140px;      /* можно 120–180 */
+    object-fit:cover;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+
+  /* сверхузкие — чуть компактнее */
+  @media (max-width: 390px){
+    .feature-grid{ --strip-edge: 12px; }
+    .feature-grid .images-strip img{ height: 120px; }
+  }
+}
+
+@media (max-width: 767.98px){
+  .feature-grid{
+    /* было: grid-auto-rows: 1fr; */
+    grid-auto-rows: auto;     /* строки по контенту, без пустого места */
+    align-items: start;
+  }
+
+  /* в блоке с заголовком «Почему выбирают нас» убрать пустую прокладку */
+  .feature-grid .minheight > div[style*="height: 64px"]{
+    height: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* на всякий случай: никаких фикс-высот у ячеек */
+  .feature-grid .column,
+  .feature-grid .column.small,
+  .feature-grid .column.medium,
+  .feature-grid .minheight{
+    height: auto !important;
+    min-height: 0 !important;
+  }
+}
+
+
+/* ===== ДЕСКТОП/ПЛАНШЕТ: возвращаем поведение грида и линии ===== */
+@media (min-width:768px){
+  /* «растворяем» обёртку — дети .images-strip занимают 4 ячейки грида */
+  .feature-grid .images-strip{ display:contents; }
+
+  /* дорисовать верх/низ у рядов с картинками */
+  .feature-grid .images-strip > .column{
+    border-top:1px solid #626262;
+  }
+  .feature-grid .images-strip > .column.highlight-bottom{
+    border-bottom:1px solid #626262;
+  }
+
+  /* подстраховка: вертикальные разделители между 1–3 карточками */
+  .feature-grid .images-strip > .column:not(:last-child){
+    border-right:1px solid #626262;
+  }
+}
+

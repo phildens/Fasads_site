@@ -1,7 +1,8 @@
 from django.contrib import admin
-
+from django import forms
+from .models import Category, FilterKey
 from shop_part.models import Product, TypeMaterial, Category, Format, Color, FrosenDefender, Manufactor, StrengthGrade, \
-    WaterResistance, Emptiness, Questions, ProductType, Gallery, BigGalery,SmallGallery
+    WaterResistance, Emptiness, Questions, ProductType, Gallery, BigGalery, SmallGallery
 
 
 # Register your models here.
@@ -9,15 +10,16 @@ class SmallGalleryInline(admin.TabularInline):
     model = SmallGallery
     fk_name = 'object'
 
+
 @admin.register(BigGalery)
 class BigGaleryAdmin(admin.ModelAdmin):
     inlines = [SmallGalleryInline]
+
 
 # Галерея объектов
 class GalleryInline(admin.TabularInline):
     fk_name = 'product'
     model = Gallery
-
 
 
 # Товары
@@ -41,16 +43,36 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('name',)
 
 
+class CategoryAdminForm(forms.ModelForm):
+    filters_enabled = forms.MultipleChoiceField(
+        required=False,
+        choices=[(c.value, c.label) for c in FilterKey],
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        val = self.instance.filters_enabled or []
+        self.fields["filters_enabled"].initial = val
+
+    def clean_filters_enabled(self):
+        return self.cleaned_data["filters_enabled"] or []
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    form = CategoryAdminForm
+    list_display = ("id", "name", "link_name")
+    search_fields = ("name", "link_name")
 
 
 # @admin.register(Gallery)
 # class GaleryAdmin(admin.ModelAdmin):
 #     list_display = ('name',)
-
-
 
 
 @admin.register(Format)
@@ -93,11 +115,13 @@ class QuestionsAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name", "description")
 
+
 from .models import ContactRequest
+
 
 @admin.register(ContactRequest)
 class ContactRequestAdmin(admin.ModelAdmin):
-    list_display  = ("first_name", "last_name", "email", "phone", "created_at")
+    list_display = ("first_name", "last_name", "email", "phone", "created_at")
     search_fields = ("first_name", "last_name", "email", "phone", "description")
-    list_filter   = ("created_at",)
+    list_filter = ("created_at",)
     readonly_fields = ("created_at",)
