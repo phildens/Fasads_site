@@ -20,14 +20,17 @@
             color: #7b6a68;
             margin-bottom: 6px
         }
+
         .crumbs {
             margin-bottom: 18px;
             margin-top: 33px;
-           
-            font-family: Muller-regular; font-weight: 400;
+
+            font-family: Muller-regular;
+            font-weight: 400;
             font-size: 16px;
             color: #000000;
         }
+
         .crumbs a {
             color: inherit;
             text-decoration: none
@@ -35,7 +38,7 @@
 
         .product-title {
             font-family: Muller-medium;
-            
+
             font-size: 50px;
             font-weight: 500;
             line-height: 100%;
@@ -65,10 +68,9 @@
 
         .main-photo {
             border-radius: 10px;
-            {#background: #f4f2f1;#}
-            overflow: hidden;
+        {#background: #f4f2f1;#} overflow: hidden;
             position: relative;
-            {#border: 6px solid rgba(63, 138, 255, 0.12)#}
+        {#border: 6px solid rgba(63, 138, 255, 0.12)#}
         }
 
         .main-photo img.main-img {
@@ -148,6 +150,17 @@
             border-radius: 10px;
             border: 0
         }
+        .pbb {
+            border-radius: 10px;
+            border: 1px solid white !important;
+            height: 49px;
+            font-family: Muller-light;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+
+        }
 
         .btn-white {
             background: #fff;
@@ -162,12 +175,23 @@
 
         .call-card {
             background: #fff;
-            border: 1px solid #e7e3e2;
-            border-radius: 14px;
-            padding: 16px;
-            margin-top: 12px
+            border-radius: 10px;
+            padding: 27px;
+            margin-top: 27px
         }
-        
+        .call-btn {
+            background:#fff;
+            border:1px solid #422223;
+            height: 49px;
+            border-radius:10px;
+            width:100%;
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+
+        }
         .wbb {
             height: 49px;
             border-radius: 10px;
@@ -179,20 +203,32 @@
             letter-spacing: 0;
 
         }
-        .pbb {
-            border-radius: 10px;
-            border-color: white;
-            bor
+
+        
+
+        .green-card {
+            background: #327F00;
             
+            padding-left: 27px;
+            padding-top: 31px;
+            padding-bottom: 33px;
+            padding-right: 33px;
+            color: #fff;
+            border-radius: 10px;
+            
+            margin-top: 30px;
+            font-family: Muller-light;
+            font-weight: 200;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+
         }
         
-        .green-card {
-            background: #2e7d32;
-            color: #fff;
-            border-radius: 14px;
-            padding: 16px;
-            margin-top: 12px
+        .bopen-gal {
+            
         }
+
         .price-individ {
             font-family: Muller-regular;
             font-weight: 400;
@@ -205,11 +241,20 @@
 
         .green-card .btn {
             background: #fff;
-            color: #2e7d32;
             border-radius: 10px;
-            width: 100%
+            width: 100%;
+            border: none;
+            height: 50px;
+            font-family: Muller-light;
+            
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+            margin-top: 122px;
+
         }
-        
+
         @media (max-width: 992px) {
             .side-card, .call-card, .green-card {
                 margin-top: 12px
@@ -224,7 +269,7 @@
         .specs {
             display: grid;
             grid-template-columns:repeat(auto-fill, 98px); /* все плитки ровно 98px */
-            gap: 18px;
+            gap: 30px;
             margin: 20px 0 12px;
             align-items: start;
             justify-content: flex-start; /* выравниваем к левому краю */
@@ -250,7 +295,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            gap: 6px;
+            gap: 9px;
             text-align: left;
         }
 
@@ -258,16 +303,17 @@
         .spec-icon {
             position: absolute;
             left: -18px; /* На десктопе слегка «нависает» */
-            top: 8px;
-            width: 28px;
-            height: 28px;
+            top: -10px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
-            background: #fff;
-            border: 2px solid #d7cfcf;
+            background: none;
+            border: 1px solid #422223;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #5a3b3a;
+            color: #422223;
+            font-family: Muller-regular;
             font-weight: 700;
             font-size: 13px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06)
@@ -275,9 +321,12 @@
 
         /* Тексты внутри плитки — компактно и без переполнения */
         .spec__label {
-            font-size: 11px;
-            line-height: 1.1;
-            color: #8b7371;
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -285,9 +334,19 @@
         }
 
         .spec__value {
-            font-size: 13px;
-            line-height: 1.15;
-            color: #2b1b1c;
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
+
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -302,7 +361,14 @@
         }
 
         .desc p {
-            margin-bottom: 12px
+            margin-bottom: 12px;
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
+
         }
 
         /* Скелетоны */
@@ -356,11 +422,11 @@
                 font-size: 12px
             }
         }
-
+    
         /* (Необязательная подстраховка — если сетка была переопределена где-то ещё) */
         @media (min-width: 721px) {
             .spec-wrapper, .spec {
-                width: 98px;
+                width: 110px;
                 height: 98px
             }
         }
@@ -401,14 +467,31 @@
                 <div class="side-card">
                     <div style="opacity:.85;font-size:14px;margin-bottom:6px">Цена:</div>
                     <div class="price-individ" style="font-size:16px;" id="price">рассчитывается <br>индивидуально</div>
-                    <button class="btn btn-white wbb">Получить консультацию</button>
-                    <button class="btn btn-white wbb">Узнать цену</button>
-                    <button class="btn btn-ghost pbb">Добавить в избранное</button>
+                    <button class="btn btn-white wbb" id="">Получить консультацию</button>
+                    <button class="btn btn-white wbb" id="">Узнать цену</button>
+                    <button  id="favBtn"
+                          class="fav-btn btn btn-ghost pbb"
+                          data-fav-btn
+                          data-label-add="В избранное"
+                          data-label-remove="В избранном"
+                          data-product-id="{{ product_id }}"
+                          data-product-name=""
+                          data-product-image=""
+                          data-product-url="/p/{{ product_id }}/"
+                          aria-pressed="false"
+                    >Добавить в избранное</button>
                 </div>
 
                 <div class="call-card">
-                    <div style="margin-bottom:8px;color:#3a2a29">Заказать обратный звонок</div>
-                    <button class="btn" style="background:#fff;border:1px solid #dcd6d6;border-radius:10px;width:100%">
+                    <div style="font-family: Muller-regular;
+                                font-weight: 400;
+                                font-size: 18px;
+                                line-height: 100%;
+                                letter-spacing: 0;
+                                margin-bottom: 31px" >
+                        Заказать обратный звонок
+                    </div>
+                    <button class="btn call-btn" style="cursor: pointer" onclick="" id="moveToTargetBtn">
                         Заказать звонок
                     </button>
                 </div>
@@ -416,7 +499,7 @@
                 <div class="green-card" id="green-card">
                     <div style="margin-bottom:8px">Посмотрите, как данный материал смотрится на реализованных объектах
                     </div>
-                    <button class="btn">Открыть галерею</button>
+                    <button class="btn bopen-gal" onclick="window.location.href='{% url 'galery' %}'" style="cursor: pointer">Открыть галерею</button>
                 </div>
             </aside>
         </div>
@@ -425,214 +508,431 @@
 
 {% block extra_js %}
     <script>
-        (function () {
-            const page = document.querySelector('.product-page');
-            const productId = page?.dataset.productId;
-            if (!productId) return;
+(function () {
+  const page = document.querySelector('.product-page');
+  const productId = page?.dataset.productId;
+  if (!productId) return;
 
-            const $ = (sel, root = document) => root.querySelector(sel);
-            const el = (tag, cls, html) => {
-                const n = document.createElement(tag);
-                if (cls) n.className = cls;
-                if (html !== undefined) n.innerHTML = html;
-                return n;
-            }
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const el = (tag, cls, html) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html !== undefined) n.innerHTML = html;
+    return n;
+  };
 
-            async function loadProduct() {
-                const url = `/api/products/${productId}/`;
-                const res = await fetch(url, {headers: {'Accept': 'application/json'}});
-                if (!res.ok) throw new Error('Failed to load product');
-                return await res.json();
-            }
+  async function loadProduct() {
+    const url = `/api/products/${productId}/`;
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) throw new Error('Failed to load product');
+    return await res.json();
+  }
 
-            function normalizeImages(images, card_image) {
-                if (!images || !images.length) {
-                    return card_image ? [{url: card_image, alt: ''}] : [];
-                }
-                return images.map(i => typeof i === 'string' ? ({url: i, alt: ''}) : ({
-                    url: i.url || i.path || '',
-                    alt: i.alt || i.name || ''
-                }));
-            }
+  function normalizeImages(images, card_image) {
+    if (!images || !images.length) {
+      return card_image ? [{ url: card_image, alt: '' }] : [];
+    }
+    return images.map(i =>
+      typeof i === 'string'
+        ? ({ url: i, alt: '' })
+        : ({ url: i.url || i.path || '', alt: i.alt || i.name || '' })
+    );
+  }
 
-            function renderTitle(prod) {
-                const title = $('#product-title');
-                title.classList.remove('skeleton');
-                title.style.height = '';
-                title.style.width = '';
-                title.textContent = prod.name || 'Товар';
-                const crumbCat = $('#crumb-category');
-                crumbCat.classList.remove('skeleton');
-                crumbCat.style.width = '';
-                crumbCat.style.height = '';
-                crumbCat.textContent = (prod.category?.name) || (prod.category?.field_name) || 'Категория';
-            }
+  function renderTitle(prod) {
+    const title = $('#product-title');
+    title.classList.remove('skeleton');
+    title.style.height = '';
+    title.style.width = '';
+    title.textContent = prod.name || 'Товар';
 
-            function renderGallery(prod) {
-                const mainPhoto = $('#main-photo');
-                const mainImg = $('.main-img', mainPhoto);
-                const thumbs = $('#thumbs');
-                thumbs.innerHTML = '';
-                mainImg.classList.remove('skeleton');
+    const crumbCat = $('#crumb-category');
+    crumbCat.classList.remove('skeleton');
+    crumbCat.style.width = '';
+    crumbCat.style.height = '';
+    crumbCat.textContent = (prod.category?.name) || (prod.category?.field_name) || 'Категория';
+  }
 
-                const pics = normalizeImages(prod.images, prod.card_image);
-                if (!pics.length) {
-                    mainImg.src = '{% static "img/no-image.png" %}';
-                    return;
-                }
-                mainImg.src = pics[0].url;
+  function renderGallery(prod) {
+    const mainPhoto = $('#main-photo');
+    const mainImg = $('.main-img', mainPhoto);
+    const thumbs = $('#thumbs');
+    thumbs.innerHTML = '';
+    mainImg.classList.remove('skeleton');
 
-                pics.forEach((p, i) => {
-                    const t = el('div', 'thumb' + (i === 0 ? ' active' : ''));
-                    const im = el('img', '', '');
-                    im.src = p.url;
-                    im.alt = p.alt || prod.name || '';
-                    t.appendChild(im);
-                    t.addEventListener('click', () => {
-                        thumbs.querySelectorAll('.thumb').forEach(n => n.classList.remove('active'));
-                        t.classList.add('active');
-                        mainImg.src = im.src;
-                    });
-                    thumbs.appendChild(t);
-                });
-            }
+    const pics = normalizeImages(prod.images, prod.card_image);
+    if (!pics.length) {
+      mainImg.src = '{% static "img/no-image.png" %}';
+      return;
+    }
+    mainImg.src = pics[0].url;
 
-            function renderSpecs(prod) {
-                const specs = $('#specs');
-                specs.innerHTML = '';
+    pics.forEach((p, i) => {
+      const t = el('div', 'thumb' + (i === 0 ? ' active' : ''));
+      const im = el('img', '', '');
+      im.src = p.url;
+      im.alt = p.alt || prod.name || '';
+      t.appendChild(im);
+      t.addEventListener('click', () => {
+        thumbs.querySelectorAll('.thumb').forEach(n => n.classList.remove('active'));
+        t.classList.add('active');
+        mainImg.src = im.src;
+      });
+      thumbs.appendChild(t);
+    });
+  }
 
-                const fieldMap = [
-                    {
-                        key: 'formats',
-                        label: () => 'Формат',
-                        value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('; ')
-                    },
-                    {
-                        key: 'strength_grade',
-                        label: p => p.strength_grade?.field_name || 'Марка прочности',
-                        value: p => p.strength_grade?.name
-                    },
-                    {
-                        key: 'water_resistance',
-                        label: p => p.water_resistance?.field_name || 'Водопоглощение',
-                        value: p => p.water_resistance?.name
-                    },
-                    {key: 'color', label: p => p.color?.field_name || 'Оттенок', value: p => p.color?.name},
-                    {
-                        key: 'frosen_defend',
-                        label: p => p.frosen_defend?.field_name || 'Морозостойкость',
-                        value: p => p.frosen_defend?.name
-                    },
-                    {
-                        key: 'manufacturer',
-                        label: p => p.manufacturer?.field_name || 'Бренд',
-                        value: p => p.manufacturer?.name
-                    },
-                ];
+  function renderSpecs(prod) {
+    const specs = $('#specs');
+    specs.innerHTML = '';
 
-                const attrs = [];
-                for (const f of fieldMap) {
-                    const val = f.value(prod);
-                    const text = (typeof val === 'string' ? val.trim() : val);
-                    if (text) attrs.push({
-                        label: (typeof f.label === 'function' ? f.label(prod) : f.label),
-                        value: text
-                    });
-                }
+    const fieldMap = [
+      { key: 'formats',          label: () => 'Формат',                  value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('; ') },
+      { key: 'strength_grade',   label: p => p.strength_grade?.field_name || 'Марка прочности', value: p => p.strength_grade?.name },
+      { key: 'water_resistance', label: p => 'Водопогло\nщение',          value: p => p.water_resistance?.name },
+      { key: 'color',            label: p => p.color?.field_name || 'Оттенок', value: p => p.color?.name },
+      { key: 'frosen_defend',    label: p => 'Морозосто\nйкость',         value: p => p.frosen_defend?.name },
+      { key: 'manufacturer',     label: p => 'Бренд',                     value: p => p.manufacturer?.name },
+    ];
 
-                attrs.forEach(attr => {
-                    const wrap = el('div', 'spec-wrapper');
-                    const icon = el('div', 'spec-icon', 'i');
-                    const box = el('div', 'spec');
-                    const lab = el('div', 'spec__label', attr.label || '');
-                    const val = el('div', 'spec__value', attr.value);
-                    box.appendChild(lab);
-                    box.appendChild(val);
-                    wrap.appendChild(icon);
-                    wrap.appendChild(box);
-                    specs.appendChild(wrap);
-                });
+    const attrs = [];
+    for (const f of fieldMap) {
+      const val = f.value(prod);
+      const text = (typeof val === 'string' ? val.trim() : val);
+      if (text) attrs.push({ label: (typeof f.label === 'function' ? f.label(prod) : f.label), value: text });
+    }
 
-                // Drag-scroll мышью (для теста на десктопе, на мобилке есть нативный свайп)
-                let isDown = false, startX = 0, startScroll = 0;
-                const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
-                specs.addEventListener('pointerdown', (e) => {
-                    if (!isMobile()) return;
-                    isDown = true;
-                    startX = e.clientX;
-                    startScroll = specs.scrollLeft;
-                    specs.setPointerCapture(e.pointerId);
-                });
-                specs.addEventListener('pointermove', (e) => {
-                    if (!isDown || !isMobile()) return;
-                    specs.scrollLeft = startScroll - (e.clientX - startX);
-                });
-                specs.addEventListener('pointerup', () => isDown = false);
-                specs.addEventListener('pointercancel', () => isDown = false);
-            }
+    attrs.forEach(attr => {
+      const wrap = el('div', 'spec-wrapper');
+      const icon = el('div', 'spec-icon', 'i');
+      const box = el('div', 'spec');
+      const lab = el('div', 'spec__label', attr.label || '');
+      const val = el('div', 'spec__value', attr.value);
+      box.appendChild(lab);
+      box.appendChild(val);
+      wrap.appendChild(icon);
+      wrap.appendChild(box);
+      specs.appendChild(wrap);
+    });
 
-            function renderPrice(prod) {
-                $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';
-            }
+    // drag-scroll для мобилок (не мешает десктопу)
+    let isDown = false, startX = 0, startScroll = 0;
+    const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+    specs.addEventListener('pointerdown', (e) => {
+      if (!isMobile()) return;
+      isDown = true;
+      startX = e.clientX;
+      startScroll = specs.scrollLeft;
+      specs.setPointerCapture(e.pointerId);
+    });
+    specs.addEventListener('pointermove', (e) => {
+      if (!isDown || !isMobile()) return;
+      specs.scrollLeft = startScroll - (e.clientX - startX);
+    });
+    specs.addEventListener('pointerup', () => isDown = false);
+    specs.addEventListener('pointercancel', () => isDown = false);
+  }
 
-            function renderDescription(prod) {
-                const node = $('#description');
-                node.innerHTML = '';
-                if (prod.description_html) {
-                    node.innerHTML = prod.description_html;
-                    return;
-                }
-                if (prod.description) {
-                    prod.description.split(/\n{2,}/).forEach(p => {
-                        const par = document.createElement('p');
-                        par.textContent = p;
-                        node.appendChild(par);
-                    });
-                } else {
-                    node.textContent = 'описание товара';
-                }
-            }
+  function renderPrice(prod) {
+    $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';
+  }
 
-            // --- Перестановка блоков на мобильных: характеристики + описание -> под зелёный блок
-            const specsEl = $('#specs');
-            const descEl = $('#description');
-            const gallery = $('#gallery');
-            const green = $('#green-card');
+  function renderDescription(prod) {
+    const node = $('#description');
+    node.innerHTML = '';
+    if (prod.description_html) {
+      node.innerHTML = prod.description_html;
+      return;
+    }
+    if (prod.description) {
+      prod.description.split(/\n{2,}/).forEach(p => {
+        const par = document.createElement('p');
+        par.textContent = p;
+        node.appendChild(par);
+      });
+    } else {
+      node.textContent = 'описание товара';
+    }
+  }
 
-            function placeForMobile() {
-                if (window.matchMedia('(max-width: 992px)').matches) {
-                    if (green && specsEl && specsEl.parentElement !== green.parentElement) {
-                        green.after(specsEl);
-                        specsEl.after(descEl);
-                    } else if (green && specsEl && specsEl.previousElementSibling !== green) {
-                        green.after(specsEl);
-                        specsEl.after(descEl);
-                    }
-                } else {
-                    if (gallery && specsEl && specsEl.parentElement !== gallery) {
-                        gallery.appendChild(specsEl);
-                        gallery.appendChild(descEl);
-                    }
-                }
-            }
+  // Перестановка блоков на мобилках
+  const specsEl = $('#specs');
+  const descEl  = $('#description');
+  const gallery = $('#gallery');
+  const green   = $('#green-card');
+  function placeForMobile() {
+    if (window.matchMedia('(max-width: 992px)').matches) {
+      if (green && specsEl && specsEl.parentElement !== green.parentElement) {
+        green.after(specsEl);
+        specsEl.after(descEl);
+      } else if (green && specsEl && specsEl.previousElementSibling !== green) {
+        green.after(specsEl);
+        specsEl.after(descEl);
+      }
+    } else {
+      if (gallery && specsEl && specsEl.parentElement !== gallery) {
+        gallery.appendChild(specsEl);
+        gallery.appendChild(descEl);
+      }
+    }
+  }
 
-            async function init() {
-                try {
-                    const product = await loadProduct();
-                    renderTitle(product);
-                    renderGallery(product);
-                    renderSpecs(product);
-                    renderPrice(product);
-                    renderDescription(product);
-                    placeForMobile();
-                    window.addEventListener('resize', placeForMobile);
-                } catch (e) {
-                    console.error(e);
-                    page.insertAdjacentHTML('beforeend', `<div style="margin-top:18px;color:#9b2b2b">Не удалось загрузить данные товара.</div>`);
-                }
-            }
+  // --- Новое: безопасная инициализация избранного ---
+  function setupFavorites(prod) {
+    const favBtn = document.getElementById('favBtn');
+    if (!favBtn || !prod) return;
 
-            init();
-        })();
+    // Заполняем атрибуты для localStorage
+    favBtn.setAttribute('data-product-id', String(prod.id));
+    favBtn.setAttribute('data-product-name', prod.name || '');
+    favBtn.setAttribute('data-product-image', prod.card_image || '');
+    favBtn.setAttribute('data-product-url', `/p/${prod.id}/`);
+
+    // Разрешаем клик на всякий случай (если кто-то его дизейблил)
+    favBtn.removeAttribute('disabled');
+
+    // Обновляем состояние кнопки и счётчик, если менеджер подключён
+    if (window.SFFavorites) {
+      document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+    }
+  }
+
+  // Инициализация
+  async function init() {
+    try {
+      const product = await loadProduct();
+      renderTitle(product);
+      renderGallery(product);
+      renderSpecs(product);
+      renderPrice(product);
+      renderDescription(product);
+
+      // <— Важно: вызываем ПОСЛЕ того, как получили product
+      setupFavorites(product);
+
+      placeForMobile();
+      window.addEventListener('resize', placeForMobile);
+    } catch (e) {
+      console.error(e);
+      page.insertAdjacentHTML('beforeend',
+        `<div style="margin-top:18px;color:#9b2b2b">Не удалось загрузить данные товара.</div>`);
+    }
+  }
+
+  init();
+})();
+
+</script>
+    <script>
+        {#(function () {#}
+        {#    const page = document.querySelector('.product-page');#}
+        {#    const productId = page?.dataset.productId;#}
+        {#    if (!productId) return;#}
+        {##}
+        {#    const $ = (sel, root = document) => root.querySelector(sel);#}
+        {#    const el = (tag, cls, html) => {#}
+        {#        const n = document.createElement(tag);#}
+        {#        if (cls) n.className = cls;#}
+        {#        if (html !== undefined) n.innerHTML = html;#}
+        {#        return n;#}
+        {#    }#}
+        {##}
+        {#    async function loadProduct() {#}
+        {#        const url = `/api/products/${productId}/`;#}
+        {#        const res = await fetch(url, {headers: {'Accept': 'application/json'}});#}
+        {#        if (!res.ok) throw new Error('Failed to load product');#}
+        {#        return await res.json();#}
+        {#    }#}
+        {##}
+        {#    function normalizeImages(images, card_image) {#}
+        {#        if (!images || !images.length) {#}
+        {#            return card_image ? [{url: card_image, alt: ''}] : [];#}
+        {#        }#}
+        {#        return images.map(i => typeof i === 'string' ? ({url: i, alt: ''}) : ({#}
+        {#            url: i.url || i.path || '',#}
+        {#            alt: i.alt || i.name || ''#}
+        {#        }));#}
+        {#    }#}
+        {##}
+        {#    function renderTitle(prod) {#}
+        {#        const title = $('#product-title');#}
+        {#        title.classList.remove('skeleton');#}
+        {#        title.style.height = '';#}
+        {#        title.style.width = '';#}
+        {#        title.textContent = prod.name || 'Товар';#}
+        {#        const crumbCat = $('#crumb-category');#}
+        {#        crumbCat.classList.remove('skeleton');#}
+        {#        crumbCat.style.width = '';#}
+        {#        crumbCat.style.height = '';#}
+        {#        crumbCat.textContent = (prod.category?.name) || (prod.category?.field_name) || 'Категория';#}
+        {#    }#}
+        {##}
+        {#    function renderGallery(prod) {#}
+        {#        const mainPhoto = $('#main-photo');#}
+        {#        const mainImg = $('.main-img', mainPhoto);#}
+        {#        const thumbs = $('#thumbs');#}
+        {#        thumbs.innerHTML = '';#}
+        {#        mainImg.classList.remove('skeleton');#}
+        {##}
+        {#        const pics = normalizeImages(prod.images, prod.card_image);#}
+        {#        if (!pics.length) {#}
+        {#            mainImg.src = '{% static "img/no-image.png" %}';#}
+        {#            return;#}
+        {#        }#}
+        {#        mainImg.src = pics[0].url;#}
+        {##}
+        {#        pics.forEach((p, i) => {#}
+        {#            const t = el('div', 'thumb' + (i === 0 ? ' active' : ''));#}
+        {#            const im = el('img', '', '');#}
+        {#            im.src = p.url;#}
+        {#            im.alt = p.alt || prod.name || '';#}
+        {#            t.appendChild(im);#}
+        {#            t.addEventListener('click', () => {#}
+        {#                thumbs.querySelectorAll('.thumb').forEach(n => n.classList.remove('active'));#}
+        {#                t.classList.add('active');#}
+        {#                mainImg.src = im.src;#}
+        {#            });#}
+        {#            thumbs.appendChild(t);#}
+        {#        });#}
+        {#    }#}
+        {##}
+        {#    function renderSpecs(prod) {#}
+        {#        const specs = $('#specs');#}
+        {#        specs.innerHTML = '';#}
+        {##}
+        {#        const fieldMap = [#}
+        {#            {#}
+        {#                key: 'formats',#}
+        {#                label: () => 'Формат',#}
+        {#                value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('; ')#}
+        {#            },#}
+        {#            {#}
+        {#                key: 'strength_grade',#}
+        {#                label: p => p.strength_grade?.field_name || 'Марка прочности',#}
+        {#                value: p => p.strength_grade?.name#}
+        {#            },#}
+        {#            {#}
+        {#                key: 'water_resistance',#}
+                        {#label: p => p.water_resistance?.field_name || 'Водопоглощение',#}
+        {#                label: p =>  'Водопогло\nщение',#}
+        {#                value: p => p.water_resistance?.name#}
+        {#            },#}
+        {#            {key: 'color', label: p => p.color?.field_name || 'Оттенок', value: p => p.color?.name},#}
+        {#            {#}
+        {#                key: 'frosen_defend',#}
+        {#                label: p =>  'Морозосто\nйкость',#}
+        {#                value: p => p.frosen_defend?.name#}
+        {#            },#}
+        {#            {#}
+        {#                key: 'manufacturer',#}
+        {#                label: p =>'Бренд',#}
+        {#                value: p => p.manufacturer?.name#}
+        {#            },#}
+        {#        ];#}
+        {##}
+        {#        const attrs = [];#}
+        {#        for (const f of fieldMap) {#}
+        {#            const val = f.value(prod);#}
+        {#            const text = (typeof val === 'string' ? val.trim() : val);#}
+        {#            if (text) attrs.push({#}
+        {#                label: (typeof f.label === 'function' ? f.label(prod) : f.label),#}
+        {#                value: text#}
+        {#            });#}
+        {#        }#}
+        {##}
+        {#        attrs.forEach(attr => {#}
+        {#            const wrap = el('div', 'spec-wrapper');#}
+        {#            const icon = el('div', 'spec-icon', 'i');#}
+        {#            const box = el('div', 'spec');#}
+        {#            const lab = el('div', 'spec__label', attr.label || '');#}
+        {#            const val = el('div', 'spec__value', attr.value);#}
+        {#            box.appendChild(lab);#}
+        {#            box.appendChild(val);#}
+        {#            wrap.appendChild(icon);#}
+        {#            wrap.appendChild(box);#}
+        {#            specs.appendChild(wrap);#}
+        {#        });#}
+        {##}
+        {#        // Drag-scroll мышью (для теста на десктопе, на мобилке есть нативный свайп)#}
+        {#        let isDown = false, startX = 0, startScroll = 0;#}
+        {#        const isMobile = () => window.matchMedia('(max-width: 720px)').matches;#}
+        {#        specs.addEventListener('pointerdown', (e) => {#}
+        {#            if (!isMobile()) return;#}
+        {#            isDown = true;#}
+        {#            startX = e.clientX;#}
+        {#            startScroll = specs.scrollLeft;#}
+        {#            specs.setPointerCapture(e.pointerId);#}
+        {#        });#}
+        {#        specs.addEventListener('pointermove', (e) => {#}
+        {#            if (!isDown || !isMobile()) return;#}
+        {#            specs.scrollLeft = startScroll - (e.clientX - startX);#}
+        {#        });#}
+        {#        specs.addEventListener('pointerup', () => isDown = false);#}
+        {#        specs.addEventListener('pointercancel', () => isDown = false);#}
+        {#    }#}
+        {##}
+        {#    function renderPrice(prod) {#}
+        {#        $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';#}
+        {#    }#}
+        {##}
+        {#    function renderDescription(prod) {#}
+        {#        const node = $('#description');#}
+        {#        node.innerHTML = '';#}
+        {#        if (prod.description_html) {#}
+        {#            node.innerHTML = prod.description_html;#}
+        {#            return;#}
+        {#        }#}
+        {#        if (prod.description) {#}
+        {#            prod.description.split(/\n{2,}/).forEach(p => {#}
+        {#                const par = document.createElement('p');#}
+        {#                par.textContent = p;#}
+        {#                node.appendChild(par);#}
+        {#            });#}
+        {#        } else {#}
+        {#            node.textContent = 'описание товара';#}
+        {#        }#}
+        {#    }#}
+        {##}
+        {#    // --- Перестановка блоков на мобильных: характеристики + описание -> под зелёный блок#}
+        {#    const specsEl = $('#specs');#}
+        {#    const descEl = $('#description');#}
+        {#    const gallery = $('#gallery');#}
+        {#    const green = $('#green-card');#}
+        {##}
+        {#    function placeForMobile() {#}
+        {#        if (window.matchMedia('(max-width: 992px)').matches) {#}
+        {#            if (green && specsEl && specsEl.parentElement !== green.parentElement) {#}
+        {#                green.after(specsEl);#}
+        {#                specsEl.after(descEl);#}
+        {#            } else if (green && specsEl && specsEl.previousElementSibling !== green) {#}
+        {#                green.after(specsEl);#}
+        {#                specsEl.after(descEl);#}
+        {#            }#}
+        {#        } else {#}
+        {#            if (gallery && specsEl && specsEl.parentElement !== gallery) {#}
+        {#                gallery.appendChild(specsEl);#}
+        {#                gallery.appendChild(descEl);#}
+        {#            }#}
+        {#        }#}
+        {#    }#}
+        {#    #}
+        {#    async function init() {#}
+        {#        try {#}
+        {#            const product = await loadProduct();#}
+        {#            renderTitle(product);#}
+        {#            renderGallery(product);#}
+        {#            renderSpecs(product);#}
+        {#            renderPrice(product);#}
+        {#            renderDescription(product);#}
+        {#            placeForMobile();#}
+        {#            window.addEventListener('resize', placeForMobile);#}
+        {#        } catch (e) {#}
+        {#            console.error(e);#}
+        {#            page.insertAdjacentHTML('beforeend', `<div style="margin-top:18px;color:#9b2b2b">Не удалось загрузить данные товара.</div>`);#}
+        {#        }#}
+        {#    }#}
+        {##}
+        {#    init();#}
+        {#})();#}
     </script>
 {% endblock %}

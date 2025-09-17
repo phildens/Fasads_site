@@ -190,5 +190,19 @@
 })();
 </script>
 {% block extra_js %}{% endblock %}
+<!-- Шторка избранного -->
+<div id="favorites-drawer" aria-hidden="true">
+  <div class="drawer-overlay" data-close-favorites></div>
+  <aside class="drawer-panel" role="dialog" aria-label="Избранное">
+    <div class="drawer-head">
+      <div class="drawer-title">Избранное</div>
+      <button class="drawer-close" data-close-favorites aria-label="Закрыть">×</button>
+    </div>
+    <div class="drawer-body" id="favorites-list"></div>
+  </aside>
+</div>
+
+<!-- Скрипт избранного -->
+<script src="{% static 'js/favorites.js' %}"></script>
 </body>
 </html>
