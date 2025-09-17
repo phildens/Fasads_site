@@ -1532,14 +1532,34 @@ textarea::placeholder{
     </header>
 
     <!-- Search -->
-    <div class="search-bar">
-      <input id="search" type="search" list="search-suggestions" autocomplete="off"/>
-      <datalist id="search-suggestions">
-        <option value="Кирпич">
-        <option value="фасад">
-        <option value="камень">
-      </datalist>
-    </div>
+{#    <div class="search-bar">#}
+{#      <input id="search" type="search" list="search-suggestions" autocomplete="off"/>#}
+{#      <datalist id="search-suggestions">#}
+{#        <option value="Кирпич">#}
+{#        <option value="фасад">#}
+{#        <option value="камень">#}
+{#      </datalist>#}
+{#    </div>#}
+<form class="search-bar" action="{% url 'product_search' %}" method="get" role="search">
+  <input
+    id="search"
+    type="search"
+    name="q"
+    list="search-suggestions"
+    placeholder="Поиск по каталогу…"
+    autocomplete="off"
+    aria-label="Поиск по товарам"
+    value="{{ request.GET.q|default_if_none:'' }}"
+  />
+  <datalist id="search-suggestions">
+    <option value="Кирпич">
+    <option value="фасад">
+    <option value="камень">
+  </datalist>
+
+  <!-- Кнопка не обязательна, но удобна: -->
+{#  <button type="submit" class="search-button" aria-label="Найти">Найти</button>#}
+</form>
 
     <!-- Slider -->
     <div class="slider">
