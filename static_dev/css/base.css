@@ -191,3 +191,54 @@ body.no-scroll{
 
 /* Подстраховка против гориз. полосы */
 html, body { overflow-x: hidden; }
+
+
+
+.fav-btn{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid #e4e1df;border-radius:10px;background:#fff;cursor:pointer;transition:.2s}
+.fav-btn.is-active{border-color:#2e4029;background:#f5f7f5}
+.fav-btn .fav-icon{width:18px;height:18px;display:inline-block;position:relative}
+.fav-btn .fav-icon svg{position:absolute;inset:0;transition:transform .2s}
+.fav-btn .fav-icon svg.outline{opacity:.9}
+.fav-btn .fav-icon svg.fill{transform:scale(.8);opacity:0}
+.fav-btn .fav-icon.is-active svg.fill{opacity:1}
+.fav-btn .fav-icon.is-active svg.outline{opacity:0}
+.fav-badge{min-width:18px;height:18px;border-radius:9px;background:#2e4029;color:#fff;font-size:12px;line-height:18px;text-align:center;padding:0 5px}
+
+/* Шторка избранного */
+#favorites-drawer{position:fixed;inset:0;pointer-events:none;z-index:9999}
+#favorites-drawer.open{pointer-events:auto}
+#favorites-drawer .drawer-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;transition:.2s}
+#favorites-drawer.open .drawer-overlay{opacity:1}
+#favorites-drawer .drawer-panel{
+  position:absolute;right:0;top:0;height:100%;width:min(420px,92vw);
+  background:#fff;border-left:1px solid #eee;transform:translateX(100%);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column
+}
+#favorites-drawer.open .drawer-panel{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eee}
+.drawer-title{font-size:18px;font-weight:600}
+.drawer-close{border:none;background:transparent;font-size:22px;line-height:1;cursor:pointer}
+.drawer-body{padding:12px 12px 16px;overflow:auto}
+.fav-empty{padding:20px 8px;color:#777}
+.fav-item{display:grid;grid-template-columns:72px 1fr 28px;gap:10px;align-items:center;padding:8px;border-bottom:1px dashed #eee}
+.fav-thumb{display:block;width:72px;height:72px;border-radius:10px;overflow:hidden;background:#f7f7f7}
+.fav-thumb img{width:100%;height:100%;object-fit:cover}
+.fav-title{display:block;color:#1b1b1b;text-decoration:none;font-weight:600;margin-bottom:4px}
+.fav-price{font-size:13px;color:#6b6b6b}
+.fav-remove{border:none;background:#f2f2f2;width:28px;height:28px;border-radius:8px;cursor:pointer}
+
+.header-fav { position: relative; }
+.header-fav-btn { position: relative; display:inline-block; }
+.header-fav-icon { display:block; width:24px; height:24px; }
+.header-fav .fav-badge{
+  position:absolute; top:-6px; right:-8px;
+  min-width:18px; height:18px; border-radius:9px;
+  background:#2e4029; color:#fff; font-size:12px; line-height:18px;
+  text-align:center; padding:0 5px;
+}
+.drawer-title {
+    font-family: Muller-medium;
+}
+.fav-title {
+    font-family: Muller-regular;
+}

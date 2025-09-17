@@ -596,45 +596,70 @@
             }
 
             function renderCards(items) {
-                if (!items || !items.length) {
-                    $grid.innerHTML = "";
-                    $empty.style.display = "block";
-                    return;
-                }
-                $empty.style.display = "none";
+  if (!items || !items.length) {
+    $grid.innerHTML = "";
+    $empty.style.display = "block";
+    return;
+  }
+  $empty.style.display = "none";
 
-                $grid.innerHTML = items.map(card => {
-                    const name = escapeHtml(card.name || "");
-                    const img = escapeHtml(card.card_image || card.image || "");
-                    const price = escapeHtml(card.price_list_url || "#");
-                    const href = getProductUrl(card);
+  $grid.innerHTML = items.map(card => {
+    const name = escapeHtml(card.name || "");
+    const img  = escapeHtml(card.card_image || card.image || "");
+    const href = getProductUrl(card);
+    const id   = card.id ?? card.pk;
 
-                    return `
+    return `
       <div class="card">
         <div class="img-wrap">
           ${img
-                        ? `<a href="${href}" aria-label="${name}">
+            ? `<a href="${href}" aria-label="${name}">
                  <img src="${img}" alt="${name}">
                </a>`
-                        : `<div class="s-img skeleton"></div>`}
-            
-          <div class="badge"> <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt=""> <p>фаворит</p></div>
+            : `<div class="s-img skeleton"></div>`}
+          <div class="badge">
+            <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
+            <p>фаворит</p>
+          </div>
         </div>
 
         <div class="body">
-          <h3 class="name" style="">
+          <h3 class="name">
             <a href="${href}">${name}</a>
           </h3>
           <a class="price-link" href="${href}" target="_blank" rel="noopener">прайс-лист</a>
         </div>
 
         <div class="foot">
-          <button class="icon-btn heart" title="в избранное" type="button"><img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt=""></button>
-          <button class="icon-btn tg-ico" title="написать" type="button"><img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt=""></button>
+          <button
+            class="icon-btn heart fav-btn"
+            type="button"
+            title="В избранное"
+            data-fav-btn
+            data-label-add="В избранное"
+            data-label-remove="В избранном"
+            data-product-id="${id}"
+            data-product-name="${escapeAttr(card.name || '')}"
+            data-product-image="${escapeAttr(img)}"
+            data-product-url="${href}"
+            aria-pressed="false"
+          >
+            <img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt="">
+          </button>
+
+          <button class="icon-btn tg-ico" title="написать" type="button">
+            <img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt="">
+          </button>
         </div>
       </div>`;
-                }).join("");
-            }
+  }).join("");
+
+  // >>> важно: сообщаем менеджеру избранного, что на странице появились новые кнопки
+  if (window.SFFavorites) {
+    document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+  }
+}
+
 
             function renderFilters(groups) {
                 groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
