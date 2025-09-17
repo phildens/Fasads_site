@@ -14,6 +14,11 @@ from shop_part import views
 from shop_part.views import ProductListView, FAQView
 
 urlpatterns = [
+    path("search/", views.product_search, name="product_search"),
+    # API под «виртуальную категорию» search
+    path("api/categories/search/", views.api_search_category_meta, name="api_search_category_meta"),
+    path("api/categories/search/filters/", views.api_search_filters, name="api_search_filters"),
+    path("api/categories/search/products/", views.api_search_products, name="api_search_products"),
     # Админка
     path('admin/', admin.site.urls),
 
@@ -43,6 +48,8 @@ urlpatterns = [
     path("", include("shop_part.urls")),
     path("p/<int:pk>/", views.product_client_view, name="product_client_view"),
     path('api/filters/', views.global_filters, name='api_global_filters'),
+
+
 ]
 
 # Статика (CSS, JS, шрифты) — отдаётся через STATIC_URL

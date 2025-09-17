@@ -17,7 +17,7 @@
         .crumbs {
             margin-bottom: 18px;
             margin-top: 33px;
-           
+
             font-family: Muller-regular; font-weight: 400;
             font-size: 16px;
             color: #000000;
@@ -245,7 +245,7 @@
             position: absolute;
             left: 53px;
             top: 20px;
-            
+
         }
         .badge img{
             width: 24px;
@@ -267,7 +267,7 @@
             line-height: 100%;
             letter-spacing: 0;
             color: #422223;
-            
+
         }
 
         .price-link {
@@ -290,8 +290,8 @@
             padding: 12px 16px;
             margin-right: 20px;
             margin-bottom: 15px;
-            
-            
+
+
         }
 
         .icon-btn {
@@ -370,18 +370,32 @@
             text-decoration: underline !important;
             justify-self: end;
         }
+        /* --- SEARCH MODE (без фильтров) --- */
+.page.search-mode .layout{ grid-template-columns: 1fr; }     /* убираем пустую левую колонку */
+.page.search-mode .filters{ display: none !important; }      /* прячем панель */
+
+@media (min-width: 1100px) {
+  .page.search-mode .grid{ grid-template-columns: repeat(3, 1fr); } /* 3 карточки в ряд на широком экране */
+}
+
+/* чтобы кнопки внизу карточки всегда были на одном уровне */
+.card{ height: 100%; display:flex; flex-direction:column; }
+.body{ flex: 1 1 auto; }   /* тело карточки растягивается, .foot уезжает вниз */
+
     </style>
 {% endblock %}
 
 {% block content %}
     <div id="catalog"
-         class="page"
-         data-cat-slug="{{ category_slug }}"
-         data-endpoint-category-cat="/api/categories/{slug}/"
-         data-endpoint-products-cat="/api/categories/{slug}/products/"
-         data-endpoint-filters-cat="/api/categories/{slug}/filters/"
-         data-endpoint-products-all="/api/catalog/"
-         data-endpoint-filters-all="/api/filters/">
+     class="page"
+     data-cat-slug="{{ category_slug }}"
+     data-endpoint-category-cat="/api/categories/{slug}/"
+     data-endpoint-products-cat="/api/categories/{slug}/products/"
+     data-endpoint-filters-cat="/api/categories/{slug}/filters/"
+     data-endpoint-products-all="/api/catalog/"
+     data-endpoint-filters-all="/api/filters/"
+     data-endpoint-search-products="/api/categories/search/products/">
+
 
         <div class="crumbs">
             <a href="/">Главная</a> ›
@@ -418,270 +432,660 @@
                 <div id="empty" class="empty" style="display:none">Ничего не найдено</div>
             </main>
         </div>
-        
+
     </div>
 {% endblock %}
 
 {% block extra_js %}
+{#    <script>#}
+{#        (function () {#}
+{#            const root = document.getElementById("catalog");#}
+{#            const catSlug = (root.dataset.catSlug || "all").toString().trim();#}
+{#            const apiSlug = (catSlug && catSlug !== "all") ? catSlug.toLowerCase() : "all";#}
+{##}
+{#            // endpoints#}
+{#            const epCategoryCat = root.dataset.endpointCategoryCat;#}
+{#            const epProductsCat = root.dataset.endpointProductsCat;#}
+{#            const epFiltersCat = root.dataset.endpointFiltersCat;#}
+{#            const epProductsAll = root.dataset.endpointProductsAll;#}
+{#            const epFiltersAll = root.dataset.endpointFiltersAll;#}
+{##}
+{#            const $filters = document.getElementById("filters");#}
+{#            const $grid = document.getElementById("grid");#}
+{#            const $empty = document.getElementById("empty");#}
+{#            const $apply = document.getElementById("apply");#}
+{#            const $reset = document.getElementById("reset");#}
+{#            const $sort = document.getElementById("sort");#}
+{#            const $title = document.getElementById("title-cat");#}
+{#            const $crumb = document.getElementById("crumb-cat");#}
+{##}
+{#            // Человекочитаемые названия фильтров (verbose_name)#}
+{#            const FILTER_TITLES = {#}
+{#                manufacturer: "Производитель",#}
+{#                color: "Цвет",#}
+{#                type_material: "Вид материала",#}
+{#                product_type: "Тип товара",#}
+{#                frosen_defend: "Морозостойкость",#}
+{#                strength_grade: "Марка прочности",#}
+{#                water_resistance: "Водопоглощение",#}
+{#                format: "Формат",#}
+{#                emptiness: "Пустотность"#}
+{#            };#}
+{##}
+{#            // state#}
+{#            const state = {#}
+{#                sort: getParam("sort") || "default",#}
+{#                filters: parseFilterParams(location.search),#}
+{#                paramMap: {}#}
+{#            };#}
+{#            $sort.value = state.sort;#}
+{##}
+{#            // helpers#}
+{#            function urlFor(tpl, slug) {#}
+{#                return tpl.replace("{slug}", slug || "all");#}
+{#            }#}
+{##}
+{#            function getParam(k) {#}
+{#                return new URLSearchParams(location.search).get(k);#}
+{#            }#}
+{##}
+{#            function parseFilterParams(qs) {#}
+{#                const params = new URLSearchParams(qs);#}
+{#                const obj = {};#}
+{#                for (const [kRaw, v] of params.entries()) {#}
+{#                    if (kRaw === "sort" || kRaw === "ordering") continue;#}
+{#                    const k = kRaw.endsWith("[]") ? kRaw.slice(0, -2) : kRaw;#}
+{#                    (obj[k] ||= []).push(v);#}
+{#                }#}
+{#                return obj;#}
+{#            }#}
+{##}
+{#            function buildQuery() {#}
+{#                const p = new URLSearchParams();#}
+{#                if (state.sort && state.sort !== "default") {#}
+{#                    p.set("sort", state.sort);#}
+{#                    p.set("ordering", state.sort === "name_asc" ? "name" : "-name");#}
+{#                }#}
+{#                Object.entries(state.filters).forEach(([k, arr]) => {#}
+{#                    (arr || []).forEach(v => p.append(k, v));#}
+{#                });#}
+{#                const s = p.toString();#}
+{#                return s ? "?" + s : "";#}
+{#            }#}
+{##}
+{#            function pushUrl() {#}
+{#                history.replaceState({}, "", location.pathname + buildQuery());#}
+{#            }#}
+{##}
+{#            function toTitle(slug) {#}
+{#                return (!slug || slug === "all") ? "Каталог" : slug.replace(/[-_]+/g, " ").replace(/\b\w/g, ch => ch.toUpperCase());#}
+{#            }#}
+{##}
+{#            function escapeHtml(s) {#}
+{#                return String(s).replace(/[&<>"']/g, m => ({#}
+{#                    "&": "&amp;",#}
+{#                    "<": "&lt;",#}
+{#                    ">": "&gt;",#}
+{#                    "\"": "&quot;",#}
+{#                    "'": "&#39;"#}
+{#                }[m]));#}
+{#            }#}
+{##}
+{#            function escapeAttr(s) {#}
+{#                return escapeHtml(s).replace(/"/g, "&quot;");#}
+{#            }#}
+{##}
+{#            function debounce(fn, ms) {#}
+{#                let t;#}
+{#                return (...a) => {#}
+{#                    clearTimeout(t);#}
+{#                    t = setTimeout(() => fn(...a), ms);#}
+{#                };#}
+{#            }#}
+{##}
+{#            const applyFiltersDebounced = debounce(applyFiltersNow, 150);#}
+{##}
+{#            // -------- Нормализация ответов API --------#}
+{#            function normalizeValues(val) {#}
+{#                if (Array.isArray(val)) {#}
+{#                    return val.map(v => {#}
+{#                        if (typeof v === "object") {#}
+{#                            const value = String(v.value ?? v.slug ?? v.id ?? "");#}
+{#                            const label = String(v.label ?? v.title ?? v.name ?? value);#}
+{#                            const count = (typeof v.count === "number") ? v.count : undefined;#}
+{#                            return {value, label, count};#}
+{#                        } else {#}
+{#                            const s = String(v);#}
+{#                            return {value: s, label: s};#}
+{#                        }#}
+{#                    });#}
+{#                }#}
+{#                if (val && typeof val === "object") {#}
+{#                    return Object.entries(val).map(([vk, vc]) => ({#}
+{#                        value: String(vk),#}
+{#                        label: String(vk),#}
+{#                        count: (typeof vc === "number") ? vc : undefined#}
+{#                    }));#}
+{#                }#}
+{#                return [];#}
+{#            }#}
+{##}
+{#            function normalizeGroups(input) {#}
+{#                if (!input) return [];#}
+{#                if (Array.isArray(input)) return input;#}
+{##}
+{#                if (typeof input === "object") {#}
+{#                    return Object.entries(input).map(([key, val]) => {#}
+{#                        if (Array.isArray(val)) {#}
+{#                            return {key, title: key, param: key, values: normalizeValues(val)};#}
+{#                        }#}
+{#                        if (val && typeof val === "object") {#}
+{#                            const title = String(val.verbose_name ?? val.title ?? val.label ?? val.name ?? key);#}
+{#                            const param = String(val.param ?? val.name ?? val.key ?? key);#}
+{#                            const rawValues = val.values ?? val.options ?? val.items ?? val.choices ?? val;#}
+{#                            return {key, title, param, values: normalizeValues(rawValues)};#}
+{#                        }#}
+{#                        return {key, title: key, param: key, values: []};#}
+{#                    });#}
+{#                }#}
+{#                return [];#}
+{#            }#}
+{##}
+{#            // -----------------------------------------#}
+{##}
+{#            // UI#}
+{#            function renderSkeletonCards(n = 6) {#}
+{#                $grid.innerHTML = "";#}
+{#                for (let i = 0; i < n; i++) {#}
+{#                    const d = document.createElement("div");#}
+{#                    d.className = "s-card";#}
+{#                    d.innerHTML = `<div class="s-img skeleton"></div><div class="s-line skeleton" style="width:70%"></div><div class="s-line skeleton" style="width:40%"></div>`;#}
+{#                    $grid.appendChild(d);#}
+{#                }#}
+{#            }#}
+{##}
+{#            function getProductUrl(item) {#}
+{#                const id = item?.id ?? item?.pk;#}
+{#                return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';#}
+{#            }#}
+{##}
+{#            function renderCards(items) {#}
+{#  if (!items || !items.length) {#}
+{#    $grid.innerHTML = "";#}
+{#    $empty.style.display = "block";#}
+{#    return;#}
+{#  }#}
+{#  $empty.style.display = "none";#}
+{##}
+{#  $grid.innerHTML = items.map(card => {#}
+{#    const name = escapeHtml(card.name || "");#}
+{#    const img  = escapeHtml(card.card_image || card.image || "");#}
+{#    const href = getProductUrl(card);#}
+{#    const id   = card.id ?? card.pk;#}
+{##}
+{#    return `#}
+{#      <div class="card">#}
+{#        <div class="img-wrap">#}
+{#          ${img#}
+{#            ? `<a href="${href}" aria-label="${name}">#}
+{#                 <img src="${img}" alt="${name}">#}
+{#               </a>`#}
+{#            : `<div class="s-img skeleton"></div>`}#}
+{#          <div class="badge">#}
+{#            <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">#}
+{#            <p>фаворит</p>#}
+{#          </div>#}
+{#        </div>#}
+{##}
+{#        <div class="body">#}
+{#          <h3 class="name">#}
+{#            <a href="${href}">${name}</a>#}
+{#          </h3>#}
+{#          <a class="price-link" href="${href}" target="_blank" rel="noopener">прайс-лист</a>#}
+{#        </div>#}
+{##}
+{#        <div class="foot">#}
+{#          <button#}
+{#            class="icon-btn heart fav-btn"#}
+{#            type="button"#}
+{#            title="В избранное"#}
+{#            data-fav-btn#}
+{#            data-label-add="В избранное"#}
+{#            data-label-remove="В избранном"#}
+{#            data-product-id="${id}"#}
+{#            data-product-name="${escapeAttr(card.name || '')}"#}
+{#            data-product-image="${escapeAttr(img)}"#}
+{#            data-product-url="${href}"#}
+{#            aria-pressed="false"#}
+{#          >#}
+{#            <img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt="">#}
+{#          </button>#}
+{##}
+{#          <button class="icon-btn tg-ico" title="написать" type="button">#}
+{#            <img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt="">#}
+{#          </button>#}
+{#        </div>#}
+{#      </div>`;#}
+{#  }).join("");#}
+{##}
+{#  // >>> важно: сообщаем менеджеру избранного, что на странице появились новые кнопки#}
+{#  if (window.SFFavorites) {#}
+{#    document.dispatchEvent(new CustomEvent('sf:favs-changed'));#}
+{#  }#}
+{#}#}
+{##}
+{##}
+{#            function renderFilters(groups) {#}
+{#                groups = Array.isArray(groups) ? groups : normalizeGroups(groups);#}
+{##}
+{#                $filters.innerHTML = "";#}
+{#                state.paramMap = {};#}
+{##}
+{#                (groups || []).forEach(group => {#}
+{#                    const paramName = String(group.param || group.name || group.key || group.slug || "").trim();#}
+{#                    if (!paramName) return;#}
+{##}
+{#                    state.paramMap[group.key || group.name || paramName] = paramName;#}
+{##}
+{#                    const displayTitle =#}
+{#                        FILTER_TITLES[paramName] ||#}
+{#                        group.verbose_name ||#}
+{#                        group.title || group.label || group.name || group.key || paramName;#}
+{##}
+{#                    const current = state.filters[paramName] || [];#}
+{#                    const wrap = document.createElement("div");#}
+{#                    wrap.className = "filter-item"; /* по умолчанию СВЕРНУТО */#}
+{#                    wrap.innerHTML = `#}
+{#        <div class="filter-head" role="button" tabindex="0" aria-expanded="false">#}
+{#          <h4>${escapeHtml(displayTitle)}</h4>#}
+{#          <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="#5a4a48" stroke-width="2"/></svg>#}
+{#        </div>#}
+{#        <div class="filter-content">#}
+{#          <div class="options"></div>#}
+{#        </div>`;#}
+{##}
+{#                    const options = wrap.querySelector(".options");#}
+{##}
+{#                    const values = normalizeValues(group.values || group.options || group.items || group.choices || []);#}
+{##}
+{#                    values.forEach(v => {#}
+{#                        const val = String(v.value);#}
+{#                        const label = escapeHtml(v.label ?? val);#}
+{#                        const count = (typeof v.count === "number") ? `&nbsp;<span style="color:#9a8f8d">(${v.count})</span>` : "";#}
+{#                        const checked = current.includes(val) ? "checked" : "";#}
+{#                        options.insertAdjacentHTML("beforeend",#}
+{#                            `<label class="opt">#}
+{#             <input type="checkbox" data-param="${escapeAttr(paramName)}" value="${escapeAttr(val)}" ${checked}>#}
+{#             <span>${label}</span>#}
+{#           </label>`);#}
+{#                    });#}
+{##}
+{#                    // Тоггл аккордеона#}
+{#                    const head = wrap.querySelector(".filter-head");#}
+{#                    head.addEventListener("click", () => {#}
+{#                        const isOpen = wrap.classList.toggle("open");#}
+{#                        head.setAttribute("aria-expanded", String(isOpen));#}
+{#                    });#}
+{##}
+{#                    // Автоприменение при изменении чекбокса#}
+{#                    options.addEventListener("change", e => {#}
+{#                        if (e.target && e.target.matches("input[type=checkbox]")) {#}
+{#                            const param = e.target.dataset.param;#}
+{#                            const val = e.target.value;#}
+{#                            const set = new Set(state.filters[param] || []);#}
+{#                            if (e.target.checked) set.add(val); else set.delete(val);#}
+{#                            state.filters[param] = Array.from(set);#}
+{#                            $apply.disabled = false;#}
+{#                            applyFiltersDebounced();#}
+{#                        }#}
+{#                    });#}
+{##}
+{#                    $filters.appendChild(wrap);#}
+{#                });#}
+{##}
+{#                if (!$filters.children.length) {#}
+{#                    $filters.innerHTML = `<div class="filter-item">#}
+{#        <div class="filter-head"><h4>Фильтры недоступны</h4></div>#}
+{#        <div class="filter-content" style="display:block;padding:12px 16px;color:#9a8f8d">#}
+{#          Для этой категории фильтры не настроены.#}
+{#        </div>#}
+{#      </div>`;#}
+{#                }#}
+{#            }#}
+{##}
+{#            // data loaders#}
+{#            async function loadCategoryName() {#}
+{#                if (apiSlug === "all") return;#}
+{#                try {#}
+{#                    const res = await fetch(urlFor(epCategoryCat, apiSlug), {credentials: "same-origin"});#}
+{#                    if (!res.ok) return;#}
+{#                    const data = await res.json();#}
+{#                    const nm = data?.name || data?.title || toTitle(catSlug);#}
+{#                    $title.textContent = nm;#}
+{#                    $crumb.textContent = nm;#}
+{#                } catch (_) {#}
+{#                }#}
+{#            }#}
+{##}
+{#            async function loadFilters() {#}
+{#                const url = (apiSlug !== "all") ? urlFor(epFiltersCat, apiSlug) : epFiltersAll;#}
+{#                if (!url) {#}
+{#                    renderFilters([]);#}
+{#                    return;#}
+{#                }#}
+{#                try {#}
+{#                    const res = await fetch(url, {credentials: "same-origin"});#}
+{#                    if (!res.ok) throw new Error("filters " + res.status);#}
+{#                    const data = await res.json();#}
+{##}
+{#                    const raw = Array.isArray(data)#}
+{#                        ? data#}
+{#                        : (data.groups || data.filters || data.facets || data.data || data);#}
+{##}
+{#                    const groups = normalizeGroups(raw);#}
+{##}
+{#                    if (data && (data.name || data.category_name)) {#}
+{#                        const nm = data.name || data.category_name;#}
+{#                        $title.textContent = nm;#}
+{#                        $crumb.textContent = nm;#}
+{#                    }#}
+{##}
+{#                    renderFilters(groups);#}
+{#                } catch (e) {#}
+{#                    console.warn("filters load error:", e);#}
+{#                    renderFilters([]);#}
+{#                }#}
+{#            }#}
+{##}
+{#            async function loadProducts() {#}
+{#                renderSkeletonCards();#}
+{#                const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;#}
+{#                const url = (apiSlug !== "all") ? (base + buildQuery()) : (base + buildQueryForAllSafe());#}
+{##}
+{#                try {#}
+{#                    const res = await fetch(url, {credentials: "same-origin"});#}
+{#                    if (!res.ok) throw new Error("products " + res.status);#}
+{#                    let items = await res.json();#}
+{#                    items = Array.isArray(items) ? items : (items.results || []);#}
+{##}
+{#                    if (state.sort === "name_asc" || state.sort === "name_desc") {#}
+{#                        items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));#}
+{#                        if (state.sort === "name_desc") items.reverse();#}
+{#                    }#}
+{##}
+{#                    renderCards(items);#}
+{#                } catch (e) {#}
+{#                    console.error("products load error:", e);#}
+{#                    renderCards([]);#}
+{#                }#}
+{#            }#}
+{##}
+{#            function buildQueryForAllSafe() {#}
+{#                if (state.sort && state.sort !== "default") {#}
+{#                    const p = new URLSearchParams();#}
+{#                    p.set("sort", state.sort);#}
+{#                    p.set("ordering", state.sort === "name_asc" ? "name" : "-name");#}
+{#                    return "?" + p.toString();#}
+{#                }#}
+{#                return "";#}
+{#            }#}
+{##}
+{#            // actions#}
+{#            async function applyFiltersNow() {#}
+{#                pushUrl();#}
+{#                await loadProducts();#}
+{#            }#}
+{##}
+{#            $apply.addEventListener("click", applyFiltersNow);#}
+{##}
+{#            $reset.addEventListener("click", async () => {#}
+{#                state.filters = {};#}
+{#                state.sort = "default";#}
+{#                $sort.value = "default";#}
+{#                pushUrl();#}
+{#                await loadFilters();#}
+{#                await loadProducts();#}
+{#            });#}
+{##}
+{#            $sort.addEventListener("change", async () => {#}
+{#                state.sort = $sort.value;#}
+{#                pushUrl();#}
+{#                await loadProducts();#}
+{#            });#}
+{##}
+{#            // init#}
+{#            (async function init() {#}
+{#                await loadCategoryName();#}
+{#                await loadFilters();#}
+{#                await loadProducts();#}
+{#            })();#}
+{#        })();#}
+{#    </script>#}
     <script>
-        (function () {
-            const root = document.getElementById("catalog");
-            const catSlug = (root.dataset.catSlug || "all").toString().trim();
-            const apiSlug = (catSlug && catSlug !== "all") ? catSlug.toLowerCase() : "all";
+(function () {
+  const root = document.getElementById("catalog");
+  const catSlug = (root.dataset.catSlug || "all").toString().trim();
+  const apiSlug = (catSlug && catSlug !== "all") ? catSlug.toLowerCase() : "all";
 
-            // endpoints
-            const epCategoryCat = root.dataset.endpointCategoryCat;
-            const epProductsCat = root.dataset.endpointProductsCat;
-            const epFiltersCat = root.dataset.endpointFiltersCat;
-            const epProductsAll = root.dataset.endpointProductsAll;
-            const epFiltersAll = root.dataset.endpointFiltersAll;
+  // endpoints
+  const epCategoryCat   = root.dataset.endpointCategoryCat;
+  const epProductsCat   = root.dataset.endpointProductsCat;
+  const epFiltersCat    = root.dataset.endpointFiltersCat;
+  const epProductsAll   = root.dataset.endpointProductsAll;
+  const epFiltersAll    = root.dataset.endpointFiltersAll;
+  const epSearchProducts= root.dataset.endpointSearchProducts; // NEW
 
-            const $filters = document.getElementById("filters");
-            const $grid = document.getElementById("grid");
-            const $empty = document.getElementById("empty");
-            const $apply = document.getElementById("apply");
-            const $reset = document.getElementById("reset");
-            const $sort = document.getElementById("sort");
-            const $title = document.getElementById("title-cat");
-            const $crumb = document.getElementById("crumb-cat");
+  const $filters = document.getElementById("filters");
+  const $grid    = document.getElementById("grid");
+  const $empty   = document.getElementById("empty");
+  const $apply   = document.getElementById("apply");
+  const $reset   = document.getElementById("reset");
+  const $sort    = document.getElementById("sort");
+  const $title   = document.getElementById("title-cat");
+  const $crumb   = document.getElementById("crumb-cat");
 
-            // Человекочитаемые названия фильтров (verbose_name)
-            const FILTER_TITLES = {
-                manufacturer: "Производитель",
-                color: "Цвет",
-                type_material: "Вид материала",
-                product_type: "Тип товара",
-                frosen_defend: "Морозостойкость",
-                strength_grade: "Марка прочности",
-                water_resistance: "Водопоглощение",
-                format: "Формат",
-                emptiness: "Пустотность"
-            };
+  // режим поиска
+  const q = getParam("q");
+  const isSearch = !!q && !!epSearchProducts;
 
-            // state
-            const state = {
-                sort: getParam("sort") || "default",
-                filters: parseFilterParams(location.search),
-                paramMap: {}
-            };
-            $sort.value = state.sort;
-
-            // helpers
-            function urlFor(tpl, slug) {
-                return tpl.replace("{slug}", slug || "all");
-            }
-
-            function getParam(k) {
-                return new URLSearchParams(location.search).get(k);
-            }
-
-            function parseFilterParams(qs) {
-                const params = new URLSearchParams(qs);
-                const obj = {};
-                for (const [kRaw, v] of params.entries()) {
-                    if (kRaw === "sort" || kRaw === "ordering") continue;
-                    const k = kRaw.endsWith("[]") ? kRaw.slice(0, -2) : kRaw;
-                    (obj[k] ||= []).push(v);
-                }
-                return obj;
-            }
-
-            function buildQuery() {
-                const p = new URLSearchParams();
-                if (state.sort && state.sort !== "default") {
-                    p.set("sort", state.sort);
-                    p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
-                }
-                Object.entries(state.filters).forEach(([k, arr]) => {
-                    (arr || []).forEach(v => p.append(k, v));
-                });
-                const s = p.toString();
-                return s ? "?" + s : "";
-            }
-
-            function pushUrl() {
-                history.replaceState({}, "", location.pathname + buildQuery());
-            }
-
-            function toTitle(slug) {
-                return (!slug || slug === "all") ? "Каталог" : slug.replace(/[-_]+/g, " ").replace(/\b\w/g, ch => ch.toUpperCase());
-            }
-
-            function escapeHtml(s) {
-                return String(s).replace(/[&<>"']/g, m => ({
-                    "&": "&amp;",
-                    "<": "&lt;",
-                    ">": "&gt;",
-                    "\"": "&quot;",
-                    "'": "&#39;"
-                }[m]));
-            }
-
-            function escapeAttr(s) {
-                return escapeHtml(s).replace(/"/g, "&quot;");
-            }
-
-            function debounce(fn, ms) {
-                let t;
-                return (...a) => {
-                    clearTimeout(t);
-                    t = setTimeout(() => fn(...a), ms);
-                };
-            }
-
-            const applyFiltersDebounced = debounce(applyFiltersNow, 150);
-
-            // -------- Нормализация ответов API --------
-            function normalizeValues(val) {
-                if (Array.isArray(val)) {
-                    return val.map(v => {
-                        if (typeof v === "object") {
-                            const value = String(v.value ?? v.slug ?? v.id ?? "");
-                            const label = String(v.label ?? v.title ?? v.name ?? value);
-                            const count = (typeof v.count === "number") ? v.count : undefined;
-                            return {value, label, count};
-                        } else {
-                            const s = String(v);
-                            return {value: s, label: s};
-                        }
-                    });
-                }
-                if (val && typeof val === "object") {
-                    return Object.entries(val).map(([vk, vc]) => ({
-                        value: String(vk),
-                        label: String(vk),
-                        count: (typeof vc === "number") ? vc : undefined
-                    }));
-                }
-                return [];
-            }
-
-            function normalizeGroups(input) {
-                if (!input) return [];
-                if (Array.isArray(input)) return input;
-
-                if (typeof input === "object") {
-                    return Object.entries(input).map(([key, val]) => {
-                        if (Array.isArray(val)) {
-                            return {key, title: key, param: key, values: normalizeValues(val)};
-                        }
-                        if (val && typeof val === "object") {
-                            const title = String(val.verbose_name ?? val.title ?? val.label ?? val.name ?? key);
-                            const param = String(val.param ?? val.name ?? val.key ?? key);
-                            const rawValues = val.values ?? val.options ?? val.items ?? val.choices ?? val;
-                            return {key, title, param, values: normalizeValues(rawValues)};
-                        }
-                        return {key, title: key, param: key, values: []};
-                    });
-                }
-                return [];
-            }
-
-            // -----------------------------------------
-
-            // UI
-            function renderSkeletonCards(n = 6) {
-                $grid.innerHTML = "";
-                for (let i = 0; i < n; i++) {
-                    const d = document.createElement("div");
-                    d.className = "s-card";
-                    d.innerHTML = `<div class="s-img skeleton"></div><div class="s-line skeleton" style="width:70%"></div><div class="s-line skeleton" style="width:40%"></div>`;
-                    $grid.appendChild(d);
-                }
-            }
-
-            function getProductUrl(item) {
-                const id = item?.id ?? item?.pk;
-                return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';
-            }
-
-            function renderCards(items) {
-  if (!items || !items.length) {
-    $grid.innerHTML = "";
-    $empty.style.display = "block";
-    return;
-  }
-  $empty.style.display = "none";
-
-  $grid.innerHTML = items.map(card => {
-    const name = escapeHtml(card.name || "");
-    const img  = escapeHtml(card.card_image || card.image || "");
-    const href = getProductUrl(card);
-    const id   = card.id ?? card.pk;
-
-    return `
-      <div class="card">
-        <div class="img-wrap">
-          ${img
-            ? `<a href="${href}" aria-label="${name}">
-                 <img src="${img}" alt="${name}">
-               </a>`
-            : `<div class="s-img skeleton"></div>`}
-          <div class="badge">
-            <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
-            <p>фаворит</p>
-          </div>
-        </div>
-
-        <div class="body">
-          <h3 class="name">
-            <a href="${href}">${name}</a>
-          </h3>
-          <a class="price-link" href="${href}" target="_blank" rel="noopener">прайс-лист</a>
-        </div>
-
-        <div class="foot">
-          <button
-            class="icon-btn heart fav-btn"
-            type="button"
-            title="В избранное"
-            data-fav-btn
-            data-label-add="В избранное"
-            data-label-remove="В избранном"
-            data-product-id="${id}"
-            data-product-name="${escapeAttr(card.name || '')}"
-            data-product-image="${escapeAttr(img)}"
-            data-product-url="${href}"
-            aria-pressed="false"
-          >
-            <img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt="">
-          </button>
-
-          <button class="icon-btn tg-ico" title="написать" type="button">
-            <img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt="">
-          </button>
-        </div>
-      </div>`;
-  }).join("");
-
-  // >>> важно: сообщаем менеджеру избранного, что на странице появились новые кнопки
-  if (window.SFFavorites) {
-    document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-  }
+  if (isSearch) {
+  // добавляем класс на корневой контейнер страницы,
+  // чтобы сработали CSS-правила выше
+  root.classList.add("search-mode");
 }
+  // Человекочитаемые названия фильтров
+  const FILTER_TITLES = {
+    manufacturer: "Производитель",
+    color: "Цвет",
+    type_material: "Вид материала",
+    product_type: "Тип товара",
+    frosen_defend: "Морозостойкость",
+    strength_grade: "Марка прочности",
+    water_resistance: "Водопоглощение",
+    format: "Формат",
+    emptiness: "Пустотность"
+  };
 
+  // state
+  const state = {
+    sort: getParam("sort") || "default",
+    filters: parseFilterParams(location.search),
+    paramMap: {}
+  };
+  $sort.value = state.sort;
 
-            function renderFilters(groups) {
-                groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
+  // helpers
+  function urlFor(tpl, slug) {
+    return tpl.replace("{slug}", slug || "all");
+  }
+  function getParam(k) {
+    return new URLSearchParams(location.search).get(k);
+  }
+  function parseFilterParams(qs) {
+    const params = new URLSearchParams(qs);
+    const obj = {};
+    for (const [kRaw, v] of params.entries()) {
+      if (kRaw === "sort" || kRaw === "ordering" || kRaw === "q" || kRaw === "page") continue;
+      const k = kRaw.endsWith("[]") ? kRaw.slice(0, -2) : kRaw;
+      (obj[k] ||= []).push(v);
+    }
+    return obj;
+  }
+  function buildQuery(includeQ=false) {
+    const p = new URLSearchParams();
+    if (state.sort && state.sort !== "default") {
+      p.set("sort", state.sort);
+      p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
+    }
+    Object.entries(state.filters).forEach(([k, arr]) => (arr || []).forEach(v => p.append(k, v)));
+    if (includeQ && q) p.set("q", q);
+    const s = p.toString();
+    return s ? "?" + s : "";
+  }
+  function pushUrl() {
+    // в режиме поиска обязательно сохраняем q
+    history.replaceState({}, "", location.pathname + buildQuery(isSearch));
+  }
+  function toTitle(slug) {
+    return (!slug || slug === "all") ? "Каталог" : slug.replace(/[-_]+/g, " ").replace(/\b\w/g, ch => ch.toUpperCase());
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));
+  }
+  function escapeAttr(s) { return escapeHtml(s).replace(/"/g, "&quot;"); }
+  function debounce(fn, ms) { let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a), ms);} }
+  const applyFiltersDebounced = debounce(applyFiltersNow, 150);
 
-                $filters.innerHTML = "";
-                state.paramMap = {};
+  // -------- Нормализация --------
+  function normalizeValues(val) {
+    if (Array.isArray(val)) {
+      return val.map(v => {
+        if (typeof v === "object") {
+          const value = String(v.value ?? v.slug ?? v.id ?? "");
+          const label = String(v.label ?? v.title ?? v.name ?? value);
+          const count = (typeof v.count === "number") ? v.count : undefined;
+          return {value, label, count};
+        } else {
+          const s = String(v);
+          return {value: s, label: s};
+        }
+      });
+    }
+    if (val && typeof val === "object") {
+      return Object.entries(val).map(([vk, vc]) => ({
+        value: String(vk), label: String(vk),
+        count: (typeof vc === "number") ? vc : undefined
+      }));
+    }
+    return [];
+  }
+  function normalizeGroups(input) {
+    if (!input) return [];
+    if (Array.isArray(input)) return input;
+    if (typeof input === "object") {
+      return Object.entries(input).map(([key, val]) => {
+        if (Array.isArray(val)) {
+          return {key, title: key, param: key, values: normalizeValues(val)};
+        }
+        if (val && typeof val === "object") {
+          const title = String(val.verbose_name ?? val.title ?? val.label ?? val.name ?? key);
+          const param = String(val.param ?? val.name ?? val.key ?? key);
+          const rawValues = val.values ?? val.options ?? val.items ?? val.choices ?? val;
+          return {key, title, param, values: normalizeValues(rawValues)};
+        }
+        return {key, title: key, param: key, values: []};
+      });
+    }
+    return [];
+  }
 
-                (groups || []).forEach(group => {
-                    const paramName = String(group.param || group.name || group.key || group.slug || "").trim();
-                    if (!paramName) return;
+  // UI
+  function renderSkeletonCards(n = 6) {
+    $grid.innerHTML = "";
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("div");
+      d.className = "s-card";
+      d.innerHTML = `<div class="s-img skeleton"></div><div class="s-line skeleton" style="width:70%"></div><div class="s-line skeleton" style="width:40%"></div>`;
+      $grid.appendChild(d);
+    }
+  }
+  function getProductUrl(item) {
+    if (item?.link) return item.link;
+    const id = item?.id ?? item?.pk;
+    return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';
+  }
+  function renderCards(items) {
+    if (!items || !items.length) {
+      $grid.innerHTML = "";
+      $empty.style.display = "block";
+      return;
+    }
+    $empty.style.display = "none";
+    $grid.innerHTML = items.map(card => {
+      const name = escapeHtml(card.name || "");
+      const img  = escapeHtml(card.card_image || card.image || "");
+      const href = getProductUrl(card);
+      const id   = card.id ?? card.pk;
+      return `
+        <div class="card">
+          <div class="img-wrap">
+            ${img
+              ? `<a href="${href}" aria-label="${name}">
+                   <img src="${img}" alt="${name}">
+                 </a>`
+              : `<div class="s-img skeleton"></div>`}
+            <div class="badge">
+              <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
+              <p>фаворит</p>
+            </div>
+          </div>
+          <div class="body">
+            <h3 class="name"><a href="${href}">${name}</a></h3>
+            <a class="price-link" href="${href}" target="_blank" rel="noopener">прайс-лист</a>
+          </div>
+          <div class="foot">
+            <button
+              class="icon-btn heart fav-btn"
+              type="button"
+              title="В избранное"
+              data-fav-btn
+              data-label-add="В избранное"
+              data-label-remove="В избранном"
+              data-product-id="${id}"
+              data-product-name="${escapeAttr(card.name || '')}"
+              data-product-image="${escapeAttr(img)}"
+              data-product-url="${href}"
+              aria-pressed="false">
+              <img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt="">
+            </button>
+            <button class="icon-btn tg-ico" title="написать" type="button">
+              <img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt="">
+            </button>
+          </div>
+        </div>`;
+    }).join("");
 
-                    state.paramMap[group.key || group.name || paramName] = paramName;
+    // Сообщаем менеджеру избранного, что появились новые кнопки
+    if (window.SFFavorites) {
+      document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+    }
+  }
 
-                    const displayTitle =
-                        FILTER_TITLES[paramName] ||
-                        group.verbose_name ||
-                        group.title || group.label || group.name || group.key || paramName;
+  function renderFilters(groups) {
+    groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
+    $filters.innerHTML = "";
+    state.paramMap = {};
+    (groups || []).forEach(group => {
+      const paramName = String(group.param || group.name || group.key || group.slug || "").trim();
+      if (!paramName) return;
+      state.paramMap[group.key || group.name || paramName] = paramName;
+      const displayTitle =
+        FILTER_TITLES[paramName] || group.verbose_name || group.title || group.label || group.name || group.key || paramName;
 
-                    const current = state.filters[paramName] || [];
-                    const wrap = document.createElement("div");
-                    wrap.className = "filter-item"; /* по умолчанию СВЕРНУТО */
-                    wrap.innerHTML = `
+      const current = state.filters[paramName] || [];
+      const wrap = document.createElement("div");
+      wrap.className = "filter-item"; // свернуто по умолчанию
+      wrap.innerHTML = `
         <div class="filter-head" role="button" tabindex="0" aria-expanded="false">
           <h4>${escapeHtml(displayTitle)}</h4>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="#5a4a48" stroke-width="2"/></svg>
@@ -689,162 +1093,166 @@
         <div class="filter-content">
           <div class="options"></div>
         </div>`;
-
-                    const options = wrap.querySelector(".options");
-
-                    const values = normalizeValues(group.values || group.options || group.items || group.choices || []);
-
-                    values.forEach(v => {
-                        const val = String(v.value);
-                        const label = escapeHtml(v.label ?? val);
-                        const count = (typeof v.count === "number") ? `&nbsp;<span style="color:#9a8f8d">(${v.count})</span>` : "";
-                        const checked = current.includes(val) ? "checked" : "";
-                        options.insertAdjacentHTML("beforeend",
-                            `<label class="opt">
+      const options = wrap.querySelector(".options");
+      const values = normalizeValues(group.values || group.options || group.items || group.choices || []);
+      values.forEach(v => {
+        const val = String(v.value);
+        const label = escapeHtml(v.label ?? val);
+        const checked = current.includes(val) ? "checked" : "";
+        options.insertAdjacentHTML("beforeend",
+          `<label class="opt">
              <input type="checkbox" data-param="${escapeAttr(paramName)}" value="${escapeAttr(val)}" ${checked}>
              <span>${label}</span>
            </label>`);
-                    });
+      });
+      const head = wrap.querySelector(".filter-head");
+      head.addEventListener("click", () => {
+        const isOpen = wrap.classList.toggle("open");
+        head.setAttribute("aria-expanded", String(isOpen));
+      });
+      options.addEventListener("change", e => {
+        if (e.target && e.target.matches("input[type=checkbox]")) {
+          const param = e.target.dataset.param;
+          const val = e.target.value;
+          const set = new Set(state.filters[param] || []);
+          if (e.target.checked) set.add(val); else set.delete(val);
+          state.filters[param] = Array.from(set);
+          $apply.disabled = false;
+          applyFiltersDebounced();
+        }
+      });
+      $filters.appendChild(wrap);
+    });
 
-                    // Тоггл аккордеона
-                    const head = wrap.querySelector(".filter-head");
-                    head.addEventListener("click", () => {
-                        const isOpen = wrap.classList.toggle("open");
-                        head.setAttribute("aria-expanded", String(isOpen));
-                    });
-
-                    // Автоприменение при изменении чекбокса
-                    options.addEventListener("change", e => {
-                        if (e.target && e.target.matches("input[type=checkbox]")) {
-                            const param = e.target.dataset.param;
-                            const val = e.target.value;
-                            const set = new Set(state.filters[param] || []);
-                            if (e.target.checked) set.add(val); else set.delete(val);
-                            state.filters[param] = Array.from(set);
-                            $apply.disabled = false;
-                            applyFiltersDebounced();
-                        }
-                    });
-
-                    $filters.appendChild(wrap);
-                });
-
-                if (!$filters.children.length) {
-                    $filters.innerHTML = `<div class="filter-item">
+    if (!$filters.children.length) {
+      $filters.innerHTML = `<div class="filter-item">
         <div class="filter-head"><h4>Фильтры недоступны</h4></div>
         <div class="filter-content" style="display:block;padding:12px 16px;color:#9a8f8d">
           Для этой категории фильтры не настроены.
         </div>
       </div>`;
-                }
-            }
+    }
+  }
 
-            // data loaders
-            async function loadCategoryName() {
-                if (apiSlug === "all") return;
-                try {
-                    const res = await fetch(urlFor(epCategoryCat, apiSlug), {credentials: "same-origin"});
-                    if (!res.ok) return;
-                    const data = await res.json();
-                    const nm = data?.name || data?.title || toTitle(catSlug);
-                    $title.textContent = nm;
-                    $crumb.textContent = nm;
-                } catch (_) {
-                }
-            }
+  // data loaders
+  async function loadCategoryName() {
+    if (isSearch) {
+      const qHuman = (q || "").trim();
+      const title = qHuman ? `Поиск: ${qHuman}` : "Поиск";
+      $title.textContent = title;
+      $crumb.textContent = title;
+      return;
+    }
+    if (apiSlug === "all") return;
+    try {
+      const res = await fetch(urlFor(epCategoryCat, apiSlug), {credentials: "same-origin"});
+      if (!res.ok) return;
+      const data = await res.json();
+      const nm = data?.name || data?.title || toTitle(catSlug);
+      $title.textContent = nm;
+      $crumb.textContent = nm;
+    } catch (_) {}
+  }
 
-            async function loadFilters() {
-                const url = (apiSlug !== "all") ? urlFor(epFiltersCat, apiSlug) : epFiltersAll;
-                if (!url) {
-                    renderFilters([]);
-                    return;
-                }
-                try {
-                    const res = await fetch(url, {credentials: "same-origin"});
-                    if (!res.ok) throw new Error("filters " + res.status);
-                    const data = await res.json();
+  async function loadFilters() {
+    if (isSearch) {
+      // В режиме поиска фильтры можно скрыть, чтобы не путать пользователя:
+      const panel = root.querySelector(".filters");
+      if (panel) panel.style.display = "none";
+      return;
+    }
+    const url = (apiSlug !== "all") ? urlFor(epFiltersCat, apiSlug) : epFiltersAll;
+    if (!url) { renderFilters([]); return; }
+    try {
+      const res = await fetch(url, {credentials: "same-origin"});
+      if (!res.ok) throw new Error("filters " + res.status);
+      const data = await res.json();
+      const raw = Array.isArray(data) ? data : (data.groups || data.filters || data.facets || data.data || data);
+      const groups = normalizeGroups(raw);
+      if (data && (data.name || data.category_name)) {
+        const nm = data.name || data.category_name;
+        $title.textContent = nm;
+        $crumb.textContent = nm;
+      }
+      renderFilters(groups);
+    } catch (e) {
+      console.warn("filters load error:", e);
+      renderFilters([]);
+    }
+  }
 
-                    const raw = Array.isArray(data)
-                        ? data
-                        : (data.groups || data.filters || data.facets || data.data || data);
+  async function loadProducts() {
+    renderSkeletonCards();
+    try {
+      let items = [];
+      if (isSearch) {
+        // /api/categories/search/products/?q=...
+        const url = epSearchProducts + buildQuery(true); // включает q
+        const res = await fetch(url, {credentials: "same-origin"});
+        if (!res.ok) throw new Error("products(search) " + res.status);
+        const data = await res.json();
+        // поддерживаем формат { items: [...], ... }
+        items = Array.isArray(data) ? data : (data.items || data.results || []);
+      } else {
+        // обычный каталог
+        const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
+        const url = (apiSlug !== "all") ? (base + buildQuery()) : (base + buildQueryForAllSafe());
+        const res = await fetch(url, {credentials: "same-origin"});
+        if (!res.ok) throw new Error("products " + res.status);
+        const data = await res.json();
+        items = Array.isArray(data) ? data : (data.results || []);
+      }
 
-                    const groups = normalizeGroups(raw);
+      if (state.sort === "name_asc" || state.sort === "name_desc") {
+        items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
+        if (state.sort === "name_desc") items.reverse();
+      }
+      renderCards(items);
+    } catch (e) {
+      console.error("products load error:", e);
+      renderCards([]);
+    }
+  }
 
-                    if (data && (data.name || data.category_name)) {
-                        const nm = data.name || data.category_name;
-                        $title.textContent = nm;
-                        $crumb.textContent = nm;
-                    }
+  function buildQueryForAllSafe() {
+    if (state.sort && state.sort !== "default") {
+      const p = new URLSearchParams();
+      p.set("sort", state.sort);
+      p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
+      return "?" + p.toString();
+    }
+    return "";
+  }
 
-                    renderFilters(groups);
-                } catch (e) {
-                    console.warn("filters load error:", e);
-                    renderFilters([]);
-                }
-            }
+  // actions
+  async function applyFiltersNow() {
+    pushUrl();
+    await loadProducts();
+  }
+  $apply.addEventListener("click", applyFiltersNow);
 
-            async function loadProducts() {
-                renderSkeletonCards();
-                const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
-                const url = (apiSlug !== "all") ? (base + buildQuery()) : (base + buildQueryForAllSafe());
+  $reset.addEventListener("click", async () => {
+    state.filters = {};
+    state.sort = "default";
+    $sort.value = "default";
+    pushUrl();
+    await loadFilters();
+    await loadProducts();
+  });
 
-                try {
-                    const res = await fetch(url, {credentials: "same-origin"});
-                    if (!res.ok) throw new Error("products " + res.status);
-                    let items = await res.json();
-                    items = Array.isArray(items) ? items : (items.results || []);
+  $sort.addEventListener("change", async () => {
+    state.sort = $sort.value;
+    pushUrl();
+    await loadProducts();
+  });
 
-                    if (state.sort === "name_asc" || state.sort === "name_desc") {
-                        items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
-                        if (state.sort === "name_desc") items.reverse();
-                    }
+  // init
+  (async function init() {
+    await loadCategoryName();
+    await loadFilters();
+    await loadProducts();
+  })();
+})();
+</script>
 
-                    renderCards(items);
-                } catch (e) {
-                    console.error("products load error:", e);
-                    renderCards([]);
-                }
-            }
-
-            function buildQueryForAllSafe() {
-                if (state.sort && state.sort !== "default") {
-                    const p = new URLSearchParams();
-                    p.set("sort", state.sort);
-                    p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
-                    return "?" + p.toString();
-                }
-                return "";
-            }
-
-            // actions
-            async function applyFiltersNow() {
-                pushUrl();
-                await loadProducts();
-            }
-
-            $apply.addEventListener("click", applyFiltersNow);
-
-            $reset.addEventListener("click", async () => {
-                state.filters = {};
-                state.sort = "default";
-                $sort.value = "default";
-                pushUrl();
-                await loadFilters();
-                await loadProducts();
-            });
-
-            $sort.addEventListener("change", async () => {
-                state.sort = $sort.value;
-                pushUrl();
-                await loadProducts();
-            });
-
-            // init
-            (async function init() {
-                await loadCategoryName();
-                await loadFilters();
-                await loadProducts();
-            })();
-        })();
-    </script>
 {% endblock %}
