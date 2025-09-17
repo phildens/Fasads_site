@@ -204,7 +204,7 @@
 
         }
 
-        
+
 
         .green-card {
             background: #327F00;
@@ -358,7 +358,12 @@
             margin-top: 8px;
             color: #3a2a29;
             line-height: 1.65
+             white-space: pre-wrap; /* \n становится переносом строки */
+  tab-size: 4;           /* ширина табуляции */
+  word-break: break-word;
         }
+        /* учитывает реальные переводы строк и табы */
+
 
         .desc p {
             margin-bottom: 12px;
@@ -422,7 +427,7 @@
                 font-size: 12px
             }
         }
-    
+
         /* (Необязательная подстраховка — если сетка была переопределена где-то ещё) */
         @media (min-width: 721px) {
             .spec-wrapper, .spec {
@@ -467,8 +472,8 @@
                 <div class="side-card">
                     <div style="opacity:.85;font-size:14px;margin-bottom:6px">Цена:</div>
                     <div class="price-individ" style="font-size:16px;" id="price">рассчитывается <br>индивидуально</div>
-                    <button class="btn btn-white wbb" id="">Получить консультацию</button>
-                    <button class="btn btn-white wbb" id="">Узнать цену</button>
+                    <button class="to-callback btn btn-white wbb" id="">Получить консультацию</button>
+                    <button class="to-callback btn btn-white wbb" id="">Узнать цену</button>
                     <button  id="favBtn"
                           class="fav-btn btn btn-ghost pbb"
                           data-fav-btn
@@ -491,7 +496,7 @@
                                 margin-bottom: 31px" >
                         Заказать обратный звонок
                     </div>
-                    <button class="btn call-btn" style="cursor: pointer" onclick="" id="moveToTargetBtn">
+                    <button class="to-callback btn call-btn" style="cursor: pointer" onclick="" id="moveToTargetBtn">
                         Заказать звонок
                     </button>
                 </div>
@@ -637,23 +642,35 @@
     $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';
   }
 
-  function renderDescription(prod) {
-    const node = $('#description');
-    node.innerHTML = '';
-    if (prod.description_html) {
-      node.innerHTML = prod.description_html;
-      return;
-    }
-    if (prod.description) {
-      prod.description.split(/\n{2,}/).forEach(p => {
-        const par = document.createElement('p');
-        par.textContent = p;
-        node.appendChild(par);
-      });
-    } else {
-      node.textContent = 'описание товара';
-    }
+function normalizeUserText(s){
+  if (!s) return '';
+  // Превращаем последовательности "\r\n", "\n", "\r" в настоящий перевод строки
+  s = s.replace(/\\r\\n/g, '\n')
+       .replace(/\\n/g, '\n')
+       .replace(/\\r/g, '\n')
+       .replace(/\\t/g, '\t');
+
+  // Чуть чистим лишние пустые строки (по желанию)
+  s = s.replace(/\n{3,}/g, '\n\n');
+
+  return s.trim();
+}
+
+function renderDescription(prod) {
+  const node = document.getElementById('description');
+  node.innerHTML = '';
+
+  if (prod.description_html) {
+    // если с сервера уже пришла готовая HTML-верстка описания — просто вставляем
+    node.innerHTML = prod.description_html;
+    return;
   }
+
+  // обычный текст — нормализуем и даём браузеру отрисовать переносы по CSS
+  const text = normalizeUserText(prod.description || '');
+  node.textContent = text;
+}
+
 
   // Перестановка блоков на мобилках
   const specsEl = $('#specs');
@@ -724,6 +741,28 @@
 
 </script>
     <script>
-        
+
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const target = document.getElementById('callback-form');
+  if (!target) return;
+
+  document.querySelectorAll('.to-callback').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      // Если нужен точный отступ (при фикс. шапке), используйте ручной скролл:
+      // smoothScrollTo(target, 80); // 80 — высота шапки
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Опционально: ручной скролл с учётом фиксированного хедера
+  function smoothScrollTo(el, offset = 0) {
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+});
+</script>
+
 {% endblock %}
