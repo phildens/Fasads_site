@@ -308,14 +308,36 @@ html, body { max-width:100%; overflow-x:hidden; }
 </header>
 
 <!-- Поиск (деcктоп) -->
-<div class="search-bar">
-  <input id="search" type="search" list="search-suggestions" autocomplete="off"/>
+<form class="search-bar" action="{% url 'product_search' %}" method="get" role="search">
+  <input
+    id="search"
+    type="search"
+    name="q"
+    list="search-suggestions"
+    placeholder="Поиск по каталогу…"
+    autocomplete="off"
+    aria-label="Поиск по товарам"
+    value="{{ request.GET.q|default_if_none:'' }}"
+  />
   <datalist id="search-suggestions">
     <option value="Кирпич">
     <option value="фасад">
     <option value="камень">
   </datalist>
-</div>
+
+  <!-- Кнопка не обязательна, но удобна: -->
+{#  <button type="submit" class="search-button" aria-label="Найти">Найти</button>#}
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('search');
+    const form = input?.closest('form');
+    if (input && form) {
+      input.addEventListener('change', () => form.submit());
+    }
+  });
+</script>
 
 <!-- ======= МОБИЛЬНАЯ КНОПКА (отдельно от хедера) ======= -->
 <button id="mobileMenuBtn" aria-label="Открыть меню">

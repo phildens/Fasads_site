@@ -20,7 +20,116 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Product, Category, FilterKey
-from .serializers import ProductInCatSerializer, ProductSerializer, ProductDetailSerializer # или твой detail serializer
+from .serializers import ProductInCatSerializer, ProductSerializer, \
+    ProductDetailSerializer  # или твой detail serializer
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+# views.py
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.urls import reverse
+
+from .models import Product  # проверь импорт
+
+# --- Страница с результатами: используем твой catalog.html ---
+def product_search(request):
+    q = (request.GET.get("q") or "").strip()
+
+    context = {
+        # catalog.html узнает, что мы в режиме поиска
+        "category_slug": "search",
+        "search_query": q,
+        # если у тебя слева фильтры — их можно скрыть флагом
+        "hide_filters": True,
+    }
+    return render(request, "catalog.html", context)
+
+
+# --- API: мета категории "search" (фронту достаточно минимума) ---
+def api_search_category_meta(request):
+    return JsonResponse({
+        "slug": "search",
+        "name": "Поиск",
+        "filtersEnabled": False,  # говорим фронту, что фильтров нет
+    })
+
+
+# --- API: фильтры для "search" (пусто) ---
+def api_search_filters(request):
+    return JsonResponse({
+        "groups": []  # пустой список групп, чтобы JS не падал
+    })
+
+
+# --- API: товары для "search" ---
+def api_search_products(request):
+    q = (request.GET.get("q") or "").strip()
+
+    qs = (
+        Product.objects.all()
+        .select_related(
+            "manufacturer", "category", "color",
+            "product_type", "type_material",
+            "frosen_defend", "strength_grade", "water_resistance",
+        )
+        .prefetch_related("images", "formats", "emptiness")
+    )
+
+    if q:
+        qs = qs.filter(
+            Q(name__icontains=q) |
+            Q(description__icontains=q) |
+            Q(manufacturer__name__icontains=q) |
+            Q(category__name__icontains=q) |
+            Q(color__name__icontains=q) |
+            Q(product_type__name__icontains=q) |
+            Q(type_material__name__icontains=q) |
+            Q(frosen_defend__name__icontains=q) |
+            Q(strength_grade__name__icontains=q) |
+            Q(water_resistance__name__icontains=q) |
+            Q(formats__name__icontains=q) |
+            Q(emptiness__name__icontains=q)
+        ).distinct()
+    else:
+        # без запроса возвращаем пусто, чтобы не грузить всё подряд
+        qs = qs.none()
+
+    qs = qs.order_by("-id")
+
+    # пагинация
+    page = request.GET.get("page", 1)
+    per_page = int(request.GET.get("per_page", 12))
+    paginator = Paginator(qs, per_page)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+
+    # Сериализация под карточки (минимально: id, name, image, link)
+    items = []
+    for p in page_obj.object_list:
+        items.append({
+            "id": p.id,
+            "name": p.name,
+            "card_image": (p.card_image.url if getattr(p, "card_image", None) else None),
+            "link": reverse("product_client_view", args=[p.pk]),  # путь на детальную
+        })
+
+    return JsonResponse({
+        "items": items,
+        "page": page_obj.number,
+        "pages": paginator.num_pages,
+        "has_next": page_obj.has_next(),
+        "has_prev": page_obj.has_previous(),
+        "total": paginator.count,
+        "query": q,
+    })
+
 
 
 def galery(request):
@@ -30,6 +139,7 @@ def galery(request):
         'items': items,
     })
 
+
 # Create your views here.
 class ProductListView(ListAPIView):
     queryset = Product.objects.all()
@@ -38,6 +148,7 @@ class ProductListView(ListAPIView):
 
 def index(request):
     return render(request, 'index.html')
+
 
 def yandex_find(request):
     return render(request, 'yandex_94334ec1e6b86559.html')
@@ -52,26 +163,30 @@ def category(request):
     products = Product.objects.filter(category=cat_id)
     products = ProductInCatSerializer(products, many=True, context={'request': request})
     print(products.data[0])
-    return render(request, 'category.html', {'products': products.data, 'cat_name': ["Главная",cat_id.name], 'questions' : Questions.objects.all()})
+    return render(request, 'category.html', {'products': products.data, 'cat_name': ["Главная", cat_id.name],
+                                             'questions': Questions.objects.all()})
 
 
 def about(request):
     return render(request, 'about.html')
 
+
 class FAQView(ListView):
     model = Questions
-    template_name = "accordion.html"   # см. файл ниже
+    template_name = "accordion.html"  # см. файл ниже
     context_object_name = "questions"
     queryset = Questions.objects.all().order_by("id")
+
+
 @require_POST
 def contact_request_create(request):
     # простая валидация
     data = request.POST
     # Маппинг: принимаем и "старые" и ваши имена полей
-    first_name  = (data.get("first_name") or data.get("name") or "").strip()
-    last_name   = (data.get("last_name") or data.get("surname") or "").strip()
-    email       = (data.get("email") or "").strip()
-    phone       = (data.get("phone") or "").strip()
+    first_name = (data.get("first_name") or data.get("name") or "").strip()
+    last_name = (data.get("last_name") or data.get("surname") or "").strip()
+    email = (data.get("email") or "").strip()
+    phone = (data.get("phone") or "").strip()
     description = (data.get("description") or data.get("about") or "").strip()
 
     errors = {}
@@ -96,15 +211,20 @@ def contact_request_create(request):
         description=description,
     )
     return JsonResponse({"ok": True})
+
+
 from rest_framework.generics import get_object_or_404
 
 from .models import Category
 from .serializers import CategorySerializer
+
+
 class CategoryDetailAPIView(APIView):
     """
     GET /api/categories/<category_key>/
     Ищет категорию по link_name (slug-подобное), name или id.
     """
+
     def get(self, request, category_key: str):
         lookup = (category_key or "").strip()
         cond = Q(link_name__iexact=lookup) | Q(name__iexact=lookup)
@@ -113,35 +233,42 @@ class CategoryDetailAPIView(APIView):
         obj = get_object_or_404(Category, cond)
         return Response(CategorySerializer(obj).data)
 
+
 # КАТЕГОРИИ
 # Описание логики по каждому ключу
 FILTER_DEFS = {
     # FK-поля
-    "manufacturer":     {"kind": "fk",   "field": "manufacturer"},
-    "color":            {"kind": "fk",   "field": "color"},
-    "type_material":    {"kind": "fk",   "field": "type_material"},
-    "product_type":     {"kind": "fk",   "field": "product_type"},
-    "frosen_defend":    {"kind": "fk",   "field": "frosen_defend"},
-    "strength_grade":   {"kind": "fk",   "field": "strength_grade"},
-    "water_resistance": {"kind": "fk",   "field": "water_resistance"},
+    "manufacturer": {"kind": "fk", "field": "manufacturer"},
+    "color": {"kind": "fk", "field": "color"},
+    "type_material": {"kind": "fk", "field": "type_material"},
+    "product_type": {"kind": "fk", "field": "product_type"},
+    "frosen_defend": {"kind": "fk", "field": "frosen_defend"},
+    "strength_grade": {"kind": "fk", "field": "strength_grade"},
+    "water_resistance": {"kind": "fk", "field": "water_resistance"},
 
     # M2M-поля
-    "format":    {"kind": "m2m", "field": "formats"},
+    "format": {"kind": "m2m", "field": "formats"},
     "emptiness": {"kind": "m2m", "field": "emptiness"},
 
     # Опциональные поля (если они есть в модели Product)
-    "size":              {"kind": "m2m", "field": "sizes"},
+    "size": {"kind": "m2m", "field": "sizes"},
     "package_weight_kg": {"kind": "int", "field": "package_weight_kg"},
 }
 
+
 def _get_category(key: str) -> Category:
     if key.isdigit():
-        try: return Category.objects.get(id=int(key))
-        except Category.DoesNotExist: pass
+        try:
+            return Category.objects.get(id=int(key))
+        except Category.DoesNotExist:
+            pass
     for f in ("link_name", "name"):
-        try: return Category.objects.get(**{f: key})
-        except Category.DoesNotExist: continue
+        try:
+            return Category.objects.get(**{f: key})
+        except Category.DoesNotExist:
+            continue
     raise Http404("Категория не найдена")
+
 
 def _getlist(request, name: str):
     vals = request.GET.getlist(name)
@@ -150,12 +277,12 @@ def _getlist(request, name: str):
     return vals
 
 
-
 class CategoryFiltersAPIView(APIView):
     """
     GET /api/categories/<category_key>/filters/
     Возвращает только те фильтры, которые включены у категории.
     """
+
     def get(self, request, category_key: str):
         cat = _get_category(category_key)
         enabled = cat.filters_enabled or []
@@ -168,7 +295,7 @@ class CategoryFiltersAPIView(APIView):
             if not cfg:
                 continue
 
-            kind  = cfg["kind"]
+            kind = cfg["kind"]
             field = cfg["field"]
 
             # пропускаем, если такого поля нет у модели (на случай опциональных)
@@ -177,9 +304,9 @@ class CategoryFiltersAPIView(APIView):
 
             if kind == "fk":
                 rows = (qs.values(f"{field}_id", f"{field}__name")
-                          .exclude(**{f"{field}_id__isnull": True})
-                          .annotate(count=Count("id"))
-                          .order_by(f"{field}__name"))
+                        .exclude(**{f"{field}_id__isnull": True})
+                        .annotate(count=Count("id"))
+                        .order_by(f"{field}__name"))
                 result["filters"][key] = [
                     {"id": r[f"{field}_id"], "name": r[f"{field}__name"], "count": r["count"]}
                     for r in rows
@@ -187,9 +314,9 @@ class CategoryFiltersAPIView(APIView):
 
             elif kind == "m2m":
                 rows = (qs.values(f"{field}__id", f"{field}__name")
-                          .exclude(**{f"{field}__id__isnull": True})
-                          .annotate(count=Count("id", distinct=True))
-                          .order_by(f"{field}__name"))
+                        .exclude(**{f"{field}__id__isnull": True})
+                        .annotate(count=Count("id", distinct=True))
+                        .order_by(f"{field}__name"))
                 result["filters"][key] = [
                     {"id": r[f"{field}__id"], "name": r[f"{field}__name"], "count": r["count"]}
                     for r in rows
@@ -197,9 +324,9 @@ class CategoryFiltersAPIView(APIView):
 
             elif kind == "int":
                 rows = (qs.values(field)
-                          .exclude(**{f"{field}__isnull": True})
-                          .annotate(count=Count("id"))
-                          .order_by(field))
+                        .exclude(**{f"{field}__isnull": True})
+                        .annotate(count=Count("id"))
+                        .order_by(field))
                 result["filters"][key] = [
                     {"value": r[field], "name": str(r[field]), "count": r["count"]}
                     for r in rows
@@ -228,7 +355,7 @@ class CategoryProductsAPIView(generics.ListAPIView):
             if not vals:
                 continue
 
-            kind  = cfg["kind"]
+            kind = cfg["kind"]
             field = cfg["field"]
 
             if kind == "fk":
@@ -258,6 +385,7 @@ class BasketItemsAPIView(APIView):
     POST /api/products/bulk-min/   body: {"ids":[1,2,3]}
     -> [{id, name, card_image}, ...]
     """
+
     def _load_ids(self, request):
         ids = _getlist(request, "ids")
         if not ids and isinstance(request.data, dict):
@@ -277,6 +405,7 @@ class BasketItemsAPIView(APIView):
 
     def post(self, request):
         return self.get(request)
+
 
 # 4) Детальная карточка товара
 class ProductDetailAPIView(generics.RetrieveAPIView):
@@ -298,13 +427,13 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
         return ctx
 
 
-
 def product_client_view(request, pk: int):
     # Никаких данных о товаре тут не подгружаем — рендерим на клиенте
     return render(request, "product_detail.html", {"product_id": pk})
 
 
 from django.views.generic import TemplateView
+
 
 class CatalogView(TemplateView):
     template_name = "catalog.html"
@@ -331,6 +460,7 @@ class AllProductsAPIView(generics.ListAPIView):
         ctx["request"] = self.request
         return ctx
 
+
 from collections import defaultdict
 from django.db.models import Count
 from rest_framework.decorators import api_view
@@ -340,6 +470,7 @@ from .models import Product
 
 # Поля, по которым строим фильтры (добавьте/уберите свои)
 FILTER_FIELDS = ['manufacturer', 'color', 'material_type', 'product_type']
+
 
 def _collect_filter_for_field(qs, field_name: str):
     """
@@ -357,14 +488,14 @@ def _collect_filter_for_field(qs, field_name: str):
         # Считаем количество товаров на каждую опцию (по id связанной модели)
         counts = (
             qs.values(field_name)
-              .annotate(count=Count('id'))
-              .order_by()
+            .annotate(count=Count('id'))
+            .order_by()
         )
         counts_map = {row[field_name]: row['count'] for row in counts if row[field_name] is not None}
 
         # Тянем имя опции из связанной модели (пытаемся взять name/title, иначе str)
         qs_related = related_model.objects.filter(id__in=list(counts_map.keys())) \
-                                          .values('id', 'name')  # если у вас другое поле названия — ниже есть запасной вариант
+            .values('id', 'name')  # если у вас другое поле названия — ниже есть запасной вариант
         items = []
         have_name_field = 'name' in qs_related.query.values_select
 
@@ -402,10 +533,10 @@ def _collect_filter_for_field(qs, field_name: str):
     # Нереляционное поле (CharField и т.п.)
     values_qs = (
         qs.exclude(**{f"{field_name}__isnull": True})
-          .exclude(**{field_name: ""})
-          .values(field_name)
-          .annotate(count=Count('id'))
-          .order_by(field_name)
+        .exclude(**{field_name: ""})
+        .values(field_name)
+        .annotate(count=Count('id'))
+        .order_by(field_name)
     )
     return [
         {'value': row[field_name], 'count': row['count']}
