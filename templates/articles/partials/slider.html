@@ -7,7 +7,7 @@
 
   <div class="rail">
     {% for a in items %}
-      <a class="slide card" href="{{ a.get_absolute_url }}">
+      <a class="slida-stat card" href="{{ a.get_absolute_url }}">
         <div class="card-body">
           <div class="card-date">от {{ a.published_at|date:"d.m.Y" }}</div>
           <h3 class="card-title">{{ a.title }}</h3>

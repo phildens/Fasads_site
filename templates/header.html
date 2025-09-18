@@ -234,7 +234,7 @@ html, body { max-width:100%; overflow-x:hidden; }
 <li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
-    <li style="margin-bottom:30px"><a href="#">Фотографии выполненных объектов</a></li>
+    <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши партнеры</strong></li>
     <li style="margin-bottom:70px"><a href="#">Дилеры заводов</a></li>
@@ -249,7 +249,7 @@ html, body { max-width:100%; overflow-x:hidden; }
       <span class="mini-contact-icon">
         <img style="width:60px;height:60px" src="{% static 'imgfolder/location.png' %}" alt="Локация">
       </span>
-      <span class="mini-contact-text">Пермь, Газеты Звезда,<br>13, 4 этаж</span>
+      <span class="mini-contact-text" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer">Пермь, Газеты Звезда,<br>13, 4 этаж</span>
     </div>
     <div class="mini-contact-row">
       <span class="mini-contact-icon">

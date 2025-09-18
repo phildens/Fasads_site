@@ -171,6 +171,10 @@ def about(request):
     return render(request, 'about.html')
 
 
+def privacy(request):
+    return render(request, 'privacy.html')
+
+
 class FAQView(ListView):
     model = Questions
     template_name = "accordion.html"  # см. файл ниже

@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block content %}
-<section class="container">
-  <h1 class="page-title">Статьи</h1>
+<section class="container" style="margin-bottom: 50px; margin-top: 50px" >
+  <h1 class="page-title" style="font-family: Muller-medium">Статьи</h1>
   <div class="cards-grid">
     {% for a in articles %}
     <a class="card" href="{{ a.get_absolute_url }}">

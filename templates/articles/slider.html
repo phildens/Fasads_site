@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="{% static 'articles/articles.css' %}">
 
 <div class="articles-slider" id="articlesSlider" data-autoplay="true" data-interval="4000">
+
+
+
   <div class="rail">
     {% for a in items %}
       <a class="slide card" href="{{ a.get_absolute_url }}">
