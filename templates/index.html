@@ -1438,7 +1438,7 @@ textarea::placeholder{
 <li><a href="{% url 'catalog_category' 'paving_stones' %}">Брусчатка</a></li>
 <li><a href="{% url 'catalog_category' 'bolt_brick' %}">Ригельный кирпич</a></li>
 <li><a href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Навесные вентилируемые системы</a></li>
-    <li><a href="#">Архитектурные фасадные декоры</a></li>
+    <li><a href="{% url 'catalog_category' 'fasad-decors' %}">Архитектурные фасадные декоры</a></li>
 <li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
@@ -1657,7 +1657,7 @@ textarea::placeholder{
         <div class="footer-card">
           <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
           <img src="{% static 'imgfolder/f7.png' %}" alt="Архитектурные фасадные декоры" style="height: 237px;">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'fasad-decors' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Гиперпрессованный<br>кирпич</div>
@@ -1667,19 +1667,19 @@ textarea::placeholder{
         <div class="footer-card">
           <div class="footer-card-title">Кровельные<br>материалы</div>
           <img src="{% static 'imgfolder/f9.png' %}" alt="Кровельные материалы">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'krov-materials' %}">Перейти к разделу</a>
         </div>
       
       
         <div class="footer-card">
           <div class="footer-card-title">Керамические блоки</div>
           <img src="{% static 'imgfolder/f10.png' %}" alt="Керамические блоки">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'keram-blocks' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card">
           <div class="footer-card-title">Кладочные смеси</div>
           <img src="{% static 'imgfolder/f11.png' %}" alt="Кладочные смеси">
-          <a class="footer-card-link" href="#">Перейти к разделу</a>
+          <a class="footer-card-link" href="{% url 'catalog_category' 'clad-mixes' %}">Перейти к разделу</a>
         </div>
         <div class="footer-card footer-card--empty"></div>
       </div>
