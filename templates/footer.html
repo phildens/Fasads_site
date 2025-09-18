@@ -3,11 +3,11 @@
 <div style="height: 50px"></div>
 <footer class="site-footer">
     <div class="footer-top">
-        <nav class="footer-menu"><a href="#">Продукция</a> <a href="#">Галерея</a> <a href="#">Вопросы-ответы</a> <a
-                href="#">Контакты</a></nav>
+        <nav class="footer-menu"><a href="{% url 'catalog_all' %}">Продукция</a> <a href="{% url 'galery' %}">Галерея</a> <a href="{% url 'about' %}#q">Вопросы-ответы</a> <a
+                href="{% url 'about' %}">Контакты</a></nav>
         <div class="footer-info-block">
             <div class="footer-info">
-                <div class="footer-info-title"><a>Пермь, Газеты Звезда 13, 4 этаж</a></div>
+                <div class="footer-info-title" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer"><a>Пермь, Газеты Звезда 13, 4 этаж</a></div>
                 <div class="footer-info-sub">контактный адрес шоу-рума</div>
             </div>
             <div class="footer-info">
@@ -28,16 +28,16 @@
             <div><img src="{% static 'imgfolder/dark-logo-footer.png' %}" alt=""
                       style="height: 189px; width: 383px; margin-right: 100px"></div>
             <div style="display: flex; align-items: end;">
-                <div style="display: flex;flex-direction: column;color: rgba(0, 0, 0, 0.6);text-decoration: none;"><a
+                <div style="display: flex;flex-direction: column;color: rgba(0, 0, 0, 0.6);text-decoration: none;"><p
                         style="color: inherit;color: rgba(0, 0, 0, 0.7);text-decoration: none; border-bottom: 30px;"
-                        href="#">Информация</a>
+                        href="#">Информация</p>
                     <div style="height: 36px;"></div>
-                    <a style="color: inherit;text-decoration: none;" href="#">Политика конфиденциальности</a> <a
+                    <a style="color: inherit;text-decoration: none;" href="{% url 'privacy' %}">Политика конфиденциальности</a> <a
                             style="margin-top: 20px; margin-bottom: 20px;color: inherit; text-decoration: none;"
-                            href="#">Пользовательское соглашение</a> <a style="color: inherit;text-decoration: none;"
-                                                                        href="#">Политика использования Cookies</a>
+                            href="{% url 'privacy' %}">Пользовательское соглашение</a> <a style="color: inherit;text-decoration: none;"
+                                                                        href="{% url 'privacy' %}">Политика использования Cookies</a>
                 </div>
-                <div style="margin-left: 37px;"><a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="#">Сообщить
+                <div style="margin-left: 37px;"><a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="mailto:evrokrovliof@mail.ru">Сообщить
                     об ошибке</a>
                     <div style="height: 18px;"></div>
                     <div style="display: flex;"><p style="margin: 0px 4px 0px 0px;">&copy;</p> <span

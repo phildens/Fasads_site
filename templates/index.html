@@ -1410,6 +1410,7 @@ textarea::placeholder{
     line-height: 100%;
 }
 
+
 </style>
 </head>
 <body>
@@ -1441,7 +1442,7 @@ textarea::placeholder{
 <li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
-    <li style="margin-bottom:30px"><a href="#">Фотографии выполненных объектов</a></li>
+    <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши партнеры</strong></li>
     <li style="margin-bottom:70px"><a href="#">Дилеры заводов</a></li>
@@ -1989,15 +1990,27 @@ textarea::placeholder{
       
      
 
+
+      <style >
+         @media (max-width: 1200px) and (min-width: 701px){
+  .rail { width: 700px;  }
+    }
+          @media (max-width: 700px) and (min-width: 500px){
+  .rail { width: 500px;  }
+    }
+  @media (max-width: 500px){
+  .rail { width: 350px;  }
+    }
+      </style>
       
       
 {#      {% include "stories.html" %}#}
-      <section class="article-slider-wrap">
-  <div class="container"><h2 class="h2">Статьи</h2></div>
+      
+      <section class="article-slider-wrap" style="max-width: 1200px">
+  <div class=""><h2 class="h2">Статьи</h2></div>
   {% articles_slider limit=0 %}
-</section>
-
-
+    </section>
+<script src="{% static 'articles/slider.js' %}"></script>
  {% include 'contact_main_form.html' %}
     <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
 
@@ -2027,7 +2040,7 @@ textarea::placeholder{
         <div class="contacts-note">Приём звонков: с 9:00–18:00</div>
       </div>
     </div>
-    <div class="contacts-card">
+    <div class="contacts-card" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer">
       <div class="contacts-title">Карта с указанием адреса офиса</div>
       <div class="contacts-body">
         2ГИС<br>        
@@ -2113,7 +2126,7 @@ textarea::placeholder{
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
   {% block extra_js %}{% endblock %}
-<script src="{% static 'articles/slider.js' %}"></script>
+
 <!-- Шторка избранного -->
 <div id="favorites-drawer" aria-hidden="true">
   <div class="drawer-overlay" data-close-favorites></div>

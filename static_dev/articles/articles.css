@@ -54,7 +54,7 @@
 }
 .articles-slider .rail::-webkit-scrollbar { height: 8px; }
 .articles-slider .rail::-webkit-scrollbar-thumb { background: #e1d6d6; border-radius: 8px; }
-.articles-slider .slide { scroll-snap-align: start; }
+.articles-slider .slida-stat { scroll-snap-align: start; }
 
 /* пагер на странице списка */
 .pager { display: flex; gap: 12px; justify-content: center; align-items: center; margin: 22px 0 40px; }
@@ -176,25 +176,25 @@ strong {
 }
 
 /* карточка-слайд: ширина резиновая; не задаём типографику */
-.articles-slider .slide{
+.articles-slider .slida-stat{
   flex:0 0 clamp(260px, 32vw, 360px);
   scroll-snap-align:start;
 }
 
 /* убираем принудительную высоту у якоря/внутреннего контейнера,
    чтобы не было «огромного отступа» после описания */
-.articles-slider .slide.card{
+.articles-slider .slida-stat.card{
   height:auto !important;
   min-height:0 !important;
 }
-.articles-slider .slide.card .card-body{
+.articles-slider .slida-stat.card .card-body{
   height:auto !important;
   min-height:0 !important;
   display:block;                              /* контент задаёт высоту */
 }
 
 /* изображения в карточках — безопасный фит */
-.articles-slider .slide.card img{
+.articles-slider .slida-stat.card img{
   max-width:100%;
   height:auto;
 }
@@ -206,7 +206,7 @@ strong {
 /* адаптив */
 @media (max-width: 900px){
   .articles-slider .rail{ padding:16px 14px 22px; gap:16px; }
-  .articles-slider .slide{ flex-basis: clamp(240px, 78vw, 320px); }
+  .articles-slider .slida-stat{ flex-basis: clamp(240px, 78vw, 320px); }
 }
 
 
@@ -242,18 +242,18 @@ strong {
 }
 
 /* ширина карточки — резиновая; ТИПОГРАФИКУ НЕ ТРОГАЕМ */
-.articles-slider .slide{
+.articles-slider .slida-stat{
   flex: 0 0 clamp(260px, 32vw, 360px);
   scroll-snap-align: start;
 }
 
 /* убираем искусственную высоту якоря/внутренностей,
    из-за неё был огромный пустой отступ внизу */
-.articles-slider .slide.card{
+.articles-slider .slida-stat.card{
   height: auto !important;
   min-height: 0 !important;
 }
-.articles-slider .slide.card .card-body{
+.articles-slider .slida-stat.card .card-body{
   height: auto !important;
   min-height: 0 !important;
   display: block;
@@ -266,7 +266,7 @@ strong {
 /* АДАПТИВ — только размеры блоков, не текста */
 @media (max-width: 900px){
   .articles-slider .rail{ padding: 16px 14px 22px; gap: 16px; }
-  .articles-slider .slide{ flex-basis: clamp(240px, 78vw, 320px); }
+  .articles-slider .slida-stat{ flex-basis: clamp(240px, 78vw, 320px); }
 }
 
 /* На всякий случай, если что-то «накрывает» слайдер */
