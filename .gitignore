@@ -88,7 +88,6 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
-uploads/
+
 .env
 db.sqlite3
-media/
