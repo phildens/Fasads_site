@@ -4,6 +4,7 @@
 {% block title %}Галерея объектов{% endblock %}
 
 {% block content %}
+<div style="margin-top: 120px;"></div>
 <div style="display:flex;
   justify-content:center;   /* по центру горизонтально */
   width:100%;">
@@ -25,7 +26,7 @@
         {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
         <div  class="card-tooltip" id="tooltip-{{ item.id }}">
           <p class="tooltip-text"
-   style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;">
+   style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;">
   {{ item.product|escape }}
 </p>
 
@@ -38,12 +39,12 @@
 
             <!-- контейнер слайдов -->
             <div class="slides-container" data-id="{{ item.id }}">
-              {% for slide in item.images.all %}
-                <div class="slide">
+            {% for slide in item.images.all %}
+              <div class="slide" style="--bg: url('{{ slide.image.url }}')">
                   <img src="{{ slide.image.url }}" alt="{{ item.name }}">
-                </div>
-              {% endfor %}
-            </div>
+              </div>
+        {% endfor %}
+</div>
 
             <!-- стрелки -->
            
@@ -63,6 +64,7 @@
     {% endfor %}
   </div>
 </div>
+<div style="margin-top: 120px;"></div>
   <script>
     const slideIndices = {};
   const autoTimers = {};
@@ -262,6 +264,7 @@
   font-family: 'head';
   text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
   pointer-events: none; /* чтобы не мигало при исчезновении */
+  
 }
 
 .card-tooltip.visible {
@@ -270,82 +273,126 @@
   pointer-events: auto;
 }
 
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      backdrop-filter: blur(4px);
-      z-index: 99999999999;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      position: relative;
-      max-width: 667px;
-      max-height: 818px;
-      overflow: hidden;
-    }
+    /* --- MODAL SIZING --- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  z-index: 99999999999;
+  justify-content: center;
+  align-items: center;
+}
 
-    .slides-container {
-      display: flex;
-      
-      width: 100%;
-      transition: transform 0.5s ease;
-    }
-    .slide {
-      flex: 0 0 100%;
-      display: block;
-      overflow: hidden;
-    }
-    .slide img {
-      width: 105%;
-      height: auto;
-      border-radius: 8px;
-    }
+.modal-content {
+  position: relative;
+  width: min(90vw, 667px);
+  height: min(90vh, 818px);
+  overflow: hidden;              /* чтобы всё, включая блюр, клипалось по радиусу */
+  border-radius: 8px;            /* общий радиус на контейнер */
+  background: #000;              /* на всякий случай фон */
+}
 
-    .prev, .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2rem;
-      color: rgba(247,247,247,1);
-      padding: 0 .5rem;
-      cursor: pointer;
-      user-select: none;
-    }
-    .prev { left: 10px; } .next { right: 10px; }
+/* --- SLIDER LAYOUT --- */
+.slides-container {
+  display: flex;
+  width: 100%;
+  height: 100%;                  /* важно: растягиваем по высоте контейнера */
+  transition: transform 0.5s ease;
+}
 
-    .dots {
-      position: absolute;
-      left: 46%;
-      bottom: 5%;
-      text-align: center;
-    }
-    .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 4px;
-      background: rgba(247,247,247,1);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .dot.active { background: rgba(217,217,217,0.67); }
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;              /* клип по радиусу контейнера */
+}
 
-    .close {
-      position: absolute;
-      top: 37px;
-      right: 48px;
-      font-size: 2rem;
-      color: #fff;
-      z-index: 3;
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
-      cursor: pointer;
-      
-    }
+/* Блюр под изображением: заполняем свободное пространство */
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+  transform: scale(1.1);         /* чтобы не было видимых краёв после blur */
+  z-index: 0;                    /* ниже изображения */
+}
+
+/* Само изображение — строго внутри, по центру, со скруглениями всех углов */
+.slide img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;           /* ключ: целиком помещается и центрируется */
+  border-radius: inherit;        /* унаследовать 8px от родителя */
+}
+
+/* Стрелки/крестик/точки поверх блюра и картинки */
+.prev, .next, .close, .dots {
+  position: absolute;
+  z-index: 2;
+}
+
+/* Если используешь стрелки — оставляю как было */
+.prev, .next {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: rgba(247,247,247,1);
+  padding: 0 .5rem;
+  cursor: pointer;
+  user-select: none;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Точки-индикаторы */
+.dots {
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);   /* аккурат по центру */
+  text-align: center;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  background: rgba(247,247,247,1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dot.active { background: rgba(217,217,217,0.67); }
+
+/* Крестик */
+.close {
+  top: 16px;                     /* можно вернуть твои отступы 37/48 если хочется */
+  right: 16px;
+  font-size: 2rem;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* (Необязательно) затемнение сверху, если нравится эффект */
+.modal-content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.12);
+  pointer-events: none;
+  z-index: 1; /* ниже крестика/точек, но выше блюра */
+}
+
+
 
 
 

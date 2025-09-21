@@ -1410,6 +1410,55 @@ textarea::placeholder{
     line-height: 100%;
 }
 
+/* === MOBILE FIX: текст сверху, картинка занимает всё оставшееся === */
+@media (max-width: 1024px){
+
+  /* слайдер и слайды не фиксированной высоты */
+  .slider{ height:auto; min-height: 100vh; }   /* тянем секцию на экран */
+  .slides{ height:auto; }
+  .slide{
+    display: grid;
+    grid-template-rows: auto 1fr;  /* 1) текст, 2) картинка */
+    height: 100%;
+    padding: 0 12px 12px;
+    box-sizing: border-box;
+  }
+
+  /* текст – по контенту */
+  .slide-text{
+    padding: 0 4px;
+    min-width: 0;
+  }
+
+  /* контейнер картинки — растягиваемся на остаток */
+  .slide-image,
+  .slide-image2,
+  .slide-image3{
+    min-height: 40vh;    /* чтобы не схлопывался; можно 45–60vh под твой вкус */
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ОЧЕНЬ ВАЖНО: снимаем абсолют и даём заполнять контейнер */
+  .slide-image picture,
+  .slide-image2 picture,
+  .slide-image3 picture,
+  .slide-image img,
+  .slide-image2 img,
+  .slide-image3 img{
+    position: static !important;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    object-fit: cover;          /* заполняем, лишнее — кадрируется */
+    border-radius: 0 0 12px 12px;
+    margin: 0;
+  }
+}
 
 </style>
 </head>
@@ -1604,7 +1653,12 @@ textarea::placeholder{
               подойдет под вашу идею</p>
           </div>
           <div class="slide-image3">
-            <img src="{% static 'imgfolder/png3.png' %}" alt="">
+            <picture>
+    <!-- мобильная версия -->
+    <source media="(max-width: 1024px)" srcset="{% static 'imgfolder/png33.png' %}">
+    <!-- десктопная версия (по умолчанию) -->
+    <img src="{% static 'imgfolder/png3.png' %}" alt="">
+  </picture>
           </div>
         </div>
       </div>
