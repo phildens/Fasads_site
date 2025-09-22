@@ -629,21 +629,60 @@ body {
 
 /* блокировка скролла при открытом меню */
 body.no-scroll{overflow:hidden}
+/* Контейнер шапки */
+  #mobileHeaderIndex{
+    position: fixed;
+    top: 16px;
+    left: 0;
+    right: 0;
+    z-index: 1006;                 /* выше старых слоёв */
+    display: flex;
+    justify-content: space-between;/* избранное слева, меню справа */
+    align-items: center;
+    padding: 0 16px;
+  }
 
-/* ========= МОБИЛЬНАЯ КНОПКА ========= */
-#mobileMenuBtn{position:fixed;right:16px;top:16px;z-index:1004;display:none;width:64px;height:48px;padding:0;border:none;background:transparent;cursor:pointer}
-#mobileMenuBtn img{width:100%;height:100%;object-fit:contain;display:block}
+  /* ВАЖНО: отменяем fixed у кнопки меню ТОЛЬКО в этом контейнере */
+  #mobileHeaderIndex #mobileMenuBtn{
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+  #mobileHeaderIndex #mobileMenuBtn img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+  }
 
-/* ========= АДАПТИВ ========= */
-@media (max-width:1200px){.nav-list{width:100%;max-width:100%;padding:20px}.search-bar input{width:100%}}
-@media (max-width:1024px){.conteiner{min-width:0;width:100%}.header,.search-bar{display:none!important}#mobileMenuBtn{display:block}}
-@media (prefers-reduced-motion:reduce){.side-menu{transition:none}#blur-bg{transition:none}}
-/* подстраховки */
-@media (max-width:1400px){.conteiner{min-width:0!important;width:100%}}
-@media (max-width:1280px){.header,.search-bar{display:none!important}#mobileMenuBtn{display:block!important}}
-.nav-list{width:min(1200px,100%)!important}
-.search-bar input{width:min(1200px,100%)!important}
-html,body{max-width:100%;overflow-x:hidden}
+  /* Кнопка избранного */
+  #mobileHeaderIndex .header-fav-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    position: relative;
+  }
+  #mobileHeaderIndex .header-fav-icon{ width:24px; height:24px; }
+  #mobileHeaderIndex .fav-badge{
+    position: absolute;
+    top: -4px; right: -4px;
+    min-width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #e53935; color:#fff;
+    font-size: 12px; line-height: 18px; text-align: center;
+    z-index: 1;
+  }
 
 
 .menuuu a {
@@ -1494,7 +1533,7 @@ textarea::placeholder{
     <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши партнеры</strong></li>
-    <li style="margin-bottom:70px"><a href="#">Дилеры заводов</a></li>
+    <li style="margin-bottom:70px"><a href="{% url 'about' %}#manufactors">Дилеры заводов</a></li>
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
     <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
@@ -1534,9 +1573,84 @@ textarea::placeholder{
 <div id="blur-bg" aria-hidden="true"></div>
 
 <!-- Кнопка для мобильной версии -->
-<button id="mobileMenuBtn" aria-label="Открыть меню">
-  <img src="{% static 'imgfolder/Group 306.png' %}" alt="Меню">
-</button>
+<!-- ======= МОБИЛЬНЫЙ ХЕДЕР ======= -->
+<div id="mobileHeader">
+  <!-- Кнопка избранного -->
+  <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
+    <img src="{% static 'imgfolder/bol2.svg' %}" alt="Избранное" class="header-fav-icon">
+    <span class="fav-badge" data-fav-count></span>
+  </a>
+
+  <!-- Кнопка меню -->
+  <button id="mobileMenuBtn" aria-label="Открыть меню">
+    <img src="{% static 'imgfolder/Group 306.png' %}" alt="Меню">
+  </button>
+</div>
+
+<style>
+  #mobileHeader {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1005;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* отменяем fixed у кнопки меню внутри контейнера */
+  #mobileHeader #mobileMenuBtn {
+    position: static !important;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    padding: 0;
+  }
+  #mobileHeader #mobileMenuBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  /* кнопка избранного */
+  #mobileHeader .header-fav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    position: relative;
+  }
+  #mobileHeader .header-fav-icon { width: 24px; height: 24px; }
+  #mobileHeader .fav-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #e53935;
+    color: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    font-family: Muller-medium, sans-serif;
+  }
+
+  /* === адаптив === */
+  @media (min-width: 1025px) {
+    #mobileHeader {
+      display: none !important; /* скрываем на ПК */
+    }
+  }
+</style>
+
+
   <div class="papa-con">
   <div class="conteiner">
     

@@ -73,6 +73,82 @@
     </style>
 </head>
 <body>
+<!-- ======= МОБИЛЬНЫЙ ХЕДЕР: логотип + избранное ======= -->
+<div id="mobileHeaderLeft">
+  <a href="{% url 'home' %}" id="mobileLogo" aria-label="Главная">
+    <img src="{% static 'imgfolder/header.png' %}" alt="Логотип" />
+  </a>
+
+  <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
+    <img src="{% static 'imgfolder/bol2.svg' %}" alt="Избранное" class="header-fav-icon">
+    <span class="fav-badge" data-fav-count></span>
+  </a>
+</div>
+
+<style>
+  #mobileHeaderLeft {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1005;
+    display: none;
+    align-items: center;
+    gap: 12px;
+  }
+  #mobileHeaderLeft img {
+    height: 60px;
+    width: auto;
+  }
+
+  #mobileHeaderLeft .header-fav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    position: relative;
+  }
+  #mobileHeaderLeft .header-fav-icon {
+    width: 24px;
+    height: 24px;
+  }
+  #mobileHeaderLeft .fav-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #e53935;
+    color: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    font-family: Muller-medium, sans-serif;
+  }
+
+  /* показываем только на мобильных */
+  @media (max-width: 1024px) {
+    #mobileHeaderLeft { display: flex; }
+  }
+</style>
+
+
+<div class="mobile-top-block"></div>
+<style>
+    .mobile-top-block min-w- {
+        height: 0;
+    }
+    @media (max-width: 1024px) {
+         .mobile-top-block {
+        height: 50px;
+    }
+    }
+   
+</style>
 {% include  "header.html" %}
 
 
@@ -204,5 +280,6 @@
 
 <!-- Скрипт избранного -->
 <script src="{% static 'js/favorites.js' %}"></script>
+
 </body>
 </html>

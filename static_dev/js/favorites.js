@@ -55,9 +55,11 @@
 
   // ---------- UI СВЯЗКИ ----------
   function updateHeaderCount() {
-    const countEl = document.querySelector('[data-fav-count]');
-    if (countEl) countEl.textContent = String(loadFavs().length || '');
-  }
+  const n = loadFavs().length;
+  document.querySelectorAll('[data-fav-count]').forEach(el => {
+    el.textContent = n > 0 ? String(n) : '';
+  });
+}
 
   function markButtons() {
     document.querySelectorAll('[data-fav-btn]').forEach(btn => {
