@@ -1,6 +1,7 @@
 .idea
 .DS_Store
 myenv
+uploads
 staticfiles
 # Created by https://www.gitignore.io
 .env

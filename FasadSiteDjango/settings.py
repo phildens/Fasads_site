@@ -21,7 +21,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -31,9 +30,7 @@ SECRET_KEY = 'django-insecure-osykeufd%)o^tok%1c^dmw_bbgf79-76js009c$_$#=gqim3v7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['modernfasad.ru', '164.215.97.73', '127.0.0.1','localhost', '*']
-
-
+ALLOWED_HOSTS = ['modernfasad.ru', '164.215.97.73', '127.0.0.1', 'localhost', '*']
 
 # Application definition
 
@@ -49,6 +46,8 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "articles",
+    'characteristics.apps.CharacteristicsConfig',  # новое
+    'gallery.apps.GalleryConfig',
 ]
 CKEDITOR_CONFIGS = {
     "article": {
@@ -58,7 +57,9 @@ CKEDITOR_CONFIGS = {
         "toolbar_Custom": [
             {"name": "styles", "items": ["Format", "Styles"]},
             {"name": "basicstyles", "items": ["Bold", "Italic", "Underline", "Strike", "-", "RemoveFormat"]},
-            {"name": "paragraph", "items": ["NumberedList", "BulletedList", "-", "Outdent", "Indent", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"]},
+            {"name": "paragraph",
+             "items": ["NumberedList", "BulletedList", "-", "Outdent", "Indent", "-", "JustifyLeft", "JustifyCenter",
+                       "JustifyRight", "JustifyBlock"]},
             {"name": "links", "items": ["Link", "Unlink"]},
             {"name": "insert", "items": ["Image", "Table", "HorizontalRule"]},
             {"name": "clipboard", "items": ["Undo", "Redo"]},
@@ -73,8 +74,8 @@ CKEDITOR_CONFIGS = {
         "stylesSet": [
             {"name": "2 колонки", "element": "div", "attributes": {"class": "columns-2"}},
             {"name": "3 колонки", "element": "div", "attributes": {"class": "columns-3"}},
-            {"name": "Заметка",   "element": "div", "attributes": {"class": "note"}},
-            {"name": "Цитата",    "element": "blockquote", "attributes": {"class": "quote"}},
+            {"name": "Заметка", "element": "div", "attributes": {"class": "note"}},
+            {"name": "Цитата", "element": "blockquote", "attributes": {"class": "quote"}},
             {"name": "Мелкий подпункт", "element": "p", "attributes": {"class": "small"}}
         ],
     }
@@ -111,12 +112,9 @@ TEMPLATES = [
     },
 ]
 
-
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-DATABASES ={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
-
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -136,7 +134,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -147,7 +144,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
