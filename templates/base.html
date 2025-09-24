@@ -74,6 +74,9 @@
 </head>
 <body>
 <!-- ======= МОБИЛЬНЫЙ ХЕДЕР: логотип + избранное ======= -->
+ <div style="width: 100%;backdrop-filter: blur(8px);position: fixed;z-index: 100;top: 0;
+  left: 0;  padding-top: 8px;       /* важно */
+  right: 0;padding-bottom: 10px;">
 <div id="mobileHeaderLeft">
   <a href="{% url 'home' %}" id="mobileLogo" aria-label="Главная">
     <img src="{% static 'imgfolder/header.png' %}" alt="Логотип" />
@@ -84,10 +87,11 @@
     <span class="fav-badge" data-fav-count></span>
   </a>
 </div>
-
+</div>
 <style>
   #mobileHeaderLeft {
-    position: fixed;
+    
+    backdrop-filter: blur(8px);
     top: 16px;
     left: 16px;
     z-index: 1005;

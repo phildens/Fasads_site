@@ -675,8 +675,10 @@ textarea::placeholder{
   border: none;
 }
 .mr-btn--ghost{
-  background: #ffffff;
-  color: rgba(43, 41, 47, 1);
+  
+  background-color: #F5F5F5;
+  color: #2B292F;
+    
 }
 .mr-btn--primary{
   background:rgba(50, 127, 0, 1);
