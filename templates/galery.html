@@ -4,552 +4,641 @@
 {% block title %}Галерея объектов{% endblock %}
 
 {% block content %}
-<div style="margin-top: 120px;"></div>
-<div style="display:flex;
+    <div style="margin-top: 120px;"></div>
+    <div style="display:flex;
   justify-content:center;   /* по центру горизонтально */
   width:100%;">
-  <div class="gallery-grid">
-    {% for item in items %}
-      <div class="gallery-card" data-id="{{ item.id }}">
-        {# карточка в списке #}
-        {% if item.card_image %}
-          <img src="{{ item.card_image.url }}"
-               alt="{{ item.name }}"
-               class="card-thumb">
-        {% endif %}
-        <div class="card-title">{{ item.name }}</div>
+        <div class="gallery-grid">
+            {% for item in items %}
+                <div class="gallery-card" data-id="{{ item.id }}">
+                    {# карточка в списке #}
+                    {% if item.card_image %}
+                        <img src="{{ item.card_image.url }}"
+                             alt="{{ item.name }}"
+                             class="card-thumb">
+                    {% endif %}
+                    <div class="card-title">{{ item.name }}</div>
 
-        {# точка, при клике на которую показывается подсказка #}
-        <img src="{% static 'imgfolder/dot.png' %}" class="card-dot" data-id="{{ item.id }}">
-        
-        
-        {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
-        <div  class="card-tooltip" id="tooltip-{{ item.id }}">
-          <p class="tooltip-text"
-   style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;">
-  {{ item.product|escape }}
-</p>
+                    {# точка, при клике на которую показывается подсказка #}
+                    <img src="{% static 'imgfolder/dot.png' %}" class="card-dot" data-id="{{ item.id }}">
 
-</div>
 
-        {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
-        <div class="modal" id="modal-{{ item.id }}">
-          <div class="modal-content">
-            <span class="close" data-id="{{ item.id }}">&times;</span>
+                    {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
+                    <div class="card-tooltip" id="tooltip-{{ item.id }}">
+                        <p class="tooltip-text"
+                           style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;">
+                            {{ item.product|escape }}
+                        </p>
 
-            <!-- контейнер слайдов -->
-            <div class="slides-container" data-id="{{ item.id }}">
-            {% for slide in item.images.all %}
-              <div class="slide" style="--bg: url('{{ slide.image.url }}')">
-                  <img src="{{ slide.image.url }}" alt="{{ item.name }}">
-              </div>
-        {% endfor %}
-</div>
+                    </div>
 
-            <!-- стрелки -->
-           
-            <!-- точки -->
-            <div class="dots" data-id="{{ item.id }}">
-              {% for slide in item.images.all %}
-                <span class="dot" data-id="{{ item.id }}" data-index="{{ forloop.counter0 }}"></span>
-              {% endfor %}
-            </div>
-          </div>
+                    {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
+                    <div class="modal" id="modal-{{ item.id }}">
+                        <div class="modal-content">
+                            <span class="close" data-id="{{ item.id }}">&times;</span>
+
+                            <!-- контейнер слайдов -->
+                            <div class="slides-container" data-id="{{ item.id }}">
+                                {% for slide in item.images.all %}
+                                    <div class="slide" style="--bg: url('{{ slide.image.url }}')">
+                                        <img src="{{ slide.image.url }}" alt="{{ item.name }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- стрелки -->
+
+                            <!-- точки -->
+                            <div class="dots" data-id="{{ item.id }}">
+                                {% for slide in item.images.all %}
+                                    <span class="dot" data-id="{{ item.id }}"
+                                          data-index="{{ forloop.counter0 }}"></span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {# --- /МОДАЛКА --- #}
+
+                </div>
+            {% empty %}
+                <p>Галерея пуста.</p>
+            {% endfor %}
         </div>
-        {# --- /МОДАЛКА --- #}
 
-      </div>
-    {% empty %}
-      <p>Галерея пуста.</p>
-    {% endfor %}
-  </div>
-</div>
-<div style="margin-top: 120px;"></div>
-  <script>
-    const slideIndices = {};
-  const autoTimers = {};
+    </div>
+    <div style="display:flex;
+  justify-content:center;   /* по центру горизонтально */
+  width:100%;">
+        <div class="gallery-grid">
+            {% for item in not_supplies %}
+                <div class="gallery-card" data-id="{{ item.id }}">
+                    {# карточка в списке #}
+                    {% if item.card_image %}
+                        <img src="{{ item.card_image.url }}"
+                             alt="{{ item.name }}"
+                             class="card-thumb">
+                    {% endif %}
+                    <div class="card-title">{{ item.name }}</div>
 
-
-
-
-
-  // Открытие модалки при клике на карточку
-  document.querySelectorAll('.card-thumb').forEach(img => {
-    img.addEventListener('click', e => {
-      const id = e.target.closest('.gallery-card').dataset.id;
-      openSlider(id);
-    });
-  });
-
-  // Закрытие модалки по кнопке
-  document.querySelectorAll('.close').forEach(btn => {
-    btn.addEventListener('click', () => closeModal(btn.dataset.id));
-  });
-  // Закрытие по клику на фон
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', e => {
-      if (e.target === modal) closeModal(modal.id.replace('modal-',''));
-    });
-  });
-  // Показываем/скрываем подсказку при клике на точку
-  document.querySelectorAll('.card-dot').forEach(dot => {
-  const id = dot.dataset.id;
-  const tip = document.getElementById(`tooltip-${id}`);
-  let pinned = false;
-
-  // Наведение — показываем, если не закреплено
-  dot.addEventListener('mouseenter', () => {
-    if (!pinned) {
-      tip.classList.add('visible');
-    }
-  });
-
-  // Уход мышки — скрываем, если не закреплено
-  dot.addEventListener('mouseleave', () => {
-    setTimeout(() => {
-      if (!pinned && !tip.matches(':hover')) {
-        tip.classList.remove('visible');
-      }
-    }, 150);
-  });
-
-  // Клик — переключает закрепление
-  dot.addEventListener('click', () => {
-    pinned = !pinned;
-    if (pinned) {
-      tip.classList.add('visible');
-    } else {
-      tip.classList.remove('visible');
-    }
-  });
-
-  // Если мышка ушла с самой подсказки — скрываем, если не закреплено
-  tip.addEventListener('mouseleave', () => {
-    if (!pinned) {
-      tip.classList.remove('visible');
-    }
-  });
-
-  // Навёлся на подсказку — оставляем открытой
-  tip.addEventListener('mouseenter', () => {
-    tip.classList.add('visible');
-  });
-});
+                    {# точка, при клике на которую показывается подсказка #}
+                    <img src="{% static 'imgfolder/dot.png' %}" class="card-dot" data-id="{{ item.id }}">
 
 
+                    {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
+                    <div class="card-tooltip" id="tooltip-{{ item.id }}">
+                        <p class="tooltip-text"
+                           style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;">
+                            {{ item.product|escape }}
+                        </p>
 
-  function openSlider(id) {
-    const modal = document.getElementById(`modal-${id}`);
-    modal.style.display = 'flex';
-    slideIndices[id] = 0;
-    showSlide(id, 0);
+                    </div>
+
+                    {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
+                    <div class="modal" id="modal-{{ item.id }}">
+                        <div class="modal-content">
+                            <span class="close" data-id="{{ item.id }}">&times;</span>
+
+                            <!-- контейнер слайдов -->
+                            <div class="slides-container" data-id="{{ item.id }}">
+                                {% for slide in item.images.all %}
+                                    <div class="slide" style="--bg: url('{{ slide.image.url }}')">
+                                        <img src="{{ slide.image.url }}" alt="{{ item.name }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- стрелки -->
+
+                            <!-- точки -->
+                            <div class="dots" data-id="{{ item.id }}">
+                                {% for slide in item.images.all %}
+                                    <span class="dot" data-id="{{ item.id }}"
+                                          data-index="{{ forloop.counter0 }}"></span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {# --- /МОДАЛКА --- #}
+
+                </div>
+            {% empty %}
+                <p>Галерея пуста.</p>
+            {% endfor %}
+        </div>
     
-    // навешиваем управление
-    
-    modal.querySelectorAll(`.dot[data-id=\"${id}\"]`).forEach(dot => dot.onclick = () => showSlide(id, +dot.dataset.index));
-
-    // автопрокрутка
-    clearInterval(autoTimers[id]);
-    autoTimers[id] = setInterval(() => changeSlide(id, 1), 5000);
-  }
-
-  function closeModal(id) {
-    const modal = document.getElementById(`modal-${id}`);
-    modal.style.display = 'none';
-    clearInterval(autoTimers[id]);
-  }
-
-  function changeSlide(id, delta) {
-    const count = document.querySelectorAll(`#modal-${id} .slide`).length;
-    let idx = slideIndices[id] + delta;
-    if (idx < 0) idx = count - 1;
-    if (idx >= count) idx = 0;
-    showSlide(id, idx);
-  }
-
-  function showSlide(id, n) {
-    const modal = document.getElementById(`modal-${id}`);
-    const container = modal.querySelector('.slides-container');
-    // сдвиг контейнера
-    container.style.transform = `translateX(-${n * 100}%)`;
-    // обновляем точки
-    modal.querySelectorAll(`.dot[data-id=\"${id}\"]`).forEach((d,i) => d.classList.toggle('active', i===n));
-    slideIndices[id] = n;
-  }
-  document.querySelectorAll('.tooltip-text').forEach(el => {
-  el.innerHTML = el.textContent.trim().replace(/\s+/g, '\n'); // каждое слово с новой строки
-});
-  </script>
-
-  <style>
-    .gallery-grid{
-  display:grid;
-  gap:30px;
-}
-
-/* 3 колонки */
-@media (min-width: 1110px){
-  .gallery-grid{ grid-template-columns: repeat(3, 370px); }
-}
-
-/* 2 колонки */
-@media (max-width: 1110px) and (min-width: 740px){
-  .gallery-grid{ grid-template-columns: repeat(2, 370px); }
-}
-
-/* 1 колонка */
-@media (max-width: 739px){
-  .gallery-grid{ grid-template-columns: 370px; }
-}
-
-/* очень узкие экраны — чтобы не было горизонтального скролла */
-@media (max-width: 400px){
-  .gallery-grid{ grid-template-columns: min(370px, 100% - 32px); }
-}
-
-    .gallery-card {
-      width: 370px;
-      height: 454px;
-      position: relative;
-      cursor: pointer;
-      overflow: hidden;
-      border-radius: 8px;
-    }
-    .card-thumb { width: 100%; }
-    .card-title {
-      position: absolute;
-      bottom: 36px;
-      left: 25px;
-      color: rgba(255,255,255,1);
-      font-size:24px;
-      line-height:100%;
-      font-weight:500;
-      font-family:'head';
-      width:270px;
-      overflow: hidden;
-      text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    /* точка */
-    .card-dot {
-      position: absolute;
-      top: 47%;
-      left: 40%;
-      width: 12px;
-      height: 12px;
-      background: #fff;
-      border-radius: 50%;
-      cursor: pointer;
-      transform: translate(-50%, -50%);
-    }
-    /* подсказка */
-    .card-tooltip {
-  
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-  position: absolute;
-  top: 26%;
-  left: 24%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.9);
-  border-radius: 4px;
-  color: rgba(0, 0, 0, 1);
-  font-size: 16px;
-  min-width: 98px;
-  min-height: 89px;
-  line-height: 100%;
-  text-align: center;
-  vertical-align: middle;
-  font-family: 'head';
-  text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
-  pointer-events: none; /* чтобы не мигало при исчезновении */
-  
-}
-
-.card-tooltip.visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-    /* --- MODAL SIZING --- */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(4px);
-  z-index: 99999999999;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  position: relative;
-  width: min(90vw, 667px);
-  height: min(90vh, 818px);
-  overflow: hidden;              /* чтобы всё, включая блюр, клипалось по радиусу */
-  border-radius: 8px;            /* общий радиус на контейнер */
-  background: #000;              /* на всякий случай фон */
-}
-
-/* --- SLIDER LAYOUT --- */
-.slides-container {
-  display: flex;
-  width: 100%;
-  height: 100%;                  /* важно: растягиваем по высоте контейнера */
-  transition: transform 0.5s ease;
-}
-
-.slide {
-  position: relative;
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;              /* клип по радиусу контейнера */
-}
-
-/* Блюр под изображением: заполняем свободное пространство */
-.slide::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--bg);
-  background-size: cover;
-  background-position: center;
-  filter: blur(20px);
-  transform: scale(1.1);         /* чтобы не было видимых краёв после blur */
-  z-index: 0;                    /* ниже изображения */
-}
-
-/* Само изображение — строго внутри, по центру, со скруглениями всех углов */
-.slide img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;           /* ключ: целиком помещается и центрируется */
-  border-radius: inherit;        /* унаследовать 8px от родителя */
-}
-
-/* Стрелки/крестик/точки поверх блюра и картинки */
-.prev, .next, .close, .dots {
-  position: absolute;
-  z-index: 2;
-}
-
-/* Если используешь стрелки — оставляю как было */
-.prev, .next {
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: rgba(247,247,247,1);
-  padding: 0 .5rem;
-  cursor: pointer;
-  user-select: none;
-}
-.prev { left: 10px; }
-.next { right: 10px; }
-
-/* Точки-индикаторы */
-.dots {
-  left: 50%;
-  bottom: 5%;
-  transform: translateX(-50%);   /* аккурат по центру */
-  text-align: center;
-}
-.dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0 4px;
-  background: rgba(247,247,247,1);
-  border-radius: 50%;
-  cursor: pointer;
-}
-.dot.active { background: rgba(217,217,217,0.67); }
-
-/* Крестик */
-.close {
-  top: 16px;                     /* можно вернуть твои отступы 37/48 если хочется */
-  right: 16px;
-  font-size: 2rem;
-  color: #fff;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  cursor: pointer;
-}
-
-/* (Необязательно) затемнение сверху, если нравится эффект */
-.modal-content::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.12);
-  pointer-events: none;
-  z-index: 1; /* ниже крестика/точек, но выше блюра */
-}
+    </div>
+    <div style="margin-top: 120px;"></div>
+    <script>
+        const slideIndices = {};
+        const autoTimers = {};
 
 
+        // Открытие модалки при клике на карточку
+        document.querySelectorAll('.card-thumb').forEach(img => {
+            img.addEventListener('click', e => {
+                const id = e.target.closest('.gallery-card').dataset.id;
+                openSlider(id);
+            });
+        });
 
-/* === РЕЗИНОВЫЙ ТУЛТИП (только CSS) === */
+        // Закрытие модалки по кнопке
+        document.querySelectorAll('.close').forEach(btn => {
+            btn.addEventListener('click', () => closeModal(btn.dataset.id));
+        });
+        // Закрытие по клику на фон
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', e => {
+                if (e.target === modal) closeModal(modal.id.replace('modal-', ''));
+            });
+        });
+        // Показываем/скрываем подсказку при клике на точку
+        document.querySelectorAll('.card-dot').forEach(dot => {
+            const id = dot.dataset.id;
+            const tip = document.getElementById(`tooltip-${id}`);
+            let pinned = false;
 
-/* точка — оставим как есть (если нужно, подправь позицию) */
-.card-dot{
-  position:absolute;
-  top:47%;
-  left:40%;
-  width:12px;height:12px;border-radius:50%;
-  background:#fff;cursor:pointer;transform:translate(-50%,-50%);
-  box-shadow:0 0 0 2px rgba(0,0,0,.15);
-  z-index:3;
-}
+            // Наведение — показываем, если не закреплено
+            dot.addEventListener('mouseenter', () => {
+                if (!pinned) {
+                    tip.classList.add('visible');
+                }
+            });
 
-/* тултип: вверх и влево от точки, ширина по содержимому */
-.card-tooltip{
-  position:absolute;
-  /* ставим якорь на точку: те же top/left, что и у .card-dot */
-  top:47%;
-  left:40%;
-  /* сначала уводим левый/верхний край на точку, потом даём зазор */
-  transform: translate(-100%, -100%) translate(-10px, -10px);
+            // Уход мышки — скрываем, если не закреплено
+            dot.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    if (!pinned && !tip.matches(':hover')) {
+                        tip.classList.remove('visible');
+                    }
+                }, 150);
+            });
 
-  display:inline-block;
-  width:max-content;        /* ширина по содержимому */
-  min-width:120px;          /* но не меньше (по вкусу) */
-  max-width:260px;          /* чтобы не разъезжался слишком широко */
+            // Клик — переключает закрепление
+            dot.addEventListener('click', () => {
+                pinned = !pinned;
+                if (pinned) {
+                    tip.classList.add('visible');
+                } else {
+                    tip.classList.remove('visible');
+                }
+            });
 
-  padding:10px 14px;
-  background:rgba(255,255,255,.92);
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,.18);
-  color:#000;
-  font:16px/1.3 'head', sans-serif;
-  overflow: visible;
-  z-index: 9999;  /* поверх карточки */
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .18s ease;
-  
-  /* СБРОС старых жёстких размеров */
-  min-height:0 !important;
-  min-width:0 !important;
-}
+            // Если мышка ушла с самой подсказки — скрываем, если не закреплено
+            tip.addEventListener('mouseleave', () => {
+                if (!pinned) {
+                    tip.classList.remove('visible');
+                }
+            });
 
-/* стрелочка к точке */
-.card-tooltip::after{
-  content:"";
-  position:absolute;
-  bottom:-8px;              /* «смотрит» на точку снизу */
-  right:6px;
-  border:8px solid transparent;
-  border-top-color:rgba(255,255,255,.92);
-}
-
-/* показываем (класс уже есть в твоём JS) */
-.card-tooltip.visible{
-  opacity:1; visibility:visible; pointer-events:auto;
-}
-
-/* текст внутри — переносы и без фикс-высот */
-.card-tooltip .tooltip-text{
-  display:block !important;
-  margin:0 !important;
-  height:auto !important;
-  min-width:0 !important;
-  white-space:pre-wrap;     /* сохраняем \n из БД */
-  overflow-wrap:anywhere;   /* переносим очень длинные слова */
-  word-break:normal;
-}
-
-/* если текст пустой — можно спрятать тултип (совр. браузеры) */
-.card-tooltip:has(.tooltip-text:empty){ display:none; }
-
-/* На всякий случай отключим старые размеры у старого тултипа, если он где-то остался */
-.gallery-card > .card-tooltip{
-  min-width:0 !important; min-height:0 !important; height:auto !important;
-}
+            // Навёлся на подсказку — оставляем открытой
+            tip.addEventListener('mouseenter', () => {
+                tip.classList.add('visible');
+            });
+        });
 
 
+        function openSlider(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            modal.style.display = 'flex';
+            slideIndices[id] = 0;
+            showSlide(id, 0);
 
-/* 1) тултип привязываем к той же точке и растим вверх-влево */
-.card-tooltip{
-  /* совпасть с координатами .card-dot (у тебя: top:47%; left:40%) */
-  top:47%;
-  left:40%;
-  transform: translate(-100%, -100%) translate(-10px, -10px); /* зазор */
+            // навешиваем управление
 
-  position:absolute;
-  display:inline-block;
-  width:max-content;
-  max-width:260px;
+            modal.querySelectorAll(`.dot[data-id=\"${id}\"]`).forEach(dot => dot.onclick = () => showSlide(id, +dot.dataset.index));
 
-  padding:10px 14px;
-  background:rgba(255,255,255,.92);
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,.18);
-  color:#000;
-  font:16px/1.3 'head', sans-serif;
+            // автопрокрутка
+            clearInterval(autoTimers[id]);
+            autoTimers[id] = setInterval(() => changeSlide(id, 1), 5000);
+        }
 
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .18s ease;
+        function closeModal(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            modal.style.display = 'none';
+            clearInterval(autoTimers[id]);
+        }
 
-  z-index:1000;     /* поверх карточки */
-  overflow:visible; /* сам тултип не режем */
-}
+        function changeSlide(id, delta) {
+            const count = document.querySelectorAll(`#modal-${id} .slide`).length;
+            let idx = slideIndices[id] + delta;
+            if (idx < 0) idx = count - 1;
+            if (idx >= count) idx = 0;
+            showSlide(id, idx);
+        }
 
-/* стрелочка к точке (опционально) */
-.card-tooltip::after{
-  content:"";
-  position:absolute;
-  bottom:-8px;               /* «смотрит» на точку */
-  right:6px;
-  border:8px solid transparent;
-  border-top-color:rgba(255,255,255,.92);
-}
+        function showSlide(id, n) {
+            const modal = document.getElementById(`modal-${id}`);
+            const container = modal.querySelector('.slides-container');
+            // сдвиг контейнера
+            container.style.transform = `translateX(-${n * 100}%)`;
+            // обновляем точки
+            modal.querySelectorAll(`.dot[data-id=\"${id}\"]`).forEach((d, i) => d.classList.toggle('active', i === n));
+            slideIndices[id] = n;
+        }
 
-/* показать (класс уже есть в твоём JS) */
-.card-tooltip.visible{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-}
+        document.querySelectorAll('.tooltip-text').forEach(el => {
+            el.innerHTML = el.textContent.trim().replace(/\s+/g, '\n'); // каждое слово с новой строки
+        });
+    </script>
 
-/* 2) снять жёсткие inline-стили у текста (перебиваем !important) */
-.card-tooltip .tooltip-text{
-  display:block !important;
-  margin:0 !important;
-  height:auto !important;
-  min-width:0 !important;
-  padding:10px 14px !important;
+    <style>
+        .gallery-grid {
+            display: grid;
+            gap: 30px;
+        }
 
-  white-space:pre-wrap !important;  /* сохраняем \n */
-  overflow-wrap:anywhere;
-  word-break:normal;
-}
+        /* 3 колонки */
+        @media (min-width: 1110px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 370px);
+            }
+        }
 
-/* 3) когда тултип виден — только тогда позволяем выходить за карточку */
-.gallery-card:has(.card-tooltip.visible){
-  overflow: visible;        /* временно */
-  z-index: 20;              /* над соседями */
-}
+        /* 2 колонки */
+        @media (max-width: 1110px) and (min-width: 740px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 370px);
+            }
+        }
 
-/* чтобы визуально скругления сохранились, скругляем саму картинку */
-.gallery-card .card-thumb{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:12px;
-}
+        /* 1 колонка */
+        @media (max-width: 739px) {
+            .gallery-grid {
+                grid-template-columns: 370px;
+            }
+        }
+
+        /* очень узкие экраны — чтобы не было горизонтального скролла */
+        @media (max-width: 400px) {
+            .gallery-grid {
+                grid-template-columns: min(370px, 100% - 32px);
+            }
+        }
+
+        .gallery-card {
+            width: 370px;
+            height: 454px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .card-thumb {
+            width: 100%;
+        }
+
+        .card-title {
+            position: absolute;
+            bottom: 36px;
+            left: 25px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 24px;
+            line-height: 100%;
+            font-weight: 500;
+            font-family: 'head';
+            width: 270px;
+            overflow: hidden;
+            text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* точка */
+        .card-dot {
+            position: absolute;
+            top: 47%;
+            left: 40%;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+        }
+
+        /* подсказка */
+        .card-tooltip {
+
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 26%;
+            left: 24%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            color: rgba(0, 0, 0, 1);
+            font-size: 16px;
+            min-width: 98px;
+            min-height: 89px;
+            line-height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            font-family: 'head';
+            text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+            pointer-events: none; /* чтобы не мигало при исчезновении */
+
+        }
+
+        .card-tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* --- MODAL SIZING --- */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            backdrop-filter: blur(4px);
+            z-index: 99999999999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            width: min(90vw, 667px);
+            height: min(90vh, 818px);
+            overflow: hidden; /* чтобы всё, включая блюр, клипалось по радиусу */
+            border-radius: 8px; /* общий радиус на контейнер */
+            background: #000; /* на всякий случай фон */
+        }
+
+        /* --- SLIDER LAYOUT --- */
+        .slides-container {
+            display: flex;
+            width: 100%;
+            height: 100%; /* важно: растягиваем по высоте контейнера */
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            position: relative;
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* клип по радиусу контейнера */
+        }
+
+        /* Блюр под изображением: заполняем свободное пространство */
+        .slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--bg);
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px);
+            transform: scale(1.1); /* чтобы не было видимых краёв после blur */
+            z-index: 0; /* ниже изображения */
+        }
+
+        /* Само изображение — строго внутри, по центру, со скруглениями всех углов */
+        .slide img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* ключ: целиком помещается и центрируется */
+            border-radius: inherit; /* унаследовать 8px от родителя */
+        }
+
+        /* Стрелки/крестик/точки поверх блюра и картинки */
+        .prev, .next, .close, .dots {
+            position: absolute;
+            z-index: 2;
+        }
+
+        /* Если используешь стрелки — оставляю как было */
+        .prev, .next {
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: rgba(247, 247, 247, 1);
+            padding: 0 .5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Точки-индикаторы */
+        .dots {
+            left: 50%;
+            bottom: 5%;
+            transform: translateX(-50%); /* аккурат по центру */
+            text-align: center;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+            background: rgba(247, 247, 247, 1);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: rgba(217, 217, 217, 0.67);
+        }
+
+        /* Крестик */
+        .close {
+            top: 16px; /* можно вернуть твои отступы 37/48 если хочется */
+            right: 16px;
+            font-size: 2rem;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* (Необязательно) затемнение сверху, если нравится эффект */
+        .modal-content::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.12);
+            pointer-events: none;
+            z-index: 1; /* ниже крестика/точек, но выше блюра */
+        }
 
 
-  
-  
-  </style>
+        /* === РЕЗИНОВЫЙ ТУЛТИП (только CSS) === */
+
+        /* точка — оставим как есть (если нужно, подправь позицию) */
+        .card-dot {
+            position: absolute;
+            top: 47%;
+            left: 40%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, .15);
+            z-index: 3;
+        }
+
+        /* тултип: вверх и влево от точки, ширина по содержимому */
+        .card-tooltip {
+            position: absolute;
+            /* ставим якорь на точку: те же top/left, что и у .card-dot */
+            top: 47%;
+            left: 40%;
+            /* сначала уводим левый/верхний край на точку, потом даём зазор */
+            transform: translate(-100%, -100%) translate(-10px, -10px);
+
+            display: inline-block;
+            width: max-content; /* ширина по содержимому */
+            min-width: 120px; /* но не меньше (по вкусу) */
+            max-width: 260px; /* чтобы не разъезжался слишком широко */
+
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, .92);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+            color: #000;
+            font: 16px/1.3 'head', sans-serif;
+            overflow: visible;
+            z-index: 9999; /* поверх карточки */
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .18s ease;
+
+            /* СБРОС старых жёстких размеров */
+            min-height: 0 !important;
+            min-width: 0 !important;
+        }
+
+        /* стрелочка к точке */
+        .card-tooltip::after {
+            content: "";
+            position: absolute;
+            bottom: -8px; /* «смотрит» на точку снизу */
+            right: 6px;
+            border: 8px solid transparent;
+            border-top-color: rgba(255, 255, 255, .92);
+        }
+
+        /* показываем (класс уже есть в твоём JS) */
+        .card-tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* текст внутри — переносы и без фикс-высот */
+        .card-tooltip .tooltip-text {
+            display: block !important;
+            margin: 0 !important;
+            height: auto !important;
+            min-width: 0 !important;
+            white-space: pre-wrap; /* сохраняем \n из БД */
+            overflow-wrap: anywhere; /* переносим очень длинные слова */
+            word-break: normal;
+        }
+
+        /* если текст пустой — можно спрятать тултип (совр. браузеры) */
+        .card-tooltip:has(.tooltip-text:empty) {
+            display: none;
+        }
+
+        /* На всякий случай отключим старые размеры у старого тултипа, если он где-то остался */
+        .gallery-card > .card-tooltip {
+            min-width: 0 !important;
+            min-height: 0 !important;
+            height: auto !important;
+        }
+
+
+        /* 1) тултип привязываем к той же точке и растим вверх-влево */
+        .card-tooltip {
+            /* совпасть с координатами .card-dot (у тебя: top:47%; left:40%) */
+            top: 47%;
+            left: 40%;
+            transform: translate(-100%, -100%) translate(-10px, -10px); /* зазор */
+
+            position: absolute;
+            display: inline-block;
+            width: max-content;
+            max-width: 260px;
+
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, .92);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+            color: #000;
+            font: 16px/1.3 'head', sans-serif;
+
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .18s ease;
+
+            z-index: 1000; /* поверх карточки */
+            overflow: visible; /* сам тултип не режем */
+        }
+
+        /* стрелочка к точке (опционально) */
+        .card-tooltip::after {
+            content: "";
+            position: absolute;
+            bottom: -8px; /* «смотрит» на точку */
+            right: 6px;
+            border: 8px solid transparent;
+            border-top-color: rgba(255, 255, 255, .92);
+        }
+
+        /* показать (класс уже есть в твоём JS) */
+        .card-tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* 2) снять жёсткие inline-стили у текста (перебиваем !important) */
+        .card-tooltip .tooltip-text {
+            display: block !important;
+            margin: 0 !important;
+            height: auto !important;
+            min-width: 0 !important;
+            padding: 10px 14px !important;
+
+            white-space: pre-wrap !important; /* сохраняем \n */
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        /* 3) когда тултип виден — только тогда позволяем выходить за карточку */
+        .gallery-card:has(.card-tooltip.visible) {
+            overflow: visible; /* временно */
+            z-index: 20; /* над соседями */
+        }
+
+        /* чтобы визуально скругления сохранились, скругляем саму картинку */
+        .gallery-card .card-thumb {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+
+    </style>
 {% endblock %}
