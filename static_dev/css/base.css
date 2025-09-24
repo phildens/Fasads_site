@@ -36,14 +36,61 @@
 .active,
 .accordion-tab:hover {
 }
+.active {
+
+}
 
 /* Стили для панели аккордеона */
 .accordion-panel {
     align-content: center;
     padding: 0 18px;
+ margin-bottom: 5px;
     overflow: hidden;
     height: 0;
     transition: max-height 0.2s ease-out;
+}
+
+
+/* Кнопка вопроса */
+.accordion-tab {
+    position: relative;          /* нужно для позиционирования стрелки */
+    cursor: pointer;
+    color: black;
+    width: 100%;
+    padding: 30px 44px 30px 10px; /* добавили правый паддинг под стрелку */
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 22px;
+    transition: 0.4s;
+    background-color: #F5F5F5;   /* чтобы не зависеть от родителя */
+    appearance: none;            /* убрать системные стили кнопки */
+}
+
+/* Стрелка справа (иконка из бордеров) */
+.accordion-tab::after {
+    content: "";
+    position: absolute;
+    right: 16px;                 /* отступ от правого края */
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -7px;            /* вертикальное выравнивание по центру */
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(45deg);    /* стрелка вниз */
+    transition: transform .28s ease;
+    pointer-events: none;        /* клики проходят на кнопку */
+}
+
+/* Когда вкладка активна — поворачиваем стрелку вверх */
+.accordion-tab.active::after {
+    transform: rotate(-135deg);
+}
+
+/* (опционально) легкая реакция при ховере */
+.accordion-tab:hover::after {
+    transform: rotate(45deg) translateY(0.5px);
 }
 
 .mini-headr {
