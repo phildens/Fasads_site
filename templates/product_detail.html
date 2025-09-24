@@ -76,6 +76,7 @@
         .main-photo img.main-img {
             width: 100%;
             height: 520px;
+            border-radius: 10px;
             object-fit: cover;
             display: block
         }
@@ -124,6 +125,7 @@
                 padding: 8px;
                 overflow: auto;
                 background: transparent;
+                margin-bottom: 10px;
                 margin-top: 12px;
                 gap: 10px
             }
@@ -181,6 +183,7 @@
         }
         .call-btn {
             background:#fff;
+            color: #422223;
             border:1px solid #422223;
             height: 49px;
             border-radius:10px;
@@ -281,6 +284,10 @@
             width: 98px;
             height: 98px;
         }
+        /* Скрываем значение по умолчанию */
+
+
+
 
         /* Внутренний блок — тоже 98×98 */
         .spec {
@@ -398,8 +405,8 @@
             .specs {
                 display: flex; /* слайдер */
                 gap: 12px;
-                margin: 16px 0 8px;
-                padding: 6px 12px 6px 18px; /* ВАЖНО: небольшой левый отступ, чтобы круг не обрезался */
+                margin: 6px 0 8px;
+                padding: 26px 12px 6px 1px; /* ВАЖНО: небольшой левый отступ, чтобы круг не обрезался */
                 overflow-x: auto;
                 overflow-y: visible;
                 scroll-snap-type: x mandatory;
@@ -409,8 +416,9 @@
             .spec-wrapper {
                 flex: 0 0 98px; /* фиксированная ширина плитки в ленте */
                 width: 98px;
+                margin-left: 13px;
                 height: 98px;
-                scroll-snap-align: start;
+                {#scroll-snap-align: start;#}
             }
 
             .spec {
@@ -421,7 +429,7 @@
 
             .spec-icon {
                 left: -14px;
-                top: 6px; /* компактнее на мобилке */
+                top: -10px; /* компактнее на мобилке */
                 width: 26px;
                 height: 26px;
                 font-size: 12px
@@ -615,6 +623,8 @@
       const val = el('div', 'spec__value', attr.value);
       box.appendChild(lab);
       box.appendChild(val);
+      wrap.setAttribute("title", attr.value);
+
       wrap.appendChild(icon);
       wrap.appendChild(box);
       specs.appendChild(wrap);
