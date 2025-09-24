@@ -210,6 +210,7 @@ class BigGalery(models.Model):
                                 verbose_name="Товар отображаемый при наведении на точку")
     card_image = models.ImageField(null=True, blank=True, help_text="Изображение в галерее",
                                    verbose_name='Фото карточки объекта в общем списке')
+    our_supplies = models.BooleanField(null=True, blank=True,verbose_name='Наши поставки')
 
     class Meta:
         verbose_name = "Галерея объектов"

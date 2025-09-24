@@ -96,7 +96,7 @@ class SmallGalleryInline(admin.TabularInline):
 @admin.register(BigGaleryProxy)
 class BigGaleryProxyAdmin(admin.ModelAdmin):
     inlines = [SmallGalleryInline]
-    list_display = ('position', 'name', 'product')
+    list_display = ('position', 'name', 'product', 'our_supplies')
 
 @admin.register(GalleryProxy)
 class GalleryProxyAdmin(admin.ModelAdmin):
