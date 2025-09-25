@@ -21,8 +21,11 @@
   display: flex;
   padding-bottom: 18px;
   gap: 30px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .footer-top .footer-menu a {
   color: #422223;
@@ -191,7 +194,7 @@
 /* мобильные ≤ 768 */
 @media (max-width: 768px){
   .footer-top .footer-menu{
-    justify-content: flex-start;
+    
   }
   .footer-top .footer-info-block{
     /*justify-content: flex-start;*/
