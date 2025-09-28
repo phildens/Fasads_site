@@ -1672,7 +1672,7 @@ textarea::placeholder{
           <li><a href="{% url 'catalog_all' %}" class="na-link ">Продукция</a></li>
            <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
           <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
-          <li><a href="{% url 'about' %}" class="nav-link">Контакты</a></li>
+          <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
           <li><a href="tel:+7(951)940-12-49" class="nav-link">+7 (951) 940-12-49<br><p class="a">номер для связи</p></a></li>
           <li><a href="mailto:evrokrovliof@mail.ru" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
 
@@ -2182,7 +2182,7 @@ textarea::placeholder{
  {% include 'contact_main_form.html' %}
     <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
 
-<div class="contacts-section">
+<div class="contacts-section" id="contacts-main">
   <div class="contacts-grid">
     <div class="contacts-card">
       <div class="contacts-title">Расположение</div>
