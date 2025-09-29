@@ -69,12 +69,11 @@
             font-style: normal;
             font-weight: normal;
         }
-
     </style>
 </head>
 <body>
 <!-- ======= МОБИЛЬНЫЙ ХЕДЕР: логотип + избранное ======= -->
- <div style="width: 100%;backdrop-filter: blur(8px);position: fixed;z-index: 100;top: 0;
+ <div class="mobile-header" style="width: 100%;backdrop-filter: blur(8px);position: fixed;z-index: 100;top: 0;
   left: 0;  padding-top: 8px;       /* важно */
   right: 0;padding-bottom: 10px;">
 <div id="mobileHeaderLeft">
@@ -142,9 +141,14 @@
         text-align: center;
         font-family: Muller-medium, sans-serif;
     }
-
+    @media (min-width: 1280px) {
+        .mobile-header {
+            display: none;
+        }
+    }
     /* показываем только на мобильных */
     @media (max-width: 1024px) {
+        
         #mobileHeaderLeft {
             display: flex;
         }
