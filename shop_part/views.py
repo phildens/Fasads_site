@@ -367,7 +367,19 @@ class CategoryProductsAPIView(generics.ListAPIView):
             if kind == "fk":
                 qs = qs.filter(**{f"{field}_id__in": vals})
             elif kind == "m2m":
-                qs = qs.filter(**{f"{field}__id__in": vals}).distinct()
+                ids = [int(v) for v in vals if str(v).isdigit()]
+                if ids:
+                    qs = (
+                        qs.filter(**{f"{field}__id__in": ids})
+                        .annotate(
+                            _sel_cnt=Count(
+                                field,
+                                filter=Q(**{f"{field}__id__in": ids}),
+                                distinct=True
+                            )
+                        )
+                        .filter(_sel_cnt=len(ids))
+                    )
             elif kind == "int":
                 # числа: позволим и "25,30", и "?package_weight_kg=25&package_weight_kg=30"
                 try:
@@ -451,20 +463,59 @@ class CatalogView(TemplateView):
         return ctx
 
 
+from django.db.models import Q, Count
+
 class AllProductsAPIView(generics.ListAPIView):
-    """
-    GET /api/catalog/
-    Возвращает все товары [{id, name, card_image}, ...] в случайном порядке.
-    """
     serializer_class = ProductInCatSerializer
 
     def get_queryset(self):
-        return Product.objects.order_by("?")
+        qs = Product.objects.all().distinct()
 
-    def get_serializer_context(self):
-        ctx = super().get_serializer_context()
-        ctx["request"] = self.request
-        return ctx
+        # применяем все поддерживаемые ключи из FILTER_DEFS, если они есть в запросе
+        for key, cfg in FILTER_DEFS.items():
+            field = cfg["field"]
+            if not hasattr(Product, field):
+                continue
+
+            vals = _getlist(self.request, key)
+            if not vals:
+                continue
+
+            kind = cfg["kind"]
+            if kind == "fk":
+                qs = qs.filter(**{f"{field}_id__in": vals})
+
+            elif kind == "m2m":
+                # ПЕРЕСЕЧЕНИЕ: товар должен содержать все выбранные значения
+                ids = [int(v) for v in vals if str(v).isdigit()]
+                if ids:
+                    qs = (
+                        qs.filter(**{f"{field}__id__in": ids})
+                          .annotate(
+                              _sel_cnt=Count(
+                                  field,
+                                  filter=Q(**{f"{field}__id__in": ids}),
+                                  distinct=True
+                              )
+                          )
+                          .filter(_sel_cnt=len(ids))
+                    )
+
+            elif kind == "int":
+                try:
+                    ints = [int(v) for v in vals]
+                    qs = qs.filter(**{f"{field}__in": ints})
+                except ValueError:
+                    pass
+
+        # серверная сортировка (совместимо с фронтом)
+        ordering = self.request.query_params.get("ordering")
+        if ordering:
+            qs = qs.order_by(ordering)
+        else:
+            qs = qs.order_by("-id")
+
+        return qs
 
 
 from collections import defaultdict
@@ -475,7 +526,7 @@ from rest_framework.response import Response
 from .models import Product
 
 # Поля, по которым строим фильтры (добавьте/уберите свои)
-FILTER_FIELDS = ['manufacturer', 'color', 'material_type', 'product_type']
+FILTER_FIELDS = ['manufacturer', 'color', 'type_material', 'product_type']
 
 
 def _collect_filter_for_field(qs, field_name: str):

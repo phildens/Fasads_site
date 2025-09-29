@@ -878,7 +878,7 @@ function renderSearchPagination(meta){
       } else {
         // обычный каталог
         const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
-        const url = (apiSlug !== "all") ? (base + buildQuery()) : (base + buildQueryForAllSafe());
+        const url = base + buildQuery();
         const res = await fetch(url, {credentials: "same-origin"});
         if (!res.ok) throw new Error("products " + res.status);
         const data = await res.json();
@@ -895,16 +895,10 @@ function renderSearchPagination(meta){
       renderCards([]);
     }
   }
-
-  function buildQueryForAllSafe() {
-    if (state.sort && state.sort !== "default") {
-      const p = new URLSearchParams();
-      p.set("sort", state.sort);
-      p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
-      return "?" + p.toString();
-    }
-    return "";
-  }
+     function buildQueryForAllSafe() {
+  // теперь полная строка запроса, как для категорий
+   return buildQuery(false);
+ }
 
   // actions
   async function applyFiltersNow() {
