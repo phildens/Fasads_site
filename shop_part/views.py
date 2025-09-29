@@ -34,6 +34,23 @@ from django.urls import reverse
 from .models import Product  # проверь импорт
 
 
+class SimilarProductsAPIView(APIView):
+    """
+    GET /api/products/<int:pk>/similar/?limit=8
+    Возвращает [{id, name, card_image}] по той же категории.
+    """
+
+    def get(self, request, pk: int):
+        limit = int(request.GET.get("limit", 8))
+        base = get_object_or_404(Product, pk=pk)
+        qs = (Product.objects
+              .filter(category=base.category)
+              .exclude(id=base.id)
+              .order_by("-id")[:limit])
+        ser = ProductInCatSerializer(qs, many=True, context={"request": request})
+        return Response({"items": ser.data})
+
+
 # --- Страница с результатами: используем твой catalog.html ---
 def product_search(request):
     q = (request.GET.get("q") or "").strip()
@@ -465,6 +482,7 @@ class CatalogView(TemplateView):
 
 from django.db.models import Q, Count
 
+
 class AllProductsAPIView(generics.ListAPIView):
     serializer_class = ProductInCatSerializer
 
@@ -491,14 +509,14 @@ class AllProductsAPIView(generics.ListAPIView):
                 if ids:
                     qs = (
                         qs.filter(**{f"{field}__id__in": ids})
-                          .annotate(
-                              _sel_cnt=Count(
-                                  field,
-                                  filter=Q(**{f"{field}__id__in": ids}),
-                                  distinct=True
-                              )
-                          )
-                          .filter(_sel_cnt=len(ids))
+                        .annotate(
+                            _sel_cnt=Count(
+                                field,
+                                filter=Q(**{f"{field}__id__in": ids}),
+                                distinct=True
+                            )
+                        )
+                        .filter(_sel_cnt=len(ids))
                     )
 
             elif kind == "int":

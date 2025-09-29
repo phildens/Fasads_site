@@ -443,6 +443,57 @@
                 height: 98px
             }
         }
+        
+        
+        
+        /* ===== Похожие товары ===== */
+.similar { margin-top: 40px; }
+.similar__title{
+  margin: 0 0 18px;
+  font-family: Muller-medium; font-size: 28px; color:#422223;
+}
+
+/* Карточка */
+.simcard{
+  display:block; position:relative; border-radius:10px; overflow:hidden;
+  background:#f5f5f5; aspect-ratio: 1 / 1; /* квадрат как в макете */
+}
+.simcard img{ width:100%; height:100%; object-fit:cover; display:block;  border-radius: 10px}
+.simcard__name{
+  position:absolute; left:12px; right:12px; bottom:12px;
+  background:rgba(0,0,0,.45); color:#fff; border-radius:10px;
+  padding:8px 10px; font-size:14px; line-height:1.2; backdrop-filter: blur(2px);
+}
+
+/* Десктопная сетка 4×2 */
+.similar__grid{
+  display:grid; gap:24px;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1200px){ .similar__grid{ gap:18px; } }
+@media (max-width: 992px){
+  .similar__grid{ display:none !important; } /* на планшет и ниже — слайдер */
+}
+
+/* Мобильный слайдер */
+.similar__rail-wrap{ position:relative; }
+.similar__rail{
+  display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch; padding:2px 2px 8px;
+}
+.similar__rail .simcard{ flex:0 0 78vw; max-width:420px; scroll-snap-align:center; }
+@media (min-width: 721px){ .similar__rail .simcard{ flex-basis: 46vw; } }
+@media (min-width: 993px){ .similar__rail-wrap{ display:none !important; } }
+
+.similar__nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  border:none; width:38px; height:38px; border-radius:50%;
+  background:rgba(255,255,255,.9); box-shadow:0 4px 16px rgba(0,0,0,.15);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.similar__nav.prev{ left:-6px; } .similar__nav.next{ right:-6px; }
+@media (max-width: 560px){ .similar__nav{ display:none; } } /* на очень узких — только свайп */
+
     </style>
 {% endblock %}
 
@@ -516,12 +567,28 @@
                 </div>
             </aside>
         </div>
+    <!-- Похожие товары -->
+<section class="similar" id="similar">
+  <h2 class="similar__title">Похожие товары</h2>
+
+  <!-- сетка на десктопе -->
+  <div class="similar__grid" id="similarGrid" hidden></div>
+
+  <!-- слайдер на мобиле -->
+  <div class="similar__rail-wrap" id="similarRailWrap" hidden>
+    <button class="similar__nav prev" type="button" aria-label="Назад">&#10094;</button>
+    <div class="similar__rail" id="similarRail" aria-live="polite"></div>
+    <button class="similar__nav next" type="button" aria-label="Вперёд">&#10095;</button>
+  </div>
+</section>
+
     </div>
 {% endblock %}
 
 {% block extra_js %}
     <script>
 (function () {
+    
   const page = document.querySelector('.product-page');
   const productId = page?.dataset.productId;
   if (!productId) return;
@@ -593,6 +660,58 @@
       });
       thumbs.appendChild(t);
     });
+  }
+  // --- Похожие товары ---
+  async function loadSimilar(limit = 8) {
+    const res = await fetch(`/api/products/${productId}/similar/?limit=${limit}`, {
+      headers: { "Accept": "application/json" }
+    });
+    if (!res.ok) return { items: [] };
+    return await res.json();
+  }
+
+  function simCardHTML(item){
+    const href = `/p/${item.id}/`;
+    const img  = item.card_image || "{% static 'img/no-image.png' %}";
+    const name = item.name || '';
+    return `
+      <a class="simcard" href="${href}">
+        <img loading="lazy" src="${img}" alt="${name}">
+{#        <span class="simcard__name">${name}</span>#}
+      </a>`;
+  }
+
+  function renderSimilar(items){
+    const grid = document.getElementById('similarGrid');
+    const rail = document.getElementById('similarRail');
+    const railWrap = document.getElementById('similarRailWrap');
+
+    if (!items || !items.length){
+      document.getElementById('similar').style.display = 'none';
+      return;
+    }
+
+    // Сетка (десктоп)
+    grid.innerHTML = items.map(simCardHTML).join('');
+    grid.hidden = false;
+
+    // Слайдер (мобилка)
+    rail.innerHTML = items.map(simCardHTML).join('');
+    railWrap.hidden = false;
+
+    // Кнопки пролистывания
+    const btnPrev = railWrap.querySelector('.prev');
+    const btnNext = railWrap.querySelector('.next');
+    const step = () => Math.min(rail.clientWidth * 0.9, 500);
+
+    btnPrev.onclick = () => rail.scrollBy({ left: -step(), behavior: 'smooth' });
+    btnNext.onclick = () => rail.scrollBy({ left:  step(), behavior: 'smooth' });
+
+    // drag-scroll (приятный свайп на десктопе)
+    let down=false, startX=0, sx=0;
+    rail.addEventListener('pointerdown', e=>{ down=true; startX=e.clientX; sx=rail.scrollLeft; rail.setPointerCapture(e.pointerId); });
+    rail.addEventListener('pointermove', e=>{ if(!down) return; rail.scrollLeft = sx - (e.clientX - startX); });
+    ['pointerup','pointercancel','mouseleave'].forEach(ev=> rail.addEventListener(ev, ()=> down=false));
   }
 
   function renderSpecs(prod) {
@@ -733,6 +852,8 @@ function renderDescription(prod) {
       renderSpecs(product);
       renderPrice(product);
       renderDescription(product);
+      const { items: similarItems } = await loadSimilar(8);
+      renderSimilar(similarItems);
 
       // <— Важно: вызываем ПОСЛЕ того, как получили product
       setupFavorites(product);
@@ -747,6 +868,7 @@ function renderDescription(prod) {
   }
 
   init();
+  
 })();
 
 </script>
