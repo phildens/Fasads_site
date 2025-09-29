@@ -1551,7 +1551,7 @@ textarea::placeholder{
       <span class="mini-contact-icon">
         <img style="width:60px;height:60px" src="{% static 'imgfolder/phone.png' %}" alt="Телефон">
       </span>
-      <span class="mini-contact-text"><a href="tel:+79519401249">+7 (951) 940-12-49</a></span>
+      <span class="mini-contact-text"><a href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a></span>
     </div>
     <div class="mini-contact-row">
       <span class="mini-contact-icon">
@@ -1673,8 +1673,8 @@ textarea::placeholder{
            <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
           <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
           <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
-          <li><a href="tel:+7(951)940-12-49" class="nav-link">+7 (951) 940-12-49<br><p class="a">номер для связи</p></a></li>
-          <li><a href="mailto:evrokrovliof@mail.ru" class="nav-link">evrokrovliof@mail.ru<br><p class="a">электронная почта</p></a></li>
+          <li><a href="{{ site_settings.phone_href }}" class="nav-link">{{ site_settings.phone }}<br><p class="a">номер для связи</p></a></li>
+          <li><a href="mailto:{{ site_settings.email }}" class="nav-link">{{ site_settings.email }}<br><p class="a">электронная почта</p></a></li>
 
 
           <li class="header-fav">
@@ -2204,7 +2204,7 @@ textarea::placeholder{
     <div class="contacts-card">
       <div class="contacts-title">Контактная информация</div>
       <div class="contacts-body">
-        <a style="text-decoration: none;color: inherit;" href="tel:+79519401249">+7 (951) 940-12-49</a>
+        <a style="text-decoration: none;color: inherit;" href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a>
         <div class="contacts-note">Приём звонков: с 9:00–18:00</div>
       </div>
     </div>

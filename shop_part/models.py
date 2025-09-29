@@ -1,6 +1,34 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+import re
 
+
+class SiteSettings(models.Model):
+    """Глобальные настройки сайта (singleton)."""
+    email = models.EmailField("Электронная почта для контактов", blank=True, null=True)
+    phone = models.CharField("Телефон для контактов", max_length=64, blank=True, null=True)
+    class Meta:
+        verbose_name = "Настройки сайта"
+        verbose_name_plural = "Настройки сайта"
+
+    @property
+    def phone_href(self) -> str | None:
+        if not self.phone:
+            return None
+        # оставим + и цифры
+        cleaned = re.sub(r"[^\d+]", "", self.phone)
+        return f"tel:{cleaned}"
+    def __str__(self):
+        return "Настройки сайта"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1  # держим одну запись
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
 
 class TypeMaterial(models.Model):
     name = models.CharField(max_length=100)

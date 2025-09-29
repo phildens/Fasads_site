@@ -11,13 +11,24 @@ from .proxies import (
     GalleryProxy, BigGaleryProxy, SmallGalleryProxy
 )
 from .models import Questions, ContactRequest  # куда хотите, можно оставить в «Интернет-магазин»
+from .models import SiteSettings
+
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    fields = ("email", 'phone')
+
+    def has_add_permission(self, request):
+        # запретим создавать больше одной записи
+        return not SiteSettings.objects.exists()
 
 
 # ====== ТОВАРЫ (Интернет-магазин) ======
 class GalleryInline(admin.TabularInline):
-    model = GalleryProxy            # используем прокси, работает как и раньше
+    model = GalleryProxy  # используем прокси, работает как и раньше
     fk_name = 'product'
     extra = 0
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -37,12 +48,15 @@ class CategoryCharAdmin(admin.ModelAdmin):
             choices=[(c.value, c.label) for c in FilterKey],
             widget=forms.CheckboxSelectMultiple
         )
+
         class Meta:
             model = Category
             fields = "__all__"
+
         def __init__(self, *a, **kw):
             super().__init__(*a, **kw)
             self.fields["filters_enabled"].initial = (self.instance.filters_enabled or [])
+
         def clean_filters_enabled(self):
             return self.cleaned_data["filters_enabled"] or []
 
@@ -50,37 +64,46 @@ class CategoryCharAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "link_name")
     search_fields = ("name", "link_name")
 
+
 @admin.register(TypeMaterialChar)
 class TypeMaterialCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
 
 @admin.register(FormatChar)
 class FormatCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+
 @admin.register(ColorChar)
 class ColorCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
 
 @admin.register(FrosenDefenderChar)
 class FrosenDefenderCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+
 @admin.register(StrengthGradeChar)
 class StrengthGradeCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
 
 @admin.register(WaterResistanceChar)
 class WaterResistanceCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+
 @admin.register(ManufactorChar)
 class ManufactorCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+
 @admin.register(EmptinessChar)
 class EmptinessCharAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
 
 @admin.register(ProductTypeChar)
 class ProductTypeCharAdmin(admin.ModelAdmin):
@@ -93,14 +116,17 @@ class SmallGalleryInline(admin.TabularInline):
     fk_name = 'object'
     extra = 0
 
+
 @admin.register(BigGaleryProxy)
 class BigGaleryProxyAdmin(admin.ModelAdmin):
     inlines = [SmallGalleryInline]
     list_display = ('position', 'name', 'product', 'our_supplies')
 
+
 @admin.register(GalleryProxy)
 class GalleryProxyAdmin(admin.ModelAdmin):
     list_display = ('product',)
+
 
 # (опционально) если нужна отдельная админка для фото объекта
 @admin.register(SmallGalleryProxy)
@@ -113,6 +139,7 @@ class SmallGalleryProxyAdmin(admin.ModelAdmin):
 class QuestionsAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name", "description")
+
 
 @admin.register(ContactRequest)
 class ContactRequestAdmin(admin.ModelAdmin):

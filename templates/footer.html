@@ -11,12 +11,11 @@
                 <div class="footer-info-sub">контактный адрес шоу-рума</div>
             </div>
             <div class="footer-info">
-                <div class="footer-info-title"><a href="tel:+79519401249" style="text-decoration:none;">+7 (951)
-                    940-12-49</a></div>
+                <div class="footer-info-title"><a href="{{ site_settings.phone_href }}" style="text-decoration:none;">{{ site_settings.phone }}</a></div>
                 <div class="footer-info-sub">номер для связи</div>
             </div>
             <div class="footer-info">
-                <div class="footer-info-title"><a href="mailto:evrokrovliof@mail.ru" style="text-decoration:none;">evrokrovliof@mail.ru</a>
+                <div class="footer-info-title"><a href="mailto:{{ site_settings.email }}" style="text-decoration:none;">{{ site_settings.email }}</a>
                 </div>
                 <div class="footer-info-sub">электронная почта</div>
             </div>
@@ -37,7 +36,7 @@
                             href="{% url 'privacy' %}">Пользовательское соглашение</a> <a style="color: inherit;text-decoration: none;"
                                                                         href="{% url 'privacy' %}">Политика использования Cookies</a>
                 </div>
-                <div style="margin-left: 37px;"><a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="mailto:evrokrovliof@mail.ru">Сообщить
+                <div style="margin-left: 37px;"><a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="mailto:{{ site_settings.email }}">Сообщить
                     об ошибке</a>
                     <div style="height: 18px;"></div>
                     <div style="display: flex;"><p style="margin: 0px 4px 0px 0px;">&copy;</p> <span
