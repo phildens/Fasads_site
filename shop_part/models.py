@@ -157,6 +157,7 @@ class Product(models.Model):
     emptiness = models.ManyToManyField(Emptiness, blank=True, verbose_name="Пустотность")
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name="Тип товара")
+    product_price = models.TextField(blank=True, null=True, verbose_name="Прайс лист товара")
 
     class Meta:
         verbose_name = "Товар"
