@@ -419,6 +419,13 @@
 .pagination .page-btn:disabled{ opacity:.5; cursor:not-allowed; }
 .pagination .dots{ padding:0 6px; color:#7b6a68; }
 
+.infinite-wrap { margin: 24px auto 64px; text-align: center; }
+#loadMore { padding: 10px 18px; border: 1px solid #ccc; border-radius: 8px; background:#fff; cursor:pointer; font-family: Muller-regular; }
+.spinner { width:24px; height:24px; margin:12px auto; border:2px solid #ddd; border-top-color:#555; border-radius:50%; animation:spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.sentinel { height: 1px; }
+
+
     </style>
 {% endblock %}
 
@@ -465,10 +472,19 @@
             </aside>
             <main>
                 <div id="grid" class="grid"></div>
+                <!-- Подгрузка для режима поиска -->
+<div id="infiniteWrap" class="infinite-wrap" style="display:none">
+  <button id="loadMore" class="btn-outline" type="button">Показать ещё</button>
+  <div id="loadSpinner" class="spinner" aria-hidden="true" style="display:none"></div>
+  <!-- Невидимый «маяк» для автоподгрузки у низа страницы -->
+  <div id="loadSentinel" class="sentinel" aria-hidden="true"></div>
+</div>
+                
                 <div id="empty" class="empty" style="display:none">Ничего не найдено</div>
 <div id="pagination" class="pagination" style="margin-top:32px;"></div>
 
                 <!-- Навигация по страницам -->
+                
             </main>
 
         </div>
@@ -556,6 +572,73 @@ function renderSearchPagination(meta){
   const epProductsAll   = root.dataset.endpointProductsAll;
   const epFiltersAll    = root.dataset.endpointFiltersAll;
   const epSearchProducts= root.dataset.endpointSearchProducts; // NEW
+      const $loadWrap   = document.getElementById("infiniteWrap");
+  const $loadMore   = document.getElementById("loadMore");
+  const $spinner    = document.getElementById("loadSpinner");
+  const $sentinel   = document.getElementById("loadSentinel");
+
+  // локальный стейт пагинации для поиска
+  const searchState = {
+    page: 1,
+    perPage: 12,
+    hasNext: false,
+    isLoading: false
+  };
+
+    function appendCards(items) {
+    if (!items || !items.length) return;
+    const frag = document.createDocumentFragment();
+    items.forEach(card => {
+      const name = escapeHtml(card.name || "");
+      const img  = escapeHtml(card.card_image || card.image || "");
+      const href = getProductUrl(card);
+      const id   = card.id ?? card.pk;
+      const wrap = document.createElement("div");
+      wrap.className = "card";
+      wrap.innerHTML = `
+        <div class="img-wrap">
+          ${img
+            ? `<a href="${href}" aria-label="${name}">
+                 <img src="${img}" alt="${name}">
+               </a>`
+            : `<div class="s-img skeleton"></div>`}
+          <div class="badge">
+            <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
+            <p>фаворит</p>
+          </div>
+        </div>
+        <div class="body">
+          <h3 class="name"><a href="${href}">${name}</a></h3>
+          <a class="price-link" href="${href}" target="_blank" rel="noopener">перейти к товару</a>
+        </div>
+        <div class="foot">
+          <button
+            class="icon-btn heart fav-btn"
+            type="button"
+            title="В избранное"
+            data-fav-btn
+            data-label-add="В избранное"
+            data-label-remove="В избранном"
+            data-product-id="${id}"
+            data-product-name="${escapeAttr(card.name || '')}"
+            data-product-image="${escapeAttr(img)}"
+            data-product-url="${href}"
+            aria-pressed="false">
+            <img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt="">
+          </button>
+          <button class="icon-btn tg-ico" title="написать" type="button" onclick="window.location.href='${href}'">
+            <img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt="">
+          </button>
+        </div>`;
+      frag.appendChild(wrap);
+    });
+    $grid.appendChild(frag);
+
+    // уведомим «избранное», что появились новые кнопки
+    if (window.SFFavorites) {
+      document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+    }
+  }
 
   const $filters = document.getElementById("filters");
   const $grid    = document.getElementById("grid");
@@ -862,14 +945,19 @@ function renderSearchPagination(meta){
       renderFilters([]);
     }
   }
-
-  async function loadProducts() {
+ async function loadProducts({ append = false } = {}) {
     renderSkeletonCards();
     try {
       let items = [];
       if (isSearch) {
         // /api/categories/search/products/?q=...
-        const url = epSearchProducts + buildQuery(true); // включает q
+        if (!append) {
+          searchState.page = 1;
+        }
+        const qstr = buildQuery(true); // ?q=...&sort=... (если есть)
+        const sep  = qstr ? "&" : "?";
+        const url  = epSearchProducts + qstr + `${sep}page=${searchState.page}&per_page=${searchState.perPage}`;
+ 
         const res = await fetch(url, {credentials: "same-origin"});
         if (!res.ok) throw new Error("products(search) " + res.status);
         const data = await res.json();
@@ -882,7 +970,9 @@ function renderSearchPagination(meta){
         const res = await fetch(url, {credentials: "same-origin"});
         if (!res.ok) throw new Error("products " + res.status);
         const data = await res.json();
-        items = Array.isArray(data) ? data : (data.results || []);
+        const pageItems = Array.isArray(data) ? data : (data.items || data.results || []);
+        searchState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
+        items = pageItems;
       }
 
       if (state.sort === "name_asc" || state.sort === "name_desc") {
@@ -890,6 +980,19 @@ function renderSearchPagination(meta){
         if (state.sort === "name_desc") items.reverse();
       }
       renderCards(items);
+            if (isSearch && append) {
+        // дополнение
+        appendCards(items);
+      } else {
+        // полная перерисовка
+        renderCards(items);
+      }
+
+      // управление UI подгрузки (только в поиске)
+      if (isSearch) {
+        $loadWrap.style.display = "block";
+        $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+      }
     } catch (e) {
       console.error("products load error:", e);
       renderCards([]);
@@ -928,6 +1031,34 @@ function renderSearchPagination(meta){
     await loadFilters();
     await loadProducts();
   })();
+  async function loadMoreSearch() {
+    if (!isSearch || !searchState.hasNext || searchState.isLoading) return;
+    searchState.isLoading = true;
+    $spinner.style.display = "block";
+    try {
+      searchState.page += 1;
+      await loadProducts({ append: true });
+    } finally {
+      searchState.isLoading = false;
+      $spinner.style.display = "none";
+      $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+    }
+  }
+
+  if (isSearch) {
+    // кнопка
+    $loadMore.addEventListener("click", loadMoreSearch);
+
+    // автоподгрузка внизу страницы
+    if ('IntersectionObserver' in window && $sentinel) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreSearch();
+        }
+      }, { root: null, rootMargin: "400px 0px 400px 0px", threshold: 0 });
+      io.observe($sentinel);
+    }
+  }
 })();
 </script>
 
