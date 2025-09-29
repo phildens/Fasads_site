@@ -6,9 +6,17 @@
 {% block content %}
     
     <div style="margin-top: 120px;"></div>
-    <div><p style="font-family:'Muller-regular';font-size: 22px;">НАШИ ПОСТАВКИ</p></div>
-    <div style="margin-top: 20px;"></div>
-    <div><p style="font-family:'Muller-regular';">Мы гордимся каждым проектом и каждой поставкой, ведь за ними стоят профессионализм, ответственность и безграничная любовь к своему делу. Добро пожаловать в галерею наших реализаций!</p></div>
+<div class="gallery-text-wrap">
+  <div class="gallery-text">
+    <p class="gallery-text-title">НАШИ ПОСТАВКИ</p>
+    <p class="gallery-text-body">
+      Мы гордимся каждым проектом и каждой поставкой, ведь за ними стоят
+      профессионализм, ответственность и безграничная любовь к своему делу.
+      Добро пожаловать в галерею наших реализаций!
+    </p>
+  </div>
+</div>
+
     <div style="margin-top: 20px;"></div>
     <div style="display:flex;
   justify-content:center;   /* по центру горизонтально */
@@ -30,37 +38,38 @@
 
                     {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
                     <div class="card-tooltip" id="tooltip-{{ item.id }}">
-                        <p class="tooltip-text"
-                           style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;">
-                            {{ item.product|escape }}
-                        </p>
+    <a class="tooltip-text"
+       style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.id }}">
+        {{ item.product|escape }}
+    </a>
 
-                    </div>
+</div>
 
                     {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
                     <div class="modal" id="modal-{{ item.id }}">
-                        <div class="modal-content">
-                            <span class="close" data-id="{{ item.id }}">&times;</span>
+                       <div class="modal-content">
+  <span class="close" data-id="{{ item.id }}">&times;</span>
 
-                            <!-- контейнер слайдов -->
-                            <div class="slides-container" data-id="{{ item.id }}">
-                                {% for slide in item.images.all %}
-                                    <div class="slide" style="--bg: url('{{ slide.image.url }}')">
-                                        <img src="{{ slide.image.url }}" alt="{{ item.name }}">
-                                    </div>
-                                {% endfor %}
-                            </div>
+  <!-- Кликабельные зоны (десктоп) -->
+  <button class="nav-zone nav-left"  data-id="{{ item.id }}" data-dir="-1" aria-label="Предыдущий"></button>
+  <button class="nav-zone nav-right" data-id="{{ item.id }}" data-dir="1"  aria-label="Следующий"></button>
 
-                            <!-- стрелки -->
+  <!-- контейнер слайдов -->
+  <div class="slides-container" data-id="{{ item.id }}">
+    {% for slide in item.images.all %}
+      <div class="slide" style="--bg: url('{{ slide.image.url }}')">
+        <img src="{{ slide.image.url }}" alt="{{ item.name }}">
+      </div>
+    {% endfor %}
+  </div>
 
-                            <!-- точки -->
-                            <div class="dots" data-id="{{ item.id }}">
-                                {% for slide in item.images.all %}
-                                    <span class="dot" data-id="{{ item.id }}"
-                                          data-index="{{ forloop.counter0 }}"></span>
-                                {% endfor %}
-                            </div>
-                        </div>
+  <!-- точки -->
+  <div class="dots" data-id="{{ item.id }}">
+    {% for slide in item.images.all %}
+      <span class="dot" data-id="{{ item.id }}" data-index="{{ forloop.counter0 }}"></span>
+    {% endfor %}
+  </div>
+</div>
                     </div>
                     {# --- /МОДАЛКА --- #}
 
@@ -94,37 +103,40 @@
 
                     {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
                     <div class="card-tooltip" id="tooltip-{{ item.id }}">
-                        <p class="tooltip-text"
-                           style="display:flex;align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;">
-                            {{ item.product|escape }}
-                        </p>
+    <a class="tooltip-text"
+       style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.id }}">
+        {{ item.product|escape }}
+    </a>
 
-                    </div>
+</div>
+
 
                     {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
                     <div class="modal" id="modal-{{ item.id }}">
                         <div class="modal-content">
-                            <span class="close" data-id="{{ item.id }}">&times;</span>
+  <span class="close" data-id="{{ item.id }}">&times;</span>
 
-                            <!-- контейнер слайдов -->
-                            <div class="slides-container" data-id="{{ item.id }}">
-                                {% for slide in item.images.all %}
-                                    <div class="slide" style="--bg: url('{{ slide.image.url }}')">
-                                        <img src="{{ slide.image.url }}" alt="{{ item.name }}">
-                                    </div>
-                                {% endfor %}
-                            </div>
+  <!-- Кликабельные зоны (десктоп) -->
+  <button class="nav-zone nav-left"  data-id="{{ item.id }}" data-dir="-1" aria-label="Предыдущий"></button>
+  <button class="nav-zone nav-right" data-id="{{ item.id }}" data-dir="1"  aria-label="Следующий"></button>
 
-                            <!-- стрелки -->
+  <!-- контейнер слайдов -->
+  <div class="slides-container" data-id="{{ item.id }}">
+    {% for slide in item.images.all %}
+      <div class="slide" style="--bg: url('{{ slide.image.url }}')">
+        <img src="{{ slide.image.url }}" alt="{{ item.name }}">
+      </div>
+    {% endfor %}
+  </div>
 
-                            <!-- точки -->
-                            <div class="dots" data-id="{{ item.id }}">
-                                {% for slide in item.images.all %}
-                                    <span class="dot" data-id="{{ item.id }}"
-                                          data-index="{{ forloop.counter0 }}"></span>
-                                {% endfor %}
-                            </div>
-                        </div>
+  <!-- точки -->
+  <div class="dots" data-id="{{ item.id }}">
+    {% for slide in item.images.all %}
+      <span class="dot" data-id="{{ item.id }}" data-index="{{ forloop.counter0 }}"></span>
+    {% endfor %}
+  </div>
+</div>
+
                     </div>
                     {# --- /МОДАЛКА --- #}
 
@@ -137,117 +149,101 @@
     </div>
     <div style="margin-top: 120px;"></div>
     <script>
-        const slideIndices = {};
-        const autoTimers = {};
+       
+  const slideIndices = {};
 
+  // открыть модалку по клику на превью
+  document.querySelectorAll('.card-thumb').forEach(img => {
+    img.addEventListener('click', e => {
+      const id = e.target.closest('.gallery-card').dataset.id;
+      openSlider(id);
+    });
+  });
 
-        // Открытие модалки при клике на карточку
-        document.querySelectorAll('.card-thumb').forEach(img => {
-            img.addEventListener('click', e => {
-                const id = e.target.closest('.gallery-card').dataset.id;
-                openSlider(id);
-            });
-        });
+  // закрыть модалку
+  document.querySelectorAll('.close').forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.dataset.id));
+  });
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal.id.replace('modal-','')); });
+  });
 
-        // Закрытие модалки по кнопке
-        document.querySelectorAll('.close').forEach(btn => {
-            btn.addEventListener('click', () => closeModal(btn.dataset.id));
-        });
-        // Закрытие по клику на фон
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', e => {
-                if (e.target === modal) closeModal(modal.id.replace('modal-', ''));
-            });
-        });
-        // Показываем/скрываем подсказку при клике на точку
-        document.querySelectorAll('.card-dot').forEach(dot => {
-            const id = dot.dataset.id;
-            const tip = document.getElementById(`tooltip-${id}`);
-            let pinned = false;
+  // подсказка-точка (оставляем вашу логику)
+  document.querySelectorAll('.card-dot').forEach(dot => {
+    const id = dot.dataset.id;
+    const tip = document.getElementById(`tooltip-${id}`);
+    let pinned = false;
+    dot.addEventListener('mouseenter', () => { if (!pinned) tip.classList.add('visible'); });
+    dot.addEventListener('mouseleave', () => setTimeout(() => { if (!pinned && !tip.matches(':hover')) tip.classList.remove('visible'); }, 150));
+    dot.addEventListener('click', () => { pinned = !pinned; tip.classList.toggle('visible', pinned); });
+    tip.addEventListener('mouseleave', () => { if (!pinned) tip.classList.remove('visible'); });
+    tip.addEventListener('mouseenter', () => tip.classList.add('visible'));
+  });
 
-            // Наведение — показываем, если не закреплено
-            dot.addEventListener('mouseenter', () => {
-                if (!pinned) {
-                    tip.classList.add('visible');
-                }
-            });
+  function openSlider(id){
+    const modal = document.getElementById(`modal-${id}`);
+    modal.style.display = 'flex';
+    slideIndices[id] = 0;
+    showSlide(id, 0);
 
-            // Уход мышки — скрываем, если не закреплено
-            dot.addEventListener('mouseleave', () => {
-                setTimeout(() => {
-                    if (!pinned && !tip.matches(':hover')) {
-                        tip.classList.remove('visible');
-                    }
-                }, 150);
-            });
+    // клики по точкам
+    modal.querySelectorAll(`.dot[data-id="${id}"]`).forEach(dot => {
+      dot.onclick = () => showSlide(id, +dot.dataset.index);
+    });
 
-            // Клик — переключает закрепление
-            dot.addEventListener('click', () => {
-                pinned = !pinned;
-                if (pinned) {
-                    tip.classList.add('visible');
-                } else {
-                    tip.classList.remove('visible');
-                }
-            });
+    // клики по левому/правому краю (десктоп)
+    modal.querySelectorAll(`.nav-zone[data-id="${id}"]`).forEach(btn => {
+      btn.onclick = () => changeSlide(id, +btn.dataset.dir);
+    });
 
-            // Если мышка ушла с самой подсказки — скрываем, если не закреплено
-            tip.addEventListener('mouseleave', () => {
-                if (!pinned) {
-                    tip.classList.remove('visible');
-                }
-            });
+    // свайпы (мобайл)
+    const content = modal.querySelector('.modal-content');
+    let tX = 0, tY = 0, swiping = false;
+    content.addEventListener('touchstart', e => {
+      const t = e.changedTouches[0];
+      tX = t.clientX; tY = t.clientY; swiping = true;
+    }, {passive:true});
+    content.addEventListener('touchend', e => {
+      if (!swiping) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - tX;
+      const dy = Math.abs(t.clientY - tY);
+      // горизонтальный свайп без вертикального прокрута
+      if (Math.abs(dx) > 40 && dy < 40){
+        changeSlide(id, dx < 0 ? 1 : -1);
+      }
+      swiping = false;
+    }, {passive:true});
+  }
 
-            // Навёлся на подсказку — оставляем открытой
-            tip.addEventListener('mouseenter', () => {
-                tip.classList.add('visible');
-            });
-        });
+  function closeModal(id){
+    const modal = document.getElementById(`modal-${id}`);
+    modal.style.display = 'none';
+  }
 
+  function changeSlide(id, delta){
+    const count = document.querySelectorAll(`#modal-${id} .slide`).length;
+    let idx = (slideIndices[id] ?? 0) + delta;
+    if (idx < 0) idx = count - 1;
+    if (idx >= count) idx = 0;
+    showSlide(id, idx);
+  }
 
-        function openSlider(id) {
-            const modal = document.getElementById(`modal-${id}`);
-            modal.style.display = 'flex';
-            slideIndices[id] = 0;
-            showSlide(id, 0);
+  function showSlide(id, n){
+    const modal = document.getElementById(`modal-${id}`);
+    const container = modal.querySelector('.slides-container');
+    container.style.transform = `translateX(-${n * 100}%)`;
+    modal.querySelectorAll(`.dot[data-id="${id}"]`).forEach((d,i) => d.classList.toggle('active', i === n));
+    slideIndices[id] = n;
+  }
 
-            // навешиваем управление
+  // перенос слов в tooltip по строкам – оставляем
+  document.querySelectorAll('.tooltip-text').forEach(el => {
+    el.innerHTML = el.textContent.trim().replace(/\s+/g, '\n');
+  });
+</script>
 
-            modal.querySelectorAll(`.dot[data-id=\"${id}\"]`).forEach(dot => dot.onclick = () => showSlide(id, +dot.dataset.index));
-
-            // автопрокрутка
-            clearInterval(autoTimers[id]);
-            autoTimers[id] = setInterval(() => changeSlide(id, 1), 5000);
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(`modal-${id}`);
-            modal.style.display = 'none';
-            clearInterval(autoTimers[id]);
-        }
-
-        function changeSlide(id, delta) {
-            const count = document.querySelectorAll(`#modal-${id} .slide`).length;
-            let idx = slideIndices[id] + delta;
-            if (idx < 0) idx = count - 1;
-            if (idx >= count) idx = 0;
-            showSlide(id, idx);
-        }
-
-        function showSlide(id, n) {
-            const modal = document.getElementById(`modal-${id}`);
-            const container = modal.querySelector('.slides-container');
-            // сдвиг контейнера
-            container.style.transform = `translateX(-${n * 100}%)`;
-            // обновляем точки
-            modal.querySelectorAll(`.dot[data-id=\"${id}\"]`).forEach((d, i) => d.classList.toggle('active', i === n));
-            slideIndices[id] = n;
-        }
-
-        document.querySelectorAll('.tooltip-text').forEach(el => {
-            el.innerHTML = el.textContent.trim().replace(/\s+/g, '\n'); // каждое слово с новой строки
-        });
-    </script>
+    
 
     <style>
         .gallery-grid {
@@ -416,7 +412,7 @@
         /* Стрелки/крестик/точки поверх блюра и картинки */
         .prev, .next, .close, .dots {
             position: absolute;
-            z-index: 2;
+            z-index: 4;
         }
 
         /* Если используешь стрелки — оставляю как было */
@@ -647,6 +643,42 @@
             border-radius: 12px;
         }
 
+        /* кликабельные зоны поверх фото */
+.nav-zone{
+  position:absolute; top:0; bottom:0; width:10%;
+  background:transparent; border:0; cursor:pointer;
+  z-index: 3; /* ВАЖНО: выше .slide img (z-index:1) и ::after (z-index:1) */
+}
+.nav-left { left:0; }
+.nav-right{ right:0; }
+@media (hover:hover){ .nav-zone:hover{ background: rgba(0,0,0,.06); } }
+
+.gallery-text-wrap {
+  display: flex;
+  justify-content: center;  /* центрируем по горизонтали */
+  width: 100%;
+}
+
+.gallery-text {
+  max-width: 370px;         /* как карточка */
+  padding: 0 16px;          /* защита от прилипания к краям */
+  box-sizing: border-box;
+}
+
+.gallery-text-title {
+  font-family: 'Muller-regular';
+  font-size: 22px;
+  margin: 0 0 20px 0;
+  text-align: left;
+}
+
+.gallery-text-body {
+  font-family: 'Muller-regular';
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  text-align: left;
+}
 
     </style>
 {% endblock %}
