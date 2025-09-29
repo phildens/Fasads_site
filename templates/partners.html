@@ -46,97 +46,123 @@
 </div>
 
 <script>
-    (function () {
-        const slider = document.getElementById('logos-slider');
-        if (!slider) return;
+(function () {
+  const slider = document.getElementById('logos-slider');
+  if (!slider) return;
 
-        // --- Drag / Swipe для всех размеров ---
-        let isDown = false, startX = 0, startLeft = 0;
+  // --- utils ---
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        const getX = (e) => (e.touches && e.touches[0]?.pageX) ?? e.pageX;
+  function getGap() {
+    const g = getComputedStyle(slider).gap || "0px";
+    const num = parseFloat(g);
+    return Number.isFinite(num) ? num : 0;
+  }
+  function firstCard() {
+    return slider.querySelector('.logo-card');
+  }
+  function cardStep() {
+    const card = firstCard();
+    if (!card) return 0;
+    return card.offsetWidth + getGap();
+  }
 
-        const onPointerDown = (e) => {
-            isDown = true;
-            slider.classList.add('dragging');
-            startX = getX(e);
-            startLeft = slider.scrollLeft;
-            pauseAutoplay();
-        };
-        const onPointerMove = (e) => {
-            if (!isDown) return;
-            const x = getX(e);
-            slider.scrollLeft = startLeft + (startX - x);
-        };
-        const onPointerUp = () => {
-            if (!isDown) return;
-            isDown = false;
-            slider.classList.remove('dragging');
-            resumeAutoplaySoon();
-        };
+  // --- drag / swipe ---
+  let isDown = false, startX = 0, startLeft = 0;
 
-        slider.addEventListener('mousedown', onPointerDown);
-        window.addEventListener('mousemove', onPointerMove);
-        window.addEventListener('mouseup', onPointerUp);
-        slider.addEventListener('touchstart', onPointerDown, {passive: true});
-        slider.addEventListener('touchmove', onPointerMove, {passive: true});
-        slider.addEventListener('touchend', onPointerUp);
+  const getX = (e) => (e.touches && e.touches[0]?.pageX) ?? e.pageX;
 
-        // Горизонтальный скролл колесом мыши
+  function onPointerDown(e) {
+    isDown = true;
+    slider.classList.add('dragging');
+    startX = getX(e);
+    startLeft = slider.scrollLeft;
+    pauseAutoplay();
+  }
+  function onPointerMove(e) {
+    if (!isDown) return;
+    slider.scrollLeft = startLeft + (startX - getX(e));
+  }
+  function onPointerUp() {
+    if (!isDown) return;
+    isDown = false;
+    slider.classList.remove('dragging');
+    resumeAutoplaySoon();
+  }
 
-        // --- Автопрокрутка (для всех размеров) ---
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        let autoTimer = null, resumeTimer = null;
+  slider.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+  slider.addEventListener('touchstart', onPointerDown, { passive: true });
+  slider.addEventListener('touchmove', onPointerMove,  { passive: true });
+  slider.addEventListener('touchend', onPointerUp);
 
-        function cardStep() {
-            const card = slider.querySelector('.logo-card');
-            if (!card) return 0;
+  // --- горизонтальный скролл колесом мыши ---
+  slider.addEventListener('wheel', (e) => {
+    // превращаем вертикальную прокрутку в горизонтальную
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      slider.scrollLeft += e.deltaY;
+      pauseAutoplay();
+      resumeAutoplaySoon();
+    }
+  }, { passive: false });
 
-            return card.offsetWidth + gap;
-        }
+  // --- автопрокрутка ---
+  let autoTimer = null, resumeTimer = null;
 
-        function tick() {
-            const step = cardStep();
-            if (!step) return;
-            const maxScroll = slider.scrollWidth - slider.clientWidth;
-            const next = (slider.scrollLeft + step >= maxScroll - 2) ? 0 : (slider.scrollLeft + step);
-            slider.scrollTo({left: next, behavior: 'smooth'});
-        }
+  function tick() {
+    const step = cardStep();
+    if (!step) return;
 
-        function startAutoplay() {
-            if (reduceMotion || autoTimer) return;
-            autoTimer = setInterval(tick, 2500);
-        }
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    const next = (slider.scrollLeft + step >= maxScroll - 2) ? 0 : (slider.scrollLeft + step);
+    slider.scrollTo({ left: next, behavior: 'smooth' });
+  }
 
-        function pauseAutoplay() {
-            if (autoTimer) {
-                clearInterval(autoTimer);
-                autoTimer = null;
-            }
-            if (resumeTimer) {
-                clearTimeout(resumeTimer);
-                resumeTimer = null;
-            }
-        }
+  function startAutoplay() {
+    if (reduceMotion || autoTimer) return;
+    autoTimer = setInterval(tick, 2500); // скорость листалки: 2.5c между шагами
+  }
+  function pauseAutoplay() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+    if (resumeTimer) {
+      clearTimeout(resumeTimer);
+      resumeTimer = null;
+    }
+  }
+  function resumeAutoplaySoon() {
+    if (reduceMotion) return;
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(startAutoplay, 1800);
+  }
 
-        function resumeAutoplaySoon() {
-            if (reduceMotion) return;
-            if (resumeTimer) clearTimeout(resumeTimer);
-            resumeTimer = setTimeout(startAutoplay, 1800);
-        }
+  // пауза при ховере и когда вкладка скрыта
+  slider.addEventListener('mouseenter', pauseAutoplay);
+  slider.addEventListener('mouseleave', resumeAutoplaySoon);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) pauseAutoplay();
+    else resumeAutoplaySoon();
+  });
 
-        // защитимся от перетаскивания изображений
-        slider.querySelectorAll('img').forEach(img => img.setAttribute('draggable', 'false'));
+  // защитимся от перетаскивания изображений
+  slider.querySelectorAll('img').forEach(img => img.setAttribute('draggable', 'false'));
 
-        // старт
-        startAutoplay();
+  // старт
+  startAutoplay();
 
-        // при ресайзах пересчитаем шаг
-        window.addEventListener('resize', () => {
-            pauseAutoplay();
-            resumeAutoplaySoon();
-        });
-    })();
+  // при ресайзе пересчитываем шаг (gap/ширину)
+  window.addEventListener('resize', () => {
+    pauseAutoplay();
+    // чуть подождём, чтобы лэйаут стабилизировался
+    setTimeout(resumeAutoplaySoon, 100);
+  });
+})();
 </script>
+
 
 <style>
     /* Секция и контейнер */
