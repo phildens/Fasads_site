@@ -758,6 +758,9 @@ body.no-scroll{
 html, body { overflow-x: hidden; }
 
 
+.footer-card {
+    cursor: pointer;
+}
 
     /* ====== Footer ====== */
     @font-face {
@@ -1788,63 +1791,63 @@ textarea::placeholder{
   <div class="footer-wrapper">
     <div class="footer-cards">
      
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'face-brick' %}')">
           <div class="footer-card-title">Клинкерный<br>облицовочный кирпич</div>
           <img src="{% static 'imgfolder/f1.png' %}" alt="Клинкерный облицовочный кирпич">
           <a class="footer-card-link" href="{% url 'catalog_category' 'face-brick' %}">Перейти к разделу</a>
         </div>
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'ceramic_facing_brick' %}')">
           <div class="footer-card-title">Керамический<br>облицовочный кирпич</div>
           <img src="{% static 'imgfolder/f2.png' %}" alt="Керамический облицовочный кирпич">
           <a class="footer-card-link" href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Перейти к разделу</a>
         </div>
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'clinker_tiles' %}')">
           <div class="footer-card-title">Клинкерная плитка<br>и плитка под кирпич</div>
           <img src="{% static 'imgfolder/f3.png' %}" alt="Клинкерная плитка">
           <a class="footer-card-link" href="{% url 'catalog_category' 'clinker_tiles' %}">Перейти к разделу</a>
         </div>
       
       
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'paving_stones' %}')">
           <div class="footer-card-title">Брусчатка</div>
           <img src="{% static 'imgfolder/f4.png' %}" alt="Брусчатка">
           <a class="footer-card-link" href="{% url 'catalog_category' 'paving_stones' %}">Перейти к разделу</a>
         </div>
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'bolt_brick' %}')">
           <div class="footer-card-title">Ригельный кирпич</div>
           <img src="{% static 'imgfolder/f5.png' %}" alt="Ригельный кирпич">
           <a class="footer-card-link" href="{% url 'catalog_category' 'bolt_brick' %}">Перейти к разделу</a>
         </div>
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'mounted_ventilated_systems' %}')">
           <div class="footer-card-title">Навесные<br>вентилируемые системы</div>
           <img src="{% static 'imgfolder/f6.png' %}" alt="Навесные вентилируемые системы">
           <a class="footer-card-link" href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Перейти к разделу</a>
         </div>
       
       
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'fasad-decors' %}')">
           <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
           <img src="{% static 'imgfolder/f7.png' %}" alt="Архитектурные фасадные декоры" style="height: 237px;">
           <a class="footer-card-link" href="{% url 'catalog_category' 'fasad-decors' %}">Перейти к разделу</a>
         </div>
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'hyper-pressed_brick' %}')">
           <div class="footer-card-title">Гиперпрессованный<br>кирпич</div>
           <img src="{% static 'imgfolder/f8.png' %}" alt="Гиперпрессованный кирпич">
           <a class="footer-card-link" href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Перейти к разделу</a>
         </div>
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'krov-materials' %}')">
           <div class="footer-card-title">Кровельные<br>материалы</div>
           <img src="{% static 'imgfolder/f9.png' %}" alt="Кровельные материалы">
           <a class="footer-card-link" href="{% url 'catalog_category' 'krov-materials' %}">Перейти к разделу</a>
         </div>
       
       
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'keram-blocks' %}')">
           <div class="footer-card-title">Керамические блоки</div>
           <img src="{% static 'imgfolder/f10.png' %}" alt="Керамические блоки">
           <a class="footer-card-link" href="{% url 'catalog_category' 'keram-blocks' %}">Перейти к разделу</a>
         </div>
-        <div class="footer-card">
+        <div class="footer-card" onclick="window.open('{% url 'catalog_category' 'clad-mixes' %}')">
           <div class="footer-card-title">Кладочные смеси</div>
           <img src="{% static 'imgfolder/f11.png' %}" alt="Кладочные смеси">
           <a class="footer-card-link" href="{% url 'catalog_category' 'clad-mixes' %}">Перейти к разделу</a>
