@@ -428,7 +428,7 @@
         .modal-content {
             position: relative;
             width: min(90vw, 667px);
-            height: min(90vh, 818px);
+            height: min(90vh, 718px);
             overflow: hidden; /* чтобы всё, включая блюр, клипалось по радиусу */
             border-radius: 8px; /* общий радиус на контейнер */
             background: #000; /* на всякий случай фон */
@@ -441,7 +441,10 @@
             height: 100%; /* важно: растягиваем по высоте контейнера */
             transition: transform 0.5s ease;
         }
-
+        
+        @media (max-width: 500px ) {
+            
+        }
         .slide {
             position: relative;
             flex: 0 0 100%;
@@ -532,7 +535,13 @@
             text-align: center;
             cursor: pointer;
         }
-
+        @media (max-width: 500px) {
+            .close {
+                width: 50px;
+            height: 50px;
+                font-size: 5rem;
+            }
+        }
         /* (Необязательно) затемнение сверху, если нравится эффект */
         .modal-content::after {
             content: "";
@@ -560,7 +569,13 @@
             box-shadow: 0 0 0 2px rgba(0, 0, 0, .15);
             z-index: 3;
         }
-
+        @media (max-width: 500px) {
+            .card-dot {
+                width: 30px;
+                height: 30px;
+            }
+            
+        }
         /* тултип: вверх и влево от точки, ширина по содержимому */
         .card-tooltip {
             position: absolute;
@@ -709,7 +724,7 @@
 
         /* кликабельные зоны поверх фото */
 .nav-zone{
-  position:absolute; top:0; bottom:0; width:10%;
+  position:absolute; top:50px; bottom:0; width:10%;
   background:transparent; border:0; cursor:pointer;
   z-index: 3; /* ВАЖНО: выше .slide img (z-index:1) и ::after (z-index:1) */
 }
