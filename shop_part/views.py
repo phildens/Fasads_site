@@ -152,7 +152,7 @@ def galery(request):
     # та самая коллекция карточек — сортируем по position и сразу подтягиваем связанные SmallGallery
     items = BigGalery.objects.filter(our_supplies=True).order_by('position').prefetch_related('images')
     not_supplies = BigGalery.objects.exclude(our_supplies=True).order_by('position')
-    print(not_supplies)
+
     return render(request, 'galery.html', {
         'items': items,
         'not_supplies': not_supplies,

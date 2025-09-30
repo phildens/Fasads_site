@@ -34,16 +34,19 @@
                     <div class="card-title">{{ item.name }}</div>
 
                     {# точка, при клике на которую показывается подсказка #}
+                {% if item.product %}
+                	
+             
                     <img src="{% static 'imgfolder/dot.png' %}" class="card-dot" data-id="{{ item.id }}">
 
 
                     {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
                     <div class="card-tooltip" id="tooltip-{{ item.id }}">
     <a class="tooltip-text"
-       style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.id }}">
+       style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.product_id }}">
         {{ item.product|escape }}
     </a>
-
+   {% endif %} 
 </div>
 
                     {# --- МОДАЛКА С КАРУСЕЛЬЮ --- #}
@@ -120,7 +123,7 @@
                     {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
                     <div class="card-tooltip" id="tooltip-{{ item.id }}">
     <a class="tooltip-text"
-       style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.id }}">
+       style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.product_id }}">
         {{ item.product|escape }}
     </a>
 
