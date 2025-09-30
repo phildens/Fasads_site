@@ -131,8 +131,9 @@
                              class="card-thumb">
                     {% endif %}
                     <div class="card-title">{{ item.name }}</div>
+{% if item.product %}
 
-                    {# точка, при клике на которую показывается подсказка #}
+
                     <img src="{% static 'imgfolder/dot.png' %}" class="card-dot" data-id="{{ item.id }}">
 
 
@@ -142,6 +143,18 @@
        style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.product_id }}">
         {{ item.product|escape }}
     </a>
+                    {% else %}
+                    
+                    <img src="{% static 'imgfolder/dot.png' %}" class="card-dot" data-id="{{ item.id }}" style="display: none">
+
+
+                    {# подсказка с текстом из Django; берётся из поля модели, например item.tooltip_text #}
+                    <div class="card-tooltip" id="tooltip-{{ item.id }}" style="display: none">
+    <a class="tooltip-text"
+       style="display:flex;text-decoration: none;color: inherit; align-items:center;min-width:98px;height:89px;white-space:pre-line;overflow-wrap:anywhere;justify-content: center;padding: 21px 18px;" href="{% url 'home' %}p/{{ item.product_id }}">
+{#        {{ item.product|escape }}#}
+    </a>
+   {% endif %}
 
 </div>
 
