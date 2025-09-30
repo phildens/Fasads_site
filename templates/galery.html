@@ -4,20 +4,21 @@
 {% block title %}Галерея объектов{% endblock %}
 
 {% block content %}
-    
-    <div style="margin-top: 120px;"></div>
+
+    <div style="margin-top: 80px;"></div>
 <div class="gallery-text-wrap">
   <div class="gallery-text">
     <p class="gallery-text-title">НАШИ ПОСТАВКИ</p>
-    <p class="gallery-text-body">
+    <p class="gallery-text-body" style="max-width: 800px">
       Мы гордимся каждым проектом и каждой поставкой, ведь за ними стоят
       профессионализм, ответственность и безграничная любовь к своему делу.
       Добро пожаловать в галерею наших реализаций!
     </p>
   </div>
 </div>
+   
 
-    <div style="margin-top: 20px;"></div>
+    <div style="margin-top: 40px;"></div>
     <div style="display:flex;
   justify-content:center;   /* по центру горизонтально */
   width:100%;">
@@ -91,8 +92,12 @@
         </div>
 
     </div>
-    <div style="margin-top: 120px;"></div>
-    <div><p style="font-family:'Muller-regular';font-size: 22px;">КРАСИВЫЕ ОБЪЕКТЫ ОТ НАШИХ ПРОИЗВОДИТЕЛЕЙ</p></div>
+    <div style="margin-top: 80px;"></div>
+    <div class="gallery-text-wrap">
+  <div class="gallery-text">
+    <p class="gallery-text-title">КРАСИВЫЕ ОБЪЕКТЫ ОТ НАШИХ ПРОИЗВОДИТЕЛЕЙ</p>
+  </div>
+</div>
     <div style="margin-top: 20px;"></div>
     <div style="display:flex;
   justify-content:center;   /* по центру горизонтально */
@@ -156,11 +161,11 @@
                 <p>Галерея пуста.</p>
             {% endfor %}
         </div>
-    
+
     </div>
     <div style="margin-top: 120px;"></div>
     <script>
-       
+
   const slideIndices = {};
 
   // открыть модалку по клику на превью
@@ -254,7 +259,7 @@
   });
 </script>
 
-    
+
 
     <style>
     .nav-zone svg {
@@ -688,6 +693,7 @@
 
 .gallery-text {
   max-width: 370px;         /* как карточка */
+    color: rgba(66, 34, 35, 1);
   padding: 0 16px;          /* защита от прилипания к краям */
   box-sizing: border-box;
 }
@@ -708,4 +714,31 @@
 }
 
     </style>
+     <style>.gallery-text-wrap {
+  display: flex;
+  justify-content: center;   /* центрируем контейнер */
+  width: 100%;
+  padding: 0 16px;           /* защита от прилипания на узких экранах */
+  box-sizing: border-box;
+}
+
+.gallery-text {
+  max-width: 1200px;  /* ограничиваем ширину блока */
+  width: 100%;        /* растягиваем на всю доступную ширину */
+  text-align: left;   /* текст влево */
+}
+
+.gallery-text-title {
+  font-family: 'Muller-medium';
+  font-size: 22px;
+  margin: 0 0 20px 0;
+}
+
+.gallery-text-body {
+  font-family: 'Muller-regular';
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+}
+</style>
 {% endblock %}
