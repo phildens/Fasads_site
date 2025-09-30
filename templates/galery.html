@@ -51,8 +51,19 @@
   <span class="close" data-id="{{ item.id }}">&times;</span>
 
   <!-- Кликабельные зоны (десктоп) -->
-  <button class="nav-zone nav-left"  data-id="{{ item.id }}" data-dir="-1" aria-label="Предыдущий"></button>
-  <button class="nav-zone nav-right" data-id="{{ item.id }}" data-dir="1"  aria-label="Следующий"></button>
+<!-- Кликабельные зоны (десктоп) -->
+<button class="nav-zone nav-left" data-id="{{ item.id }}" data-dir="-1" aria-label="Предыдущий">
+  <svg viewBox="0 0 24 24" width="32" height="32" fill="white" stroke="black" stroke-width="1.5">
+    <polyline points="15 18 9 12 15 6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<button class="nav-zone nav-right" data-id="{{ item.id }}" data-dir="1" aria-label="Следующий">
+  <svg viewBox="0 0 24 24" width="32" height="32" fill="white" stroke="black" stroke-width="1.5">
+    <polyline points="9 6 15 12 9 18" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
 
   <!-- контейнер слайдов -->
   <div class="slides-container" data-id="{{ item.id }}">
@@ -246,6 +257,22 @@
     
 
     <style>
+    .nav-zone svg {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* чтобы клик шёл по кнопке */
+}
+
+.nav-left svg { left: 12px; }
+.nav-right svg { right: 12px; }
+
+.nav-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
         .gallery-grid {
             display: grid;
             gap: 30px;
