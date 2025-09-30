@@ -1501,6 +1501,15 @@ textarea::placeholder{
     margin: 0;
   }
 }
+/* делаем точки круглыми и заметными */
+#carouselExampleSlidesOnly .carousel-indicators [data-bs-target]{
+  width: 20px; height: 20px; border-radius: 50%;
+  background-color: rgb(32, 31, 31);
+  opacity: 1;
+}
+#carouselExampleSlidesOnly .carousel-indicators .active{
+  background-color: rgba(105, 102, 102, 0.67);
+}
 
 </style>
 </head>
@@ -1963,8 +1972,16 @@ textarea::placeholder{
 
 <!-- Слайдер -->
 <div id="carouselExampleSlidesOnly" class="carousel slide"
-     data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false"
-     style="width: auto; height: auto;">
+     data-bs-interval="false" data-bs-touch="true" data-bs-pause="hover"
+     style="width:auto;height:auto;">
+
+
+  <!-- ТОЧКИ -->
+  <div class="carousel-indicators" style="margin-bottom: 24px;">
+    <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Слайд 1"></button>
+    <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="1" aria-label="Слайд 2"></button>
+  </div>
+
 
   <div class="carousel-inner">
 
@@ -2049,6 +2066,16 @@ textarea::placeholder{
     </div>
 
   </div>
+  <!-- Стрелки -->
+<button class="carousel-control-prev" type="button"
+        data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev" aria-label="Назад">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+</button>
+<button class="carousel-control-next" type="button"
+        data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next" aria-label="Вперёд">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+</button>
+
 </div>
 
 <!-- АДАПТИВ ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ -->
@@ -2256,7 +2283,7 @@ textarea::placeholder{
   setInterval(function() {
     currentIndex = (currentIndex + 1) % dots.length;
     updateSlide();
-  }, 5000);
+  }, 10000);
 
       // ====== МЕНЮ ======
   const sideMenu  = document.getElementById('sideMenu');
