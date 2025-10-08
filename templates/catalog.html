@@ -337,6 +337,23 @@
             width: 56px;
             height: 47px;
         }
+        /* чтобы на кнопку можно было положить псевдоэлемент-линейку */
+.icon-btn.heart { position: relative; }
+
+/* когда товар в избранном → перечёркиваем сердце */
+.icon-btn.heart[aria-pressed="true"]::after,
+.icon-btn.heart.is-fav::after { /* .is-fav — запасной класс, если удобнее так */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36px;          /* длина штриха */
+  height: 2px;          /* толщина штриха */
+  background: #fff;     /* цвет штриха поверх тёмной кнопки */
+  border-radius: 2px;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  pointer-events: none; /* чтобы клик ловила кнопка, а не линия */
+}
 
         .empty {
             padding: 48px 0;
@@ -613,7 +630,7 @@ function renderSearchPagination(meta){
         </div>
         <div class="foot">
           <button
-            class="icon-btn heart fav-btn"
+            class="icon-btn heart"
             type="button"
             title="В избранное"
             data-fav-btn
@@ -810,7 +827,7 @@ function renderSearchPagination(meta){
           </div>
           <div class="foot">
             <button
-              class="icon-btn heart fav-btn"
+              class="icon-btn heart"
               type="button"
               title="В избранное"
               data-fav-btn

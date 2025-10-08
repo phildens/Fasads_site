@@ -152,6 +152,7 @@
             border-radius: 10px;
             border: 0
         }
+
         .pbb {
             border-radius: 10px;
             border: 1px solid white !important;
@@ -181,13 +182,14 @@
             padding: 27px;
             margin-top: 27px
         }
+
         .call-btn {
-            background:#fff;
+            background: #fff;
             color: #422223;
-            border:1px solid #422223;
+            border: 1px solid #422223;
             height: 49px;
-            border-radius:10px;
-            width:100%;
+            border-radius: 10px;
+            width: 100%;
             font-family: Muller-regular;
             font-weight: 400;
             font-size: 18px;
@@ -195,6 +197,7 @@
             letter-spacing: 0;
 
         }
+
         .wbb {
             height: 49px;
             border-radius: 10px;
@@ -208,17 +211,16 @@
         }
 
 
-
         .green-card {
             background: #327F00;
-            
+
             padding-left: 27px;
             padding-top: 31px;
             padding-bottom: 33px;
             padding-right: 33px;
             color: #fff;
             border-radius: 10px;
-            
+
             margin-top: 30px;
             font-family: Muller-light;
             font-weight: 200;
@@ -227,9 +229,9 @@
             letter-spacing: 0;
 
         }
-        
+
         .bopen-gal {
-            
+
         }
 
         .price-individ {
@@ -249,7 +251,7 @@
             border: none;
             height: 50px;
             font-family: Muller-light;
-            
+
             font-weight: 300;
             font-size: 18px;
             line-height: 100%;
@@ -284,9 +286,8 @@
             width: 98px;
             height: 98px;
         }
+
         /* Скрываем значение по умолчанию */
-
-
 
 
         /* Внутренний блок — тоже 98×98 */
@@ -365,10 +366,11 @@
             margin-top: 8px;
             color: #3a2a29;
             line-height: 1.65
-             white-space: pre-wrap; /* \n становится переносом строки */
-  tab-size: 4;           /* ширина табуляции */
-  word-break: break-word;
+            white-space: pre-wrap; /* \n становится переносом строки */
+            tab-size: 4; /* ширина табуляции */
+            word-break: break-word;
         }
+
         /* учитывает реальные переводы строк и табы */
 
 
@@ -418,7 +420,7 @@
                 width: 98px;
                 margin-left: 13px;
                 height: 98px;
-                {#scroll-snap-align: start;#}
+            {#scroll-snap-align: start;#}
             }
 
             .spec {
@@ -443,56 +445,136 @@
                 height: 98px
             }
         }
-        
-        
-        
+
+
         /* ===== Похожие товары ===== */
-.similar { margin-top: 40px; }
-.similar__title{
-  margin: 0 0 18px;
-  font-family: Muller-medium; font-size: 28px; color:#422223;
-}
+        .similar {
+            margin-top: 40px;
+        }
 
-/* Карточка */
-.simcard{
-  display:block; position:relative; border-radius:10px; overflow:hidden;
-  background:#f5f5f5; aspect-ratio: 1 / 1; /* квадрат как в макете */
-}
-.simcard img{ width:100%; height:100%; object-fit:cover; display:block;  border-radius: 10px}
-.simcard__name{
-  position:absolute; left:12px; right:12px; bottom:12px;
-  background:rgba(0,0,0,.45); color:#fff; border-radius:10px;
-  padding:8px 10px; font-size:14px; line-height:1.2; backdrop-filter: blur(2px);
-}
+        .similar__title {
+            margin: 0 0 18px;
+            font-family: Muller-medium;
+            font-size: 28px;
+            color: #422223;
+        }
 
-/* Десктопная сетка 4×2 */
-.similar__grid{
-  display:grid; gap:24px;
-  grid-template-columns: repeat(4, 1fr);
-}
-@media (max-width: 1200px){ .similar__grid{ gap:18px; } }
-@media (max-width: 992px){
-  .similar__grid{ display:none !important; } /* на планшет и ниже — слайдер */
-}
+        /* Карточка */
+        .simcard {
+            display: block;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f5f5f5;
+            aspect-ratio: 1 / 1; /* квадрат как в макете */
+        }
 
-/* Мобильный слайдер */
-.similar__rail-wrap{ position:relative; }
-.similar__rail{
-  display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch; padding:2px 2px 8px;
-}
-.similar__rail .simcard{ flex:0 0 78vw; max-width:420px; scroll-snap-align:center; }
-@media (min-width: 721px){ .similar__rail .simcard{ flex-basis: 46vw; } }
-@media (min-width: 993px){ .similar__rail-wrap{ display:none !important; } }
+        .simcard img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px
+        }
 
-.similar__nav{
-  position:absolute; top:50%; transform:translateY(-50%);
-  border:none; width:38px; height:38px; border-radius:50%;
-  background:rgba(255,255,255,.9); box-shadow:0 4px 16px rgba(0,0,0,.15);
-  cursor:pointer; display:flex; align-items:center; justify-content:center;
-}
-.similar__nav.prev{ left:-6px; } .similar__nav.next{ right:-6px; }
-@media (max-width: 560px){ .similar__nav{ display:none; } } /* на очень узких — только свайп */
+        .simcard__name {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            background: rgba(0, 0, 0, .45);
+            color: #fff;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 14px;
+            line-height: 1.2;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Десктопная сетка 4×2 */
+        .similar__grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 1200px) {
+            .similar__grid {
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .similar__grid {
+                display: none !important;
+            }
+
+            /* на планшет и ниже — слайдер */
+        }
+
+        /* Мобильный слайдер */
+        .similar__rail-wrap {
+            position: relative;
+        }
+
+        .similar__rail {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 2px 2px 8px;
+        }
+
+        .similar__rail .simcard {
+            flex: 0 0 78vw;
+            max-width: 420px;
+            scroll-snap-align: center;
+        }
+
+        @media (min-width: 721px) {
+            .similar__rail .simcard {
+                flex-basis: 46vw;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .similar__rail-wrap {
+                display: none !important;
+            }
+        }
+
+        .similar__nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .9);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .similar__nav.prev {
+            left: -6px;
+        }
+
+        .similar__nav.next {
+            right: -6px;
+        }
+
+        @media (max-width: 560px) {
+            .similar__nav {
+                display: none;
+            }
+        }
+
+        /* на очень узких — только свайп */
 
     </style>
 {% endblock %}
@@ -533,17 +615,18 @@
                     <div class="price-individ" style="font-size:16px;" id="price">рассчитывается <br>индивидуально</div>
                     <button class="to-callback btn btn-white wbb" id="">Получить консультацию</button>
                     <button class="to-callback btn btn-white wbb" id="">Узнать цену</button>
-                    <button  id="favBtn"
-                          class="fav-btn btn btn-ghost pbb"
-                          data-fav-btn
-                          data-label-add="В избранное"
-                          data-label-remove="В избранном"
-                          data-product-id="{{ product_id }}"
-                          data-product-name=""
-                          data-product-image=""
-                          data-product-url="/p/{{ product_id }}/"
-                          aria-pressed="false"
-                    >Добавить в избранное</button>
+                    <button id="favBtn"
+                            class="btn btn-ghost pbb"
+                            data-fav-btn
+                            data-label-add="Добавить в избранное"
+                            data-label-remove="Удалить из избранного"
+                            data-product-id="{{ product_id }}"
+                            data-product-name=""
+                            data-product-image=""
+                            data-product-url="/p/{{ product_id }}/"
+                            aria-pressed="false">Добавить в избранное
+                    </button>
+
                 </div>
 
                 <div class="call-card">
@@ -552,7 +635,7 @@
                                 font-size: 18px;
                                 line-height: 100%;
                                 letter-spacing: 0;
-                                margin-bottom: 31px" >
+                                margin-bottom: 31px">
                         Заказать обратный звонок
                     </div>
                     <button class="to-callback btn call-btn" style="cursor: pointer" onclick="" id="moveToTargetBtn">
@@ -563,338 +646,395 @@
                 <div class="green-card" id="green-card">
                     <div style="margin-bottom:8px">Посмотрите, как данный материал смотрится на реализованных объектах
                     </div>
-                    <button class="btn bopen-gal" onclick="window.location.href='{% url 'galery' %}'" style="cursor: pointer">Открыть галерею</button>
+                    <button class="btn bopen-gal" onclick="window.location.href='{% url 'galery' %}'"
+                            style="cursor: pointer">Открыть галерею
+                    </button>
                 </div>
             </aside>
         </div>
-    <!-- Похожие товары -->
-<section class="similar" id="similar">
-  <h2 class="similar__title">Похожие товары</h2>
+        <!-- Похожие товары -->
+        <section class="similar" id="similar">
+            <h2 class="similar__title">Похожие товары</h2>
 
-  <!-- сетка на десктопе -->
-  <div class="similar__grid" id="similarGrid" hidden></div>
+            <!-- сетка на десктопе -->
+            <div class="similar__grid" id="similarGrid" hidden></div>
 
-  <!-- слайдер на мобиле -->
-  <div class="similar__rail-wrap" id="similarRailWrap" hidden>
-    <button class="similar__nav prev" type="button" aria-label="Назад">&#10094;</button>
-    <div class="similar__rail" id="similarRail" aria-live="polite"></div>
-    <button class="similar__nav next" type="button" aria-label="Вперёд">&#10095;</button>
-  </div>
-</section>
+            <!-- слайдер на мобиле -->
+            <div class="similar__rail-wrap" id="similarRailWrap" hidden>
+                <button class="similar__nav prev" type="button" aria-label="Назад">&#10094;</button>
+                <div class="similar__rail" id="similarRail" aria-live="polite"></div>
+                <button class="similar__nav next" type="button" aria-label="Вперёд">&#10095;</button>
+            </div>
+        </section>
 
     </div>
 {% endblock %}
 
 {% block extra_js %}
     <script>
-(function () {
-    
-  const page = document.querySelector('.product-page');
-  const productId = page?.dataset.productId;
-  if (!productId) return;
+// синхронизируем надпись с состоянием aria-pressed
+function setFavLabel(btn){
+  if (!btn) return;
+  const addLbl = btn.dataset.labelAdd || 'Добавить в избранное';
+  const rmLbl  = btn.dataset.labelRemove || 'Удалить из избранного';
+  const on = btn.getAttribute('aria-pressed') === 'true';
+  btn.textContent = on ? rmLbl : addLbl;
+}
 
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const el = (tag, cls, html) => {
-    const n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (html !== undefined) n.innerHTML = html;
-    return n;
-  };
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('favBtn');
+  if (!btn) return;
 
-  async function loadProduct() {
-    const url = `/api/products/${productId}/`;
-    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-    if (!res.ok) throw new Error('Failed to load product');
-    return await res.json();
-  }
+  // 1) первичная установка текста
+  setFavLabel(btn);
 
-  function normalizeImages(images, card_image) {
-    if (!images || !images.length) {
-      return card_image ? [{ url: card_image, alt: '' }] : [];
-    }
-    return images.map(i =>
-      typeof i === 'string'
-        ? ({ url: i, alt: '' })
-        : ({ url: i.url || i.path || '', alt: i.alt || i.name || '' })
-    );
-  }
+  // 2) локальный клик-тоггл (если внешний менеджер сам не проставит aria-pressed)
+  btn.addEventListener('click', () => {
+    const cur = btn.getAttribute('aria-pressed') === 'true';
+    // оптимистично переключим состояние
+    btn.setAttribute('aria-pressed', String(!cur));
+    setFavLabel(btn);
+  });
 
-  function renderTitle(prod) {
-    const title = $('#product-title');
-    title.classList.remove('skeleton');
-    title.style.height = '';
-    title.style.width = '';
-    title.textContent = prod.name || 'Товар';
+  // 3) если внешний код меняет aria-pressed — подхватим и обновим текст
+  new MutationObserver(() => setFavLabel(btn))
+    .observe(btn, { attributes: true, attributeFilter: ['aria-pressed'] });
 
-    const crumbCat = $('#crumb-category');
-    crumbCat.classList.remove('skeleton');
-    crumbCat.style.width = '';
-    crumbCat.style.height = '';
-    crumbCat.textContent = (prod.category?.name) || (prod.category?.field_name) || 'Категория';
-  }
+  // 4) если у тебя есть менеджер избранного — после его синков тоже обновим
+  document.addEventListener('sf:favs-changed', () => setFavLabel(btn));
+});
+</script>
 
-  function renderGallery(prod) {
-    const mainPhoto = $('#main-photo');
-    const mainImg = $('.main-img', mainPhoto);
-    const thumbs = $('#thumbs');
-    thumbs.innerHTML = '';
-    mainImg.classList.remove('skeleton');
+    <script>
+        (function () {
 
-    const pics = normalizeImages(prod.images, prod.card_image);
-    if (!pics.length) {
-      mainImg.src = '{% static "img/no-image.png" %}';
-      return;
-    }
-    mainImg.src = pics[0].url;
+            const page = document.querySelector('.product-page');
+            const productId = page?.dataset.productId;
+            if (!productId) return;
 
-    pics.forEach((p, i) => {
-      const t = el('div', 'thumb' + (i === 0 ? ' active' : ''));
-      const im = el('img', '', '');
-      im.src = p.url;
-      im.alt = p.alt || prod.name || '';
-      t.appendChild(im);
-      t.addEventListener('click', () => {
-        thumbs.querySelectorAll('.thumb').forEach(n => n.classList.remove('active'));
-        t.classList.add('active');
-        mainImg.src = im.src;
-      });
-      thumbs.appendChild(t);
-    });
-  }
-  // --- Похожие товары ---
-  async function loadSimilar(limit = 8) {
-    const res = await fetch(`/api/products/${productId}/similar/?limit=${limit}`, {
-      headers: { "Accept": "application/json" }
-    });
-    if (!res.ok) return { items: [] };
-    return await res.json();
-  }
+            const $ = (sel, root = document) => root.querySelector(sel);
+            const el = (tag, cls, html) => {
+                const n = document.createElement(tag);
+                if (cls) n.className = cls;
+                if (html !== undefined) n.innerHTML = html;
+                return n;
+            };
 
-  function simCardHTML(item){
-    const href = `/p/${item.id}/`;
-    const img  = item.card_image || "{% static 'img/no-image.png' %}";
-    const name = item.name || '';
-    return `
+            async function loadProduct() {
+                const url = `/api/products/${productId}/`;
+                const res = await fetch(url, {headers: {'Accept': 'application/json'}});
+                if (!res.ok) throw new Error('Failed to load product');
+                return await res.json();
+            }
+
+            function normalizeImages(images, card_image) {
+                if (!images || !images.length) {
+                    return card_image ? [{url: card_image, alt: ''}] : [];
+                }
+                return images.map(i =>
+                    typeof i === 'string'
+                        ? ({url: i, alt: ''})
+                        : ({url: i.url || i.path || '', alt: i.alt || i.name || ''})
+                );
+            }
+
+            function renderTitle(prod) {
+                const title = $('#product-title');
+                title.classList.remove('skeleton');
+                title.style.height = '';
+                title.style.width = '';
+                title.textContent = prod.name || 'Товар';
+
+                const crumbCat = $('#crumb-category');
+                crumbCat.classList.remove('skeleton');
+                crumbCat.style.width = '';
+                crumbCat.style.height = '';
+                crumbCat.textContent = (prod.category?.name) || (prod.category?.field_name) || 'Категория';
+            }
+
+            function renderGallery(prod) {
+                const mainPhoto = $('#main-photo');
+                const mainImg = $('.main-img', mainPhoto);
+                const thumbs = $('#thumbs');
+                thumbs.innerHTML = '';
+                mainImg.classList.remove('skeleton');
+
+                const pics = normalizeImages(prod.images, prod.card_image);
+                if (!pics.length) {
+                    mainImg.src = '{% static "img/no-image.png" %}';
+                    return;
+                }
+                mainImg.src = pics[0].url;
+
+                pics.forEach((p, i) => {
+                    const t = el('div', 'thumb' + (i === 0 ? ' active' : ''));
+                    const im = el('img', '', '');
+                    im.src = p.url;
+                    im.alt = p.alt || prod.name || '';
+                    t.appendChild(im);
+                    t.addEventListener('click', () => {
+                        thumbs.querySelectorAll('.thumb').forEach(n => n.classList.remove('active'));
+                        t.classList.add('active');
+                        mainImg.src = im.src;
+                    });
+                    thumbs.appendChild(t);
+                });
+            }
+
+            // --- Похожие товары ---
+            async function loadSimilar(limit = 8) {
+                const res = await fetch(`/api/products/${productId}/similar/?limit=${limit}`, {
+                    headers: {"Accept": "application/json"}
+                });
+                if (!res.ok) return {items: []};
+                return await res.json();
+            }
+
+            function simCardHTML(item) {
+                const href = `/p/${item.id}/`;
+                const img = item.card_image || "{% static 'img/no-image.png' %}";
+                const name = item.name || '';
+                return `
       <a class="simcard" href="${href}">
         <img loading="lazy" src="${img}" alt="${name}">
 {#        <span class="simcard__name">${name}</span>#}
       </a>`;
-  }
+            }
 
-  function renderSimilar(items){
-    const grid = document.getElementById('similarGrid');
-    const rail = document.getElementById('similarRail');
-    const railWrap = document.getElementById('similarRailWrap');
+            function renderSimilar(items) {
+                const grid = document.getElementById('similarGrid');
+                const rail = document.getElementById('similarRail');
+                const railWrap = document.getElementById('similarRailWrap');
 
-    if (!items || !items.length){
-      document.getElementById('similar').style.display = 'none';
-      return;
-    }
+                if (!items || !items.length) {
+                    document.getElementById('similar').style.display = 'none';
+                    return;
+                }
 
-    // Сетка (десктоп)
-    grid.innerHTML = items.map(simCardHTML).join('');
-    grid.hidden = false;
+                // Сетка (десктоп)
+                grid.innerHTML = items.map(simCardHTML).join('');
+                grid.hidden = false;
 
-    // Слайдер (мобилка)
-    rail.innerHTML = items.map(simCardHTML).join('');
-    railWrap.hidden = false;
+                // Слайдер (мобилка)
+                rail.innerHTML = items.map(simCardHTML).join('');
+                railWrap.hidden = false;
 
-    // Кнопки пролистывания
-    const btnPrev = railWrap.querySelector('.prev');
-    const btnNext = railWrap.querySelector('.next');
-    const step = () => Math.min(rail.clientWidth * 0.9, 500);
+                // Кнопки пролистывания
+                const btnPrev = railWrap.querySelector('.prev');
+                const btnNext = railWrap.querySelector('.next');
+                const step = () => Math.min(rail.clientWidth * 0.9, 500);
 
-    btnPrev.onclick = () => rail.scrollBy({ left: -step(), behavior: 'smooth' });
-    btnNext.onclick = () => rail.scrollBy({ left:  step(), behavior: 'smooth' });
+                btnPrev.onclick = () => rail.scrollBy({left: -step(), behavior: 'smooth'});
+                btnNext.onclick = () => rail.scrollBy({left: step(), behavior: 'smooth'});
 
-    // drag-scroll (приятный свайп на десктопе)
-    let down=false, startX=0, sx=0;
-    rail.addEventListener('pointerdown', e=>{ down=true; startX=e.clientX; sx=rail.scrollLeft; rail.setPointerCapture(e.pointerId); });
-    rail.addEventListener('pointermove', e=>{ if(!down) return; rail.scrollLeft = sx - (e.clientX - startX); });
-    ['pointerup','pointercancel','mouseleave'].forEach(ev=> rail.addEventListener(ev, ()=> down=false));
-  }
+                // drag-scroll (приятный свайп на десктопе)
+                let down = false, startX = 0, sx = 0;
+                rail.addEventListener('pointerdown', e => {
+                    down = true;
+                    startX = e.clientX;
+                    sx = rail.scrollLeft;
+                    rail.setPointerCapture(e.pointerId);
+                });
+                rail.addEventListener('pointermove', e => {
+                    if (!down) return;
+                    rail.scrollLeft = sx - (e.clientX - startX);
+                });
+                ['pointerup', 'pointercancel', 'mouseleave'].forEach(ev => rail.addEventListener(ev, () => down = false));
+            }
 
-  function renderSpecs(prod) {
-    const specs = $('#specs');
-    specs.innerHTML = '';
+            function renderSpecs(prod) {
+                const specs = $('#specs');
+                specs.innerHTML = '';
 
-    const fieldMap = [
-      { key: 'formats',          label: () => 'Формат',                  value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('; ') },
-      { key: 'strength_grade',   label: p => p.strength_grade?.field_name || 'Марка прочности', value: p => p.strength_grade?.name },
-      { key: 'water_resistance', label: p => 'Водопогло\nщение',          value: p => p.water_resistance?.name },
-      { key: 'color',            label: p => p.color?.field_name || 'Оттенок', value: p => p.color?.name },
-      { key: 'frosen_defend',    label: p => 'Морозосто\nйкость',         value: p => p.frosen_defend?.name },
-      { key: 'manufacturer',     label: p => 'Бренд',                     value: p => p.manufacturer?.name },
-    ];
+                const fieldMap = [
+                    {
+                        key: 'formats',
+                        label: () => 'Формат',
+                        value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('; ')
+                    },
+                    {
+                        key: 'strength_grade',
+                        label: p => p.strength_grade?.field_name || 'Марка прочности',
+                        value: p => p.strength_grade?.name
+                    },
+                    {key: 'water_resistance', label: p => 'Водопогло\nщение', value: p => p.water_resistance?.name},
+                    {key: 'color', label: p => p.color?.field_name || 'Оттенок', value: p => p.color?.name},
+                    {key: 'frosen_defend', label: p => 'Морозосто\nйкость', value: p => p.frosen_defend?.name},
+                    {key: 'manufacturer', label: p => 'Бренд', value: p => p.manufacturer?.name},
+                ];
 
-    const attrs = [];
-    for (const f of fieldMap) {
-      const val = f.value(prod);
-      const text = (typeof val === 'string' ? val.trim() : val);
-      if (text) attrs.push({ label: (typeof f.label === 'function' ? f.label(prod) : f.label), value: text });
-    }
+                const attrs = [];
+                for (const f of fieldMap) {
+                    const val = f.value(prod);
+                    const text = (typeof val === 'string' ? val.trim() : val);
+                    if (text) attrs.push({
+                        label: (typeof f.label === 'function' ? f.label(prod) : f.label),
+                        value: text
+                    });
+                }
 
-    attrs.forEach(attr => {
-      const wrap = el('div', 'spec-wrapper');
-      const icon = el('div', 'spec-icon', 'i');
-      const box = el('div', 'spec');
-      const lab = el('div', 'spec__label', attr.label || '');
-      const val = el('div', 'spec__value', attr.value);
-      box.appendChild(lab);
-      box.appendChild(val);
-      wrap.setAttribute("title", attr.value);
+                attrs.forEach(attr => {
+                    const wrap = el('div', 'spec-wrapper');
+                    const icon = el('div', 'spec-icon', 'i');
+                    const box = el('div', 'spec');
+                    const lab = el('div', 'spec__label', attr.label || '');
+                    const val = el('div', 'spec__value', attr.value);
+                    box.appendChild(lab);
+                    box.appendChild(val);
+                    wrap.setAttribute("title", attr.value);
 
-      wrap.appendChild(icon);
-      wrap.appendChild(box);
-      specs.appendChild(wrap);
-    });
+                    wrap.appendChild(icon);
+                    wrap.appendChild(box);
+                    specs.appendChild(wrap);
+                });
 
-    // drag-scroll для мобилок (не мешает десктопу)
-    let isDown = false, startX = 0, startScroll = 0;
-    const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
-    specs.addEventListener('pointerdown', (e) => {
-      if (!isMobile()) return;
-      isDown = true;
-      startX = e.clientX;
-      startScroll = specs.scrollLeft;
-      specs.setPointerCapture(e.pointerId);
-    });
-    specs.addEventListener('pointermove', (e) => {
-      if (!isDown || !isMobile()) return;
-      specs.scrollLeft = startScroll - (e.clientX - startX);
-    });
-    specs.addEventListener('pointerup', () => isDown = false);
-    specs.addEventListener('pointercancel', () => isDown = false);
-  }
+                // drag-scroll для мобилок (не мешает десктопу)
+                let isDown = false, startX = 0, startScroll = 0;
+                const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+                specs.addEventListener('pointerdown', (e) => {
+                    if (!isMobile()) return;
+                    isDown = true;
+                    startX = e.clientX;
+                    startScroll = specs.scrollLeft;
+                    specs.setPointerCapture(e.pointerId);
+                });
+                specs.addEventListener('pointermove', (e) => {
+                    if (!isDown || !isMobile()) return;
+                    specs.scrollLeft = startScroll - (e.clientX - startX);
+                });
+                specs.addEventListener('pointerup', () => isDown = false);
+                specs.addEventListener('pointercancel', () => isDown = false);
+            }
 
-  function renderPrice(prod) {
-    $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';
-  }
+            function renderPrice(prod) {
+                $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';
+            }
 
-function normalizeUserText(s){
-  if (!s) return '';
-  // Превращаем последовательности "\r\n", "\n", "\r" в настоящий перевод строки
-  s = s.replace(/\\r\\n/g, '\n')
-       .replace(/\\n/g, '\n')
-       .replace(/\\r/g, '\n')
-       .replace(/\\t/g, '\t');
+            function normalizeUserText(s) {
+                if (!s) return '';
+                // Превращаем последовательности "\r\n", "\n", "\r" в настоящий перевод строки
+                s = s.replace(/\\r\\n/g, '\n')
+                    .replace(/\\n/g, '\n')
+                    .replace(/\\r/g, '\n')
+                    .replace(/\\t/g, '\t');
 
-  // Чуть чистим лишние пустые строки (по желанию)
-  s = s.replace(/\n{3,}/g, '\n\n');
+                // Чуть чистим лишние пустые строки (по желанию)
+                s = s.replace(/\n{3,}/g, '\n\n');
 
-  return s.trim();
-}
+                return s.trim();
+            }
 
-function renderDescription(prod) {
-  const node = document.getElementById('description');
-  node.innerHTML = '';
+            function renderDescription(prod) {
+                const node = document.getElementById('description');
+                node.innerHTML = '';
 
-  if (prod.description_html) {
-    // если с сервера уже пришла готовая HTML-верстка описания — просто вставляем
-    node.innerHTML = prod.description_html;
-    return;
-  }
+                if (prod.description_html) {
+                    // если с сервера уже пришла готовая HTML-верстка описания — просто вставляем
+                    node.innerHTML = prod.description_html;
+                    return;
+                }
 
-  // обычный текст — нормализуем и даём браузеру отрисовать переносы по CSS
-  const text = normalizeUserText(prod.description || '');
-  node.textContent = text;
-}
+                // обычный текст — нормализуем и даём браузеру отрисовать переносы по CSS
+                const text = normalizeUserText(prod.description || '');
+                node.textContent = text;
+            }
 
 
-  // Перестановка блоков на мобилках
-  const specsEl = $('#specs');
-  const descEl  = $('#description');
-  const gallery = $('#gallery');
-  const green   = $('#green-card');
-  function placeForMobile() {
-    if (window.matchMedia('(max-width: 992px)').matches) {
-      if (green && specsEl && specsEl.parentElement !== green.parentElement) {
-        green.after(specsEl);
-        specsEl.after(descEl);
-      } else if (green && specsEl && specsEl.previousElementSibling !== green) {
-        green.after(specsEl);
-        specsEl.after(descEl);
-      }
-    } else {
-      if (gallery && specsEl && specsEl.parentElement !== gallery) {
-        gallery.appendChild(specsEl);
-        gallery.appendChild(descEl);
-      }
-    }
-  }
+            // Перестановка блоков на мобилках
+            const specsEl = $('#specs');
+            const descEl = $('#description');
+            const gallery = $('#gallery');
+            const green = $('#green-card');
 
-  // --- Новое: безопасная инициализация избранного ---
-  function setupFavorites(prod) {
-    const favBtn = document.getElementById('favBtn');
-    if (!favBtn || !prod) return;
+            function placeForMobile() {
+                if (window.matchMedia('(max-width: 992px)').matches) {
+                    if (green && specsEl && specsEl.parentElement !== green.parentElement) {
+                        green.after(specsEl);
+                        specsEl.after(descEl);
+                    } else if (green && specsEl && specsEl.previousElementSibling !== green) {
+                        green.after(specsEl);
+                        specsEl.after(descEl);
+                    }
+                } else {
+                    if (gallery && specsEl && specsEl.parentElement !== gallery) {
+                        gallery.appendChild(specsEl);
+                        gallery.appendChild(descEl);
+                    }
+                }
+            }
 
-    // Заполняем атрибуты для localStorage
-    favBtn.setAttribute('data-product-id', String(prod.id));
-    favBtn.setAttribute('data-product-name', prod.name || '');
-    favBtn.setAttribute('data-product-image', prod.card_image || '');
-    favBtn.setAttribute('data-product-url', `/p/${prod.id}/`);
+            // --- Новое: безопасная инициализация избранного ---
+            function setupFavorites(prod) {
+                const favBtn = document.getElementById('favBtn');
+                if (!favBtn || !prod) return;
 
-    // Разрешаем клик на всякий случай (если кто-то его дизейблил)
-    favBtn.removeAttribute('disabled');
+                // Заполняем атрибуты для localStorage
+                favBtn.setAttribute('data-product-id', String(prod.id));
+                favBtn.setAttribute('data-product-name', prod.name || '');
+                favBtn.setAttribute('data-product-image', prod.card_image || '');
+                favBtn.setAttribute('data-product-url', `/p/${prod.id}/`);
 
-    // Обновляем состояние кнопки и счётчик, если менеджер подключён
-    if (window.SFFavorites) {
-      document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-    }
-  }
+                // Разрешаем клик на всякий случай (если кто-то его дизейблил)
+                favBtn.removeAttribute('disabled');
 
-  // Инициализация
-  async function init() {
-    try {
-      const product = await loadProduct();
-      renderTitle(product);
-      renderGallery(product);
-      renderSpecs(product);
-      renderPrice(product);
-      renderDescription(product);
-      const { items: similarItems } = await loadSimilar(8);
-      renderSimilar(similarItems);
+                // Обновляем состояние кнопки и счётчик, если менеджер подключён
+                if (window.SFFavorites) {
+                    document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+                }
+            }
 
-      // <— Важно: вызываем ПОСЛЕ того, как получили product
-      setupFavorites(product);
+            // Инициализация
+            async function init() {
+                try {
+                    const product = await loadProduct();
+                    renderTitle(product);
+                    renderGallery(product);
+                    renderSpecs(product);
+                    renderPrice(product);
+                    renderDescription(product);
+                    const {items: similarItems} = await loadSimilar(8);
+                    renderSimilar(similarItems);
 
-      placeForMobile();
-      window.addEventListener('resize', placeForMobile);
-    } catch (e) {
-      console.error(e);
-      page.insertAdjacentHTML('beforeend',
-        `<div style="margin-top:18px;color:#9b2b2b">Не удалось загрузить данные товара.</div>`);
-    }
-  }
+                    // <— Важно: вызываем ПОСЛЕ того, как получили product
+                    setupFavorites(product);
 
-  init();
-  
-})();
+                    placeForMobile();
+                    window.addEventListener('resize', placeForMobile);
+                } catch (e) {
+                    console.error(e);
+                    page.insertAdjacentHTML('beforeend',
+                        `<div style="margin-top:18px;color:#9b2b2b">Не удалось загрузить данные товара.</div>`);
+                }
+            }
 
-</script>
+            init();
+
+        })();
+
+    </script>
     <script>
 
     </script>
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const target = document.getElementById('callback-form');
-  if (!target) return;
+        document.addEventListener('DOMContentLoaded', function () {
+            const target = document.getElementById('callback-form');
+            if (!target) return;
 
-  document.querySelectorAll('.to-callback').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      // Если нужен точный отступ (при фикс. шапке), используйте ручной скролл:
-      // smoothScrollTo(target, 80); // 80 — высота шапки
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
+            document.querySelectorAll('.to-callback').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Если нужен точный отступ (при фикс. шапке), используйте ручной скролл:
+                    // smoothScrollTo(target, 80); // 80 — высота шапки
+                    target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                });
+            });
 
-  // Опционально: ручной скролл с учётом фиксированного хедера
-  function smoothScrollTo(el, offset = 0) {
-    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
-});
-</script>
+            // Опционально: ручной скролл с учётом фиксированного хедера
+            function smoothScrollTo(el, offset = 0) {
+                const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({top, behavior: 'smooth'});
+            }
+        });
+    </script>
 
 {% endblock %}
