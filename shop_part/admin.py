@@ -33,9 +33,35 @@ class GalleryInline(admin.TabularInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [GalleryInline]
-    list_display = ('name', 'card_image', 'type_material', 'description')
-    search_fields = ('name', 'type_material__name', 'description')
-    list_filter = ('type_material', 'manufacturer', 'product_type')
+    list_display = ('name', 'card_image', 'type_material', 'description', 'promo_tag')
+    search_fields = (
+        "name",
+        "description",
+        "manufacturer__name",
+        "type_material__name",
+        "product_type__name",
+        "color__name",
+        "strength_grade__name",
+        "water_resistance__name",
+        "frosen_defend__name",
+        "formats__name",
+        "emptiness__name",
+        "category__name",
+    )
+
+    # В list_filter — только то, что поддерживается (FK/M2M/choices/даты/булевы)
+    list_filter = (
+        "type_material",
+        "manufacturer",
+        "product_type",
+        "color",
+        "strength_grade",
+        "water_resistance",
+        "frosen_defend",
+        "formats",
+        "emptiness",
+        "category",
+    )
 
 
 # ====== ХАРАКТЕРИСТИКИ ======

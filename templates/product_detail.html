@@ -575,8 +575,279 @@
         }
 
         /* на очень узких — только свайп */
+        /* позволим всплывать поверх соседей */
+        .product-page {
+            position: relative;
+        }
+
+        .specs {
+            position: relative;
+            overflow: visible;
+        }
+
+        .spec-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* плавная анимация */
+        .spec {
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+
+        /* увелечение плитки поверх контента (hover или .expanded) */
+        .spec-wrapper:hover .spec,
+        .spec-wrapper.expanded .spec {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1.12);
+            z-index: 1000; /* выше всего локально */
+            width: max-content; /* пусть растёт по тексту */
+            min-width: 220px; /* базовый размер всплывашки */
+            max-width: 360px; /* чтобы не разъезжалась слишком */
+            padding: 14px 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
+        }
+
+        /* показать полный текст внутри всплывшей карточки */
+        .spec-wrapper:hover .spec__label,
+        .spec-wrapper:hover .spec__value,
+        .spec-wrapper.expanded .spec__label,
+        .spec-wrapper.expanded .spec__value {
+            display: block;
+            -webkit-line-clamp: initial;
+            overflow: visible;
+            white-space: normal;
+        }
+
+
+        /* базовая плоскость */
+        .specs {
+            position: relative;
+            z-index: 0;
+        }
+
+        .spec-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* когда плитка раскрыта (hover на десктопе или .expanded на мобиле) —
+           поднимаем весь wrapper выше соседей */
+        .spec-wrapper:hover,
+        .spec-wrapper.expanded {
+            z-index: 1001; /* >, чем у неактивных */
+        }
+
+        /* сама «всплывашка» тоже на верхнем слое */
+        .spec-wrapper:hover .spec,
+        .spec-wrapper.expanded .spec {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1.12);
+            z-index: 1002; /* поверх всего в секции */
+            width: max-content;
+            min-width: 220px;
+            max-width: 360px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
+        }
+
+
+        /* короткая версия внутри плитки */
+        .spec__label {
+            /* было: display:-webkit-box; -webkit-line-clamp:2; overflow:hidden; ... */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+
+            white-space: normal; /* разрешаем обычные переносы */
+            overflow-wrap: anywhere; /* ломать длинные слова при необходимости */
+            word-break: break-word; /* запасной вариант для старых браузеров */
+            hyphens: auto; /* расставлять переносы по слогам */
+        }
+
+        /* во всплывающей/увеличенной карточке показываем полный текст */
+        .spec-wrapper:hover .spec__label,
+        .spec-wrapper.expanded .spec__label {
+            display: block;
+            -webkit-line-clamp: initial;
+            overflow: visible;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        /* в обычной плитке: как было (обрезаем до 3 строк) */
+        .spec__value {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* во всплывшей/увеличенной карточке показываем всё + уважаем \n */
+        .spec-wrapper:hover .spec__value,
+        .spec-wrapper.expanded .spec__value {
+            display: block;
+            -webkit-line-clamp: initial;
+            overflow: visible;
+            white-space: pre-line; /* <<< \n => перенос строки */
+        }
+
+        /* базовые слои */
+        .specs {
+            position: relative;
+            overflow: visible;
+            z-index: 0;
+        }
+
+        .spec-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .spec {
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        /* ---------- Десктоп: всплытие внутри грид ---------- */
+        @media (min-width: 721px) {
+            .spec-wrapper:hover {
+                z-index: 1001;
+            }
+
+            .spec-wrapper:hover .spec {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) scale(1.12);
+                z-index: 1002;
+                width: max-content;
+                min-width: 220px;
+                max-width: 360px;
+                max-height: 70vh;
+                overflow: auto;
+                padding: 14px 12px;
+                box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
+            }
+
+            .spec-wrapper:hover .spec__label,
+            .spec-wrapper:hover .spec__value {
+                display: block;
+                -webkit-line-clamp: initial;
+                overflow: visible;
+                white-space: pre-line;
+            }
+        }
+
+        /* ---------- Мобильные: отдельный поповер, фиксированный к вьюпорту ---------- */
+        @media (max-width: 720px) {
+            /* фоновая «прокладка», чтобы клики вне поповера его закрывали и ничего не блокировалось */
+            .specs.has-popover::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                z-index: 1500;
+                background: transparent;
+            }
+
+            .spec-wrapper.expanded {
+                z-index: 1600;
+            }
+
+            /* выше прокладки */
+            .spec-wrapper.expanded .spec {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%); /* без scale */
+                z-index: 1601;
+                width: auto;
+                max-width: min(92vw, 520px); /* НЕ вылезаем за экран */
+                max-height: 75vh; /* умещаемся по высоте */
+                padding: 16px 14px;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, .28);
+                overflow: auto; /* вертикальный скролл внутри при очень длинном тексте */
+            }
+
+            .spec-wrapper.expanded .spec__label,
+            .spec-wrapper.expanded .spec__value {
+                display: block;
+                -webkit-line-clamp: initial;
+                overflow: visible;
+                white-space: pre-line;
+            }
+        }
 
     </style>
+    <style>
+/* ====== ХАР-КИ: всплывашка и мобильный поповер ====== */
+
+/* базовый слой */
+.product-page{ position:relative; }
+.specs{ position:relative; overflow:visible; z-index:0; }
+.spec-wrapper{ position:relative; z-index:1; }
+.spec{ transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+
+/* короткие тексты в плитке */
+.spec__label{
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  white-space:normal; overflow-wrap:anywhere; word-break:break-word; hyphens:auto;
+}
+.spec__value{
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  white-space:normal; overflow-wrap:anywhere; word-break:break-word; hyphens:auto;
+}
+
+/* ----- Десктоп (>=721px): всплытие внутри грида ----- */
+@media (min-width: 721px){
+  .spec-wrapper:hover{ z-index:1001; }
+  .spec-wrapper:hover .spec{
+    position:absolute; left:50%; top:50%; transform:translate(-50%, -50%) scale(1.12);
+    z-index:1002; width:max-content; min-width:220px; max-width:360px; max-height:70vh; overflow:auto;
+    padding:14px 12px; box-shadow:0 12px 36px rgba(0,0,0,.25);
+  }
+  .spec-wrapper:hover .spec__label,
+  .spec-wrapper:hover .spec__value{
+    display:block; -webkit-line-clamp:initial; overflow:visible; white-space:pre-line;
+  }
+}
+
+/* ----- Мобайл (<=720px): фиксированный поповер по центру ----- */
+@media (max-width: 720px){
+  /* нативный горизонтальный свайп */
+  .specs{ overflow-x:auto; overflow-y:visible; scroll-snap-type:x mandatory;
+          -webkit-overflow-scrolling:touch; touch-action: pan-x; }
+
+  /* чтобы содержимое плитки не перехватывало свайп, пока она не открыта */
+  .spec-wrapper .spec{ pointer-events:none; }
+  .spec-wrapper.expanded .spec{ pointer-events:auto; }
+
+  /* «прокладка» — позволяет закрывать по тапу вне поповера */
+  .specs.has-popover::before{
+    content:""; position:fixed; inset:0; z-index:1500; background:transparent;
+  }
+
+  .spec-wrapper.expanded{ z-index:1600; }
+  .spec-wrapper.expanded .spec{
+    position:fixed; left:50%; top:50%; transform:translate(-50%, -50%);
+    z-index:1601; width:auto; max-width:min(92vw, 520px); max-height:75vh; overflow:auto;
+    padding:16px 14px; box-shadow:0 14px 40px rgba(0,0,0,.28);
+  }
+  .spec-wrapper.expanded .spec__label,
+  .spec-wrapper.expanded .spec__value{
+    display:block; -webkit-line-clamp:initial; overflow:visible; white-space:pre-line;
+  }
+}
+</style>
+
 {% endblock %}
 
 {% block content %}
@@ -672,38 +943,38 @@
 
 {% block extra_js %}
     <script>
-// синхронизируем надпись с состоянием aria-pressed
-function setFavLabel(btn){
-  if (!btn) return;
-  const addLbl = btn.dataset.labelAdd || 'Добавить в избранное';
-  const rmLbl  = btn.dataset.labelRemove || 'Удалить из избранного';
-  const on = btn.getAttribute('aria-pressed') === 'true';
-  btn.textContent = on ? rmLbl : addLbl;
-}
+        // синхронизируем надпись с состоянием aria-pressed
+        function setFavLabel(btn) {
+            if (!btn) return;
+            const addLbl = btn.dataset.labelAdd || 'Добавить в избранное';
+            const rmLbl = btn.dataset.labelRemove || 'Удалить из избранного';
+            const on = btn.getAttribute('aria-pressed') === 'true';
+            btn.textContent = on ? rmLbl : addLbl;
+        }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('favBtn');
-  if (!btn) return;
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('favBtn');
+            if (!btn) return;
 
-  // 1) первичная установка текста
-  setFavLabel(btn);
+            // 1) первичная установка текста
+            setFavLabel(btn);
 
-  // 2) локальный клик-тоггл (если внешний менеджер сам не проставит aria-pressed)
-  btn.addEventListener('click', () => {
-    const cur = btn.getAttribute('aria-pressed') === 'true';
-    // оптимистично переключим состояние
-    btn.setAttribute('aria-pressed', String(!cur));
-    setFavLabel(btn);
-  });
+            // 2) локальный клик-тоггл (если внешний менеджер сам не проставит aria-pressed)
+            btn.addEventListener('click', () => {
+                const cur = btn.getAttribute('aria-pressed') === 'true';
+                // оптимистично переключим состояние
+                btn.setAttribute('aria-pressed', String(!cur));
+                setFavLabel(btn);
+            });
 
-  // 3) если внешний код меняет aria-pressed — подхватим и обновим текст
-  new MutationObserver(() => setFavLabel(btn))
-    .observe(btn, { attributes: true, attributeFilter: ['aria-pressed'] });
+            // 3) если внешний код меняет aria-pressed — подхватим и обновим текст
+            new MutationObserver(() => setFavLabel(btn))
+                .observe(btn, {attributes: true, attributeFilter: ['aria-pressed']});
 
-  // 4) если у тебя есть менеджер избранного — после его синков тоже обновим
-  document.addEventListener('sf:favs-changed', () => setFavLabel(btn));
-});
-</script>
+            // 4) если у тебя есть менеджер избранного — после его синков тоже обновим
+            document.addEventListener('sf:favs-changed', () => setFavLabel(btn));
+        });
+    </script>
 
     <script>
         (function () {
@@ -843,24 +1114,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             function renderSpecs(prod) {
-                const specs = $('#specs');
+                const specs = document.getElementById('specs');
+                if (!specs) return;
                 specs.innerHTML = '';
 
                 const fieldMap = [
                     {
-                        key: 'formats',
-                        label: () => 'Формат',
-                        value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('; ')
+                        key: 'formats', label: () => 'Формат',
+                        value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('\n')
                     },
                     {
-                        key: 'strength_grade',
-                        label: p => p.strength_grade?.field_name || 'Марка прочности',
+                        key: 'strength_grade', label: p => p.strength_grade?.field_name || 'Марка прочности',
                         value: p => p.strength_grade?.name
                     },
-                    {key: 'water_resistance', label: p => 'Водопогло\nщение', value: p => p.water_resistance?.name},
-                    {key: 'color', label: p => p.color?.field_name || 'Оттенок', value: p => p.color?.name},
-                    {key: 'frosen_defend', label: p => 'Морозосто\nйкость', value: p => p.frosen_defend?.name},
-                    {key: 'manufacturer', label: p => 'Бренд', value: p => p.manufacturer?.name},
+                    {
+                        key: 'water_resistance', label: p => 'Водопоглощение',
+                        value: p => p.water_resistance?.name
+                    },
+                    {
+                        key: 'color', label: p => p.color?.field_name || 'Оттенок',
+                        value: p => p.color?.name
+                    },
+                    {
+                        key: 'frosen_defend', label: p => 'Морозостойкость',
+                        value: p => p.frosen_defend?.name
+                    },
+                    {
+                        key: 'manufacturer', label: p => 'Бренд',
+                        value: p => p.manufacturer?.name
+                    },
                 ];
 
                 const attrs = [];
@@ -873,37 +1155,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
+                const el = (tag, cls, html) => {
+                    const n = document.createElement(tag);
+                    if (cls) n.className = cls;
+                    if (html !== undefined) n.innerHTML = html;
+                    return n;
+                };
+
                 attrs.forEach(attr => {
                     const wrap = el('div', 'spec-wrapper');
                     const icon = el('div', 'spec-icon', 'i');
                     const box = el('div', 'spec');
                     const lab = el('div', 'spec__label', attr.label || '');
-                    const val = el('div', 'spec__value', attr.value);
+                    const val = el('div', 'spec__value', '');
+                    val.textContent = attr.value; // важнo: как текст (для \n)
+
                     box.appendChild(lab);
                     box.appendChild(val);
-                    wrap.setAttribute("title", attr.value);
-
                     wrap.appendChild(icon);
                     wrap.appendChild(box);
                     specs.appendChild(wrap);
                 });
 
-                // drag-scroll для мобилок (не мешает десктопу)
-                let isDown = false, startX = 0, startScroll = 0;
-                const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
-                specs.addEventListener('pointerdown', (e) => {
-                    if (!isMobile()) return;
-                    isDown = true;
-                    startX = e.clientX;
-                    startScroll = specs.scrollLeft;
-                    specs.setPointerCapture(e.pointerId);
-                });
-                specs.addEventListener('pointermove', (e) => {
-                    if (!isDown || !isMobile()) return;
-                    specs.scrollLeft = startScroll - (e.clientX - startX);
-                });
-                specs.addEventListener('pointerup', () => isDown = false);
-                specs.addEventListener('pointercancel', () => isDown = false);
+                /* ВАЖНО: НИКАКОГО ручного drag-scroll (setPointerCapture и т.п.) здесь нет.
+                   Горизонтальный свайп работает нативно благодаря CSS overflow-x и touch-action. */
             }
 
             function renderPrice(prod) {
@@ -1036,5 +1311,132 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     </script>
+    <script>
+/* Мобильный поповер + не блочим свайп */
+(function enableSpecExpandOnMobile(){
+  const specs = document.getElementById('specs');
+  if (!specs) return;
+
+  const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+
+  let dragging = false, startX = 0;
+
+  // различаем свайп и тап
+  specs.addEventListener('pointerdown', (e) => {
+    if (!isMobile()) return;
+    dragging = false;
+    startX = e.clientX || 0;
+  });
+  specs.addEventListener('pointermove', (e) => {
+    if (!isMobile()) return;
+    if (Math.abs((e.clientX||0) - startX) > 8) dragging = true;
+  });
+  specs.addEventListener('pointerup', () => { if (!isMobile()) return; /* сброс */ });
+
+  // тап по плитке — открыть/закрыть
+  specs.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    if (dragging) { dragging = false; return; } // был свайп — не открываем
+    const wrap = e.target.closest('.spec-wrapper');
+    if (!wrap) return;
+
+    const willOpen = !wrap.classList.contains('expanded');
+    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+    specs.classList.toggle('has-popover', willOpen);
+    wrap.classList.toggle('expanded', willOpen);
+  });
+
+  // клик вне — закрыть
+  document.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    if (!specs.classList.contains('has-popover')) return;
+    if (!specs.contains(e.target)) {
+      specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+      specs.classList.remove('has-popover');
+    }
+  });
+
+  // ESC и ресайз — закрыть
+  document.addEventListener('keydown', (e) => {
+    if (!isMobile()) return;
+    if (e.key === 'Escape'){
+      specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+      specs.classList.remove('has-popover');
+    }
+  });
+  window.addEventListener('resize', () => {
+    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+    specs.classList.remove('has-popover');
+  });
+})();
+</script>
+
+    <script>
+        (function enableSpecExpandOnMobile() {
+            const specs = document.getElementById('specs');
+            if (!specs) return;
+
+            const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+
+            let dragging = false, startX = 0;
+
+            // различаем свайп и тап
+            specs.addEventListener('pointerdown', (e) => {
+                if (!isMobile()) return;
+                dragging = false;
+                startX = e.clientX || 0;
+            });
+            specs.addEventListener('pointermove', (e) => {
+                if (!isMobile()) return;
+                if (Math.abs((e.clientX || 0) - startX) > 8) dragging = true; // порог ~8px
+            });
+
+            specs.addEventListener('click', (e) => {
+                if (!isMobile()) return;
+                if (dragging) {
+                    dragging = false;
+                    return;
+                } // это был свайп — не открываем
+
+                const wrap = e.target.closest('.spec-wrapper');
+                if (!wrap) return;
+
+                // закрыть другие и открыть текущую
+                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => {
+                    if (w !== wrap) w.classList.remove('expanded');
+                });
+                const willOpen = !wrap.classList.contains('expanded');
+                specs.classList.toggle('has-popover', willOpen);
+                wrap.classList.toggle('expanded', willOpen);
+            });
+
+            // клик/тап вне — закрыть
+            document.addEventListener('click', (e) => {
+                if (!isMobile()) return;
+                if (!specs.classList.contains('has-popover')) return;
+                if (!specs.contains(e.target)) {
+                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+                    specs.classList.remove('has-popover');
+                }
+            });
+
+            // ESC — закрыть
+            document.addEventListener('keydown', (e) => {
+                if (!isMobile()) return;
+                if (e.key === 'Escape') {
+                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+                    specs.classList.remove('has-popover');
+                }
+            });
+
+            // ресайз — убрать раскрытие, чтобы ничего не залипало
+            window.addEventListener('resize', () => {
+                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+                specs.classList.remove('has-popover');
+            });
+        })();
+    </script>
+
+
 
 {% endblock %}

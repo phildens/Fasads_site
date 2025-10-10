@@ -6,6 +6,8 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "name", "link_name", "card_image", "filters_enabled")
+
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -17,7 +19,7 @@ class ProductInCatSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'card_image']
+        fields = ['id', 'name', 'card_image','promo_tag']
 
     def get_card_image(self, obj):
         request = self.context.get('request')
@@ -51,7 +53,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "id", "name", "description", "card_image", "images",
             "manufacturer", "type_material", "category", "color",
             "frosen_defend", "strength_grade", "water_resistance",
-            "product_type", "formats", "emptiness",
+            "product_type", "formats", "emptiness","promo_tag",
         )
 
     def _abs(self, request, file_field):

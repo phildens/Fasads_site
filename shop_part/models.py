@@ -7,6 +7,7 @@ class SiteSettings(models.Model):
     """Глобальные настройки сайта (singleton)."""
     email = models.EmailField("Электронная почта для контактов", blank=True, null=True)
     phone = models.CharField("Телефон для контактов", max_length=64, blank=True, null=True)
+
     class Meta:
         verbose_name = "Настройки сайта"
         verbose_name_plural = "Настройки сайта"
@@ -18,6 +19,7 @@ class SiteSettings(models.Model):
         # оставим + и цифры
         cleaned = re.sub(r"[^\d+]", "", self.phone)
         return f"tel:{cleaned}"
+
     def __str__(self):
         return "Настройки сайта"
 
@@ -29,6 +31,7 @@ class SiteSettings(models.Model):
     def load(cls):
         obj, _ = cls.objects.get_or_create(pk=1)
         return obj
+
 
 class TypeMaterial(models.Model):
     name = models.CharField(max_length=100)
@@ -165,6 +168,12 @@ class ProductType(models.Model):
         return self.name
 
 
+class ProductBadge(models.TextChoices):
+    FAVORITE = "favorite", "Фаворит"
+    SALE = "sale", "Акция"
+    NEW = "new", "Новинка"
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название товара")
     card_image = models.ImageField(null=True, blank=True, verbose_name="Фото карточки")
@@ -186,6 +195,14 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name="Тип товара")
     product_price = models.TextField(blank=True, null=True, verbose_name="Прайс лист товара")
+    promo_tag = models.CharField(
+        "Метка товара",
+        max_length=16,
+        choices=ProductBadge.choices,
+        blank=True,
+        null=True,
+        help_text="Отображается как бейдж на карточке: Фаворит / Акция / Новинка"
+    )
 
     class Meta:
         verbose_name = "Товар"
@@ -239,7 +256,7 @@ class BigGalery(models.Model):
                                 verbose_name="Товар отображаемый при наведении на точку")
     card_image = models.ImageField(null=True, blank=True, help_text="Изображение в галерее",
                                    verbose_name='Фото карточки объекта в общем списке')
-    our_supplies = models.BooleanField(null=True, blank=True,verbose_name='Наши поставки')
+    our_supplies = models.BooleanField(null=True, blank=True, verbose_name='Наши поставки')
 
     class Meta:
         verbose_name = "Галерея объектов"

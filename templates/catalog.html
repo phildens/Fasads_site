@@ -6,19 +6,20 @@
 
 {% block extra_css %}
     <style>
-    .pagination button {
-  padding: 10px 18px;
-  margin: 0 6px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  cursor: pointer;
-  font-family: Muller-regular;
-}
-.pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+        .pagination button {
+            padding: 10px 18px;
+            margin: 0 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            font-family: Muller-regular;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
         .page {
             max-width: 1180px;
@@ -32,7 +33,8 @@
             margin-bottom: 18px;
             margin-top: 33px;
 
-            font-family: Muller-regular; font-weight: 400;
+            font-family: Muller-regular;
+            font-weight: 400;
             font-size: 16px;
             color: #000000;
         }
@@ -62,11 +64,11 @@
 
         .sort {
             font-size: 13px;
-            {#color: #6a5f5e; #}
-            display: flex;
+        {#color: #6a5f5e; #} display: flex;
             gap: 8px;
             align-items: center
         }
+
         @media (max-width: 500px) {
             .sort {
                 display: none;
@@ -96,8 +98,7 @@
 
         /* Сайдбар фильтров */
         .filters {
-            {#position: sticky;#}
-            top: 12px;
+        {#position: sticky;#} top: 12px;
             height: max-content
         }
 
@@ -263,13 +264,15 @@
             border-radius: 10px;
             font-size: 16px
         }
+
         .badge p {
             position: absolute;
             left: 53px;
             top: 20px;
 
         }
-        .badge img{
+
+        .badge img {
             width: 24px;
             height: 24px;
         }
@@ -297,8 +300,9 @@
             color: #422223;
             text-decoration: underline
         }
+
         .price-link {
-             font-size: 20px;
+            font-size: 20px;
             font-family: Muller-regular;
             font-weight: 400;
             color: #422223;
@@ -327,33 +331,38 @@
             justify-content: center;
             cursor: pointer
         }
+
         .heart {
             background-color: #422223;
             width: 56px;
             height: 47px;
         }
+
         .tg-ico {
             background-color: #3A8F03;
             width: 56px;
             height: 47px;
         }
-        /* чтобы на кнопку можно было положить псевдоэлемент-линейку */
-.icon-btn.heart { position: relative; }
 
-/* когда товар в избранном → перечёркиваем сердце */
-.icon-btn.heart[aria-pressed="true"]::after,
-.icon-btn.heart.is-fav::after { /* .is-fav — запасной класс, если удобнее так */
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 36px;          /* длина штриха */
-  height: 2px;          /* толщина штриха */
-  background: #fff;     /* цвет штриха поверх тёмной кнопки */
-  border-radius: 2px;
-  transform: translate(-50%, -50%) rotate(-35deg);
-  pointer-events: none; /* чтобы клик ловила кнопка, а не линия */
-}
+        /* чтобы на кнопку можно было положить псевдоэлемент-линейку */
+        .icon-btn.heart {
+            position: relative;
+        }
+
+        /* когда товар в избранном → перечёркиваем сердце */
+        .icon-btn.heart[aria-pressed="true"]::after,
+        .icon-btn.heart.is-fav::after { /* .is-fav — запасной класс, если удобнее так */
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 36px; /* длина штриха */
+            height: 2px; /* толщина штриха */
+            background: #fff; /* цвет штриха поверх тёмной кнопки */
+            border-radius: 2px;
+            transform: translate(-50%, -50%) rotate(-35deg);
+            pointer-events: none; /* чтобы клик ловила кнопка, а не линия */
+        }
 
         .empty {
             padding: 48px 0;
@@ -400,47 +409,169 @@
             margin: 12px 16px;
             border-radius: 6px
         }
+
         .price-link {
             margin-top: 25px;
-             font-size: 20px;
+            font-size: 20px;
             font-family: Muller-regular;
             font-weight: 400;
             color: #422223;
             text-decoration: underline !important;
             justify-self: end;
         }
+
+        /* Базовый стиль — дизайн без изменений, только цвет через переменные */
+        .badge {
+            background: var(--badge-bg, #3A8F03);
+            color: var(--badge-fg, #fff);
+        }
+
+        /* чтобы текст точно подхватывал цвет */
+        .badge p {
+            color: inherit;
+        }
+
+        /* Модификаторы “метки” */
+        .badge--favorite {
+            --badge-bg: #3A8F03; /* зелёный */
+            --badge-fg: #ffffff;
+        }
+
+        .badge--sale {
+            --badge-bg: #FF3B30; /* красный */
+            --badge-fg: #ffffff;
+        }
+
+        .badge--new {
+            --badge-bg: #ffffff; /* белый фон */
+            --badge-fg: #111111; /* чёрный текст */
+            border: 1px solid rgba(0, 0, 0, .08); /* тонкий бордер, дизайн как был */
+        }
+
         /* --- SEARCH MODE (без фильтров) --- */
-.page.search-mode .layout{ grid-template-columns: 1fr; }     /* убираем пустую левую колонку */
-.page.search-mode .filters{ display: none !important; }      /* прячем панель */
+        .page.search-mode .layout {
+            grid-template-columns: 1fr;
+        }
 
-@media (min-width: 1100px) {
-  .page.search-mode .grid{ grid-template-columns: repeat(3, 1fr); } /* 3 карточки в ряд на широком экране */
+        /* убираем пустую левую колонку */
+        .page.search-mode .filters {
+            display: none !important;
+        }
+
+        /* прячем панель */
+
+        @media (min-width: 1100px) {
+            .page.search-mode .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            /* 3 карточки в ряд на широком экране */
+        }
+
+        /* чтобы кнопки внизу карточки всегда были на одном уровне */
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .body {
+            flex: 1 1 auto;
+        }
+
+        /* тело карточки растягивается, .foot уезжает вниз */
+        .pagination {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination .page-btn {
+            min-width: 38px;
+            height: 38px;
+            padding: 0 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #D9D9D9;
+            border-radius: 10px;
+            background: #fff;
+            font-family: Muller-regular;
+            font-size: 14px;
+            color: #422223;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .pagination .page-btn[aria-current="page"] {
+            background: #2b1b2a;
+            color: #fff;
+            border-color: #2b1b2a;
+            cursor: default;
+        }
+
+        .pagination .page-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .pagination .dots {
+            padding: 0 6px;
+            color: #7b6a68;
+        }
+
+        .infinite-wrap {
+            margin: 24px auto 64px;
+            text-align: center;
+        }
+
+        #loadMore {
+            padding: 10px 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            font-family: Muller-regular;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            margin: 12px auto;
+            border: 2px solid #ddd;
+            border-top-color: #555;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .sentinel {
+            height: 1px;
+        }
+
+        /* базовые размеры иконки (как у тебя) */
+.badge__icon {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
-/* чтобы кнопки внизу карточки всегда были на одном уровне */
-.card{ height: 100%; display:flex; flex-direction:column; }
-.body{ flex: 1 1 auto; }   /* тело карточки растягивается, .foot уезжает вниз */
-.pagination{
-  display:flex; gap:8px; align-items:center; justify-content:center;
+/* только для новинки: делаем чёрной */
+.badge--new .badge__icon {
+  filter: brightness(0);      /* превращает белую в чёрную */
 }
-.pagination .page-btn{
-  min-width:38px; height:38px; padding:0 12px;
-  display:inline-flex; align-items:center; justify-content:center;
-  border:1px solid #D9D9D9; border-radius:10px; background:#fff;
-  font-family:Muller-regular; font-size:14px; color:#422223;
-  text-decoration:none; cursor:pointer;
-}
-.pagination .page-btn[aria-current="page"]{
-  background:#2b1b2a; color:#fff; border-color:#2b1b2a; cursor:default;
-}
-.pagination .page-btn:disabled{ opacity:.5; cursor:not-allowed; }
-.pagination .dots{ padding:0 6px; color:#7b6a68; }
 
-.infinite-wrap { margin: 24px auto 64px; text-align: center; }
-#loadMore { padding: 10px 18px; border: 1px solid #ccc; border-radius: 8px; background:#fff; cursor:pointer; font-family: Muller-regular; }
-.spinner { width:24px; height:24px; margin:12px auto; border:2px solid #ddd; border-top-color:#555; border-radius:50%; animation:spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.sentinel { height: 1px; }
+/* на всякий случай фиксируем отсутствие фильтра у остальных */
+.badge--favorite .badge__icon,
+.badge--sale .badge__icon {
+  filter: none;
+}
 
 
     </style>
@@ -448,14 +579,14 @@
 
 {% block content %}
     <div id="catalog"
-     class="page"
-     data-cat-slug="{{ category_slug }}"
-     data-endpoint-category-cat="/api/categories/{slug}/"
-     data-endpoint-products-cat="/api/categories/{slug}/products/"
-     data-endpoint-filters-cat="/api/categories/{slug}/filters/"
-     data-endpoint-products-all="/api/catalog/"
-     data-endpoint-filters-all="/api/filters/"
-     data-endpoint-search-products="/api/categories/search/products/">
+         class="page"
+         data-cat-slug="{{ category_slug }}"
+         data-endpoint-category-cat="/api/categories/{slug}/"
+         data-endpoint-products-cat="/api/categories/{slug}/products/"
+         data-endpoint-filters-cat="/api/categories/{slug}/filters/"
+         data-endpoint-products-all="/api/catalog/"
+         data-endpoint-filters-all="/api/filters/"
+         data-endpoint-search-products="/api/categories/search/products/">
 
 
         <div class="crumbs">
@@ -490,18 +621,18 @@
             <main>
                 <div id="grid" class="grid"></div>
                 <!-- Подгрузка для режима поиска -->
-<div id="infiniteWrap" class="infinite-wrap" style="display:none">
-  <button id="loadMore" class="btn-outline" type="button">Показать ещё</button>
-  <div id="loadSpinner" class="spinner" aria-hidden="true" style="display:none"></div>
-  <!-- Невидимый «маяк» для автоподгрузки у низа страницы -->
-  <div id="loadSentinel" class="sentinel" aria-hidden="true"></div>
-</div>
-                
+                <div id="infiniteWrap" class="infinite-wrap" style="display:none">
+                    <button id="loadMore" class="btn-outline" type="button">Показать ещё</button>
+                    <div id="loadSpinner" class="spinner" aria-hidden="true" style="display:none"></div>
+                    <!-- Невидимый «маяк» для автоподгрузки у низа страницы -->
+                    <div id="loadSentinel" class="sentinel" aria-hidden="true"></div>
+                </div>
+
                 <div id="empty" class="empty" style="display:none">Ничего не найдено</div>
-<div id="pagination" class="pagination" style="margin-top:32px;"></div>
+                <div id="pagination" class="pagination" style="margin-top:32px;"></div>
 
                 <!-- Навигация по страницам -->
-                
+
             </main>
 
         </div>
@@ -511,123 +642,321 @@
 
 {% block extra_js %}
     <script>
-const $pagination = document.getElementById("pagination");
+        const $pagination = document.getElementById("pagination");
 
-function getPageParam(){
-  const p = new URLSearchParams(location.search);
-  const n = parseInt(p.get("page") || "1", 10);
-  return Number.isFinite(n) && n > 0 ? n : 1;
-}
-function buildUrlWithPage(page){
-  const p = new URLSearchParams(location.search);
-  if (page > 1) p.set("page", String(page)); else p.delete("page");
-  return location.pathname + "?" + p.toString();
-}
-function renderSearchPagination(meta){
-  // показываем пагинацию только для поиска и только если страниц > 1
-  if (!isSearch || !meta || !meta.pages || meta.pages <= 1){
-    $pagination.innerHTML = "";
-    return;
-  }
-  const cur = +meta.page || 1;
-  const total = +meta.pages || 1;
+        function getPageParam() {
+            const p = new URLSearchParams(location.search);
+            const n = parseInt(p.get("page") || "1", 10);
+            return Number.isFinite(n) && n > 0 ? n : 1;
+        }
 
-  const parts = [];
-  // назад
-  if (meta.has_prev){
-    parts.push(`<a class="page-btn" href="${buildUrlWithPage(cur-1)}">Назад</a>`);
-  }
-  // окно номеров: 1 … [cur-2 cur-1 cur cur+1 cur+2] … total
-  const span = 2;
-  const from = Math.max(1, cur - span);
-  const to   = Math.min(total, cur + span);
+        function buildUrlWithPage(page) {
+            const p = new URLSearchParams(location.search);
+            if (page > 1) p.set("page", String(page)); else p.delete("page");
+            return location.pathname + "?" + p.toString();
+        }
 
-  if (from > 1){
-    parts.push(`<a class="page-btn" href="${buildUrlWithPage(1)}">1</a>`);
-    if (from > 2) parts.push(`<span class="dots">…</span>`);
-  }
-  for (let i = from; i <= to; i++){
-    if (i === cur) parts.push(`<a class="page-btn" aria-current="page">${i}</a>`);
-    else parts.push(`<a class="page-btn" href="${buildUrlWithPage(i)}">${i}</a>`);
-  }
-  if (to < total){
-    if (to < total - 1) parts.push(`<span class="dots">…</span>`);
-    parts.push(`<a class="page-btn" href="${buildUrlWithPage(total)}">${total}</a>`);
-  }
-  // вперёд
-  if (meta.has_next){
-    parts.push(`<a class="page-btn" href="${buildUrlWithPage(cur+1)}">Вперёд</a>`);
-  }
+        function renderSearchPagination(meta) {
+            // показываем пагинацию только для поиска и только если страниц > 1
+            if (!isSearch || !meta || !meta.pages || meta.pages <= 1) {
+                $pagination.innerHTML = "";
+                return;
+            }
+            const cur = +meta.page || 1;
+            const total = +meta.pages || 1;
 
-  $pagination.innerHTML = parts.join("");
+            const parts = [];
+            // назад
+            if (meta.has_prev) {
+                parts.push(`<a class="page-btn" href="${buildUrlWithPage(cur - 1)}">Назад</a>`);
+            }
+            // окно номеров: 1 … [cur-2 cur-1 cur cur+1 cur+2] … total
+            const span = 2;
+            const from = Math.max(1, cur - span);
+            const to = Math.min(total, cur + span);
 
-  // необязательно: перехватываем клики, чтобы не перезагружать страницу целиком
-  // и просто менять параметр и перерисовывать список
-  $pagination.querySelectorAll(".page-btn[href]").forEach(a=>{
-    a.addEventListener("click", (e)=>{
-      e.preventDefault();
-      const url = new URL(a.getAttribute("href"), location.origin);
-      // применим новый page в адресной строке и перерисуем
-      history.replaceState({}, "", url.pathname + url.search);
-      loadProducts(); // перерисовать текущую страницу
-      // и плавно прокрутить к началу сетки
-      document.getElementById("grid").scrollIntoView({behavior:"smooth", block:"start"});
-    });
-  });
-}
+            if (from > 1) {
+                parts.push(`<a class="page-btn" href="${buildUrlWithPage(1)}">1</a>`);
+                if (from > 2) parts.push(`<span class="dots">…</span>`);
+            }
+            for (let i = from; i <= to; i++) {
+                if (i === cur) parts.push(`<a class="page-btn" aria-current="page">${i}</a>`);
+                else parts.push(`<a class="page-btn" href="${buildUrlWithPage(i)}">${i}</a>`);
+            }
+            if (to < total) {
+                if (to < total - 1) parts.push(`<span class="dots">…</span>`);
+                parts.push(`<a class="page-btn" href="${buildUrlWithPage(total)}">${total}</a>`);
+            }
+            // вперёд
+            if (meta.has_next) {
+                parts.push(`<a class="page-btn" href="${buildUrlWithPage(cur + 1)}">Вперёд</a>`);
+            }
+
+            $pagination.innerHTML = parts.join("");
+
+            // необязательно: перехватываем клики, чтобы не перезагружать страницу целиком
+            // и просто менять параметр и перерисовывать список
+            $pagination.querySelectorAll(".page-btn[href]").forEach(a => {
+                a.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const url = new URL(a.getAttribute("href"), location.origin);
+                    // применим новый page в адресной строке и перерисуем
+                    history.replaceState({}, "", url.pathname + url.search);
+                    loadProducts(); // перерисовать текущую страницу
+                    // и плавно прокрутить к началу сетки
+                    document.getElementById("grid").scrollIntoView({behavior: "smooth", block: "start"});
+                });
+            });
+        }
 
 
-(function () {
-  const root = document.getElementById("catalog");
-  const catSlug = (root.dataset.catSlug || "all").toString().trim();
-  const apiSlug = (catSlug && catSlug !== "all") ? catSlug.toLowerCase() : "all";
+        (function () {
+            const root = document.getElementById("catalog");
+            const catSlug = (root.dataset.catSlug || "all").toString().trim();
+            const apiSlug = (catSlug && catSlug !== "all") ? catSlug.toLowerCase() : "all";
 
-  // endpoints
-  const epCategoryCat   = root.dataset.endpointCategoryCat;
-  const epProductsCat   = root.dataset.endpointProductsCat;
-  const epFiltersCat    = root.dataset.endpointFiltersCat;
-  const epProductsAll   = root.dataset.endpointProductsAll;
-  const epFiltersAll    = root.dataset.endpointFiltersAll;
-  const epSearchProducts= root.dataset.endpointSearchProducts; // NEW
-      const $loadWrap   = document.getElementById("infiniteWrap");
-  const $loadMore   = document.getElementById("loadMore");
-  const $spinner    = document.getElementById("loadSpinner");
-  const $sentinel   = document.getElementById("loadSentinel");
+            // endpoints
+            const epCategoryCat = root.dataset.endpointCategoryCat;
+            const epProductsCat = root.dataset.endpointProductsCat;
+            const epFiltersCat = root.dataset.endpointFiltersCat;
+            const epProductsAll = root.dataset.endpointProductsAll;
+            const epFiltersAll = root.dataset.endpointFiltersAll;
+            const epSearchProducts = root.dataset.endpointSearchProducts; // NEW
+            const $loadWrap = document.getElementById("infiniteWrap");
+            const $loadMore = document.getElementById("loadMore");
+            const $spinner = document.getElementById("loadSpinner");
+            const $sentinel = document.getElementById("loadSentinel");
 
-  // локальный стейт пагинации для поиска
-  const searchState = {
-    page: 1,
-    perPage: 12,
-    hasNext: false,
-    isLoading: false
-  };
+            // локальный стейт пагинации для поиска
+            const searchState = {
+                page: 1,
+                perPage: 12,
+                hasNext: false,
+                isLoading: false
+            };
 
-    function appendCards(items) {
-    if (!items || !items.length) return;
-    const frag = document.createDocumentFragment();
-    items.forEach(card => {
-      const name = escapeHtml(card.name || "");
-      const img  = escapeHtml(card.card_image || card.image || "");
-      const href = getProductUrl(card);
-      const id   = card.id ?? card.pk;
-      const wrap = document.createElement("div");
-      wrap.className = "card";
-      wrap.innerHTML = `
+
+            const $filters = document.getElementById("filters");
+            const $grid = document.getElementById("grid");
+            const $empty = document.getElementById("empty");
+            const $apply = document.getElementById("apply");
+            const $reset = document.getElementById("reset");
+            const $sort = document.getElementById("sort");
+            const $title = document.getElementById("title-cat");
+            const $crumb = document.getElementById("crumb-cat");
+
+            // режим поиска
+            const q = getParam("q");
+            const isSearch = !!q && !!epSearchProducts;
+
+            if (isSearch) {
+                // добавляем класс на корневой контейнер страницы,
+                // чтобы сработали CSS-правила выше
+                root.classList.add("search-mode");
+            }
+            // Человекочитаемые названия фильтров
+            const FILTER_TITLES = {
+                manufacturer: "Производитель",
+                color: "Цвет",
+                type_material: "Вид материала",
+                product_type: "Тип товара",
+                frosen_defend: "Морозостойкость",
+                strength_grade: "Марка прочности",
+                water_resistance: "Водопоглощение",
+                format: "Формат",
+                emptiness: "Пустотность"
+            };
+
+            // state
+            const state = {
+                sort: getParam("sort") || "default",
+                filters: parseFilterParams(location.search),
+                paramMap: {}
+            };
+            $sort.value = state.sort;
+
+            // helpers
+            function urlFor(tpl, slug) {
+                return tpl.replace("{slug}", slug || "all");
+            }
+
+            function getParam(k) {
+                return new URLSearchParams(location.search).get(k);
+            }
+
+            function parseFilterParams(qs) {
+                const params = new URLSearchParams(qs);
+                const obj = {};
+                for (const [kRaw, v] of params.entries()) {
+                    if (kRaw === "sort" || kRaw === "ordering" || kRaw === "q" || kRaw === "page") continue;
+                    const k = kRaw.endsWith("[]") ? kRaw.slice(0, -2) : kRaw;
+                    (obj[k] ||= []).push(v);
+                }
+                return obj;
+            }
+
+            function buildQuery(includeQ = false) {
+                const p = new URLSearchParams();
+                if (state.sort && state.sort !== "default") {
+                    p.set("sort", state.sort);
+                    p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
+                }
+                Object.entries(state.filters).forEach(([k, arr]) => (arr || []).forEach(v => p.append(k, v)));
+                if (includeQ && q) p.set("q", q);
+                const s = p.toString();
+                return s ? "?" + s : "";
+            }
+
+            function pushUrl() {
+                // в режиме поиска обязательно сохраняем q
+                history.replaceState({}, "", location.pathname + buildQuery(isSearch));
+            }
+
+            function toTitle(slug) {
+                return (!slug || slug === "all") ? "Каталог" : slug.replace(/[-_]+/g, " ").replace(/\b\w/g, ch => ch.toUpperCase());
+            }
+
+            function escapeHtml(s) {
+                return String(s).replace(/[&<>"']/g, m => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    "\"": "&quot;",
+                    "'": "&#39;"
+                }[m]));
+            }
+
+            function escapeAttr(s) {
+                return escapeHtml(s).replace(/"/g, "&quot;");
+            }
+
+            function debounce(fn, ms) {
+                let t;
+                return (...a) => {
+                    clearTimeout(t);
+                    t = setTimeout(() => fn(...a), ms);
+                }
+            }
+
+            const applyFiltersDebounced = debounce(applyFiltersNow, 150);
+
+            // -------- Нормализация --------
+            function normalizeValues(val) {
+                if (Array.isArray(val)) {
+                    return val.map(v => {
+                        if (typeof v === "object") {
+                            const value = String(v.value ?? v.slug ?? v.id ?? "");
+                            const label = String(v.label ?? v.title ?? v.name ?? value);
+                            const count = (typeof v.count === "number") ? v.count : undefined;
+                            return {value, label, count};
+                        } else {
+                            const s = String(v);
+                            return {value: s, label: s};
+                        }
+                    });
+                }
+                if (val && typeof val === "object") {
+                    return Object.entries(val).map(([vk, vc]) => ({
+                        value: String(vk), label: String(vk),
+                        count: (typeof vc === "number") ? vc : undefined
+                    }));
+                }
+                return [];
+            }
+
+            function normalizeGroups(input) {
+                if (!input) return [];
+                if (Array.isArray(input)) return input;
+                if (typeof input === "object") {
+                    return Object.entries(input).map(([key, val]) => {
+                        if (Array.isArray(val)) {
+                            return {key, title: key, param: key, values: normalizeValues(val)};
+                        }
+                        if (val && typeof val === "object") {
+                            const title = String(val.verbose_name ?? val.title ?? val.label ?? val.name ?? key);
+                            const param = String(val.param ?? val.name ?? val.key ?? key);
+                            const rawValues = val.values ?? val.options ?? val.items ?? val.choices ?? val;
+                            return {key, title, param, values: normalizeValues(rawValues)};
+                        }
+                        return {key, title: key, param: key, values: []};
+                    });
+                }
+                return [];
+            }
+
+            // UI
+            function renderSkeletonCards(n = 6) {
+                $grid.innerHTML = "";
+                for (let i = 0; i < n; i++) {
+                    const d = document.createElement("div");
+                    d.className = "s-card";
+                    d.innerHTML = `<div class="s-img skeleton"></div><div class="s-line skeleton" style="width:70%"></div><div class="s-line skeleton" style="width:40%"></div>`;
+                    $grid.appendChild(d);
+                }
+            }
+
+            function getProductUrl(item) {
+                if (item?.link) return item.link;
+                const id = item?.id ?? item?.pk;
+                return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';
+            }
+
+            function renderCards(items) {
+                if (!items || !items.length) {
+                    $grid.innerHTML = "";
+                    $empty.style.display = "block";
+                    return;
+                }
+                $empty.style.display = "none";
+
+                // нормализация входящих значений на всякий случай
+                const normalizeTag = (val) => {
+                    const raw = String(val || "").trim().toLowerCase();
+                    const map = {
+                        "favorite": "favorite", "фаворит": "favorite",
+                        "sale": "sale", "акция": "sale",
+                        "new": "new", "новинка": "new",
+                    };
+                    return map[raw] || "";
+                };
+
+                const badgeMeta = {
+                    favorite: {label: "фаворит", cls: "badge--favorite"},
+                    sale: {label: "акция", cls: "badge--sale"},
+                    new: {label: "новинка", cls: "badge--new"},
+                };
+
+                $grid.innerHTML = items.map(card => {
+                    const name = escapeHtml(card.name || "");
+                    const img = escapeHtml(card.card_image || card.image || "");
+                    const href = getProductUrl(card);
+                    const id = card.id ?? card.pk;
+
+                    // читаем метку с бэка: promo_tag (или на всякий fallback badge)
+                    const key = normalizeTag(card.promo_tag || card.badge);
+                    const badge = key ? badgeMeta[key] : null;
+
+                    return `
+      <div class="card">
         <div class="img-wrap">
           ${img
-            ? `<a href="${href}" aria-label="${name}">
+                        ? `<a href="${href}" aria-label="${name}">
                  <img src="${img}" alt="${name}">
                </a>`
-            : `<div class="s-img skeleton"></div>`}
-          <div class="badge">
-            <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
-            <p>фаворит</p>
-          </div>
+                        : `<div class="s-img skeleton"></div>`}
+
+          ${badge ? `
+            <div class="badge ${badge.cls}">
+  <img class="badge__icon" src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
+  <p>${badge.label}</p>
+</div>` : ``}
         </div>
+
         <div class="body">
           <h3 class="name"><a href="${href}">${name}</a></h3>
           <a class="price-link" href="${href}" target="_blank" rel="noopener">перейти к товару</a>
         </div>
+
         <div class="foot">
           <button
             class="icon-btn heart"
@@ -646,228 +975,31 @@ function renderSearchPagination(meta){
           <button class="icon-btn tg-ico" title="написать" type="button" onclick="window.location.href='${href}'">
             <img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt="">
           </button>
-        </div>`;
-      frag.appendChild(wrap);
-    });
-    $grid.appendChild(frag);
+        </div>
+      </div>`;
+                }).join("");
 
-    // уведомим «избранное», что появились новые кнопки
-    if (window.SFFavorites) {
-      document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-    }
-  }
+                // Сообщаем менеджеру избранного, что появились новые кнопки
+                if (window.SFFavorites) {
+                    document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+                }
+            }
 
-  const $filters = document.getElementById("filters");
-  const $grid    = document.getElementById("grid");
-  const $empty   = document.getElementById("empty");
-  const $apply   = document.getElementById("apply");
-  const $reset   = document.getElementById("reset");
-  const $sort    = document.getElementById("sort");
-  const $title   = document.getElementById("title-cat");
-  const $crumb   = document.getElementById("crumb-cat");
+            function renderFilters(groups) {
+                groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
+                $filters.innerHTML = "";
+                state.paramMap = {};
+                (groups || []).forEach(group => {
+                    const paramName = String(group.param || group.name || group.key || group.slug || "").trim();
+                    if (!paramName) return;
+                    state.paramMap[group.key || group.name || paramName] = paramName;
+                    const displayTitle =
+                        FILTER_TITLES[paramName] || group.verbose_name || group.title || group.label || group.name || group.key || paramName;
 
-  // режим поиска
-  const q = getParam("q");
-  const isSearch = !!q && !!epSearchProducts;
-
-  if (isSearch) {
-  // добавляем класс на корневой контейнер страницы,
-  // чтобы сработали CSS-правила выше
-  root.classList.add("search-mode");
-}
-  // Человекочитаемые названия фильтров
-  const FILTER_TITLES = {
-    manufacturer: "Производитель",
-    color: "Цвет",
-    type_material: "Вид материала",
-    product_type: "Тип товара",
-    frosen_defend: "Морозостойкость",
-    strength_grade: "Марка прочности",
-    water_resistance: "Водопоглощение",
-    format: "Формат",
-    emptiness: "Пустотность"
-  };
-
-  // state
-  const state = {
-    sort: getParam("sort") || "default",
-    filters: parseFilterParams(location.search),
-    paramMap: {}
-  };
-  $sort.value = state.sort;
-
-  // helpers
-  function urlFor(tpl, slug) {
-    return tpl.replace("{slug}", slug || "all");
-  }
-  function getParam(k) {
-    return new URLSearchParams(location.search).get(k);
-  }
-  function parseFilterParams(qs) {
-    const params = new URLSearchParams(qs);
-    const obj = {};
-    for (const [kRaw, v] of params.entries()) {
-      if (kRaw === "sort" || kRaw === "ordering" || kRaw === "q" || kRaw === "page") continue;
-      const k = kRaw.endsWith("[]") ? kRaw.slice(0, -2) : kRaw;
-      (obj[k] ||= []).push(v);
-    }
-    return obj;
-  }
-  function buildQuery(includeQ=false) {
-    const p = new URLSearchParams();
-    if (state.sort && state.sort !== "default") {
-      p.set("sort", state.sort);
-      p.set("ordering", state.sort === "name_asc" ? "name" : "-name");
-    }
-    Object.entries(state.filters).forEach(([k, arr]) => (arr || []).forEach(v => p.append(k, v)));
-    if (includeQ && q) p.set("q", q);
-    const s = p.toString();
-    return s ? "?" + s : "";
-  }
-  function pushUrl() {
-    // в режиме поиска обязательно сохраняем q
-    history.replaceState({}, "", location.pathname + buildQuery(isSearch));
-  }
-  function toTitle(slug) {
-    return (!slug || slug === "all") ? "Каталог" : slug.replace(/[-_]+/g, " ").replace(/\b\w/g, ch => ch.toUpperCase());
-  }
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));
-  }
-  function escapeAttr(s) { return escapeHtml(s).replace(/"/g, "&quot;"); }
-  function debounce(fn, ms) { let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a), ms);} }
-  const applyFiltersDebounced = debounce(applyFiltersNow, 150);
-
-  // -------- Нормализация --------
-  function normalizeValues(val) {
-    if (Array.isArray(val)) {
-      return val.map(v => {
-        if (typeof v === "object") {
-          const value = String(v.value ?? v.slug ?? v.id ?? "");
-          const label = String(v.label ?? v.title ?? v.name ?? value);
-          const count = (typeof v.count === "number") ? v.count : undefined;
-          return {value, label, count};
-        } else {
-          const s = String(v);
-          return {value: s, label: s};
-        }
-      });
-    }
-    if (val && typeof val === "object") {
-      return Object.entries(val).map(([vk, vc]) => ({
-        value: String(vk), label: String(vk),
-        count: (typeof vc === "number") ? vc : undefined
-      }));
-    }
-    return [];
-  }
-  function normalizeGroups(input) {
-    if (!input) return [];
-    if (Array.isArray(input)) return input;
-    if (typeof input === "object") {
-      return Object.entries(input).map(([key, val]) => {
-        if (Array.isArray(val)) {
-          return {key, title: key, param: key, values: normalizeValues(val)};
-        }
-        if (val && typeof val === "object") {
-          const title = String(val.verbose_name ?? val.title ?? val.label ?? val.name ?? key);
-          const param = String(val.param ?? val.name ?? val.key ?? key);
-          const rawValues = val.values ?? val.options ?? val.items ?? val.choices ?? val;
-          return {key, title, param, values: normalizeValues(rawValues)};
-        }
-        return {key, title: key, param: key, values: []};
-      });
-    }
-    return [];
-  }
-
-  // UI
-  function renderSkeletonCards(n = 6) {
-    $grid.innerHTML = "";
-    for (let i = 0; i < n; i++) {
-      const d = document.createElement("div");
-      d.className = "s-card";
-      d.innerHTML = `<div class="s-img skeleton"></div><div class="s-line skeleton" style="width:70%"></div><div class="s-line skeleton" style="width:40%"></div>`;
-      $grid.appendChild(d);
-    }
-  }
-  function getProductUrl(item) {
-    if (item?.link) return item.link;
-    const id = item?.id ?? item?.pk;
-    return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';
-  }
-  function renderCards(items) {
-    if (!items || !items.length) {
-      $grid.innerHTML = "";
-      $empty.style.display = "block";
-      return;
-    }
-    $empty.style.display = "none";
-    $grid.innerHTML = items.map(card => {
-      const name = escapeHtml(card.name || "");
-      const img  = escapeHtml(card.card_image || card.image || "");
-      const href = getProductUrl(card);
-      const id   = card.id ?? card.pk;
-      return `
-        <div class="card">
-          <div class="img-wrap">
-            ${img
-              ? `<a href="${href}" aria-label="${name}">
-                   <img src="${img}" alt="${name}">
-                 </a>`
-              : `<div class="s-img skeleton"></div>`}
-            <div class="badge">
-              <img src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
-              <p>фаворит</p>
-            </div>
-          </div>
-          <div class="body">
-            <h3 class="name"><a href="${href}">${name}</a></h3>
-            <a class="price-link" href="${href}" target="_blank" rel="noopener">перейти к товару</a>
-          </div>
-          <div class="foot">
-            <button
-              class="icon-btn heart"
-              type="button"
-              title="В избранное"
-              data-fav-btn
-              data-label-add="В избранное"
-              data-label-remove="В избранном"
-              data-product-id="${id}"
-              data-product-name="${escapeAttr(card.name || '')}"
-              data-product-image="${escapeAttr(img)}"
-              data-product-url="${href}"
-              aria-pressed="false">
-              <img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt="">
-            </button>
-            <button class="icon-btn tg-ico" title="написать" type="button" onclick="window.location.href='${href}'">
-              <img src="{% static '/imgfolder/icons/telegram_ico.svg' %}" alt="">
-            </button>
-          </div>
-        </div>`;
-    }).join("");
-
-    // Сообщаем менеджеру избранного, что появились новые кнопки
-    if (window.SFFavorites) {
-      document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-    }
-  }
-
-  function renderFilters(groups) {
-    groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
-    $filters.innerHTML = "";
-    state.paramMap = {};
-    (groups || []).forEach(group => {
-      const paramName = String(group.param || group.name || group.key || group.slug || "").trim();
-      if (!paramName) return;
-      state.paramMap[group.key || group.name || paramName] = paramName;
-      const displayTitle =
-        FILTER_TITLES[paramName] || group.verbose_name || group.title || group.label || group.name || group.key || paramName;
-
-      const current = state.filters[paramName] || [];
-      const wrap = document.createElement("div");
-      wrap.className = "filter-item"; // свернуто по умолчанию
-      wrap.innerHTML = `
+                    const current = state.filters[paramName] || [];
+                    const wrap = document.createElement("div");
+                    wrap.className = "filter-item"; // свернуто по умолчанию
+                    wrap.innerHTML = `
         <div class="filter-head" role="button" tabindex="0" aria-expanded="false">
           <h4>${escapeHtml(displayTitle)}</h4>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="#5a4a48" stroke-width="2"/></svg>
@@ -875,208 +1007,216 @@ function renderSearchPagination(meta){
         <div class="filter-content">
           <div class="options"></div>
         </div>`;
-      const options = wrap.querySelector(".options");
-      const values = normalizeValues(group.values || group.options || group.items || group.choices || []);
-      values.forEach(v => {
-        const val = String(v.value);
-        const label = escapeHtml(v.label ?? val);
-        const checked = current.includes(val) ? "checked" : "";
-        options.insertAdjacentHTML("beforeend",
-          `<label class="opt">
+                    const options = wrap.querySelector(".options");
+                    const values = normalizeValues(group.values || group.options || group.items || group.choices || []);
+                    values.forEach(v => {
+                        const val = String(v.value);
+                        const label = escapeHtml(v.label ?? val);
+                        const checked = current.includes(val) ? "checked" : "";
+                        options.insertAdjacentHTML("beforeend",
+                            `<label class="opt">
              <input type="checkbox" data-param="${escapeAttr(paramName)}" value="${escapeAttr(val)}" ${checked}>
              <span>${label}</span>
            </label>`);
-      });
-      const head = wrap.querySelector(".filter-head");
-      head.addEventListener("click", () => {
-        const isOpen = wrap.classList.toggle("open");
-        head.setAttribute("aria-expanded", String(isOpen));
-      });
-      options.addEventListener("change", e => {
-        if (e.target && e.target.matches("input[type=checkbox]")) {
-          const param = e.target.dataset.param;
-          const val = e.target.value;
-          const set = new Set(state.filters[param] || []);
-          if (e.target.checked) set.add(val); else set.delete(val);
-          state.filters[param] = Array.from(set);
-          $apply.disabled = false;
-          applyFiltersDebounced();
-        }
-      });
-      $filters.appendChild(wrap);
-    });
+                    });
+                    const head = wrap.querySelector(".filter-head");
+                    head.addEventListener("click", () => {
+                        const isOpen = wrap.classList.toggle("open");
+                        head.setAttribute("aria-expanded", String(isOpen));
+                    });
+                    options.addEventListener("change", e => {
+                        if (e.target && e.target.matches("input[type=checkbox]")) {
+                            const param = e.target.dataset.param;
+                            const val = e.target.value;
+                            const set = new Set(state.filters[param] || []);
+                            if (e.target.checked) set.add(val); else set.delete(val);
+                            state.filters[param] = Array.from(set);
+                            $apply.disabled = false;
+                            applyFiltersDebounced();
+                        }
+                    });
+                    $filters.appendChild(wrap);
+                });
 
-    if (!$filters.children.length) {
-      $filters.innerHTML = `<div class="filter-item">
+                if (!$filters.children.length) {
+                    $filters.innerHTML = `<div class="filter-item">
         <div class="filter-head"><h4>Фильтры недоступны</h4></div>
         <div class="filter-content" style="display:block;padding:12px 16px;color:#9a8f8d">
           Для этой категории фильтры не настроены.
         </div>
       </div>`;
-    }
-  }
+                }
+            }
 
-  // data loaders
-  async function loadCategoryName() {
-    if (isSearch) {
-      const qHuman = (q || "").trim();
-      const title = qHuman ? `Поиск: ${qHuman}` : "Поиск";
-      $title.textContent = title;
-      $crumb.textContent = title;
-      return;
-    }
-    if (apiSlug === "all") return;
-    try {
-      const res = await fetch(urlFor(epCategoryCat, apiSlug), {credentials: "same-origin"});
-      if (!res.ok) return;
-      const data = await res.json();
-      const nm = data?.name || data?.title || toTitle(catSlug);
-      $title.textContent = nm;
-      $crumb.textContent = nm;
-    } catch (_) {}
-  }
+            // data loaders
+            async function loadCategoryName() {
+                if (isSearch) {
+                    const qHuman = (q || "").trim();
+                    const title = qHuman ? `Поиск: ${qHuman}` : "Поиск";
+                    $title.textContent = title;
+                    $crumb.textContent = title;
+                    return;
+                }
+                if (apiSlug === "all") return;
+                try {
+                    const res = await fetch(urlFor(epCategoryCat, apiSlug), {credentials: "same-origin"});
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    const nm = data?.name || data?.title || toTitle(catSlug);
+                    $title.textContent = nm;
+                    $crumb.textContent = nm;
+                } catch (_) {
+                }
+            }
 
-  async function loadFilters() {
-    if (isSearch) {
-      // В режиме поиска фильтры можно скрыть, чтобы не путать пользователя:
-      const panel = root.querySelector(".filters");
-      if (panel) panel.style.display = "none";
-      return;
-    }
-    const url = (apiSlug !== "all") ? urlFor(epFiltersCat, apiSlug) : epFiltersAll;
-    if (!url) { renderFilters([]); return; }
-    try {
-      const res = await fetch(url, {credentials: "same-origin"});
-      if (!res.ok) throw new Error("filters " + res.status);
-      const data = await res.json();
-      const raw = Array.isArray(data) ? data : (data.groups || data.filters || data.facets || data.data || data);
-      const groups = normalizeGroups(raw);
-      if (data && (data.name || data.category_name)) {
-        const nm = data.name || data.category_name;
-        $title.textContent = nm;
-        $crumb.textContent = nm;
-      }
-      renderFilters(groups);
-    } catch (e) {
-      console.warn("filters load error:", e);
-      renderFilters([]);
-    }
-  }
- async function loadProducts({ append = false } = {}) {
-    renderSkeletonCards();
-    try {
-      let items = [];
-      if (isSearch) {
-        // /api/categories/search/products/?q=...
-        if (!append) {
-          searchState.page = 1;
-        }
-        const qstr = buildQuery(true); // ?q=...&sort=... (если есть)
-        const sep  = qstr ? "&" : "?";
-        const url  = epSearchProducts + qstr + `${sep}page=${searchState.page}&per_page=${searchState.perPage}`;
- 
-        const res = await fetch(url, {credentials: "same-origin"});
-        if (!res.ok) throw new Error("products(search) " + res.status);
-        const data = await res.json();
-        // поддерживаем формат { items: [...], ... }
-        items = Array.isArray(data) ? data : (data.items || data.results || []);
-      } else {
-        // обычный каталог
-        const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
-        const url = base + buildQuery();
-        const res = await fetch(url, {credentials: "same-origin"});
-        if (!res.ok) throw new Error("products " + res.status);
-        const data = await res.json();
-        const pageItems = Array.isArray(data) ? data : (data.items || data.results || []);
-        searchState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
-        items = pageItems;
-      }
+            async function loadFilters() {
+                if (isSearch) {
+                    // В режиме поиска фильтры можно скрыть, чтобы не путать пользователя:
+                    const panel = root.querySelector(".filters");
+                    if (panel) panel.style.display = "none";
+                    return;
+                }
+                const url = (apiSlug !== "all") ? urlFor(epFiltersCat, apiSlug) : epFiltersAll;
+                if (!url) {
+                    renderFilters([]);
+                    return;
+                }
+                try {
+                    const res = await fetch(url, {credentials: "same-origin"});
+                    if (!res.ok) throw new Error("filters " + res.status);
+                    const data = await res.json();
+                    const raw = Array.isArray(data) ? data : (data.groups || data.filters || data.facets || data.data || data);
+                    const groups = normalizeGroups(raw);
+                    if (data && (data.name || data.category_name)) {
+                        const nm = data.name || data.category_name;
+                        $title.textContent = nm;
+                        $crumb.textContent = nm;
+                    }
+                    renderFilters(groups);
+                } catch (e) {
+                    console.warn("filters load error:", e);
+                    renderFilters([]);
+                }
+            }
 
-      if (state.sort === "name_asc" || state.sort === "name_desc") {
-        items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
-        if (state.sort === "name_desc") items.reverse();
-      }
-      renderCards(items);
-            if (isSearch && append) {
-        // дополнение
-        appendCards(items);
-      } else {
-        // полная перерисовка
-        renderCards(items);
-      }
+            async function loadProducts({append = false} = {}) {
+                renderSkeletonCards();
+                try {
+                    let items = [];
+                    if (isSearch) {
+                        // /api/categories/search/products/?q=...
+                        if (!append) {
+                            searchState.page = 1;
+                        }
+                        const qstr = buildQuery(true); // ?q=...&sort=... (если есть)
+                        const sep = qstr ? "&" : "?";
+                        const url = epSearchProducts + qstr + `${sep}page=${searchState.page}&per_page=${searchState.perPage}`;
 
-      // управление UI подгрузки (только в поиске)
-      if (isSearch) {
-        $loadWrap.style.display = "block";
-        $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
-      }
-    } catch (e) {
-      console.error("products load error:", e);
-      renderCards([]);
-    }
-  }
-     function buildQueryForAllSafe() {
-  // теперь полная строка запроса, как для категорий
-   return buildQuery(false);
- }
+                        const res = await fetch(url, {credentials: "same-origin"});
+                        if (!res.ok) throw new Error("products(search) " + res.status);
+                        const data = await res.json();
+                        // поддерживаем формат { items: [...], ... }
+                        items = Array.isArray(data) ? data : (data.items || data.results || []);
+                    } else {
+                        // обычный каталог
+                        const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
+                        const url = base + buildQuery();
+                        const res = await fetch(url, {credentials: "same-origin"});
+                        if (!res.ok) throw new Error("products " + res.status);
+                        const data = await res.json();
+                        const pageItems = Array.isArray(data) ? data : (data.items || data.results || []);
+                        searchState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
+                        items = pageItems;
+                    }
 
-  // actions
-  async function applyFiltersNow() {
-    pushUrl();
-    await loadProducts();
-  }
-  $apply.addEventListener("click", applyFiltersNow);
+                    if (state.sort === "name_asc" || state.sort === "name_desc") {
+                        items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
+                        if (state.sort === "name_desc") items.reverse();
+                    }
+                    renderCards(items);
+                    if (isSearch && append) {
+                        // дополнение
+                        appendCards(items);
+                    } else {
+                        // полная перерисовка
+                        renderCards(items);
+                    }
 
-  $reset.addEventListener("click", async () => {
-    state.filters = {};
-    state.sort = "default";
-    $sort.value = "default";
-    pushUrl();
-    await loadFilters();
-    await loadProducts();
-  });
+                    // управление UI подгрузки (только в поиске)
+                    if (isSearch) {
+                        $loadWrap.style.display = "block";
+                        $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+                    }
+                } catch (e) {
+                    console.error("products load error:", e);
+                    renderCards([]);
+                }
+            }
 
-  $sort.addEventListener("change", async () => {
-    state.sort = $sort.value;
-    pushUrl();
-    await loadProducts();
-  });
+            function buildQueryForAllSafe() {
+                // теперь полная строка запроса, как для категорий
+                return buildQuery(false);
+            }
 
-  // init
-  (async function init() {
-    await loadCategoryName();
-    await loadFilters();
-    await loadProducts();
-  })();
-  async function loadMoreSearch() {
-    if (!isSearch || !searchState.hasNext || searchState.isLoading) return;
-    searchState.isLoading = true;
-    $spinner.style.display = "block";
-    try {
-      searchState.page += 1;
-      await loadProducts({ append: true });
-    } finally {
-      searchState.isLoading = false;
-      $spinner.style.display = "none";
-      $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
-    }
-  }
+            // actions
+            async function applyFiltersNow() {
+                pushUrl();
+                await loadProducts();
+            }
 
-  if (isSearch) {
-    // кнопка
-    $loadMore.addEventListener("click", loadMoreSearch);
+            $apply.addEventListener("click", applyFiltersNow);
 
-    // автоподгрузка внизу страницы
-    if ('IntersectionObserver' in window && $sentinel) {
-      const io = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          loadMoreSearch();
-        }
-      }, { root: null, rootMargin: "400px 0px 400px 0px", threshold: 0 });
-      io.observe($sentinel);
-    }
-  }
-})();
-</script>
+            $reset.addEventListener("click", async () => {
+                state.filters = {};
+                state.sort = "default";
+                $sort.value = "default";
+                pushUrl();
+                await loadFilters();
+                await loadProducts();
+            });
+
+            $sort.addEventListener("change", async () => {
+                state.sort = $sort.value;
+                pushUrl();
+                await loadProducts();
+            });
+
+            // init
+            (async function init() {
+                await loadCategoryName();
+                await loadFilters();
+                await loadProducts();
+            })();
+
+            async function loadMoreSearch() {
+                if (!isSearch || !searchState.hasNext || searchState.isLoading) return;
+                searchState.isLoading = true;
+                $spinner.style.display = "block";
+                try {
+                    searchState.page += 1;
+                    await loadProducts({append: true});
+                } finally {
+                    searchState.isLoading = false;
+                    $spinner.style.display = "none";
+                    $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+                }
+            }
+
+            if (isSearch) {
+                // кнопка
+                $loadMore.addEventListener("click", loadMoreSearch);
+
+                // автоподгрузка внизу страницы
+                if ('IntersectionObserver' in window && $sentinel) {
+                    const io = new IntersectionObserver((entries) => {
+                        if (entries[0].isIntersecting) {
+                            loadMoreSearch();
+                        }
+                    }, {root: null, rootMargin: "400px 0px 400px 0px", threshold: 0});
+                    io.observe($sentinel);
+                }
+            }
+        })();
+    </script>
 
 {% endblock %}

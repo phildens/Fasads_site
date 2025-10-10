@@ -134,6 +134,7 @@ def api_search_products(request):
             "id": p.id,
             "name": p.name,
             "card_image": (p.card_image.url if getattr(p, "card_image", None) else None),
+            "promo_tag": p.promo_tag,
             "link": reverse("product_client_view", args=[p.pk]),  # путь на детальную
         })
 
