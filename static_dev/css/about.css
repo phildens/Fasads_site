@@ -900,3 +900,324 @@ textarea::placeholder{
   }
 }
 
+.lb-modal{
+  position:fixed; inset:0; display:none;
+  align-items:center; justify-content:center;
+  background:rgba(0,0,0,.6); backdrop-filter: blur(3px);
+  z-index: 999999; padding: 24px;
+}
+.lb-modal[aria-hidden="false"]{ display:flex; }
+.lb-stage{
+  position:relative; width:min(92vw, 1200px); height:min(92vh, 86vh);
+  background:#000; border-radius:12px; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.lb-stage img{
+  max-width:100%; max-height:100%; object-fit:contain;
+}
+.lb-close,.lb-prev,.lb-next{
+  position:absolute; top:16px; width:42px; height:42px;
+  border:0; border-radius:50%; cursor:pointer; color:#fff; background:rgba(0,0,0,.35);
+  display:flex; align-items:center; justify-content:center; font-size:24px; line-height:1;
+}
+.lb-close{ right:16px; }
+.lb-prev, .lb-next{ top:50%; transform:translateY(-50%); font-size:28px; }
+.lb-prev{ left:22px; } .lb-next{ right:22px; }
+.lb-close:hover,.lb-prev:hover,.lb-next:hover{ background:rgba(0,0,0,.55); }
+
+/* тач-зоны для свайпа */
+@media (hover:none){
+  .lb-prev, .lb-next{ width:56px; height:56px; font-size:30px; }
+}
+.js-lightbox-gallery .slide-car img{
+  pointer-events: auto;     /* было none */
+  cursor: zoom-in;          /* приятный визуальный сигнал */
+}
+/* === Lightbox — правки дизайна === */
+
+/* 1) убираем чёрный прямоугольник */
+.lb-stage{
+  background: transparent !important;   /* было #000 */
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* 2) стрелки — ближе к фото, выше по высоте, без кружков */
+.lb-prev,
+.lb-next{
+  background: transparent !important;   /* убрать кружок */
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;             /* широкая кликабельная зона */
+  height: 80%;             /* «выше по высоте» — почти вся высота сцены */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;         /* крупные стрелки */
+  color: #fff;
+  opacity: .95;
+  cursor: pointer;
+  border: none;
+}
+
+.lb-prev{ left: 8px; }     /* «ближе к фото» — маленький отступ от края */
+.lb-next{ right: 8px; }
+
+/* 3) крестик — без кружка и крупнее */
+.lb-close{
+  background: transparent !important;    /* убрать кружок */
+  border: none !important;
+  box-shadow: none !important;
+
+  position: absolute;
+  top: 24px;               /* чуть ниже, чем было визуально */
+  right: 18px;
+  width: auto;
+  height: auto;
+  font-size: 36px;         /* крупнее */
+  color: #fff;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ховер-подсветка — лёгкая, без фона */
+@media (hover:hover){
+  .lb-prev:hover, .lb-next:hover, .lb-close:hover{ opacity: 1; filter: drop-shadow(0 0 2px rgba(0,0,0,.6)); }
+}
+
+/* 4) мобильные — крестик ниже и крупнее, стрелки компактнее по ширине */
+@media (max-width: 767.98px){
+  .lb-prev, .lb-next{
+    width: 56px;
+    height: 70%;
+    font-size: 48px;
+  }
+  .lb-prev{ left: 4px; }
+  .lb-next{ right: 4px; }
+
+  .lb-close{
+    top: 32px;     /* опускаем пониже */
+    right: 12px;
+    font-size: 40px;  /* больше на мобилках */
+  }
+}
+/* — исправляем «фантомный прямоугольник» — */
+.lb-stage{
+  pointer-events: none;         /* сцена НЕ ловит клики */
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  z-index: 1;                   /* ниже кнопок */
+}
+
+/* кликабельные элементы поверх сцены */
+.lb-stage img,
+.lb-prev,
+.lb-next,
+.lb-close{
+  pointer-events: auto;         /* обратно включаем клики где нужно */
+  z-index: 2;
+}
+
+/* стрелки — как раньше настраивали (без кружков, большие, ближе к фото) */
+.lb-prev,
+.lb-next{
+  background: transparent !important;
+  border: none !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  color: #fff;
+  opacity: .95;
+  cursor: pointer;
+}
+.lb-prev{ left: 8px; }
+.lb-next{ right: 8px; }
+
+/* крестик — без кружка, крупнее */
+.lb-close{
+  background: transparent !important;
+  border: none !important;
+  position: absolute;
+  top: 24px;
+  right: 18px;
+  font-size: 36px;
+  color: #fff;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* мобильные: крестик ниже и крупнее, стрелки чуть компактнее */
+@media (max-width: 767.98px){
+  .lb-prev, .lb-next{
+    width: 56px;
+    height: 70%;
+    font-size: 48px;
+    left: 4px; right: 4px; /* крайние переопределятся по месту */
+  }
+  .lb-close{
+    top: 32px;
+    right: 12px;
+    font-size: 40px;
+  }
+}
+/* --- Стрелки: надёжные chevron'ы на CSS, без текста --- */
+.lb-prev,
+.lb-next{
+  background: transparent !important;
+  border: none !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;                 /* зона тапа */
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;                /* прячем текстовую стрелку (‹, ›) */
+  color: #fff;
+  opacity: .95;
+  cursor: pointer;
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.lb-prev{ left: 8px; }
+.lb-next{ right: 8px; }
+
+/* рисуем «галочки» псевдо-элементами — работает во всех шрифтах */
+.lb-prev::before,
+.lb-next::before{
+  content: "";
+  display: block;
+  width: 28px;                 /* толщина и размер стрелки можно менять тут */
+  height: 28px;
+  border-top: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+}
+.lb-prev::before{ transform: rotate(-135deg); }  /* «влево» */
+.lb-next::before{ transform: rotate(45deg);   }  /* «вправо» */
+
+/* --- Мобилки: аккуратнее зона тапа и положение --- */
+@media (max-width: 767.98px){
+  .lb-prev,
+  .lb-next{
+    width: 56px;
+    height: 70%;
+  }
+  .lb-prev{ left: 4px; }       /* ВАЖНО: только left для prev */
+  .lb-next{ right: 4px; }      /* ВАЖНО: только right для next */
+
+  .lb-prev::before,
+  .lb-next::before{
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
+  }
+
+  /* Крестик — ниже и крупнее на мобилках */
+  .lb-close{
+    top: 32px;
+    right: 12px;
+    font-size: 40px;
+  }
+}
+.lb-next {
+  right: 48px !important;   /* раньше было 8px — увеличиваем отступ */
+}
+
+/* Для мобильных — чуть меньше, чтобы не уползала за экран */
+@media (max-width: 767.98px) {
+  .lb-next {
+    right: 24px !important;
+  }
+}
+/* --- Стрелки выравниваются по границам изображения --- */
+
+/* Включаем относительное позиционирование у контейнера */
+.lb-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;     /* центрируем изображение */
+  align-items: center;
+}
+
+/* Стрелки теперь позиционируются относительно .lb-stage */
+.lb-prev,
+.lb-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: none !important;
+  width: 64px;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  color: #fff;
+  opacity: .95;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* Левая стрелка — по левому краю картинки */
+.lb-prev {
+  left: 0; /* или 8px если хочешь немного отступить */
+}
+
+/* Правая стрелка — по правому краю картинки */
+.lb-next {
+  right: 0; /* или 8px для лёгкого отступа */
+}
+
+/* Рисуем стрелки псевдоэлементами */
+.lb-prev::before,
+.lb-next::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-top: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+}
+
+.lb-prev::before { transform: rotate(-135deg); }
+.lb-next::before { transform: rotate(45deg); }
+
+/* Адаптив — чуть меньше стрелки на мобилках */
+@media (max-width: 767.98px) {
+  .lb-prev, .lb-next {
+    width: 56px;
+    height: 70%;
+  }
+  .lb-prev::before,
+  .lb-next::before {
+    width: 22px;
+    height: 22px;
+  }
+}
+/* FIX: мобильное позиционирование стрелок в лайтбоксе */
+@media (max-width: 767.98px){
+  .lb-prev{
+    left: 8px !important;
+    right: auto !important;   /* обязательно сбрасываем */
+  }
+  .lb-next{
+    right: 8px !important;
+    left: auto !important;    /* обязательно сбрасываем */
+  }
+}

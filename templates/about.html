@@ -680,13 +680,13 @@
 <div style="display: flex; justify-content: center;">
 <div style="width: 1200px">
       <h4 class="mini-headr">Сертификаты</h4>
-    <div class="slider" id="slider">
+    <div class="slider js-lightbox-gallery">
       <div class="slide-car">
         <img
           draggable="false"
           style="height: 156px"
           src="{% static 'imgfolder/sertificats/sert1.png' %}"
-          alt="1"
+          alt="Сертификат 1"
         />
       </div>
       <div class="slide-car">
@@ -694,7 +694,7 @@
           draggable="false"
           style="height: 173px"
           src="{% static 'imgfolder/sertificats/sert2.png' %}"
-          alt="2"
+          alt="Сертификат 2"
         />
       </div>
       <div class="slide-car">
@@ -702,7 +702,7 @@
           draggable="false"
           style="height: 163px"
           src="{% static 'imgfolder/sertificats/srt3.png' %}"
-          alt="3"
+          alt="Сертификат 3"
         />
       </div>
       <div class="slide-car">
@@ -710,7 +710,7 @@
           draggable="false"
           style="width: 118px"
           src="{% static 'imgfolder/sertificats/sret4.png' %}"
-          alt="4"
+          alt="Сертификат 4"
         />
       </div>
       
@@ -725,13 +725,13 @@
 <div style="display: flex; justify-content: center;">
 <div style="width: 1200px">
       <h4 class="mini-headr">Награды</h4>
-    <div class="slider" id="slider">
+    <div class="slider js-lightbox-gallery">
       <div class="slide-car">
         <img
           draggable="false"
           style="height: 151px"
           src="{% static 'imgfolder/prises/sert1.png' %}"
-          alt="1"
+          alt="Награда 1"
         />
       </div>
       <div class="slide-car">
@@ -739,7 +739,7 @@
           draggable="false"
           style="height: 155px"
           src="{% static 'imgfolder/prises/Scan 2.png' %}"
-          alt="2"
+          alt="Награда 2"
         />
       </div>
       <div class="slide-car">
@@ -747,7 +747,7 @@
           draggable="false"
           style="height: 200px"
           src="{% static 'imgfolder/prises/sert3.png' %}"
-          alt="3"
+          alt="Награда 3"
         />
       </div>
       <div class="slide-car">
@@ -755,7 +755,7 @@
           draggable="false"
           style="height: 184px"
           src="{% static 'imgfolder/prises/sert4.png' %}"
-          alt="4"
+          alt="Награда 4"
         />
       </div>
       
@@ -764,74 +764,176 @@
           draggable="false",
           style="height: 130px"
           src="{% static 'imgfolder/prises/prize6.png' %}"
-          alt="6"
+          alt="Награда 5"
         />
       </div>
     </div>
     
 </div>
-  
+
     
 </div>
-    
+    <div class="lb-modal" id="lbModal" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
+  <button class="lb-close" id="lbClose" aria-label="Закрыть">×</button>
+  <button class="lb-prev"  id="lbPrev"  aria-label="Предыдущее">‹</button>
+  <button class="lb-next"  id="lbNext"  aria-label="Следующее">›</button>
+  <div class="lb-stage" id="lbStage">
+    <img id="lbImage" alt="">
+  </div>
+</div>
+
+
 {#    ------код для работы слайдера------#}
+{#<script>#}
+{#    document.addEventListener('DOMContentLoaded', () => {#}
+{#  const slider = document.getElementById('slider');#}
+{#  let isDown     = false;#}
+{#  let startX     = 0;#}
+{#  let scrollLeft = 0;#}
+{##}
+{#  slider.addEventListener('mousedown', e => {#}
+{#    isDown = true;#}
+{#    slider.classList.add('active');#}
+{##}
+{#    // точка клика внутри слайдера#}
+{#    startX     = e.pageX - slider.offsetLeft;#}
+{#    scrollLeft = slider.scrollLeft;#}
+{##}
+{#    // чтобы не выделять ничего#}
+{#    e.preventDefault();#}
+{#  });#}
+{##}
+{#  slider.addEventListener('mouseleave', () => endDrag());#}
+{#  slider.addEventListener('mouseup',     () => endDrag());#}
+{##}
+{#  slider.addEventListener('mousemove', e => {#}
+{#    if (!isDown) return;#}
+{#    const x    = e.pageX - slider.offsetLeft;#}
+{#    const walk = x - startX;#}
+{#    slider.scrollLeft = scrollLeft - walk;#}
+{#  });#}
+{##}
+{#  slider.addEventListener('dragstart', e => {#}
+{#    // блокируем нативный drag картинок#}
+{#    e.preventDefault();#}
+{#  });#}
+{##}
+{#  function endDrag() {#}
+{#    isDown = false;#}
+{#    slider.classList.remove('active');#}
+{#  }#}
+{##}
+{#  // ————— hint при прокрутке страницы —————#}
+{#  const observer = new IntersectionObserver((entries, obs) => {#}
+{#    for (let entry of entries) {#}
+{#      if (entry.isIntersecting) {#}
+{#        // прокрутим чуть вправо и обратно#}
+{#        slider.scrollBy({ left: 80, behavior: 'smooth' });#}
+{#        setTimeout(() => {#}
+{#          slider.scrollTo({ left: 0, behavior: 'smooth' });#}
+{#        }, 600);#}
+{#        obs.disconnect();#}
+{#      }#}
+{#    }#}
+{#  }, { threshold: 0.5 });#}
+{##}
+{#  observer.observe(slider);#}
+{#});#}
+{##}
+{#  </script>#}
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  const slider = document.getElementById('slider');
-  let isDown     = false;
-  let startX     = 0;
-  let scrollLeft = 0;
+document.addEventListener('DOMContentLoaded', function(){
+  const galleries = Array.from(document.querySelectorAll('.js-lightbox-gallery'));
+  if (!galleries.length) return;
 
-  slider.addEventListener('mousedown', e => {
-    isDown = true;
-    slider.classList.add('active');
+  const modal   = document.getElementById('lbModal');
+  const stage   = document.getElementById('lbStage');
+  const imgEl   = document.getElementById('lbImage');
+  const btnClose= document.getElementById('lbClose');
+  const btnPrev = document.getElementById('lbPrev');
+  const btnNext = document.getElementById('lbNext');
 
-    // точка клика внутри слайдера
-    startX     = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-
-    // чтобы не выделять ничего
-    e.preventDefault();
-  });
-
-  slider.addEventListener('mouseleave', () => endDrag());
-  slider.addEventListener('mouseup',     () => endDrag());
-
-  slider.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    const x    = e.pageX - slider.offsetLeft;
-    const walk = x - startX;
-    slider.scrollLeft = scrollLeft - walk;
-  });
-
-  slider.addEventListener('dragstart', e => {
-    // блокируем нативный drag картинок
-    e.preventDefault();
-  });
-
-  function endDrag() {
-    isDown = false;
-    slider.classList.remove('active');
+  // если чего-то нет — не падаем, а выходим
+  if (!modal || !stage || !imgEl || !btnClose || !btnPrev || !btnNext) {
+    console.error('Lightbox: разметка модалки не найдена или неполная.');
+    return;
   }
 
-  // ————— hint при прокрутке страницы —————
-  const observer = new IntersectionObserver((entries, obs) => {
-    for (let entry of entries) {
-      if (entry.isIntersecting) {
-        // прокрутим чуть вправо и обратно
-        slider.scrollBy({ left: 80, behavior: 'smooth' });
-        setTimeout(() => {
-          slider.scrollTo({ left: 0, behavior: 'smooth' });
-        }, 600);
-        obs.disconnect();
-      }
-    }
-  }, { threshold: 0.5 });
+  const data = new Map();
+  galleries.forEach(gal=>{
+    const items = Array.from(gal.querySelectorAll('.slide-car img'))
+      .map(i=>({ src: i.getAttribute('data-full') || i.src, alt: i.alt || '' }))
+      .filter(x=>x.src);
+    data.set(gal, { items, index:0 });
+  });
 
-  observer.observe(slider);
+  let currentGallery = null;
+
+  galleries.forEach(gal=>{
+    gal.addEventListener('click', (e)=>{
+      const img = e.target.closest('img');
+      if(!img || !img.closest('.slide-car')) return;
+
+      currentGallery = gal;
+      const pack = data.get(gal);
+      const clickedSrc = img.getAttribute('data-full') || img.src;
+      const idx = pack.items.findIndex(x=>x.src===clickedSrc);
+      pack.index = idx >= 0 ? idx : 0;
+      show(pack.items[pack.index]);
+      open();
+    }, true);
+  });
+
+  function open(){
+    modal.setAttribute('aria-hidden','false');
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function close(){
+    modal.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow = '';
+  }
+  function show(item){
+    imgEl.src = '';
+    requestAnimationFrame(()=>{
+      imgEl.alt = item.alt || '';
+      imgEl.src = item.src;
+    });
+  }
+  function move(delta){
+    if(!currentGallery) return;
+    const pack = data.get(currentGallery);
+    if(!pack.items.length) return;
+    pack.index = (pack.index + delta + pack.items.length) % pack.items.length;
+    show(pack.items[pack.index]);
+  }
+
+  btnClose.addEventListener('click', close);
+  btnPrev .addEventListener('click', ()=>move(-1));
+  btnNext .addEventListener('click', ()=>move(1));
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) close(); });
+
+  window.addEventListener('keydown', (e)=>{
+    if(modal.getAttribute('aria-hidden')==='true') return;
+    if(e.key==='Escape') close();
+    if(e.key==='ArrowLeft') move(-1);
+    if(e.key==='ArrowRight') move(1);
+  });
+
+  // свайпы
+  let sx=0, sy=0, swiping=false;
+  stage.addEventListener('touchstart', (e)=>{
+    const t = e.changedTouches[0]; sx=t.clientX; sy=t.clientY; swiping=true;
+  }, {passive:true});
+  stage.addEventListener('touchend', (e)=>{
+    if(!swiping) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx, dy = Math.abs(t.clientY - sy);
+    if (Math.abs(dx)>40 && dy<40) move(dx<0?1:-1);
+    swiping=false;
+  }, {passive:true});
 });
+</script>
 
-  </script>
-    
+
 
 {% endblock %}
