@@ -15,7 +15,9 @@
     <br>и социальное строительство, что подтверждает нашу компетентность
   </div>
 
+  {% if not hide_facades_link %}
   <a class="hero-facades__link" href="{% url 'about' %}">Перейти к разделу</a>
+{% endif %}
 </section>
 
 <style>

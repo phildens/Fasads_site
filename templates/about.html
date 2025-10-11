@@ -5,7 +5,8 @@
 
 {% block content %}
     
-{% include 'description_item.html' %}
+{#{% include 'description_item.html' %}#}
+    {% include "description_item.html" with hide_facades_link=True %}
     
      <div class="stats-section">
       <div class="stats-card">
@@ -338,7 +339,7 @@
                         
                         <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
                         
-                        <p style="width: 574px; font-family: Muller-regular; font-size: 20px; line-height: 100%; letter-spacing: 0%; text-align: right; color: #42222399; opacity: 60%;">Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами 
+                        <p style="width: 574px; font-family: Muller-regular; font-size: 20px; line-height: 100%; letter-spacing: 0%; text-align: right; color: #42222399; ">Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами 
 мы формируем облик будущего, превращая смелые
 концепции в осязаемые формы</p>
                         
