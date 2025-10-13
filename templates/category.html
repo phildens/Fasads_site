@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{cat_name.1}}{% endblock %}
+
+{% block content %}
+<style>
+  .grid-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 1200px;
+    margin: auto;
+    margin-top: 68px;
+    align-items: flex-start;
+  }
+  .item-wrapper {
+    width: 380px;
+    height: 490px;
+    flex-shrink: 0;
+  }
+  .card {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-img-top {
+    width: 100%;
+    height: 261px;
+    object-fit: cover;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .card-body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: flex-end;
+    height: 230px;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    word-spacing: 100vw;
+    line-height: 1;
+  }
+  .card-foote {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 53px;
+  }
+  .colors {
+    display: flex;
+    gap: 12px;
+  }
+  .colors div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 47px;
+    border-radius: 5px;
+  }
+  .brown { background-color: #422223; }
+  .green { background-color: #327F00; }
+
+  .filter-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .filter-section {
+    width: 380px;
+    height: 490px;
+    background-color: rgba(245, 245, 245, 1);
+    border-radius: 10px;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+  .accordion {
+    font-family: 'Muller-medium';
+    font-size: 20px;
+    font-weight: 500;
+    color:  rgba(66, 34, 35, 1);
+    background-color: rgba(245, 245, 245, 1);
+    cursor: pointer;
+    padding: 32px 0 32px 0;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid rgba(245, 245, 245, 1);
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  .accordion.active {
+    background-color: rgba(245, 245, 245, 1);
+    padding-bottom: 15px;
+  }
+  .panel {
+    font-family: 'Muller-medium';
+    font-size: 18px;
+    color: rgba(66, 34, 35, 1);
+    cursor: pointer;
+    font-weight: 500;
+    padding-left: 15px;
+    background-color: rgba(245, 245, 245, 1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0px;
+  }
+  .panel label {
+    display: block;
+    margin: 0px 0;
+  }
+  .button {
+    width: 266px;
+    height: 62px;
+    border: none;
+    border-radius: 10px;
+    background: #eee;
+    cursor: pointer;
+  }
+  .button p {
+    margin: 0;
+    font-family: 'head';
+    font-size: 18px;
+    color: rgba(0, 0, 0, 1);
+  }
+  .chevron-down {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+  }
+
+  .filter-section label input[type="checkbox"] {
+    display: none;
+  }
+  .filter-section label span {
+    display: inline-block;
+    color: rgba(66, 34, 35, 1);
+    cursor: pointer;
+    transition: color .2s, opacity .2s;
+  }
+  .filter-section label span:hover {
+    text-decoration: underline;
+  }
+  .filter-section label input[type="checkbox"]:checked + span {
+    color: #aaa;
+    opacity: 0.6;
+  }
+  .chevron-icon {
+  transition: transform 0.2s;
+}
+.accordion.active .chevron-icon {
+  transform: rotate(180deg);
+}
+.p{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
+ 
+<div class="mx-auto" style="width: 1200px">
+  {% include "cat_line.html" with link=cat_name %}
+</div>
+<div class="mx-auto d-flex justify-content-end" style="max-width: 1200px">
+  <p style="font-family: 'muller-regular';font-size: 16px;font-weight:400 ;color:rgba(0, 0, 0, 1) ;">по умолчанию<img src="{% static 'imgfolder/chevron-down2.svg' %}" alt="" style="width:16px; height:16px; margin-left:8px;" class="chevron-icon"></p>
+  <div style="width: 6px"></div>
+  <div class="chevron-down"></div>
+</div>
+<div class="mx-auto" style="width: 1200px; height: 1px; background-color: black;"></div>
+<div id="cards-container">
+<div class="grid-layout">
+  <!-- фильтры -->
+  <div class="item-wrapper filter-wrapper">
+    <form
+  method="get"
+  id="filter-form"
+  class="filter-section"
+  action="{% url 'cats' %}"
+>
+  {# Обязательно передаём cat_name, чтобы view знал, какую категорию фильтровать #}
+  <input type="hidden" name="cat_name" value="{{ request.GET.cat_name }}">
+
+  <button type="button" class="accordion"><p class="p">Производитель<img src="{% static 'imgfolder/chevron-down.svg' %}" alt="" style="width:16px; height:16px; margin-left:8px;" class="chevron-icon"></p></button>
+  <div class="panel">
+    {% for item in manufacturers %}
+      <label>
+        <input
+          type="checkbox"
+          name="manufacturer"
+          value="{{ item.id }}"
+          {% if item.id|stringformat:"s" in filter_manufacturer %}checked{% endif %}
+        >
+        <span>{{ item.name }}</span>
+      </label>
+    {% endfor %}
+  </div>
+
+  <button type="button" class="accordion"><p class="p">Цвет<img src="{% static 'imgfolder/chevron-down.svg' %}" alt="" style="width:16px; height:16px; margin-left:8px;" class="chevron-icon"></p></button></button>
+  <div class="panel">
+    {% for item in colors %}
+      <label>
+        <input
+          type="checkbox"
+          name="color"
+          value="{{ item.id }}"
+          {% if item.id|stringformat:"s" in filter_color %}checked{% endif %}
+        >
+        <span>{{ item.name }}</span>
+      </label>
+    {% endfor %}
+  </div>
+
+  <button type="button" class="accordion"><p class="p">Тип материала<img src="{% static 'imgfolder/chevron-down.svg' %}" alt="" style="width:16px; height:16px; margin-left:8px;" class="chevron-icon"></p></button></button>
+  <div class="panel">
+    {% for item in materials %}
+      <label>
+        <input
+          type="checkbox"
+          name="material"
+          value="{{ item.id }}"
+          {% if item.id|stringformat:"s" in filter_material %}checked{% endif %}
+        >
+        <span>{{ item.name }}</span>
+      </label>
+    {% endfor %}
+  </div>
+
+  <button type="button" class="accordion"><p class="p">Вид товара<img src="{% static 'imgfolder/chevron-down.svg' %}" alt="" style="width:16px; height:16px; margin-left:8px;" class="chevron-icon"></p></button></button>
+  <div class="panel">
+    {% for item in product_types %}
+      <label>
+        <input
+          type="checkbox"
+          name="type"
+          value="{{ item.id }}"
+          {% if item.id|stringformat:"s" in filter_type %}checked{% endif %}
+        >
+        <span>{{ item.name }}</span>
+      </label>
+    {% endfor %}
+  </div>
+
+  <br>
+  <button class="button" type="submit">
+    <p>Применить фильтры</p>
+  </button>
+</form>
+
+  </div>
+
+  <!-- контейнер карточек -->
+ 
+    {% for item in products %}
+      <div class="item-wrapper">
+        <div class="card" style="position: relative;">
+          <button style="
+              background: linear-gradient(90deg, #327F00 0%, #3A8F03 100%);
+              width: 147px; height: 46px;
+              position: absolute; left: 35px; top: 27px;
+              border: none; border-radius: 10px;
+              box-shadow: 10px 10px 10px rgba(0,0,0,0.25);
+              display: flex; align-items: center; justify-content: center;
+            ">
+            <img src="{% static 'imgfolder/but_cat.png' %}" style="margin-right:8px;" alt="">
+            <span style="color:#F5F5F5;font-size:16px;font-family:'Muller-light';text-transform:lowercase">
+              фаворит
+            </span>
+          </button>
+          <img src="{{ item.card_image }}" class="card-img-top" alt="{{ item.name }}">
+          <div class="card-body">
+            <div class="card-title">
+              <p style="
+                  position:absolute; left:29px; top:44px;
+                  font-family:'Muller-medium'; font-size:28px;
+                  color:#422223; font-weight:500; margin:0;
+                ">
+                {{ item.name }}
+              </p>
+            </div>
+            <div class="card-foote" style="display:flex; justify-content:space-between; align-items:center; margin-top:190px;">
+              <p style="
+                   text-decoration:underline;
+                  font-family:'head2'; font-size:20px;
+                  color:#422223; font-weight:400; margin:0;margin-left:19px;
+                ">
+                прайс-лист
+              </p>
+              <div class="colors" style="display:flex; gap:12px; margin-right:10px;">
+                <div class="brown" style="padding-right: 9px; width:56px; height:47px; border-radius:5px; display:flex; align-items:center; justify-content:center;">
+                  <img style="width:40px; height:42px;" src="{% static 'imgfolder/bol3.png' %}" alt="">
+                </div>
+                <div class="green" style="width:56px; height:47px; border-radius:5px; display:flex; align-items:center; justify-content:center;">
+                  <img style="width:24px; height:24px;" src="{% static 'imgfolder/tg.png' %}" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  function initAccordions() {
+    document.querySelectorAll('.accordion').forEach(btn => {
+      btn.onclick = () => {
+        btn.classList.toggle('active');
+        const panel = btn.nextElementSibling;
+        panel.style.maxHeight = panel.style.maxHeight ? '' : panel.scrollHeight + 'px';
+      };
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initAccordions);
+
+  document.getElementById('filter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const params = new URLSearchParams(new FormData(this)).toString();
+    fetch(this.action + '?' + params, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(r => r.text())
+      .then(html => {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        document.getElementById('cards-container').innerHTML =
+          tmp.querySelector('#cards-container').innerHTML;
+        initAccordions();
+      });
+  });
+</script>
+
+{% endblock %}

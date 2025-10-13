@@ -1,0 +1,50 @@
+{% load static %}
+
+<div style="height: 50px"></div>
+<footer class="site-footer">
+    <div class="footer-top">
+        <nav class="footer-menu"><a href="{% url 'catalog_all' %}">Продукция</a> <a href="{% url 'galery' %}">Галерея</a> <a href="{% url 'about' %}#q">Вопросы-ответы</a> <a
+                href="{% url 'about' %}">Контакты</a></nav>
+        <div class="footer-info-block">
+            <div class="footer-info">
+                <div class="footer-info-title" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer"><a>Пермь, Газеты Звезда 13, 4 этаж</a></div>
+                <div class="footer-info-sub">контактный адрес шоу-рума</div>
+            </div>
+            <div class="footer-info">
+                <div class="footer-info-title"><a href="{{ site_settings.phone_href }}" style="text-decoration:none;">{{ site_settings.phone }}</a></div>
+                <div class="footer-info-sub">номер для связи</div>
+            </div>
+            <div class="footer-info">
+                <div class="footer-info-title"><a href="mailto:{{ site_settings.email }}" style="text-decoration:none;">{{ site_settings.email }}</a>
+                </div>
+                <div class="footer-info-sub">электронная почта</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="display: flex; justify-content: center;">
+        <div class="footer-group" style="width: 1200px; display: flex; justify-content: right;">
+            <div><img src="{% static 'imgfolder/logo_white2.svg' %}" alt=""
+                      style=" width: 383px; margin-right: 50px"></div>
+            <div style="display: flex; align-items: end;">
+                <div style="display: flex;flex-direction: column;color: rgba(0, 0, 0, 0.6);text-decoration: none;"><p
+                        style="color: inherit;color: rgba(0, 0, 0, 0.7);text-decoration: none; border-bottom: 30px;"
+                        href="#">Информация</p>
+                    <div style="height: 36px;"></div>
+                    <a style="color: inherit;text-decoration: none;" href="{% url 'privacy' %}">Политика конфиденциальности</a> <a
+                            style="margin-top: 20px; margin-bottom: 20px;color: inherit; text-decoration: none;"
+                            href="{% url 'privacy' %}">Пользовательское соглашение</a> <a style="color: inherit;text-decoration: none;"
+                                                                        href="{% url 'privacy' %}">Политика использования Cookies</a>
+                </div>
+                <div style="margin-left: 37px;"><a style="color:rgba(0, 0, 0, 0.7) ;text-decoration: none; " href="mailto:{{ site_settings.email }}">Сообщить
+                    об ошибке</a>
+                    <div style="height: 18px;"></div>
+                    <div style="display: flex;"><p style="margin: 0px 4px 0px 0px;">&copy;</p> <span
+                            style="color: rgba(0, 0, 0, 0.6); font-family: Muller-light;"> 2025 Современные фасады. Все права сайта защищены</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 50px"></div>
+</footer>

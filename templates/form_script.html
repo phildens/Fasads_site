@@ -1,0 +1,110 @@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // найдём все формы блока "callback", даже если их несколько на странице
+  const forms = document.querySelectorAll(".callback-form-section form");
+  if (!forms.length) return;
+
+  // CSRF из cookie
+  function getCookie(name) {
+    const m = document.cookie.match(new RegExp("(^|; )" + name + "=([^;]+)"));
+    return m ? decodeURIComponent(m[2]) : null;
+  }
+  const csrftoken = getCookie("csrftoken");
+
+  function toast(msg) {
+    let node = document.getElementById("cb-toast");
+    if (!node) {
+      node = document.createElement("div");
+      node.id = "cb-toast";
+      Object.assign(node.style, {
+        position: "fixed", left: "50%", bottom: "24px", transform: "translateX(-50%)",
+        background: "#111", color: "#fff", padding: "10px 14px", borderRadius: "10px",
+        zIndex: 99999, opacity: 0, transition: "opacity .2s"
+      });
+      document.body.appendChild(node);
+    }
+    node.textContent = msg;
+    node.style.opacity = "1";
+    setTimeout(() => (node.style.opacity = "0"), 2500);
+  }
+
+  function highlightErrors(form, errors){
+    form.querySelectorAll(".has-error").forEach(el => el.classList.remove("has-error"));
+    if (!errors) return;
+    for (const name of Object.keys(errors)) {
+      const field = form.querySelector(`[name="${name}"]`);
+      if (field) {
+        field.classList.add("has-error");
+        field.addEventListener("input", () => field.classList.remove("has-error"), { once: true });
+      }
+    }
+  }
+
+  // настройка каждой формы
+  forms.forEach((form) => {
+    // если action не задан — проставим эндпоинт
+    if (!form.getAttribute("action")) {
+      form.setAttribute("action", "{% url 'contact_request_create' %}");
+    }
+    // метод всегда POST
+    form.setAttribute("method", "post");
+
+    // единый обработчик отправки
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault(); // БЛОКИРУЕМ обычный сабмит для КАЖДОЙ формы
+
+      const btn = form.querySelector('button[type="submit"]') || form.querySelector(".callback-form-btn");
+      if (btn) btn.disabled = true;
+
+      const fd = new FormData(form);
+
+      // Определяем, какая схема полей у этой формы
+      const usesCanonical = !!(fd.has("first_name") || form.querySelector('[name="first_name"]'));
+
+      let body;
+      if (usesCanonical) {
+        // форма уже использует first_name/last_name/description → отправляем как есть
+        body = new FormData(form);
+      } else {
+        // форма с name/surname/about → маппим в канонические поля бэкенда
+        body = new FormData();
+        body.append("first_name",  fd.get("name")    || "");
+        body.append("last_name",   fd.get("surname") || "");
+        body.append("email",       fd.get("email")   || "");
+        body.append("phone",       fd.get("phone")   || "");
+        body.append("description", fd.get("about")   || "");
+        // если в форме есть скрытый csrf, тоже приложим
+        const csrfField = form.querySelector('input[name="csrfmiddlewaretoken"]');
+        if (csrfField) body.append("csrfmiddlewaretoken", csrfField.value);
+      }
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": (form.querySelector('input[name="csrfmiddlewaretoken"]')?.value) || csrftoken || "",
+            "X-Requested-With": "XMLHttpRequest"
+          },
+          body
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          highlightErrors(form, data.errors);
+          throw new Error("validation");
+        }
+
+        form.reset();
+        toast("Заявка отправлена. Спасибо!");
+        // если форма в модалке — можно закрыть модалку тут:
+        // form.closest(".cm-modal")?.classList.remove("cm-modal--open");
+
+      } catch (err) {
+        toast("Не удалось отправить. Проверьте поля и повторите.");
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }, { passive: false }); // важно: чтобы preventDefault точно сработал на некоторых браузерах
+  });
+});
+</script>

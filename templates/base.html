@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+
+    <title>{% block title %}Современные фасады{% endblock %}</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'imgfolder/icons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'imgfolder/icons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'imgfolder/icons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'imgfolder/icons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'imgfolder/icons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'imgfolder/icons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'imgfolder/icons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'imgfolder/icons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'imgfolder/icons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'imgfolder/icons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'imgfolder/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'imgfolder/icons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'imgfolder/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'imgfolder/icons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'imgfolder/icons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <style>
+        body {
+            background-color: #F5F5F5;
+        }
+
+        @font-face {
+
+            font-family: "Muller-ultralight";
+
+            src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-medium";
+
+            src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-light";
+
+            src: url("{% static 'font/MullerLight.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-regular";
+
+            src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+<!-- ======= МОБИЛЬНЫЙ ХЕДЕР: логотип + избранное ======= -->
+ <div class="mobile-header" style="width: 100%;backdrop-filter: blur(8px);position: fixed;z-index: 100;top: 0;
+  left: 0;  padding-top: 8px;       /* важно */
+  right: 0;padding-bottom: 10px;">
+<div id="mobileHeaderLeft">
+    <a href="{% url 'home' %}" id="mobileLogo" aria-label="Главная">
+        <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип"/>
+    </a>
+
+    <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
+        <img src="{% static 'imgfolder/bol2.svg' %}" alt="Избранное" class="header-fav-icon">
+        <span class="fav-badge" data-fav-count></span>
+    </a>
+</div>
+</div>
+<style>
+
+  #mobileHeaderLeft {
+    
+    backdrop-filter: blur(8px);
+    top: 16px;
+    left: 16px;
+    z-index: 1005;
+    display: none;
+    align-items: center;
+    gap: 12px;
+  }
+  #mobileHeaderLeft img {
+    height: 170px;
+    width: auto;
+  }
+
+
+    #mobileHeaderLeft img {
+        height: 60px;
+        width: auto;
+    }
+
+    #mobileHeaderLeft .header-fav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        position: relative;
+    }
+
+    #mobileHeaderLeft .header-fav-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    #mobileHeaderLeft .fav-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e53935;
+        color: #fff;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        font-family: Muller-medium, sans-serif;
+    }
+    @media (min-width: 1280px) {
+        .mobile-header {
+            display: none;
+        }
+    }
+    /* показываем только на мобильных */
+    @media (max-width: 1024px) {
+        
+        #mobileHeaderLeft {
+            display: flex;
+        }
+    }
+</style>
+
+
+<div class="mobile-top-block"></div>
+<style>
+    .mobile-top-block min-w- {
+        height: 0;
+    }
+
+    @media (max-width: 1024px) {
+        .mobile-top-block {
+            height: 50px;
+        }
+    }
+
+</style>
+{% include  "header.html" %}
+
+
+{% block content %}{% endblock %}
+
+
+{% include 'partners.html' %}
+
+
+{#    ОТВЕТЫ НА ВОПРОСЫ#}
+<div id="q" class="accordion-container">
+
+
+    {% for question in questions %}
+
+
+
+        <button class="accordion-tab">{{ question.name|linebreaksbr }}</button>
+
+        <div class="accordion-panel">
+            <p>{{ question.description|linebreaksbr }}</p>
+        </div>
+
+        <div style="background-color: black; height: 1px"></div>
+
+
+
+    {% endfor %}
+
+
+</div>
+<script>
+(function () {
+  const tabs = Array.from(document.getElementsByClassName("accordion-tab"));
+
+  // Убедимся, что у панелей правильные стартовые стили
+  tabs.forEach(tab => {
+    const panel = tab.nextElementSibling;
+    if (!panel) return;
+    panel.style.overflow = "hidden";
+    panel.style.height = "0px";
+    panel.style.transition = "height .28s ease";
+  });
+
+  function closePanel(tab) {
+    const panel = tab.nextElementSibling;
+    if (!panel) return;
+    tab.classList.remove("active");
+    // если панель в auto — сначала зафиксируем текущее значение, затем анимируем к 0
+      requestAnimationFrame(() => panel.style.marginBottom = "0px");
+    if (panel.style.height === "auto") {
+      panel.style.height = panel.scrollHeight + "px";
+      requestAnimationFrame(() => panel.style.height = "0px");
+    } else {
+      panel.style.height = panel.scrollHeight + "px";
+      requestAnimationFrame(() => panel.style.height = "0px");
+    }
+    panel.addEventListener("transitionend", function te() {
+      // после закрытия ничего не держим
+      if (tab.classList.contains("active") === false) {
+        panel.style.height = "0px";
+      }
+      panel.removeEventListener("transitionend", te);
+    });
+  }
+
+  function openPanel(tab) {
+    const panel = tab.nextElementSibling;
+    if (!panel) return;
+    tab.classList.add("active");
+    // из 0px к контентной высоте
+      requestAnimationFrame(() => panel.style.marginBottom = "20px");
+    panel.style.height = panel.scrollHeight + "px";
+    // после анимации ставим auto, чтобы держать динамический контент
+    panel.addEventListener("transitionend", function te() {
+      if (tab.classList.contains("active")) {
+        panel.style.height = "auto";
+        
+        requestAnimationFrame(() => panel.style.marginBottom = "20px");
+      }
+      panel.removeEventListener("transitionend", te);
+    });
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", function () {
+      const isOpen = this.classList.contains("active");
+
+      // 1) закрыть все прочие
+      tabs.forEach(t => {
+        if (t !== this && t.classList.contains("active")) {
+          closePanel(t);
+        }
+      });
+
+      // 2) переключить текущую
+      if (isOpen) {
+        closePanel(this);
+      } else {
+        openPanel(this);
+      }
+    });
+  });
+})();
+</script>
+
+{% include 'contact_main_form.html' %}
+
+<div style="height: 128px"></div>
+{#    ФУТЕР#}
+
+{% include 'footer.html' %}
+
+{% include "contact_modal.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+{% block extra_js %}{% endblock %}
+<!-- Шторка избранного -->
+<div id="favorites-drawer" aria-hidden="true">
+    <div class="drawer-overlay" data-close-favorites></div>
+    <aside class="drawer-panel" role="dialog" aria-label="Избранное">
+        <div class="drawer-head">
+            <div class="drawer-title">Избранное</div>
+            <button class="drawer-close" data-close-favorites aria-label="Закрыть">×</button>
+        </div>
+        <div class="drawer-body" id="favorites-list"></div>
+    </aside>
+</div>
+
+<!-- Скрипт избранного -->
+<script src="{% static 'js/favorites.js' %}"></script>
+
+</body>
+</html>

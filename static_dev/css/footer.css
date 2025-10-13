@@ -1,0 +1,221 @@
+.site-footer {
+  position: relative;
+  height: 278px;
+  border-top: 2px solid #d1cfcf;
+  padding: 34px 0 14px 0;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+  color: #422223;
+  font-size: 15px;
+  margin-top: 0;
+}
+.footer-top {
+  max-width: 1180px;
+  margin: 0 auto 22px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 40px;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.footer-top .footer-menu {
+  display: flex;
+  padding-bottom: 18px;
+  gap: 30px;
+  flex-wrap: nowrap;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.footer-top .footer-menu a {
+  color: #422223;
+  font-family: Muller-regular;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color .16s;
+  font-size: 15px;
+}
+.footer-top .footer-menu a:hover {
+  color: #a34b38;
+  text-decoration: underline;
+}
+.footer-top .footer-info-block {
+  display: flex;
+  flex-direction: row;
+  gap: 34px;
+  flex-shrink: 0;
+  align-items: flex-end;
+}
+
+/* мобильная версия */
+@media (max-width: 768px) {
+ .footer-top .footer-info-block {
+    flex-direction: column;   /* меняем на колонку */
+    align-items: center;      /* центрируем элементы */
+    gap: 20px;                /* расстояние между блоками */
+    text-align: center;       /* чтобы текст внутри тоже был по центру */
+  }
+}
+.footer-top .footer-info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-right: 10px;
+}
+.footer-info a{
+  color: #422223;
+}
+.footer-top .footer-info .footer-info-title {
+  font-family: Muller-medium;
+  /* font-weight: 600; */
+  color: #422223;
+  font-size: 15px;
+}
+.footer-top .footer-info .footer-info-sub {
+  color: #b4b4b4;
+  font-family: Muller-light;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+
+.site-footer hr {
+  border: none;
+  border-top: 1px solid #d1cfcf;
+  margin: 18px 0 28px 0;
+}
+.footer-bottom {
+  max-width: 980px;
+  margin: 0 auto;
+  color: #6e6867;
+  font-size: 13px;
+}
+.footer-bottom .footer-bottom-title {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.footer-bottom-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 38px;
+  margin: 10px 0 0 0;
+}
+.footer-bottom-links a {
+  color: #8f8a86;
+  text-decoration: none;
+  transition: color .15s;
+  font-size: 13px;
+}
+.footer-bottom-links a:hover {
+  color: #e15a6a;
+  text-decoration: underline;
+}
+.footer-bottom-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #b0b0b0;
+}
+/* ===== Адаптация ТОЛЬКО ниже 1200px. Десктоп остаётся как в исходнике ===== */
+/* было max-width: 1199.98px — влияло и на мобилки */
+@media (max-width: 1199.98px) and (min-width: 769px){
+  .footer-top .footer-info-block{
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 1199.98px){
+
+  /* футер свободной высоты на маленьких экранах */
+  .site-footer{
+    height: auto;
+    padding-bottom: 24px;
+  }
+
+  /* верхняя полоса: меню и инфоблок становятся колонкой */
+  .footer-top{
+    gap: 18px 24px;
+    align-items: flex-start;
+  }
+
+  .footer-top .footer-menu{
+    width: 100%;
+    gap: 10px 22px;
+    padding-bottom: 10px;
+  }
+
+  .footer-top .footer-info-block{
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+  .footer-top .footer-info{
+    margin-right: 0;
+    min-width: 220px;
+  }
+
+  /* — средняя полоса — */
+  /* Перекрываем инлайны только на малых ширинах */
+  .site-footer .footer-group{
+    width: 100% !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Логотип: снимаем фикс. размеры и правый отступ */
+  .site-footer .footer-group img{
+    width: clamp(220px, 42vw, 383px) !important;
+    height: auto !important;
+    margin-right: 0 !important;
+  }
+
+  /* Колонка ссылок + копирайт укладываются столбцом */
+  .site-footer .footer-group > div:last-child{
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 16px;
+    flex-direction: column;
+  }
+}
+
+/* планшеты */
+@media (max-width: 992px){
+  .footer-top .footer-info{ min-width: 200px; }
+  .site-footer .footer-group{
+    justify-content: flex-start !important;
+  }
+}
+
+/* мобильные ≤ 768 */
+@media (max-width: 768px){
+  .footer-top .footer-menu{
+    
+  }
+  .footer-top .footer-info-block{
+    /*justify-content: flex-start;*/
+  }
+
+  .site-footer .footer-group{
+    justify-content: center !important;
+    text-align: center;
+  }
+  .site-footer .footer-group > div:last-child{
+    align-items: center !important;
+  }
+
+  .footer-top .footer-info .footer-info-title{ font-size: 14px; }
+  .footer-top .footer-info .footer-info-sub{ font-size: 12px; }
+
+}
+
+/* маленькие мобильные ≤ 480 */
+@media (max-width: 480px){
+  .site-footer{ padding-top: 22px; padding-bottom: 20px; }
+  .footer-top .footer-menu a{ font-size: 14px; }
+  .footer-top .footer-info{ min-width: 0; }
+}

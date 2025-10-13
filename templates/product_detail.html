@@ -1,0 +1,1442 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Товар{% endblock %}
+
+{% block extra_css %}
+    <style>
+        /* --- Общий контейнер --- */
+        .product-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 24px 16px 64px;
+            font-family: Montserrat, Arial, sans-serif;
+            box-sizing: border-box
+        }
+
+        /* Крошки и заголовок */
+        .crumbs {
+            font-size: 13px;
+            color: #7b6a68;
+            margin-bottom: 6px
+        }
+
+        .crumbs {
+            margin-bottom: 18px;
+            margin-top: 33px;
+
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 16px;
+            color: #000000;
+        }
+
+        .crumbs a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .product-title {
+            font-family: Muller-medium;
+
+            font-size: 50px;
+            font-weight: 500;
+            line-height: 100%;
+            letter-spacing: 0;
+            margin: 8px 0 18px;
+            color: #422223
+        }
+
+        /* --- Сетка: десктоп (как было) --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns:1fr 360px;
+            gap: 28px;
+            align-items: start
+        }
+
+        @media (max-width: 992px) {
+            .product-grid {
+                display: block
+            }
+        }
+
+        /* Галерея */
+        .gallery {
+            width: 100%
+        }
+
+        .main-photo {
+            border-radius: 10px;
+        {#background: #f4f2f1;#} overflow: hidden;
+            position: relative;
+        {#border: 6px solid rgba(63, 138, 255, 0.12)#}
+        }
+
+        .main-photo img.main-img {
+            width: 100%;
+            height: 520px;
+            border-radius: 10px;
+            object-fit: cover;
+            display: block
+        }
+
+        /* Миниатюры — справа сверху на фото */
+        .thumbs {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            z-index: 6
+        }
+
+        .thumb {
+            width: 98px;
+            height: 98px;
+            border-radius: 12px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 9px 18px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #efeaea
+        }
+
+        .thumb img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            display: block
+        }
+
+        .thumb.active {
+            outline: 3px solid rgba(63, 138, 255, 0.18);
+            transform: translateY(-2px)
+        }
+
+        @media (max-width: 720px) {
+            .thumbs {
+                position: static;
+                flex-direction: row;
+                padding: 8px;
+                overflow: auto;
+                background: transparent;
+                margin-bottom: 10px;
+                margin-top: 12px;
+                gap: 10px
+            }
+
+            .main-photo img.main-img {
+                height: 360px
+            }
+        }
+
+        /* Правая колонка */
+        .side-card {
+            background: radial-gradient(50% 50% at 50% 50%, #422223 0%, #523A36 100%);
+
+            color: #fff;
+            border-radius: 10px;
+            padding: 18px
+        }
+
+        .side-card .btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 0
+        }
+
+        .pbb {
+            border-radius: 10px;
+            border: 1px solid white !important;
+            height: 49px;
+            font-family: Muller-light;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+
+        }
+
+        .btn-white {
+            background: #fff;
+            color: #3c2423
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff
+        }
+
+        .call-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 27px;
+            margin-top: 27px
+        }
+
+        .call-btn {
+            background: #fff;
+            color: #422223;
+            border: 1px solid #422223;
+            height: 49px;
+            border-radius: 10px;
+            width: 100%;
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+
+        }
+
+        .wbb {
+            height: 49px;
+            border-radius: 10px;
+            color: #422223;
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+
+        }
+
+
+        .green-card {
+            background: #327F00;
+
+            padding-left: 27px;
+            padding-top: 31px;
+            padding-bottom: 33px;
+            padding-right: 33px;
+            color: #fff;
+            border-radius: 10px;
+
+            margin-top: 30px;
+            font-family: Muller-light;
+            font-weight: 200;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+
+        }
+
+        .bopen-gal {
+
+        }
+
+        .price-individ {
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 100%;
+            margin-bottom: 70px;
+            letter-spacing: 0%;
+
+        }
+
+        .green-card .btn {
+            background: #fff;
+            border-radius: 10px;
+            width: 100%;
+            border: none;
+            height: 50px;
+            font-family: Muller-light;
+
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0;
+            margin-top: 122px;
+
+        }
+
+        @media (max-width: 992px) {
+            .side-card, .call-card, .green-card {
+                margin-top: 12px
+            }
+        }
+
+        /* =========================
+           Характеристики (унификация 98×98)
+           ========================= */
+
+        /* ДЕСКТОП: строгая сетка из плиток 98×98 */
+        .specs {
+            display: grid;
+            grid-template-columns:repeat(auto-fill, 98px); /* все плитки ровно 98px */
+            gap: 30px;
+            margin: 20px 0 12px;
+            align-items: start;
+            justify-content: flex-start; /* выравниваем к левому краю */
+        }
+
+        /* Карточка характеристики — ровно 98×98 везде */
+        .spec-wrapper {
+            position: relative;
+            width: 98px;
+            height: 98px;
+        }
+
+        /* Скрываем значение по умолчанию */
+
+
+        /* Внутренний блок — тоже 98×98 */
+        .spec {
+            width: 98px;
+            height: 98px;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #efeaea;
+            box-sizing: border-box;
+            padding: 10px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 9px;
+            text-align: left;
+        }
+
+        /* Круглый индикатор */
+        .spec-icon {
+            position: absolute;
+            left: -18px; /* На десктопе слегка «нависает» */
+            top: -10px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: none;
+            border: 1px solid #422223;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #422223;
+            font-family: Muller-regular;
+            font-weight: 700;
+            font-size: 13px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06)
+        }
+
+        /* Тексты внутри плитки — компактно и без переполнения */
+        .spec__label {
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden
+        }
+
+        .spec__value {
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
+
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden
+        }
+
+        /* Описание */
+        .desc {
+            margin-top: 8px;
+            color: #3a2a29;
+            line-height: 1.65
+            white-space: pre-wrap; /* \n становится переносом строки */
+            tab-size: 4; /* ширина табуляции */
+            word-break: break-word;
+        }
+
+        /* учитывает реальные переводы строк и табы */
+
+
+        .desc p {
+            margin-bottom: 12px;
+            font-family: Muller-regular;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 100%;
+            letter-spacing: 0;
+            color: #422223;
+
+        }
+
+        /* Скелетоны */
+        .skeleton {
+            background: linear-gradient(90deg, #eee, #f6f6f6, #eee);
+            background-size: 200% 100%;
+            animation: sk 1.2s infinite;
+            border-radius: 8px
+        }
+
+        @keyframes sk {
+            0% {
+                background-position: 200% 0
+            }
+            100% {
+                background-position: -200% 0
+            }
+        }
+
+        /* --- МОБИЛЬНЫЙ СЛАЙДЕР характеристик без кнопок --- */
+        @media (max-width: 720px) {
+            .specs {
+                display: flex; /* слайдер */
+                gap: 12px;
+                margin: 6px 0 8px;
+                padding: 26px 12px 6px 1px; /* ВАЖНО: небольшой левый отступ, чтобы круг не обрезался */
+                overflow-x: auto;
+                overflow-y: visible;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .spec-wrapper {
+                flex: 0 0 98px; /* фиксированная ширина плитки в ленте */
+                width: 98px;
+                margin-left: 13px;
+                height: 98px;
+            {#scroll-snap-align: start;#}
+            }
+
+            .spec {
+                width: 98px;
+                height: 98px;
+                padding: 10px 8px;
+            }
+
+            .spec-icon {
+                left: -14px;
+                top: -10px; /* компактнее на мобилке */
+                width: 26px;
+                height: 26px;
+                font-size: 12px
+            }
+        }
+
+        /* (Необязательная подстраховка — если сетка была переопределена где-то ещё) */
+        @media (min-width: 721px) {
+            .spec-wrapper, .spec {
+                width: 110px;
+                height: 98px
+            }
+        }
+
+
+        /* ===== Похожие товары ===== */
+        .similar {
+            margin-top: 40px;
+        }
+
+        .similar__title {
+            margin: 0 0 18px;
+            font-family: Muller-medium;
+            font-size: 28px;
+            color: #422223;
+        }
+
+        /* Карточка */
+        .simcard {
+            display: block;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f5f5f5;
+            aspect-ratio: 1 / 1; /* квадрат как в макете */
+        }
+
+        .simcard img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px
+        }
+
+        .simcard__name {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            background: rgba(0, 0, 0, .45);
+            color: #fff;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 14px;
+            line-height: 1.2;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Десктопная сетка 4×2 */
+        .similar__grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 1200px) {
+            .similar__grid {
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .similar__grid {
+                display: none !important;
+            }
+
+            /* на планшет и ниже — слайдер */
+        }
+
+        /* Мобильный слайдер */
+        .similar__rail-wrap {
+            position: relative;
+        }
+
+        .similar__rail {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 2px 2px 8px;
+        }
+
+        .similar__rail .simcard {
+            flex: 0 0 78vw;
+            max-width: 420px;
+            scroll-snap-align: center;
+        }
+
+        @media (min-width: 721px) {
+            .similar__rail .simcard {
+                flex-basis: 46vw;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .similar__rail-wrap {
+                display: none !important;
+            }
+        }
+
+        .similar__nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .9);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .similar__nav.prev {
+            left: -6px;
+        }
+
+        .similar__nav.next {
+            right: -6px;
+        }
+
+        @media (max-width: 560px) {
+            .similar__nav {
+                display: none;
+            }
+        }
+
+        /* на очень узких — только свайп */
+        /* позволим всплывать поверх соседей */
+        .product-page {
+            position: relative;
+        }
+
+        .specs {
+            position: relative;
+            overflow: visible;
+        }
+
+        .spec-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* плавная анимация */
+        .spec {
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+
+        /* увелечение плитки поверх контента (hover или .expanded) */
+        .spec-wrapper:hover .spec,
+        .spec-wrapper.expanded .spec {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1.12);
+            z-index: 1000; /* выше всего локально */
+            width: max-content; /* пусть растёт по тексту */
+            min-width: 220px; /* базовый размер всплывашки */
+            max-width: 360px; /* чтобы не разъезжалась слишком */
+            padding: 14px 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
+        }
+
+        /* показать полный текст внутри всплывшей карточки */
+        .spec-wrapper:hover .spec__label,
+        .spec-wrapper:hover .spec__value,
+        .spec-wrapper.expanded .spec__label,
+        .spec-wrapper.expanded .spec__value {
+            display: block;
+            -webkit-line-clamp: initial;
+            overflow: visible;
+            white-space: normal;
+        }
+
+
+        /* базовая плоскость */
+        .specs {
+            position: relative;
+            z-index: 0;
+        }
+
+        .spec-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* когда плитка раскрыта (hover на десктопе или .expanded на мобиле) —
+           поднимаем весь wrapper выше соседей */
+        .spec-wrapper:hover,
+        .spec-wrapper.expanded {
+            z-index: 1001; /* >, чем у неактивных */
+        }
+
+        /* сама «всплывашка» тоже на верхнем слое */
+        .spec-wrapper:hover .spec,
+        .spec-wrapper.expanded .spec {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1.12);
+            z-index: 1002; /* поверх всего в секции */
+            width: max-content;
+            min-width: 220px;
+            max-width: 360px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
+        }
+
+
+        /* короткая версия внутри плитки */
+        .spec__label {
+            /* было: display:-webkit-box; -webkit-line-clamp:2; overflow:hidden; ... */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+
+            white-space: normal; /* разрешаем обычные переносы */
+            overflow-wrap: anywhere; /* ломать длинные слова при необходимости */
+            word-break: break-word; /* запасной вариант для старых браузеров */
+            hyphens: auto; /* расставлять переносы по слогам */
+        }
+
+        /* во всплывающей/увеличенной карточке показываем полный текст */
+        .spec-wrapper:hover .spec__label,
+        .spec-wrapper.expanded .spec__label {
+            display: block;
+            -webkit-line-clamp: initial;
+            overflow: visible;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        /* в обычной плитке: как было (обрезаем до 3 строк) */
+        .spec__value {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* во всплывшей/увеличенной карточке показываем всё + уважаем \n */
+        .spec-wrapper:hover .spec__value,
+        .spec-wrapper.expanded .spec__value {
+            display: block;
+            -webkit-line-clamp: initial;
+            overflow: visible;
+            white-space: pre-line; /* <<< \n => перенос строки */
+        }
+
+        /* базовые слои */
+        .specs {
+            position: relative;
+            overflow: visible;
+            z-index: 0;
+        }
+
+        .spec-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .spec {
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        /* ---------- Десктоп: всплытие внутри грид ---------- */
+        @media (min-width: 721px) {
+            .spec-wrapper:hover {
+                z-index: 1001;
+            }
+
+            .spec-wrapper:hover .spec {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) scale(1.12);
+                z-index: 1002;
+                width: max-content;
+                min-width: 220px;
+                max-width: 360px;
+                max-height: 70vh;
+                overflow: auto;
+                padding: 14px 12px;
+                box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
+            }
+
+            .spec-wrapper:hover .spec__label,
+            .spec-wrapper:hover .spec__value {
+                display: block;
+                -webkit-line-clamp: initial;
+                overflow: visible;
+                white-space: pre-line;
+            }
+        }
+
+        /* ---------- Мобильные: отдельный поповер, фиксированный к вьюпорту ---------- */
+        @media (max-width: 720px) {
+            /* фоновая «прокладка», чтобы клики вне поповера его закрывали и ничего не блокировалось */
+            .specs.has-popover::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                z-index: 1500;
+                background: transparent;
+            }
+
+            .spec-wrapper.expanded {
+                z-index: 1600;
+            }
+
+            /* выше прокладки */
+            .spec-wrapper.expanded .spec {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%); /* без scale */
+                z-index: 1601;
+                width: auto;
+                max-width: min(92vw, 520px); /* НЕ вылезаем за экран */
+                max-height: 75vh; /* умещаемся по высоте */
+                padding: 16px 14px;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, .28);
+                overflow: auto; /* вертикальный скролл внутри при очень длинном тексте */
+            }
+
+            .spec-wrapper.expanded .spec__label,
+            .spec-wrapper.expanded .spec__value {
+                display: block;
+                -webkit-line-clamp: initial;
+                overflow: visible;
+                white-space: pre-line;
+            }
+        }
+
+    </style>
+    <style>
+/* ====== ХАР-КИ: всплывашка и мобильный поповер ====== */
+
+/* базовый слой */
+.product-page{ position:relative; }
+.specs{ position:relative; overflow:visible; z-index:0; }
+.spec-wrapper{ position:relative; z-index:1; }
+.spec{ transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+
+/* короткие тексты в плитке */
+.spec__label{
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  white-space:normal; overflow-wrap:anywhere; word-break:break-word; hyphens:auto;
+}
+.spec__value{
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  white-space:normal; overflow-wrap:anywhere; word-break:break-word; hyphens:auto;
+}
+
+/* ----- Десктоп (>=721px): всплытие внутри грида ----- */
+@media (min-width: 721px){
+  .spec-wrapper:hover{ z-index:1001; }
+  .spec-wrapper:hover .spec{
+    position:absolute; left:50%; top:50%; transform:translate(-50%, -50%) scale(1.12);
+    z-index:1002; width:max-content; min-width:220px; max-width:360px; max-height:70vh; overflow:auto;
+    padding:14px 12px; box-shadow:0 12px 36px rgba(0,0,0,.25);
+  }
+  .spec-wrapper:hover .spec__label,
+  .spec-wrapper:hover .spec__value{
+    display:block; -webkit-line-clamp:initial; overflow:visible; white-space:pre-line;
+  }
+}
+
+/* ----- Мобайл (<=720px): фиксированный поповер по центру ----- */
+@media (max-width: 720px){
+  /* нативный горизонтальный свайп */
+  .specs{ overflow-x:auto; overflow-y:visible; scroll-snap-type:x mandatory;
+          -webkit-overflow-scrolling:touch; touch-action: pan-x; }
+
+  /* чтобы содержимое плитки не перехватывало свайп, пока она не открыта */
+  .spec-wrapper .spec{ pointer-events:none; }
+  .spec-wrapper.expanded .spec{ pointer-events:auto; }
+
+  /* «прокладка» — позволяет закрывать по тапу вне поповера */
+  .specs.has-popover::before{
+    content:""; position:fixed; inset:0; z-index:1500; background:transparent;
+  }
+
+  .spec-wrapper.expanded{ z-index:1600; }
+  .spec-wrapper.expanded .spec{
+    position:fixed; left:50%; top:50%; transform:translate(-50%, -50%);
+    z-index:1601; width:auto; max-width:min(92vw, 520px); max-height:75vh; overflow:auto;
+    padding:16px 14px; box-shadow:0 14px 40px rgba(0,0,0,.28);
+  }
+  .spec-wrapper.expanded .spec__label,
+  .spec-wrapper.expanded .spec__value{
+    display:block; -webkit-line-clamp:initial; overflow:visible; white-space:pre-line;
+  }
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="product-page" data-product-id="{{ product_id }}">
+        <div style="height: 1px; background-color: black;"></div>
+        <!-- Крошки -->
+        <div class="crumbs">
+            <a href="/">Главная</a> <span>›</span>
+            <a href="/catalog/">Продукция</a> <span>›</span>
+            <span id="crumb-category" class="skeleton"
+                  style="display:inline-block;width:140px;height:12px;border-radius:6px;"></span>
+        </div>
+
+        <!-- Заголовок -->
+        <h1 id="product-title" class="product-title skeleton" style="width:60%;height:44px;border-radius:10px"></h1>
+
+        <div class="product-grid">
+            <!-- Левая колонка -->
+            <div id="left-col">
+                <div class="gallery" id="gallery">
+                    <div class="main-photo" id="main-photo">
+                        <div id="thumbs" class="thumbs" aria-hidden="false"></div>
+                        <img class="main-img skeleton" alt="" src="">
+                    </div>
+
+                    <!-- Характеристики и описание (десктоп: тут; мобилка: JS перенесёт под зелёный блок) -->
+                    <div class="specs" id="specs"></div>
+                    <div class="desc" id="description"></div>
+                </div>
+            </div>
+
+            <!-- Правая колонка -->
+            <aside id="right-col">
+                <div class="side-card">
+                    <div style="opacity:.85;font-size:14px;margin-bottom:6px">Цена:</div>
+                    <div class="price-individ" style="font-size:16px;" id="price">рассчитывается <br>индивидуально</div>
+                    <button class="to-callback btn btn-white wbb" id="">Получить консультацию</button>
+                    <button class="to-callback btn btn-white wbb" id="">Узнать цену</button>
+                    <button id="favBtn"
+                            class="btn btn-ghost pbb"
+                            data-fav-btn
+                            data-label-add="Добавить в избранное"
+                            data-label-remove="Удалить из избранного"
+                            data-product-id="{{ product_id }}"
+                            data-product-name=""
+                            data-product-image=""
+                            data-product-url="/p/{{ product_id }}/"
+                            aria-pressed="false">Добавить в избранное
+                    </button>
+
+                </div>
+
+                <div class="call-card">
+                    <div style="font-family: Muller-regular;
+                                font-weight: 400;
+                                font-size: 18px;
+                                line-height: 100%;
+                                letter-spacing: 0;
+                                margin-bottom: 31px">
+                        Заказать обратный звонок
+                    </div>
+                    <button class="to-callback btn call-btn" style="cursor: pointer" onclick="" id="moveToTargetBtn">
+                        Заказать звонок
+                    </button>
+                </div>
+
+                <div class="green-card" id="green-card">
+                    <div style="margin-bottom:8px">Посмотрите, как данный материал смотрится на реализованных объектах
+                    </div>
+                    <button class="btn bopen-gal" onclick="window.location.href='{% url 'galery' %}'"
+                            style="cursor: pointer">Открыть галерею
+                    </button>
+                </div>
+            </aside>
+        </div>
+        <!-- Похожие товары -->
+        <section class="similar" id="similar">
+            <h2 class="similar__title">Похожие товары</h2>
+
+            <!-- сетка на десктопе -->
+            <div class="similar__grid" id="similarGrid" hidden></div>
+
+            <!-- слайдер на мобиле -->
+            <div class="similar__rail-wrap" id="similarRailWrap" hidden>
+                <button class="similar__nav prev" type="button" aria-label="Назад">&#10094;</button>
+                <div class="similar__rail" id="similarRail" aria-live="polite"></div>
+                <button class="similar__nav next" type="button" aria-label="Вперёд">&#10095;</button>
+            </div>
+        </section>
+
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // синхронизируем надпись с состоянием aria-pressed
+        function setFavLabel(btn) {
+            if (!btn) return;
+            const addLbl = btn.dataset.labelAdd || 'Добавить в избранное';
+            const rmLbl = btn.dataset.labelRemove || 'Удалить из избранного';
+            const on = btn.getAttribute('aria-pressed') === 'true';
+            btn.textContent = on ? rmLbl : addLbl;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('favBtn');
+            if (!btn) return;
+
+            // 1) первичная установка текста
+            setFavLabel(btn);
+
+            // 2) локальный клик-тоггл (если внешний менеджер сам не проставит aria-pressed)
+            btn.addEventListener('click', () => {
+                const cur = btn.getAttribute('aria-pressed') === 'true';
+                // оптимистично переключим состояние
+                btn.setAttribute('aria-pressed', String(!cur));
+                setFavLabel(btn);
+            });
+
+            // 3) если внешний код меняет aria-pressed — подхватим и обновим текст
+            new MutationObserver(() => setFavLabel(btn))
+                .observe(btn, {attributes: true, attributeFilter: ['aria-pressed']});
+
+            // 4) если у тебя есть менеджер избранного — после его синков тоже обновим
+            document.addEventListener('sf:favs-changed', () => setFavLabel(btn));
+        });
+    </script>
+
+    <script>
+        (function () {
+
+            const page = document.querySelector('.product-page');
+            const productId = page?.dataset.productId;
+            if (!productId) return;
+
+            const $ = (sel, root = document) => root.querySelector(sel);
+            const el = (tag, cls, html) => {
+                const n = document.createElement(tag);
+                if (cls) n.className = cls;
+                if (html !== undefined) n.innerHTML = html;
+                return n;
+            };
+
+            async function loadProduct() {
+                const url = `/api/products/${productId}/`;
+                const res = await fetch(url, {headers: {'Accept': 'application/json'}});
+                if (!res.ok) throw new Error('Failed to load product');
+                return await res.json();
+            }
+
+            function normalizeImages(images, card_image) {
+                if (!images || !images.length) {
+                    return card_image ? [{url: card_image, alt: ''}] : [];
+                }
+                return images.map(i =>
+                    typeof i === 'string'
+                        ? ({url: i, alt: ''})
+                        : ({url: i.url || i.path || '', alt: i.alt || i.name || ''})
+                );
+            }
+
+            function renderTitle(prod) {
+                const title = $('#product-title');
+                title.classList.remove('skeleton');
+                title.style.height = '';
+                title.style.width = '';
+                title.textContent = prod.name || 'Товар';
+
+                const crumbCat = $('#crumb-category');
+                crumbCat.classList.remove('skeleton');
+                crumbCat.style.width = '';
+                crumbCat.style.height = '';
+                crumbCat.textContent = (prod.category?.name) || (prod.category?.field_name) || 'Категория';
+            }
+
+            function renderGallery(prod) {
+                const mainPhoto = $('#main-photo');
+                const mainImg = $('.main-img', mainPhoto);
+                const thumbs = $('#thumbs');
+                thumbs.innerHTML = '';
+                mainImg.classList.remove('skeleton');
+
+                const pics = normalizeImages(prod.images, prod.card_image);
+                if (!pics.length) {
+                    mainImg.src = '{% static "img/no-image.png" %}';
+                    return;
+                }
+                mainImg.src = pics[0].url;
+
+                pics.forEach((p, i) => {
+                    const t = el('div', 'thumb' + (i === 0 ? ' active' : ''));
+                    const im = el('img', '', '');
+                    im.src = p.url;
+                    im.alt = p.alt || prod.name || '';
+                    t.appendChild(im);
+                    t.addEventListener('click', () => {
+                        thumbs.querySelectorAll('.thumb').forEach(n => n.classList.remove('active'));
+                        t.classList.add('active');
+                        mainImg.src = im.src;
+                    });
+                    thumbs.appendChild(t);
+                });
+            }
+
+            // --- Похожие товары ---
+            async function loadSimilar(limit = 8) {
+                const res = await fetch(`/api/products/${productId}/similar/?limit=${limit}`, {
+                    headers: {"Accept": "application/json"}
+                });
+                if (!res.ok) return {items: []};
+                return await res.json();
+            }
+
+            function simCardHTML(item) {
+                const href = `/p/${item.id}/`;
+                const img = item.card_image || "{% static 'img/no-image.png' %}";
+                const name = item.name || '';
+                return `
+      <a class="simcard" href="${href}">
+        <img loading="lazy" src="${img}" alt="${name}">
+{#        <span class="simcard__name">${name}</span>#}
+      </a>`;
+            }
+
+            function renderSimilar(items) {
+                const grid = document.getElementById('similarGrid');
+                const rail = document.getElementById('similarRail');
+                const railWrap = document.getElementById('similarRailWrap');
+
+                if (!items || !items.length) {
+                    document.getElementById('similar').style.display = 'none';
+                    return;
+                }
+
+                // Сетка (десктоп)
+                grid.innerHTML = items.map(simCardHTML).join('');
+                grid.hidden = false;
+
+                // Слайдер (мобилка)
+                rail.innerHTML = items.map(simCardHTML).join('');
+                railWrap.hidden = false;
+
+                // Кнопки пролистывания
+                const btnPrev = railWrap.querySelector('.prev');
+                const btnNext = railWrap.querySelector('.next');
+                const step = () => Math.min(rail.clientWidth * 0.9, 500);
+
+                btnPrev.onclick = () => rail.scrollBy({left: -step(), behavior: 'smooth'});
+                btnNext.onclick = () => rail.scrollBy({left: step(), behavior: 'smooth'});
+
+                // drag-scroll (приятный свайп на десктопе)
+                let down = false, startX = 0, sx = 0;
+                rail.addEventListener('pointerdown', e => {
+                    down = true;
+                    startX = e.clientX;
+                    sx = rail.scrollLeft;
+                    rail.setPointerCapture(e.pointerId);
+                });
+                rail.addEventListener('pointermove', e => {
+                    if (!down) return;
+                    rail.scrollLeft = sx - (e.clientX - startX);
+                });
+                ['pointerup', 'pointercancel', 'mouseleave'].forEach(ev => rail.addEventListener(ev, () => down = false));
+            }
+
+            function renderSpecs(prod) {
+                const specs = document.getElementById('specs');
+                if (!specs) return;
+                specs.innerHTML = '';
+
+                const fieldMap = [
+                    {
+                        key: 'formats', label: () => 'Формат',
+                        value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('\n')
+                    },
+                    {
+                        key: 'strength_grade', label: p => p.strength_grade?.field_name || 'Марка прочности',
+                        value: p => p.strength_grade?.name
+                    },
+                    {
+                        key: 'water_resistance', label: p => 'Водопоглощение',
+                        value: p => p.water_resistance?.name
+                    },
+                    {
+                        key: 'color', label: p => p.color?.field_name || 'Оттенок',
+                        value: p => p.color?.name
+                    },
+                    {
+                        key: 'frosen_defend', label: p => 'Морозостойкость',
+                        value: p => p.frosen_defend?.name
+                    },
+                    {
+                        key: 'manufacturer', label: p => 'Бренд',
+                        value: p => p.manufacturer?.name
+                    },
+                ];
+
+                const attrs = [];
+                for (const f of fieldMap) {
+                    const val = f.value(prod);
+                    const text = (typeof val === 'string' ? val.trim() : val);
+                    if (text) attrs.push({
+                        label: (typeof f.label === 'function' ? f.label(prod) : f.label),
+                        value: text
+                    });
+                }
+
+                const el = (tag, cls, html) => {
+                    const n = document.createElement(tag);
+                    if (cls) n.className = cls;
+                    if (html !== undefined) n.innerHTML = html;
+                    return n;
+                };
+
+                attrs.forEach(attr => {
+                    const wrap = el('div', 'spec-wrapper');
+                    const icon = el('div', 'spec-icon', 'i');
+                    const box = el('div', 'spec');
+                    const lab = el('div', 'spec__label', attr.label || '');
+                    const val = el('div', 'spec__value', '');
+                    val.textContent = attr.value; // важнo: как текст (для \n)
+
+                    box.appendChild(lab);
+                    box.appendChild(val);
+                    wrap.appendChild(icon);
+                    wrap.appendChild(box);
+                    specs.appendChild(wrap);
+                });
+
+                /* ВАЖНО: НИКАКОГО ручного drag-scroll (setPointerCapture и т.п.) здесь нет.
+                   Горизонтальный свайп работает нативно благодаря CSS overflow-x и touch-action. */
+            }
+
+            function renderPrice(prod) {
+                $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';
+            }
+
+            function normalizeUserText(s) {
+                if (!s) return '';
+                // Превращаем последовательности "\r\n", "\n", "\r" в настоящий перевод строки
+                s = s.replace(/\\r\\n/g, '\n')
+                    .replace(/\\n/g, '\n')
+                    .replace(/\\r/g, '\n')
+                    .replace(/\\t/g, '\t');
+
+                // Чуть чистим лишние пустые строки (по желанию)
+                s = s.replace(/\n{3,}/g, '\n\n');
+
+                return s.trim();
+            }
+
+            function renderDescription(prod) {
+                const node = document.getElementById('description');
+                node.innerHTML = '';
+
+                if (prod.description_html) {
+                    // если с сервера уже пришла готовая HTML-верстка описания — просто вставляем
+                    node.innerHTML = prod.description_html;
+                    return;
+                }
+
+                // обычный текст — нормализуем и даём браузеру отрисовать переносы по CSS
+                const text = normalizeUserText(prod.description || '');
+                node.textContent = text;
+            }
+
+
+            // Перестановка блоков на мобилках
+            const specsEl = $('#specs');
+            const descEl = $('#description');
+            const gallery = $('#gallery');
+            const green = $('#green-card');
+
+            function placeForMobile() {
+                if (window.matchMedia('(max-width: 992px)').matches) {
+                    if (green && specsEl && specsEl.parentElement !== green.parentElement) {
+                        green.after(specsEl);
+                        specsEl.after(descEl);
+                    } else if (green && specsEl && specsEl.previousElementSibling !== green) {
+                        green.after(specsEl);
+                        specsEl.after(descEl);
+                    }
+                } else {
+                    if (gallery && specsEl && specsEl.parentElement !== gallery) {
+                        gallery.appendChild(specsEl);
+                        gallery.appendChild(descEl);
+                    }
+                }
+            }
+
+            // --- Новое: безопасная инициализация избранного ---
+            function setupFavorites(prod) {
+                const favBtn = document.getElementById('favBtn');
+                if (!favBtn || !prod) return;
+
+                // Заполняем атрибуты для localStorage
+                favBtn.setAttribute('data-product-id', String(prod.id));
+                favBtn.setAttribute('data-product-name', prod.name || '');
+                favBtn.setAttribute('data-product-image', prod.card_image || '');
+                favBtn.setAttribute('data-product-url', `/p/${prod.id}/`);
+
+                // Разрешаем клик на всякий случай (если кто-то его дизейблил)
+                favBtn.removeAttribute('disabled');
+
+                // Обновляем состояние кнопки и счётчик, если менеджер подключён
+                if (window.SFFavorites) {
+                    document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+                }
+            }
+
+            // Инициализация
+            async function init() {
+                try {
+                    const product = await loadProduct();
+                    renderTitle(product);
+                    renderGallery(product);
+                    renderSpecs(product);
+                    renderPrice(product);
+                    renderDescription(product);
+                    const {items: similarItems} = await loadSimilar(8);
+                    renderSimilar(similarItems);
+
+                    // <— Важно: вызываем ПОСЛЕ того, как получили product
+                    setupFavorites(product);
+
+                    placeForMobile();
+                    window.addEventListener('resize', placeForMobile);
+                } catch (e) {
+                    console.error(e);
+                    page.insertAdjacentHTML('beforeend',
+                        `<div style="margin-top:18px;color:#9b2b2b">Не удалось загрузить данные товара.</div>`);
+                }
+            }
+
+            init();
+
+        })();
+
+    </script>
+    <script>
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const target = document.getElementById('callback-form');
+            if (!target) return;
+
+            document.querySelectorAll('.to-callback').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Если нужен точный отступ (при фикс. шапке), используйте ручной скролл:
+                    // smoothScrollTo(target, 80); // 80 — высота шапки
+                    target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                });
+            });
+
+            // Опционально: ручной скролл с учётом фиксированного хедера
+            function smoothScrollTo(el, offset = 0) {
+                const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({top, behavior: 'smooth'});
+            }
+        });
+    </script>
+    <script>
+/* Мобильный поповер + не блочим свайп */
+(function enableSpecExpandOnMobile(){
+  const specs = document.getElementById('specs');
+  if (!specs) return;
+
+  const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+
+  let dragging = false, startX = 0;
+
+  // различаем свайп и тап
+  specs.addEventListener('pointerdown', (e) => {
+    if (!isMobile()) return;
+    dragging = false;
+    startX = e.clientX || 0;
+  });
+  specs.addEventListener('pointermove', (e) => {
+    if (!isMobile()) return;
+    if (Math.abs((e.clientX||0) - startX) > 8) dragging = true;
+  });
+  specs.addEventListener('pointerup', () => { if (!isMobile()) return; /* сброс */ });
+
+  // тап по плитке — открыть/закрыть
+  specs.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    if (dragging) { dragging = false; return; } // был свайп — не открываем
+    const wrap = e.target.closest('.spec-wrapper');
+    if (!wrap) return;
+
+    const willOpen = !wrap.classList.contains('expanded');
+    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+    specs.classList.toggle('has-popover', willOpen);
+    wrap.classList.toggle('expanded', willOpen);
+  });
+
+  // клик вне — закрыть
+  document.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    if (!specs.classList.contains('has-popover')) return;
+    if (!specs.contains(e.target)) {
+      specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+      specs.classList.remove('has-popover');
+    }
+  });
+
+  // ESC и ресайз — закрыть
+  document.addEventListener('keydown', (e) => {
+    if (!isMobile()) return;
+    if (e.key === 'Escape'){
+      specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+      specs.classList.remove('has-popover');
+    }
+  });
+  window.addEventListener('resize', () => {
+    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+    specs.classList.remove('has-popover');
+  });
+})();
+</script>
+
+    <script>
+        (function enableSpecExpandOnMobile() {
+            const specs = document.getElementById('specs');
+            if (!specs) return;
+
+            const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+
+            let dragging = false, startX = 0;
+
+            // различаем свайп и тап
+            specs.addEventListener('pointerdown', (e) => {
+                if (!isMobile()) return;
+                dragging = false;
+                startX = e.clientX || 0;
+            });
+            specs.addEventListener('pointermove', (e) => {
+                if (!isMobile()) return;
+                if (Math.abs((e.clientX || 0) - startX) > 8) dragging = true; // порог ~8px
+            });
+
+            specs.addEventListener('click', (e) => {
+                if (!isMobile()) return;
+                if (dragging) {
+                    dragging = false;
+                    return;
+                } // это был свайп — не открываем
+
+                const wrap = e.target.closest('.spec-wrapper');
+                if (!wrap) return;
+
+                // закрыть другие и открыть текущую
+                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => {
+                    if (w !== wrap) w.classList.remove('expanded');
+                });
+                const willOpen = !wrap.classList.contains('expanded');
+                specs.classList.toggle('has-popover', willOpen);
+                wrap.classList.toggle('expanded', willOpen);
+            });
+
+            // клик/тап вне — закрыть
+            document.addEventListener('click', (e) => {
+                if (!isMobile()) return;
+                if (!specs.classList.contains('has-popover')) return;
+                if (!specs.contains(e.target)) {
+                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+                    specs.classList.remove('has-popover');
+                }
+            });
+
+            // ESC — закрыть
+            document.addEventListener('keydown', (e) => {
+                if (!isMobile()) return;
+                if (e.key === 'Escape') {
+                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+                    specs.classList.remove('has-popover');
+                }
+            });
+
+            // ресайз — убрать раскрытие, чтобы ничего не залипало
+            window.addEventListener('resize', () => {
+                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
+                specs.classList.remove('has-popover');
+            });
+        })();
+    </script>
+
+
+
+{% endblock %}

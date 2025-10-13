@@ -1,0 +1,291 @@
+/* Контейнер для аккордеона */
+.accordion-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #F5F5F5;
+}
+.accordion-container button{
+    font-size: 20px;
+    font-family: Muller-regular;
+    background-color: #F5F5F5;
+}
+.accordion-panel p {
+    margin-left: 10px;
+    font-size: 20px;
+    background-color: #F5F5F5;
+    font-family: Muller-regular;
+
+}
+
+
+/* Стили для вкладок аккордеона */
+.accordion-tab {
+    cursor: pointer;
+    color: black;
+    padding: 30px;
+    padding-left: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 22px;
+    transition: 0.4s;
+}
+
+/* Стили для активной вкладки */
+.active,
+.accordion-tab:hover {
+}
+.active {
+
+}
+
+/* Стили для панели аккордеона */
+.accordion-panel {
+    align-content: center;
+    padding: 0 18px;
+ margin-bottom: 5px;
+    overflow: hidden;
+    height: 0;
+    transition: max-height 0.2s ease-out;
+}
+
+
+/* Кнопка вопроса */
+.accordion-tab {
+    position: relative;          /* нужно для позиционирования стрелки */
+    cursor: pointer;
+    color: black;
+    width: 100%;
+    padding: 30px 44px 30px 10px; /* добавили правый паддинг под стрелку */
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 22px;
+    transition: 0.4s;
+    background-color: #F5F5F5;   /* чтобы не зависеть от родителя */
+    appearance: none;            /* убрать системные стили кнопки */
+}
+
+/* Стрелка справа (иконка из бордеров) */
+.accordion-tab::after {
+    content: "";
+    position: absolute;
+    right: 16px;                 /* отступ от правого края */
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -7px;            /* вертикальное выравнивание по центру */
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(45deg);    /* стрелка вниз */
+    transition: transform .28s ease;
+    pointer-events: none;        /* клики проходят на кнопку */
+}
+
+/* Когда вкладка активна — поворачиваем стрелку вверх */
+.accordion-tab.active::after {
+    transform: rotate(-135deg);
+}
+
+/* (опционально) легкая реакция при ховере */
+.accordion-tab:hover::after {
+    transform: rotate(45deg) translateY(0.5px);
+}
+
+.mini-headr {
+    font-family: Muller-medium;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 100%;
+    color: #422223
+}
+.ll {
+    line-height: 100%; letter-spacing: 0%;
+}
+.menu-image {
+      margin-top: 5px;
+    }
+    .na-link .menu-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(66, 34, 35, 1);
+      margin-right: 20px;
+    }
+    .na-link .menu-toggle span {
+      display: block;
+      width: 30px;
+      height: 3px;
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+
+
+
+    #blur-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.13);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      transition: opacity .2s;
+      cursor: pointer;
+    }
+    #blur-bg.active {
+      display: block;
+      opacity: 1;
+    }
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 440px;
+      height: 100%;
+      background: #fff;
+      overflow-y: auto;
+      transition: right 0.3s ease-in-out;
+      z-index: 1000;
+      padding: 20px;
+        padding-left: 50px;
+    }
+    .side-menu.active{
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  overflow-y: auto;                 /* <- скролл только когда открыт */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+    .side-menu .logo img {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    .side-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .side-menu li {
+      margin-bottom: 15px;
+    }
+    .side-menu a {
+      text-decoration: none;
+      color: #421e23;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .side-menu .contacts {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #421e23;
+    }
+    .menuuu a {
+        font-family: Muller-medium;
+        font-weight: 500;
+        font-size: 18px;
+        color: black;
+        opacity: 50%;
+    }
+
+/* общие фиксы */
+html, body { height: 100%; overflow-x: hidden; }
+html { overscroll-behavior-y: none; }          /* нет «скролл-цепочки» */
+#blur-bg { touch-action: none; }               /* бэкдроп не принимает жесты */
+
+.side-menu{
+  right: 0;
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;        /* <- не участвует в отрисовке */
+  pointer-events: none;      /* <- не ловит события */
+  overflow: hidden;          /* <- нет внутреннего скролла */
+  height: 100vh;
+  transition: transform .28s ease, opacity .2s ease, visibility 0s .28s;
+  /* visibility покажется только после завершения hide-анимации */
+}
+
+/* правильная блокировка страницы (без «прыжка» наверх) */
+body.no-scroll{
+  position: fixed;
+  width: 100%;
+  top: var(--lock-top, 0);                     /* сюда кладём -scrollY */
+  overflow: hidden;                            /* подстраховка для десктопов */
+}
+
+/* чтобы не появлялась горизонтальная прокрутка из-за off-canvas */
+.side-menu{ right:0; transform: translateX(100%); transition: transform .28s ease; }
+.side-menu.active{ transform: translateX(0); }
+#blur-bg{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.13);
+  backdrop-filter: blur(8px);
+  z-index: 1002;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+#blur-bg.active{ opacity: 1; pointer-events: auto; }
+
+/* Подстраховка против гориз. полосы */
+html, body { overflow-x: hidden; }
+
+
+
+.fav-btn{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid #e4e1df;border-radius:10px;background:#fff;cursor:pointer;transition:.2s}
+.fav-btn.is-active{border-color:#2e4029;background:#f5f7f5}
+.fav-btn .fav-icon{width:18px;height:18px;display:inline-block;position:relative}
+.fav-btn .fav-icon svg{position:absolute;inset:0;transition:transform .2s}
+.fav-btn .fav-icon svg.outline{opacity:.9}
+.fav-btn .fav-icon svg.fill{transform:scale(.8);opacity:0}
+.fav-btn .fav-icon.is-active svg.fill{opacity:1}
+.fav-btn .fav-icon.is-active svg.outline{opacity:0}
+.fav-badge{min-width:18px;height:18px;border-radius:9px;background:#2e4029;color:#fff;font-size:12px;line-height:18px;text-align:center;padding:0 5px}
+
+/* Шторка избранного */
+#favorites-drawer{position:fixed;inset:0;pointer-events:none;z-index:9999}
+#favorites-drawer.open{pointer-events:auto}
+#favorites-drawer .drawer-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;transition:.2s}
+#favorites-drawer.open .drawer-overlay{opacity:1}
+#favorites-drawer .drawer-panel{
+  position:absolute;right:0;top:0;height:100%;width:min(420px,92vw);
+  background:#fff;border-left:1px solid #eee;transform:translateX(100%);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column
+}
+#favorites-drawer.open .drawer-panel{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eee}
+.drawer-title{font-size:18px;font-weight:600}
+.drawer-close{border:none;background:transparent;font-size:22px;line-height:1;cursor:pointer}
+.drawer-body{padding:12px 12px 16px;overflow:auto}
+.fav-empty{padding:20px 8px;color:#777}
+.fav-item{display:grid;grid-template-columns:72px 1fr 28px;gap:10px;align-items:center;padding:8px;border-bottom:1px dashed #eee}
+.fav-thumb{display:block;width:72px;height:72px;border-radius:10px;overflow:hidden;background:#f7f7f7}
+.fav-thumb img{width:100%;height:100%;object-fit:cover}
+.fav-title{display:block;color:#1b1b1b;text-decoration:none;font-weight:600;margin-bottom:4px}
+.fav-price{font-size:13px;color:#6b6b6b}
+.fav-remove{border:none;background:#f2f2f2;width:28px;height:28px;border-radius:8px;cursor:pointer}
+
+.header-fav { position: relative; }
+.header-fav-btn { position: relative; display:inline-block; }
+.header-fav-icon { display:block; width:24px; height:24px; }
+.header-fav .fav-badge{
+  position:absolute; top:-6px; right:-8px;
+  min-width:18px; height:18px; border-radius:9px;
+  background:#2e4029; color:#fff; font-size:12px; line-height:18px;
+  text-align:center; padding:0 5px;
+}
+.drawer-title {
+    font-family: Muller-medium;
+}
+.fav-title {
+    font-family: Muller-regular;
+}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'articles/articles.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="article-header-wrap">
+  <div class="article-header">
+    <nav class="breadcrumbs">
+      <a href="{% url 'home' %}">Главная</a> / 
+      <a href="{% url 'articles:list' %}">Статьи</a> / 
+      {{ article.title }}
+    </nav>
+
+    <h1 class="article-title">{{ article.title }}</h1>
+
+    {% if article.subtitle %}
+      <p class="article-subtitle">{{ article.subtitle }}</p>
+    {% endif %}
+
+    <div class="article-actions">
+      <a href="" class="btn-outline" data-modal-target="#contact-modal">Записаться на консультацию</a>
+      <a href="#callback-form" class="btn-outline">Заказать звонок</a>
+    </div>
+  </div>
+</section>
+
+
+<section class="article-body container">
+  {% if article.cover %}
+    <img class="article-cover" src="{{ article.cover.url }}" alt="{{ article.title }}">
+  {% endif %}
+  <div class="rtf">
+    {{ article.content|safe }}
+  </div>
+</section>
+
+<section class="article-slider-wrap">
+  <div class="container">
+    <h2 class="h2" style="font-family: Muller-medium;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;">Статьи</h2>
+  </div>
+
+  {% include "articles/partials/slider.html" with items=more_articles %}
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'articles/slider.js' %}"></script>
+{% endblock %}

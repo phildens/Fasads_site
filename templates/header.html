@@ -1,0 +1,404 @@
+{% load static %}
+<style>  html {
+  scroll-behavior: smooth;
+}
+p {margin: 0;
+padding: 0;}
+@font-face {
+
+  font-family: "Muller-ultralight"; 
+
+  src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-medium"; 
+
+  src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-light"; 
+
+  src: url("{% static 'font/MullerLight.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Muller-regular"; 
+
+  src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+
+  font-family: "Namu-light"; 
+
+  src: url("{% static 'font/NAMU1750.otf' %}") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+}
+@font-face {
+    font-family: 'head';
+    src: url("{% static 'font/head.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'head2';
+    src: url("{% static 'font/head2.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'NAMU';
+    src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+
+
+/* ========= БАЗА/ДЕСКТОП (оставляем вашу стилистику) ========= */
+.a{
+  display:flex;flex-direction:column;align-items:center;color:rgba(66,34,35,.6);
+  margin:0;font-family:'head2';font-weight:300;font-size:16px;line-height:100%
+}
+.conteiner{background:#422223;width:100%;min-height:7px;min-width:1440px;display:flex;flex-direction:column}
+.header{display:flex;justify-content:center;align-items:center;position:relative;flex-shrink:0}
+.logo img{width: 186px;;height:auto}
+.nav-list{display:flex;max-width:1200px;align-items:center;width:1200px;margin:0;padding-top:30px;padding-left:0;flex-wrap:wrap;gap:37px;color:#422223;list-style:none;font-family:'head',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%;letter-spacing:0}
+.nav-list2{display:flex;margin:0;padding-top:30px;flex-wrap:wrap;gap:30px;color:#fff6f3;list-style:none;margin-left:30px;font-family:'head2',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%}
+.nav-link,.nav-link:hover,.nav-link:focus,.nav-link:active{color:#422223;text-decoration:none;padding:0}
+.nav-link {
+    font-family: Muller-regular;
+    font-size: 16px;
+    
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 100%;
+}
+
+/* поиск */
+.search-bar{display:flex;justify-content:center;padding:24px 24px 0;flex-shrink:0}
+.search-bar input{
+  width:1200px;height:80px;padding:12px 24px;border-radius:7px;font-size:16px;border:none;outline:none;box-sizing:border-box
+}
+
+/* ========= САЙДМЕНЮ ========= */
+.side-menu{
+  position:fixed;top:0;right:-100%;
+  width:min(86vw,420px);height:100vh;background:#fff;z-index:1003;
+  box-shadow:-12px 0 28px rgba(0,0,0,.18);transition:right .28s ease;
+  padding:22px 22px 28px;overflow-y:auto
+}
+.side-menu.active{ right:0 }
+.side-menu .logo{display:flex;align-items:center;gap:16px}
+.side-menu .logo img:first-child{width:220px;flex:0 0 auto}
+.side-menu .logo img:last-child{width:80px;height:60px;margin-left:auto;cursor:pointer} /* кнопка закрытия внутри сайдбара */
+.side-menu ul{list-style:none;margin:18px 0 0;padding:0}
+.side-menu li{margin:0 0 15px}
+.side-menu a{text-decoration:none;color:black;font-size:16px;font-weight:500}
+.side-menu .mini-contacts-card{width:auto;background:#fff;display:flex;flex-direction:column;gap:18px;font-family:Muller-medium;font-size:16px;color:#422223;font-weight:500;position:relative;margin-top:10px}
+.mini-contact-row{display:flex;align-items:center;gap:13px}
+.mini-contact-icon img{width:32px;height:32px;object-fit:contain;opacity:.85;margin-top:2px}
+.mini-contact-text a{color:#422223;text-decoration:none;transition:color .14s}
+.mini-contact-text a:hover{color:#3ca1e8;text-decoration:underline}
+.mini-contact-note{display:flex;align-items:flex-start;gap:6px;color:#777;font-size:12px;margin-top:6px}
+.mini-contact-note svg{flex-shrink:0}
+
+/* блюр-подложка */
+#blur-bg{display:none;position:fixed;inset:0;width:100vw;height:100vh;background:rgba(0,0,0,.13);backdrop-filter:blur(8px);z-index:1002;transition:opacity .2s;cursor:pointer}
+#blur-bg.active{display:block;opacity:1}
+
+/* ========= МОБИЛЬНАЯ КНОПКА (видна только на малых) ========= */
+#mobileMenuBtn{
+  position:fixed;right:16px;top:16px;z-index:1004;display:none;
+  width:64px;height:48px;padding:0;border:none;background:transparent;cursor:pointer
+}
+#mobileMenuBtn img{width:100%;height:100%;object-fit:contain;display:block; border-radius: ;}
+
+/* ========= АДАПТИВ ========= */
+@media (max-width: 1200px){
+  .nav-list{width:100%;max-width:100%;padding:20px}
+  .search-bar input{width:100%}
+}
+@media (max-width: 1024px){
+  /* контейнер больше не «зажат» минимальной шириной */
+  .conteiner{min-width:0;width:100%}
+  /* прячем весь десктопный хедер и строку поиска */
+  .header, .search-bar { display:none !important; }
+  /* показываем закреплённую кнопку */
+  #mobileMenuBtn{ display:block; }
+}
+
+/* опционально: если включено «уменьшить анимацию» — меньше движений */
+@media (prefers-reduced-motion: reduce){
+  .side-menu{transition:none}
+  #blur-bg{transition:none}
+}
+
+/* Подключение вашего шрифта */
+@font-face{
+  font-family:'head';
+  src:url("{% static 'font/head.otf' %}") format('opentype');
+  font-weight:normal;font-style:normal
+}
+/* ——— убираем горизонтальный скролл и артефакты ——— */
+html, body { max-width: 100%; overflow-x: hidden; }
+body.no-scroll { overflow: hidden; }
+
+/* блюр: только через inset и без 100vw/100vh, чтоб не растягивать страницу */
+#blur-bg{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.13);
+  backdrop-filter: blur(8px);
+  z-index: 1002;
+  opacity: 0; pointer-events: none; /* вместо display:none */
+  transition: opacity .2s;
+}
+#blur-bg.active{ opacity: 1; pointer-events: auto; }
+
+/* сайдбар уводим/возвращаем ТРАНСФОРМОМ — не влияет на ширину страницы */
+.side-menu{
+  right: 0;                      /* фиксируем у правого края */
+  transform: translateX(100%);   /* спрятан за экраном */
+  transition: transform .28s ease;
+}
+.side-menu.active{ transform: translateX(0); }
+
+/* на мобильных гарантируем отсутствие фиксированной мин-ширины контейнера */
+@media (max-width:1024px){
+  .conteiner{ min-width: 0 !important; width: 100%; }
+}
+
+/* ——— делаем десктоп → мобильный раньше ——— */
+
+/* убираем фикс-минимум контейнера раньше, чтобы не тянуло вбок */
+@media (max-width: 1400px){
+  .conteiner{ min-width: 0 !important; width: 100%; }
+}
+
+/* пусть десктопный хедер/поиск скрываются уже на 1280px,
+   а кнопка закреплённая появляется */
+@media (max-width: 1280px){
+  .header, .search-bar{ display: none !important; }
+  #mobileMenuBtn{ display: block !important; }
+}
+
+/* подстрахуем фиксированные ширины навигации/поиска,
+   чтобы до 1280px ничего не «ехало» */
+.nav-list{ width: min(1200px, 100%) !important; }
+.search-bar input{ width: min(1200px, 100%) !important; }
+
+/* предыдущий фикс против горизонтального скролла оставляем */
+html, body { max-width:100%; overflow-x:hidden; }
+.side-menu{ right:0; transform:translateX(100%); transition:transform .28s ease; }
+.side-menu.active{ transform:translateX(0); }
+#blur-bg{ position:fixed; inset:0; opacity:0; pointer-events:none; }
+#blur-bg.active{ opacity:1; pointer-events:auto; }
+
+</style>
+
+<!-- ======= САЙДМЕНЮ ======= -->
+<nav class="side-menu" id="sideMenu">
+  <div class="logo img" id="closemenu" aria-label="Закрыть меню" role="button" tabindex="0">
+    <img style="width: 229px; height: 113px" src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
+    <!-- Дублируем вашу кнопку внутри сайдбара (закрытие) -->
+    
+  </div>
+
+  <ul class="menuuu">
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong></li>
+    <li style="margin-bottom:30px"><a href="{% url 'about' %}">О нас</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Продукция</strong></li>
+    <li><a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a></li>
+      
+ <li><a href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Керамический облицовочный кирпич</a></li>
+    <li><a href="{% url 'catalog_category' 'clinker_tiles' %}">Клинкерная плитка</a></li>
+<li><a href="{% url 'catalog_category' 'paving_stones' %}">Брусчатка</a></li>
+<li><a href="{% url 'catalog_category' 'bolt_brick' %}">Ригельный кирпич</a></li>
+<li><a href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Навесные вентилируемые системы</a></li>
+    <li><a href="#">Архитектурные фасадные декоры</a></li>
+<li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
+    <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши партнеры</strong></li>
+    <li style="margin-bottom:70px"><a href="#manufactors">Дилеры заводов</a></li>
+
+    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
+    <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
+  </ul>
+
+  <!-- контакты внутри сайдбара -->
+  <div class="mini-contacts-card">
+    <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/location.png' %}" alt="Локация">
+      </span>
+      <span class="mini-contact-text" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer">Пермь, Газеты Звезда,<br>13, 4 этаж</span>
+    </div>
+    <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/phone.png' %}" alt="Телефон">
+      </span>
+      <span class="mini-contact-text"><a href="tel:{{ site_settings.phone_href }}">{{ site_settings.phone }}</a></span>
+    </div>
+    <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/message.png' %}" alt="Связь">
+      </span>
+      <span class="mini-contact-text">
+        <a style="color:#575757" href="https://t.me/sovremennye_fasady" target="_blank">Написать нам в Telegram</a><br>
+        <a style="color:#575757" href="http://wa.me/79519401249" target="_blank">Написать нам на Whatsapp</a>
+      </span>
+    </div>
+    <div class="mini-contact-note">
+      <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16" style="width:17px;height:17px;vertical-align:middle"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
+      <span>Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.</span>
+        
+    </div>
+      <div style="height: 50px"></div>
+  </div>
+</nav>
+
+<!-- Блюр-фон -->
+<div id="blur-bg" aria-hidden="true"></div>
+
+<!-- ======= ДЕСКТОПНЫЙ HEADER (без изменений) ======= -->
+<header>
+  <div class="header">
+    <nav class="nav">
+      <ul class="nav-list">
+        <a href="{% url 'home' %}" class="logo img">
+    <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
+</a>
+        <li><a href="{% url 'catalog_all' %}" class="nav-link" style="font-family: Muller-medium">Продукция</a></li>
+        <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
+        <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
+        <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
+        <li><a href="{{ site_settings.phone_href }}" class="nav-link">{{ site_settings.phone }}<br><p class="a">номер для связи</p></a></li>
+        <li><a href="mailto:{{ site_settings.email }}" class="nav-link">{{ site_settings.email }}<br><p class="a">электронная почта</p></a></li>
+{#        <li><img src="{% static 'imgfolder/bol2.svg' %}" alt=""></li>#}
+          <li class="header-fav">
+  <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
+    <img src="{% static 'imgfolder/bol2.svg' %}" alt="Избранное" class="header-fav-icon">
+    <span class="fav-badge" data-fav-count></span>
+  </a>
+</li>
+        <li class="nav-link">
+          <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" style="border: none; background: none">
+            <img src="{% static 'imgfolder/menu2.svg' %}" class="menu-image" alt="">
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Поиск (деcктоп) -->
+<form class="search-bar" action="{% url 'product_search' %}" method="get" role="search">
+  <input
+    id="search"
+    type="search"
+    name="q"
+    list="search-suggestions"
+    placeholder="Поиск по каталогу…"
+    autocomplete="off"
+    aria-label="Поиск по товарам"
+    value="{{ request.GET.q|default_if_none:'' }}"
+  />
+  <datalist id="search-suggestions">
+    <option value="Кирпич">
+    <option value="фасад">
+    <option value="камень">
+  </datalist>
+
+  <!-- Кнопка не обязательна, но удобна: -->
+{#  <button type="submit" class="search-button" aria-label="Найти">Найти</button>#}
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('search');
+    const form = input?.closest('form');
+    if (input && form) {
+      input.addEventListener('change', () => form.submit());
+    }
+  });
+</script>
+
+<!-- ======= МОБИЛЬНАЯ КНОПКА (отдельно от хедера) ======= -->
+<button id="mobileMenuBtn" aria-label="Открыть меню">
+  <img src="{% static 'imgfolder/Group 306.png' %}" alt="">
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sideMenu  = document.getElementById('sideMenu');
+  const blurBg    = document.getElementById('blur-bg');
+  const headerBtn = document.getElementById('menuToggle');
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const closeBar  = document.getElementById('closemenu');
+
+  let scrollPos = 0;
+
+  // блокируем скролл фона на мобилках (тач/колесо)
+  const blockBgScroll = (e) => {
+    if (!sideMenu.contains(e.target)) e.preventDefault();
+  };
+
+  function lockScroll(){
+    scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
+    document.body.style.setProperty('--lock-top', `-${scrollPos}px`);
+    document.body.classList.add('no-scroll');
+    // отключаем прокрутку фона
+    document.addEventListener('touchmove', blockBgScroll, { passive: false });
+    document.addEventListener('wheel',      blockBgScroll, { passive: false });
+  }
+
+  function unlockScroll(){
+    document.body.classList.remove('no-scroll');
+    document.body.style.removeProperty('--lock-top');
+    // возвращаемся туда, где были
+    window.scrollTo(0, scrollPos);
+    // убираем блокировки
+    document.removeEventListener('touchmove', blockBgScroll);
+    document.removeEventListener('wheel',      blockBgScroll);
+  }
+
+  function openMenu(){
+    sideMenu.classList.add('active');
+    blurBg.classList.add('active');
+    lockScroll();
+  }
+  function closeMenu(){
+    sideMenu.classList.remove('active');
+    blurBg.classList.remove('active');
+    unlockScroll();
+  }
+  function toggleMenu(){
+    sideMenu.classList.contains('active') ? closeMenu() : openMenu();
+  }
+
+  [headerBtn, mobileBtn].forEach(btn => btn && btn.addEventListener('click', toggleMenu));
+  blurBg.addEventListener('click', closeMenu);
+  closeBar && closeBar.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 1024) closeMenu(); });
+});
+</script>
+

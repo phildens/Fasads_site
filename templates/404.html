@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}404 — Страница не найдена{% endblock %}
+<style>.error-404{
+  max-width: 1200px;
+  margin: 24px auto 72px;
+  padding: 0 16px;
+  color: #1d1d1f;
+}
+.error-404__search{
+  position: relative;
+  max-width: 560px;
+  margin: 12px 0;
+}
+.error-404__search input{
+  width: 100%; height: 44px;
+  border: 1px solid #e5e5e5; border-radius: 6px;
+  padding: 0 44px 0 14px; box-sizing: border-box;
+  font: 400 15px/1.2 'Montserrat', Arial, sans-serif;
+  background: #fff;
+}
+.error-404__search button{
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 32px; height: 32px; border: 0; border-radius: 6px;
+  background: #f4f4f4; color: #555; cursor: pointer;
+  display: grid; place-items: center;
+}
+.error-404__divider{
+  border: 0; border-top: 1px solid #ededed; margin: 12px 0 24px;
+}
+
+/* серый «крест» как на вайрфрейме */
+.error-404__canvas{
+  position: relative;
+  aspect-ratio: 5/4;   /* даёт «полотно» под крест, без фикс. высоты */
+  background: #fff;
+  border-radius: 4px;
+  margin: 0 0 18px;
+}
+.error-404__canvas::before,
+.error-404__canvas::after{
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(45deg, transparent 49%, #cfcfcf 50%, transparent 51%) no-repeat,
+    linear-gradient(-45deg, transparent 49%, #cfcfcf 50%, transparent 51%) no-repeat;
+  background-size: 100% 100%;
+  opacity: .8;
+}
+
+.error-404__title{
+  text-align: center;
+  font: 600 20px/1 'Montserrat', Arial, sans-serif;
+  letter-spacing: .02em;
+  margin: 0;
+}
+.error-404__subtitle{
+  text-align: center;
+  color: #6b6b6b;
+  font: 400 14px/1.35 'Montserrat', Arial, sans-serif;
+  margin: 8px 0 20px;
+}
+
+.error-404__actions{
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.btn-primary{
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 18px; border-radius: 8px; border: 0;
+  background:#328400; color:#fff; font: 500 15px/1 'Montserrat', Arial, sans-serif;
+  box-shadow: 2px 4px 0 #9bc18a; text-decoration: none;
+}
+.btn-primary:hover{ background:#246a00; box-shadow: 1px 2px 0 #82a571; }
+.btn-ghost{
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 16px; border-radius: 8px; border:1px solid #e5e5e5;
+  background:#fff; color:#222; font: 500 15px/1 'Montserrat', Arial, sans-serif;
+  text-decoration: none;
+}
+
+/* адаптив — ужимаем типографику */
+@media (max-width: 480px){
+  .error-404__title{ font-size: 18px; }
+  .error-404__subtitle{ font-size: 13px; }
+}
+</style>
+{% block content %}
+<section class="error-404">
+  <form class="error-404__search" method="get" action="{% url 'search' %}">
+    <input type="text" name="q" placeholder="Поиск">
+    <button aria-label="Искать">
+      <!-- простая иконка-лупа -->
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+        <line x1="20" y1="20" x2="16.6" y2="16.6" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
+  </form>
+
+  <hr class="error-404__divider">
+
+  <div class="error-404__canvas" aria-hidden="true"></div>
+
+  <h1 class="error-404__title">СТРАНИЦА НЕ НАЙДЕНА</h1>
+  <p class="error-404__subtitle">
+    Запрашиваемая страница не существует или была перемещена.
+  </p>
+
+  <div class="error-404__actions">
+    <a class="btn-primary" href="{% url 'home' %}">На главную</a>
+    <button class="btn-ghost" type="button" onclick="history.back()">Назад</button>
+    <a class="btn-ghost" href="{% url 'contact_request_create' %}">Связаться</a>
+  </div>
+</section>
+{% endblock %}
