@@ -4,49 +4,166 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    
+
     <style>
-/* бейдж счётчика на сердце */
-.header-fav { position: relative; display:inline-block; }
-.header-fav-btn, .header-fav-icon { display:inline-block; }
-.header-fav-icon { width:24px; height:24px; }
-.fav-badge{
-  position:absolute; top:-6px; right:-8px;
-  min-width:18px; height:18px; border-radius:9px;
-  background:#2e4029; color:#fff; font-size:12px; line-height:18px;
-  text-align:center; padding:0 5px;
-}
+        /* бейдж счётчика на сердце */
+        .header-fav {
+            position: relative;
+            display: inline-block;
+        }
 
-/* шторка избранного */
-#favorites-drawer{position:fixed;inset:0;pointer-events:none;z-index:9999}
-#favorites-drawer.open{pointer-events:auto}
-#favorites-drawer .drawer-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;transition:.2s}
-#favorites-drawer.open .drawer-overlay{opacity:1}
-#favorites-drawer .drawer-panel{
-  position:absolute;right:0;top:0;height:100%;width:min(420px,92vw);
-  background:#fff;border-left:1px solid #eee;transform:translateX(100%);
-  transition:transform .25s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column
-}
-#favorites-drawer.open .drawer-panel{transform:translateX(0)}
-.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eee}
-.drawer-title{font-size:18px;font-weight:600}
-.drawer-close{border:none;background:transparent;font-size:22px;line-height:1;cursor:pointer}
-.drawer-body{padding:12px 12px 16px;overflow:auto}
-.fav-empty{padding:20px 8px;color:#777}
-.fav-item{display:grid;grid-template-columns:72px 1fr 28px;gap:10px;align-items:center;padding:8px;border-bottom:1px dashed #eee}
-.fav-thumb{display:block;width:72px;height:72px;border-radius:10px;overflow:hidden;background:#f7f7f7}
-.fav-thumb img{width:100%;height:100%;object-fit:cover}
-.fav-title{display:block;color:#1b1b1b;text-decoration:none;font-weight:600;margin-bottom:4px}
-.fav-price{font-size:13px;color:#6b6b6b}
-.fav-remove{border:none;background:#f2f2f2;width:28px;height:28px;border-radius:8px;cursor:pointer}
-</style>
+        .header-fav-btn, .header-fav-icon {
+            display: inline-block;
+        }
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>Современные фасады</title>
-    <meta name="keywords" content="купить, кирпич, пермский край, цена, пермь, европейские фасады, современные фасады, modern fasad, фасады, стройка, дом">
-    <meta name="description" content="Купить кирпич (облицовочный и рядовой) в компании «Современные фасады». У нас большой выбор кирпича в том числе керамический и клинкерный (производства: Россия, Германия, Европа) и других облицовочных материалов для фасадов, смотрите наш ассортимент. Продажа оптом и в розницу.">
+        .header-fav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .fav-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            background: #2e4029;
+            color: #fff;
+            font-size: 12px;
+            line-height: 18px;
+            text-align: center;
+            padding: 0 5px;
+        }
+
+        /* шторка избранного */
+        #favorites-drawer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999
+        }
+
+        #favorites-drawer.open {
+            pointer-events: auto
+        }
+
+        #favorites-drawer .drawer-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .35);
+            opacity: 0;
+            transition: .2s
+        }
+
+        #favorites-drawer.open .drawer-overlay {
+            opacity: 1
+        }
+
+        #favorites-drawer .drawer-panel {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: min(420px, 92vw);
+            background: #fff;
+            border-left: 1px solid #eee;
+            transform: translateX(100%);
+            transition: transform .25s cubic-bezier(.2, .8, .2, 1);
+            display: flex;
+            flex-direction: column
+        }
+
+        #favorites-drawer.open .drawer-panel {
+            transform: translateX(0)
+        }
+
+        .drawer-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid #eee
+        }
+
+        .drawer-title {
+            font-size: 18px;
+            font-weight: 600
+        }
+
+        .drawer-close {
+            border: none;
+            background: transparent;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer
+        }
+
+        .drawer-body {
+            padding: 12px 12px 16px;
+            overflow: auto
+        }
+
+        .fav-empty {
+            padding: 20px 8px;
+            color: #777
+        }
+
+        .fav-item {
+            display: grid;
+            grid-template-columns:72px 1fr 28px;
+            gap: 10px;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px dashed #eee
+        }
+
+        .fav-thumb {
+            display: block;
+            width: 72px;
+            height: 72px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f7f7f7
+        }
+
+        .fav-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .fav-title {
+            display: block;
+            color: #1b1b1b;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .fav-price {
+            font-size: 13px;
+            color: #6b6b6b
+        }
+
+        .fav-remove {
+            border: none;
+            background: #f2f2f2;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            cursor: pointer
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Современные фасады</title>
+    <meta name="keywords"
+          content="купить, кирпич, пермский край, цена, пермь, европейские фасады, современные фасады, modern fasad, фасады, стройка, дом">
+    <meta name="description"
+          content="Купить кирпич (облицовочный и рядовой) в компании «Современные фасады». У нас большой выбор кирпича в том числе керамический и клинкерный (производства: Россия, Германия, Европа) и других облицовочных материалов для фасадов, смотрите наш ассортимент. Продажа оптом и в розницу.">
 
 
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'imgfolder/icons/apple-icon-57x57.png' %}">
@@ -58,7 +175,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{% static 'imgfolder/icons/apple-icon-144x144.png' %}">
     <link rel="apple-touch-icon" sizes="152x152" href="{% static 'imgfolder/icons/apple-icon-152x152.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'imgfolder/icons/apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'imgfolder/icons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'imgfolder/icons/android-icon-192x192.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'imgfolder/icons/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'imgfolder/icons/favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'imgfolder/icons/favicon-16x16.png' %}">
@@ -68,1518 +185,1755 @@
     <meta name="theme-color" content="#ffffff">
 
 
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 
 
-
-
- <link rel="stylesheet" href="{% static 'css/main.css' %}">
- <link rel="stylesheet" href="{% static 'css/footer.css' %}">
-
-
- <!--    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <!--    <link rel="stylesheet" href="{% static 'css/header.css' %}">
   <link rel="stylesheet" href="{% static 'css/slider.css' %}">
   <link rel="stylesheet" href="{% static 'css/search.css' %}">
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
    {% block extra_css %}{% endblock %}
   <link rel="stylesheet" href="{% static 'css/menu.css' %}">   -->
-<link rel="stylesheet" href="{% static 'articles/articles.css' %}">
-  <style>
-     
-    :root{
-  
-  --bs-body-line-height: 1;
-  
-}
-    html {
-  scroll-behavior: smooth;
-}
-p {margin: 0;
-padding: 0;}
-
-@font-face {
-
-  font-family: "Muller-ultralight"; 
-
-  src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Muller-medium"; 
-
-  src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Muller-light"; 
-
-  src: url("{% static 'font/MullerLight.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Muller-regular"; 
-
-  src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Namu-light"; 
-
-  src: url("{% static 'font/NAMU1750.otf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-    font-family: 'head';
-    src: url("{% static 'font/head.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'head2';
-    src: url("{% static 'font/head2.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'NAMU';
-    src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-
-@font-face {
-
-  font-family: "Muller-ultralight"; 
-
-  src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Muller-medium"; 
-
-  src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Muller-light"; 
-
-  src: url("{% static 'font/MullerLight.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Muller-regular"; 
-
-  src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-
-  font-family: "Namu-light"; 
-
-  src: url("{% static 'font/NAMU1750.otf' %}") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-}
-@font-face {
-    font-family: 'head';
-    src: url("{% static 'font/head.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'head2';
-    src: url("{% static 'font/head2.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'NAMU';
-    src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background-color:rgba(245, 245, 245, 1) ;
-}
-.a {
-    color: rgba(241, 237, 226, 0.6);
-    margin: 0;
-    font-family: 'head';
-    font-weight: 200;
-    font-size: 16px;
-    line-height: 100%;
-}
-.conteiner {
-    background-color: rgba(66, 34, 35, 1);
-    width: 100%;
-    min-height: 7px;
-    min-width: 1440px;
-    display: flex;
-    flex-direction: column;
-}
-.header {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* padding: 10px 20px; */
-    position: relative;
-    flex-shrink: 0;
-}
-.logo img {
-    width: 100%;
-    max-width: 131px;
-    height: auto;
-}
-.na-list {
-    display: flex;
-    
-    align-items: center;
-    
-    margin: 0;
-    padding-top: 30px;
-    flex-wrap: wrap;
-    gap: 43px;
-    font-size: 16px;
-    color:rgba(255, 246, 243, 1);
-    list-style-type: none;
-    
-    font-family: 'head', Arial, sans-serif; /* вот так! */
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0;
-}
-.na-list2 {
-    display: flex;
-    margin: 0;
-    padding-top: 30px;
-    flex-wrap: wrap;
-    gap: 30px;
-    color:rgba(255, 246, 243, 1);
-    list-style-type: none;
-    margin-left: 30px;
-    font-family: 'head2', Arial, sans-serif; /* вот так! */
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0;
-}
-.na-link {
-    color: rgba(255, 246, 243, 1);
-    text-decoration: none;
-    min-width: 87px;
-}
-
-
-
-
-
-
-.search-bar {
-      display: flex;
-      justify-content: center;
-      padding: 24px;
-      flex-shrink: 0;
-    }
-.search-bar input {
-    padding-top:0 ;
-    /* width: 100%; */
-    /* max-width: 1170px; */
-    width: 1200px;
-    height: 80px;
-    /* min-width: 1170px; */
-    padding: 12px 24px;
-    border-radius: 7px;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    box-sizing: border-box;
-    /* max-width: 600px; */
-}
-
-
-
-
-
-
-
-
-
-
-
-@font-face {
-    font-family: 'head';
-    src: url("{% static 'font/head.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-
-    .slider {
-      position: relative;
-      width: 90%;
-      max-width: 1280px;
-      min-height: 585px;
-      margin: 20px auto;
-      margin-top: -40px;
-      margin-bottom: 0;
-      overflow: hidden;
-      flex-shrink: 0;
-      border-radius: 12px;
-    }
-    .slides {
-      display: flex;
-      transition: transform 0.7s cubic-bezier(0.33,1,0.68,1); 
-      height: 585px;
-    }
-    .slide {
-      flex: 0 0 100%;
-      display: flex;
-      align-items: stretch;
-      height: 585px;
-      box-sizing: border-box;
-      position: relative;
-      background: none;
-    }
-    .slide-text {
-      flex: 1 1 40%;
-      min-width: 350px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      z-index: 2;
-      color: rgba(241, 237, 226, 1);
-      padding: 0 0 0 40px;
-    }
-    .slide-text .big{
-      font-family: 'Namu-light';
-      font-weight: 300;
-      font-size: 80px;
-      line-height: 100%;
-      letter-spacing: 0%;
-      text-transform: uppercase;
-      margin: 0 0 18px 0;
-    }
-    .slide-text .medium{
-      font-family: 'Namu-light';
-      font-weight: 200;
-      font-size: 36px;
-      line-height: 100%;
-      letter-spacing: 0%;
-      text-transform: uppercase;
-      margin: 0 0 24px 0;
-    }
-    .slide-text .min{
-      font-family: 'Muller-ultralight';
-
-      font-size: 16px;
-      line-height: 100%;
-      letter-spacing: 0%;
-      color: #FFF6F3;
-      margin-top: 32px;
-      margin-bottom: 0;
-    }
-    .slide-buttons {
-      display: flex;
-      gap: 18px;
-      margin-top: 12px;
-    }
-    .slide-btn {
-      padding: 18px 25px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-family: 'Muller-regular';
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .2s, color .2s, border .2s;
-      text-decoration: none;
-    }
-
-    .slide-vtn a {
-      margin-top: 10px ;
-    }
-    .slide-btn.white {
-      background: #fff;
-      color: #421e23;
-    }
-    .slide-btn.white:hover {
-      background: #ececec;
-      color: #421e23;
-    }
-    .slide-btn.green {
-      background: #4BB543;
-      color: #fff;
-      
-    }
-    .slide-btn.green:hover {
-      background: #38912e;
-      color: #fff;
-    }
-    .slide-image {
-      flex: 1 1 60%;
-      width: 756px;
-      height: 585px;
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 1;
-      
-    }
-    .slide-image img {
-      margin-right: 50px;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: right;
-      min-width: 756px;
-      min-height: 585px;
-      border-radius: 0 12px 12px 0;
-      display: block;
-    }
-    .slide-image2 {
-      flex: 1 1 60%;
-      width: 756px;
-      height: 585px;
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 1;
-      
-    }
-    .slide-image2 img {
-      margin-right: 38px;
-      height: 100%;
-      object-fit: cover;
-      object-position: right;
-     
-      border-radius: 0 12px 12px 0;
-      display: block;
-    }
-    .slide-image3 {
-      margin-left: 100px;
-      flex: 1 1 60%;
-      width: 756px;
-      padding-left: 100px;
-      height: 585px;
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 1;
-      
-    }
-    .slide-image3 img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: right;
-      min-width: 756px;
-      min-height: 585px;
-      border-radius: 0 12px 12px 0;
-      display: block;
-    }
-    .dots {
-      position: absolute;
-      bottom: 18px;
-      left: 40px;
-      display: flex;
-      gap: 10px;
-      z-index: 10;
-    }
-
-
-
-
-
-
-
-
-
-
-
-    
-.mini-contact-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-}
-.mini-contact-icon img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  opacity: 0.85;
-  margin-top: 2px;
-}
-.mini-contact-text a {
-  color: #232323;
-  text-decoration: none;
-  transition: color 0.14s;
-}
-.mini-contact-text a:hover {
-  color: #3ca1e8;
-  text-decoration: underline;
-}
-.mini-contact-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  color: #777;
-  font-size: 12px;
-  margin-top: 6px;
-}
-.mini-contact-note svg {
-  flex-shrink: 0;
-}
-
-
-
-
-
-
-.dot {
-      width: 12px;
-      height: 12px;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .dot.active {
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-    .menu-image {
-      margin-top: 5px;
-    }
-    .na-link .menu-toggle {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      top: 20px;
-      right: 20px;
-      background-color: rgba(66, 34, 35, 1);
-      margin-right: 20px;
-    }
-    .na-link .menu-toggle span {
-      display: block;
-      width: 30px;
-      height: 3px;
-      background: #fff;
-      margin: 6px 0;
-      transition: 0.4s;
-    }
-    
-    
-    
-    /* ===== САЙДБАР + БЛЮР ===== */
-.side-menu{
-  position:fixed;top:0;right:-100%;
-  width:min(86vw,420px);height:100vh;background:#fff;z-index:1003;
-  box-shadow:-12px 0 28px rgba(0,0,0,.18);transition:right .28s ease;
-  padding:22px 22px 28px;overflow-y:auto
-}
-.side-menu.active{ right:0 }
-.side-menu .logo{display:flex;align-items:center;gap:16px}
-.side-menu .logo img:first-child{width:220px;flex:0 0 auto}
-.side-menu .logo img:last-child{width:80px;height:60px;margin-left:auto;cursor:pointer} /* кнопка закрытия внутри сайдбара */
-.side-menu ul{list-style:none;margin:18px 0 0;padding:0}
-.side-menu li{margin:0 0 15px}
-.side-menu a{text-decoration:none;color:black;font-size:16px;font-weight:500;}
-.side-menu .mini-contacts-card{width:auto;background:#fff;display:flex;flex-direction:column;gap:18px;font-family:Muller-medium;font-size:16px;color:#422223;font-weight:500;position:relative;margin-top:10px}
-.mini-contact-row{display:flex;align-items:center;gap:13px}
-.mini-contact-icon img{width:32px;height:32px;object-fit:contain;opacity:.85;margin-top:2px}
-.mini-contact-text a{color:#422223;text-decoration:none;transition:color .14s}
-.mini-contact-text a:hover{color:#3ca1e8;text-decoration:underline}
-.mini-contact-note{display:flex;align-items:flex-start;gap:6px;color:#777;font-size:12px;margin-top:6px}
-.mini-contact-note svg{flex-shrink:0}
-
-/* блюр-подложка */
-#blur-bg{position:fixed;inset:0;background:rgba(0,0,0,.13);backdrop-filter:blur(8px);z-index:1002;opacity:0;pointer-events:none;transition:opacity .2s}
-#blur-bg.active{opacity:1;pointer-events:auto}
-
-/* блокировка скролла при открытом меню */
-body.no-scroll{overflow:hidden}
-/* Контейнер шапки */
-  #mobileHeaderIndex{
-    position: fixed;
-    top: 16px;
-    left: 0;
-    right: 0;
-    z-index: 1006;                 /* выше старых слоёв */
-    display: flex;
-    justify-content: space-between;/* избранное слева, меню справа */
-    align-items: center;
-    padding: 0 16px;
-  }
-
-  /* ВАЖНО: отменяем fixed у кнопки меню ТОЛЬКО в этом контейнере */
-  #mobileHeaderIndex #mobileMenuBtn{
-    position: static !important;
-    right: auto !important;
-    top: auto !important;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    background: transparent;
-    border: 0;
-  }
-  #mobileHeaderIndex #mobileMenuBtn img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    display: block;
-  }
-
-  /* Кнопка избранного */
-  #mobileHeaderIndex .header-fav-btn{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,.15);
-    position: relative;
-  }
-  #mobileHeaderIndex .header-fav-icon{ width:24px; height:24px; }
-  #mobileHeaderIndex .fav-badge{
-    position: absolute;
-    top: -4px; right: -4px;
-    min-width: 18px; height: 18px;
-    border-radius: 50%;
-    background: #e53935; color:#fff;
-    font-size: 12px; line-height: 18px; text-align: center;
-    z-index: 1;
-  }
-
-
-.menuuu a {
-        font-family: Muller-medium;
-        font-weight: 500;
-        font-size: 16px;
-        
-        opacity: 50%;
-    }
-
-/* общие фиксы */
-html, body { height: 100%; overflow-x: hidden; }
-html { overscroll-behavior-y: none; }          /* нет «скролл-цепочки» */
-#blur-bg { touch-action: none; }               /* бэкдроп не принимает жесты */
-
-/* скролл у сайдбара разрешён, но без проброса на фон */
-.side-menu{
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;                /* стоп цепочку на краях */
-  touch-action: pan-y;                         /* только вертикальные жесты */
-}
-
-/* правильная блокировка страницы (без «прыжка» наверх) */
-body.no-scroll{
-  position: fixed;
-  width: 100%;
-  top: var(--lock-top, 0);                     /* сюда кладём -scrollY */
-  overflow: hidden;                            /* подстраховка для десктопов */
-}
-
-/* чтобы не появлялась горизонтальная прокрутка из-за off-canvas */
-.side-menu{ right:0; transform: translateX(100%); transition: transform .28s ease; }
-.side-menu.active{ transform: translateX(0); }
-
-/* Сайдбар НЕвидим — полностью «глушим» */
-.side-menu{
-  right: 0;
-  transform: translateX(100%);
-  opacity: 0;
-  visibility: hidden;        /* <- не участвует в отрисовке */
-  pointer-events: none;      /* <- не ловит события */
-  overflow: hidden;          /* <- нет внутреннего скролла */
-  height: 100vh;
-  transition: transform .28s ease, opacity .2s ease, visibility 0s .28s; 
-  /* visibility покажется только после завершения hide-анимации */
-}
-
-/* Сайдбар видим — включаем прокрутку только для него */
-.side-menu.active{
-  transform: translateX(0);
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  overflow-y: auto;                 /* <- скролл только когда открыт */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-}
-
-/* Блюр тоже не ловит события, пока скрыт */
-#blur-bg{
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.13);
-  backdrop-filter: blur(8px);
-  z-index: 1002;
-  opacity: 0; 
-  pointer-events: none;
-  transition: opacity .2s;
-}
-#blur-bg.active{ opacity: 1; pointer-events: auto; }
-
-/* Подстраховка против гориз. полосы */
-html, body { overflow-x: hidden; }
-
-
-.footer-card {
-    cursor: pointer;
-}
-
-    /* ====== Footer ====== */
-    @font-face {
-    font-family: 'head';
-    src: url("{% static 'font/head.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    }
-    @font-face {
-    font-family: 'namu';
-    src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    }
-    @font-face {
-    font-family: 'head2';
-    src: url("{% static 'font/head2.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    }
-    .footer-wrapper {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      background: #fafafa;
-      color: #421e23;
-      padding: 60px 0 32px 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', 'Arial', sans-serif;
-      align-items: center;
-      width: 100%;
-    }
-    .footer-cards {
-      max-width: 1240px;
-      margin: 0 auto 52px auto;
-      
-      display: grid;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
-    }
-    @media (min-width: 1110px){
-  .footer-cards { grid-template-columns: repeat(3, 370px); }
-}
-
-/* 2 колонки */
-@media (max-width: 1110px) and (min-width: 740px){
-  .footer-cards { grid-template-columns: repeat(2, 370px); }
-}
-
-/* 1 колонка */
-@media (max-width: 739px){
-  .footer-cards { grid-template-columns: 370px; }
-}
-
-/* очень узкие экраны — чтобы не было горизонтального скролла */
-@media (max-width: 400px){
-  .footer-cards { grid-template-columns: min(370px, 100% - 32px); }
-}
-    .footer-cards-row {
-      display: flex;
-      align-items: center;
-      gap: 50px;
-      max-width: 1200px;
-      min-width: 1200px;
-    }
-    .footer-card {
-
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px 0 rgba(51,51,51,.03);
-      padding: 32px 18px 18px 35px;
-      width: 100%;
-      min-width: 367px;
-      max-width: 367px;
-      min-height: 388px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      transition: box-shadow 0.15s;
-    }
-    .footer-card--empty {
-      background: none;
-      box-shadow: none;
-      pointer-events: none;
-    }
-    .footer-card img {
-      display: block;
-      object-fit: contain;
-      
-    }
-    .footer-card-title {
-      font-size: 22px;
-      font-weight: 500;
-      color: rgba(66, 34, 35, 1);
-      margin-bottom: 20px;
-      line-height: 120%;
-      font-family: 'head';
-      line-height: 100%;
-
-    }
-    .footer-card-link {
-      font-family: 'head2';
-      font-weight: 400;
-      font-size: 20px;
-      color: rgba(0, 0, 0, 0.6);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;  /* толщина */
-      text-underline-offset: 5px; 
-      margin-top: auto;
-      transition: opacity 0.15s;
-    }
-    .footer-card-link:hover {
-      opacity: 0.7;
-    }
-    .footer-main {
-      display: flex;
-      flex-direction: row;
-      
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    .footer-title {
-      margin-bottom: 36px;
-    }
-    .footer-headline {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 38px;
-      font-weight: 600;
-      color: #421e23;
-      letter-spacing: 0;
-      line-height: 100%;
-    }
-    .footer-desc {
-      font-size: 17px;
-      font-weight: 400;
-      color: #421e23;
-      vertical-align: middle;
-      display: inline;
-      margin-left: 8px;
-    }
-    .footer-subdesc {
-      font-size: 15px;
-      color: #421e23;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-    .footer-extra {
-      font-size: 15px;
-      color: #421e23;
-      margin-bottom: 24px;
-      line-height: 1.4;
-    }
-    .footer-link {
-      color: #421e23;
-      text-decoration: underline;
-      font-size: 15px;
-      transition: opacity 0.2s;
-    }
-    .footer-link:hover {
-      opacity: 0.8;
-    }
-    
-    
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.contacts-section {
-  background: #fafafa;
-  border-radius: 12px;
-  padding: 40px 0 36px 0;
-  margin: 0 0 40px 0;
-  max-width: 100vw;
-}
-.contacts-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px 32px;
-  max-width: 1200px;
-  margin: 0 auto 0 auto;
-}
-@media (max-width: 739px){
-  .contacts-grid { grid-template-columns: 370px; }
-}
-
-
-.contacts-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 26px 24px 28px 24px;
-  min-height: 340px;
-  max-width: 569px;
-  width: 569px;
-  box-sizing: border-box;
-  box-shadow: 0 1px 6px 0 rgba(51,51,51,.04);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: 'Montserrat', 'Arial', sans-serif;
-}
-
-/* Для мобильных — только max-width */
-@media (max-width: 1200px) {
-  .contacts-card {
-    width: auto;       /* убираем фиксированную ширину */
-    max-width: 569px;   /* чтобы не вылезало за экран */
-  }
-}
-.contacts-title {
-  font-size: 22px;
-  font-weight: 400;
-  margin-bottom: 10px;
-  color:rgba(0, 0, 0, 1);
-  font-family: 'head2';
-}
-.contacts-body {
-  color:rgba(0, 0, 0, 1);
-  font-family: 'head2';
-  font-size: 20px;
-  font-weight: 300;
-  margin-bottom: 6px;
-
-}
-.contacts-link {
-  color:rgba(210, 21, 21, 1);
-  font-family: 'Muller-light';
-  font-size: 20px;
-  font-weight: 300;
-}
-
-
-.contacts-note {
-  color:rgba(210, 21, 21, 1);
-  font-size: 20px;
-  margin-top: 4px;
-  font-family: 'Muller-light';
-}
-
-
-
-
-
-
-
-.call{
-  position: relative;
-}
-.callback-form-fields-grid input::placeholder {
-  position: absolute;
-  left: 22px;
-  top: 32px;
-  font-family: 'head2';
-  font-size: 20px;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.4);
-}
-textarea::placeholder{
-  position: absolute;
-  left: 37px;
-  top: 137px;
-  font-family: 'head2';
-  font-size: 20px;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.4);
-}
-.callback-form-section {
-  position: relative;
-  max-width: 1440px;
-  min-height: 800px;
-  margin: 36px auto 44px auto;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(60,60,60,0.04);
-  font-family: 'Montserrat', Arial, sans-serif;
-  box-sizing: border-box;
-  padding: 100px;
-}
-
-.callback-form-title {
-  position: absolute;
-  left: 139px;
-  top:138px ;
-  font-family: 'namu';
-  font-size: 28px;
-  font-weight: 300;
-  color: rgba(0, 0, 0, 1);
-
-  text-align: left;
-  letter-spacing: 0;
-  line-height: 100%;
-}
-.callback-form-subtitle {
-  position: absolute;
-  left: 136px;
-  top: 211px;
-  font-family: 'head2';
-  color: rgba(129, 129, 129, 1);
-  font-size: 20px;
-  font-weight: 400;
-
-  width: 480px;
-  line-height: 100%;
-}
-.callback-form-row {
-  display: flex;
-  gap: 48px;
-  position: absolute;
-  left: 135px;
-  top: 387px;
-}
-.callback-form-fields {
-  flex: 2;
-}
-.callback-form-fields label {
-  font-size: 1.07rem;
-  margin-bottom: 8px;
-  font-weight: 500;
-  display: block;
-  color: #191919;
-}
-.callback-form-fields-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 36px 66px;
-  margin-bottom: 18px;
-}
-.callback-form-fields input {
-
-  width: 300px;
-  height: 74px;
-
-  border: 1.5px solid #e4e4e4;
-  border-radius: 8px;
-  font-size: 1.05rem;
-  background: #fff;
-  font-family: 'Montserrat', Arial, sans-serif;
-  transition: border .14s;
-}
-.callback-form-fields input:focus,
-.callback-form-fields textarea:focus {
-  outline: none;
-  border: 1.5px solid #a4cc6a;
-}
-.callback-form-fields textarea {
-
-  width: 455px;
-  height: 188px;
-
-  border: 1.5px solid #e4e4e4;
-  border-radius: 8px;
-  font-size: 1.05rem;
-  background: #fff;
-  font-family: 'Montserrat', Arial, sans-serif;
-  resize: vertical;
-  transition: border .14s;
-}
-.callback-form-info {
-  flex: 1;
-  height: 188px;
-}
-.callback-form-info label {
-  font-size: 1.07rem;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #191919;
-  display: block;
-}
-.callback-form-info textarea {
-
-  height: 188px;
-  width: 455px;
-  border: 1.5px solid #e4e4e4;
-  border-radius: 8px;
-  font-size: 1.05rem;
-  background: #fff;
-  font-family: 'Montserrat', Arial, sans-serif;
-  resize: vertical;
-  margin-bottom: 0;
-  transition: border .14s;
-}
-.callback-form-info textarea:focus {
-  border: 1.5px solid #a4cc6a;
-  outline: none;
-}
-.callback-form-bottom {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 136px;
-  top: 672px;
-  gap: 556px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.callback-form-note {
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 14px;
-  font-weight: 400;
-  font-family: "head2";
-  margin-left: 2px;
-  display: flex;
-  line-height: 100%;
-  align-items: flex-start;
-  gap: 8px;
-  max-width: 520px;
-}
-.callback-form-note svg {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  margin-top: 1.5px;
-}
-.callback-form-btn {
-  padding: 13px 38px;
-  background: #328400;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.11rem;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  margin-left: auto;
-  box-shadow: 2px 4px 0 #9bc18a;
-  transition: background .16s, box-shadow .16s;
-}
-.callback-form-btn:hover {
-  background: #246a00;
-  box-shadow: 1px 2px 0 #82a571;
-}
-
-
-.papa-con{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-
-.stats-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
-  gap: 50px;
-  max-width: 1200px;
-  margin: 0 auto 48px auto;
-  background: #fafafa;
-  padding: 48px 0;
-}
-@media (max-width: 1110px) and (min-width: 740px){
-  .stats-section { grid-template-columns: repeat(2, 370px); }
-}
-
-/* 1 колонка */
-@media (max-width: 739px){
-  .stats-section { grid-template-columns: 370px; }
-}
-
-
-.stats-card {
-  width: 367px;
-  height: 454px;
-  background:rgba(255, 255, 255, 1);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px 0 rgba(51,51,51,.06);
-  overflow: visible;
-  position: relative;
-  
-  
-}
-.stats-png1{
-  
-}
-.footer-group a {
-  font-family: 'Muller-light';
-
-}
-
-
-
-
-
-
-@media (max-width: 1284px){
-  .conteiner { display: none !important; }
-  #mobileMenuBtn { display: block !important; } /* кнопка остаётся */
-}
-
-
-/* ====== MOBILE/TABLET ADAPTIVE FOR HERO ====== */
-
-/* 1) не скрываем главный контейнер на мобилках */
-@media (max-width: 1284px){
-  .conteiner{
-    display:block !important;
-    min-width:0;
-    width:100%;
-  }
-}
-
-/* 2) показываем строку поиска на мобилках (шапку — скрываем, как и было) */
-@media (max-width:1024px){
-  .header{ display:none !important; }
-  .search-bar{ display:block !important; padding:16px 12px; }
-  .search-bar input{
-    width:100% !important;
-    height:44px;
-    border-radius:12px;
-  }
-}
-
-/* 3) общие правки для слайдера на узких экранах */
-@media (max-width:1280px){
-  .slider{
-    width:100%;
-    max-width:100%;
-    min-height:auto;
-    margin:10px auto 0;
-    border-radius:12px;
-  }
-  .slides{
-    height:auto;
-  }
-  .slide{
-    height:auto;
-    padding:0px 12px 0px;
-    box-sizing:border-box;
-    background: transparent;
-    display:flex;
-    flex-direction:column; /* текст сверху, картинка снизу */
-    gap:14px;
-    margin-bottom: -10px;
-  }
-
-  .slide-text{
-    flex:0 0 auto;
-    min-width:auto;
-    padding:0 4px;
-  }
-  .slide-text .big{
-    font-size:32px;       /* было 80px */
-    line-height:1.05;
-    margin:0 0 10px;
-  }
-  .slide-text .medium{
-    font-size:20px;       /* было 36px */
-    line-height:1.1;
-    margin:0 0 12px;
-  }
-  .slide-text .min{
-    font-size:20px;       /* было 16px */
-    line-height:1.35;
-    margin-top:14px;
-  }
-
-  .slide-buttons{
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .slide-btn{
-    padding:12px 18px;
-    font-size:14px;
-    border-radius:10px;
-  }
-
-  .slide-image,
-  .slide-image2,
-  .slide-image3{
-    flex:0 0 auto;
-    width:100%;
-    height:auto;
-    min-height:0;
-    justify-content:center;
-    align-items:flex-end;
-    margin: 0;
-    padding: 0;
-    
-  }
-  .slide-image img,
-  .slide-image2 img,
-  .slide-image3 img{
-    width:100%;
-    margin: 0;
-    height:auto;            /* сохраняем пропорции */
-    min-width:0;
-    min-height:0;
-    object-fit:contain;     /* аккуратно вписываем кирпич */
-    border-radius:12px;
-    display:block;
-  }
-
-  /* точки — ближе к низу, не прилипают */
-  .dots{
-    position:static;
-    margin:10px 12px 14px;
-    justify-content:flex-start;
-  }
-}
-
-/* 4) совсем узкие экраны (iPhone SE и т.п.) */
-
-/* ===== Фиксированный логотип сверху ===== */
-.mobile-logo-bar {
-  
-  height: 60px;
-  background: #422223;         /* фон как на скрине */
-  display: none;               /* по умолчанию скрыт */
-  align-items: center;
-  padding: 0 16px;             /* отступы слева/справа */
-  z-index: 1100;               /* поверх всего */
-}
-
-.mobile-logo-bar .mobile-logo img {
-  height: 40px;
-  width: auto;
-  display: block;
-}
-
-/* показываем только на мобильных */
-@media (max-width: 1024px) {
-  .mobile-logo-bar {
-    display: flex;
-    justify-content: flex-start; /* логотип слева */
-  }
-  
-}
-@media (max-width: 992px){
-  .dots{ display:none !important; }
-}
-
-@media (max-width: 768px) {
-  .slider,
-  .slides,
-  .slide,
-  .slide-image,
-  .slide-image2,
-  .slide-image3 {
-    height: auto !important;   /* контейнер подстраивается под картинку */
-    min-height: 0 !important;
-  }
-}
-
-.nav-link {
-    font-size: 16px;
-    font-family: Muller-regular;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 100%;
-}
-
-/* === MOBILE FIX: текст сверху, картинка занимает всё оставшееся === */
-@media (max-width: 1024px){
-
-  /* слайдер и слайды не фиксированной высоты */
-  .slider{ height:auto; min-height: 100vh; }   /* тянем секцию на экран */
-  .slides{ height:auto; }
-  .slide{
-    display: grid;
-    grid-template-rows: auto 1fr;  /* 1) текст, 2) картинка */
-    height: 100%;
-    padding: 0 12px 12px;
-    box-sizing: border-box;
-  }
-
-  /* текст – по контенту */
-  .slide-text{
-    padding: 0 4px;
-    min-width: 0;
-  }
-
-  /* контейнер картинки — растягиваемся на остаток */
-  .slide-image,
-  .slide-image2,
-  .slide-image3{
-    min-height: 40vh;    /* чтобы не схлопывался; можно 45–60vh под твой вкус */
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* ОЧЕНЬ ВАЖНО: снимаем абсолют и даём заполнять контейнер */
-  .slide-image picture,
-  .slide-image2 picture,
-  .slide-image3 picture,
-  .slide-image img,
-  .slide-image2 img,
-  .slide-image3 img{
-    position: static !important;
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-    min-height: 0;
-    object-fit: cover;          /* заполняем, лишнее — кадрируется */
-    border-radius: 0 0 12px 12px;
-    margin: 0;
-  }
-}
-/* делаем точки круглыми и заметными */
-#carouselExampleSlidesOnly .carousel-indicators [data-bs-target]{
-  width: 20px; height: 20px; border-radius: 50%;
-  background-color: rgb(32, 31, 31);
-  opacity: 1;
-}
-#carouselExampleSlidesOnly .carousel-indicators .active{
-  background-color: rgba(105, 102, 102, 0.67);
-}
-
-</style>
+    <link rel="stylesheet" href="{% static 'articles/articles.css' %}">
+    <style>
+
+        :root {
+
+            --bs-body-line-height: 1;
+
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        @font-face {
+
+            font-family: "Muller-ultralight";
+
+            src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-medium";
+
+            src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-light";
+
+            src: url("{% static 'font/MullerLight.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-regular";
+
+            src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Namu-light";
+
+            src: url("{% static 'font/NAMU1750.otf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: 'head';
+            src: url("{% static 'font/head.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'head2';
+            src: url("{% static 'font/head2.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        @font-face {
+            font-family: 'NAMU';
+            src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        @font-face {
+
+            font-family: "Muller-ultralight";
+
+            src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-medium";
+
+            src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-light";
+
+            src: url("{% static 'font/MullerLight.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Muller-regular";
+
+            src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+
+            font-family: "Namu-light";
+
+            src: url("{% static 'font/NAMU1750.otf' %}") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: 'head';
+            src: url("{% static 'font/head.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'head2';
+            src: url("{% static 'font/head2.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        @font-face {
+            font-family: 'NAMU';
+            src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background-color: #fafafa;
+        }
+
+        .a {
+            color: rgba(241, 237, 226, 0.6);
+            margin: 0;
+            font-family: 'head';
+            font-weight: 200;
+            font-size: 16px;
+            line-height: 100%;
+        }
+
+        .conteiner {
+            background-color: rgba(66, 34, 35, 1);
+            width: 100%;
+            min-height: 7px;
+            min-width: 1440px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* padding: 10px 20px; */
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            width: 100%;
+            max-width: 131px;
+            height: auto;
+        }
+
+        .na-list {
+            display: flex;
+
+            align-items: center;
+
+            margin: 0;
+            padding-top: 30px;
+            flex-wrap: wrap;
+            gap: 43px;
+            font-size: 16px;
+            color: rgba(255, 246, 243, 1);
+            list-style-type: none;
+
+            font-family: 'head', Arial, sans-serif; /* вот так! */
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0;
+        }
+
+        .na-list2 {
+            display: flex;
+            margin: 0;
+            padding-top: 30px;
+            flex-wrap: wrap;
+            gap: 30px;
+            color: rgba(255, 246, 243, 1);
+            list-style-type: none;
+            margin-left: 30px;
+            font-family: 'head2', Arial, sans-serif; /* вот так! */
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0;
+        }
+
+        .na-link {
+            color: rgba(255, 246, 243, 1);
+            text-decoration: none;
+            min-width: 87px;
+        }
+
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            padding: 24px;
+            flex-shrink: 0;
+        }
+
+        .search-bar input {
+            padding-top: 0;
+            /* width: 100%; */
+            /* max-width: 1170px; */
+            width: 1200px;
+            height: 80px;
+            /* min-width: 1170px; */
+            padding: 12px 24px;
+            border-radius: 7px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            /* max-width: 600px; */
+        }
+
+
+        @font-face {
+            font-family: 'head';
+            src: url("{% static 'font/head.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        .slider {
+            position: relative;
+            width: 90%;
+            max-width: 1280px;
+            min-height: 585px;
+            margin: 20px auto;
+            margin-top: -40px;
+            margin-bottom: 0;
+            overflow: hidden;
+            flex-shrink: 0;
+            border-radius: 12px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+            height: 585px;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            display: flex;
+            align-items: stretch;
+            height: 585px;
+            box-sizing: border-box;
+            position: relative;
+            background: none;
+        }
+
+        .slide-text {
+            flex: 1 1 40%;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+            color: rgba(241, 237, 226, 1);
+            padding: 0 0 0 40px;
+        }
+
+        .slide-text .big {
+            font-family: 'Namu-light';
+            font-weight: 300;
+            font-size: 80px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-transform: uppercase;
+            margin: 0 0 18px 0;
+        }
+
+        .slide-text .medium {
+            font-family: 'Namu-light';
+            font-weight: 200;
+            font-size: 36px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-transform: uppercase;
+            margin: 0 0 24px 0;
+        }
+
+        .slide-text .min {
+            font-family: 'Muller-ultralight';
+
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #FFF6F3;
+            margin-top: 32px;
+            margin-bottom: 0;
+        }
+
+        .slide-buttons {
+            display: flex;
+            gap: 18px;
+            margin-top: 12px;
+        }
+
+        .slide-btn {
+            padding: 18px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Muller-regular';
+            font-weight: 500;
+            cursor: pointer;
+            transition: background .2s, color .2s, border .2s;
+            text-decoration: none;
+        }
+
+        .slide-vtn a {
+            margin-top: 10px;
+        }
+
+        .slide-btn.white {
+            background: #fff;
+            color: #421e23;
+        }
+
+        .slide-btn.white:hover {
+            background: #ececec;
+            color: #421e23;
+        }
+
+        .slide-btn.green {
+            background: #4BB543;
+            color: #fff;
+
+        }
+
+        .slide-btn.green:hover {
+            background: #38912e;
+            color: #fff;
+        }
+
+        .slide-image {
+            flex: 1 1 60%;
+            width: 756px;
+            height: 585px;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 1;
+
+        }
+
+        .slide-image img {
+            margin-right: 50px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: right;
+            min-width: 756px;
+            min-height: 585px;
+            border-radius: 0 12px 12px 0;
+            display: block;
+        }
+
+        .slide-image2 {
+            flex: 1 1 60%;
+            width: 756px;
+            height: 585px;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 1;
+
+        }
+
+        .slide-image2 img {
+            margin-right: 38px;
+            height: 100%;
+            object-fit: cover;
+            object-position: right;
+
+            border-radius: 0 12px 12px 0;
+            display: block;
+        }
+
+        .slide-image3 {
+            margin-left: 100px;
+            flex: 1 1 60%;
+            width: 756px;
+            padding-left: 100px;
+            height: 585px;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 1;
+
+        }
+
+        .slide-image3 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: right;
+            min-width: 756px;
+            min-height: 585px;
+            border-radius: 0 12px 12px 0;
+            display: block;
+        }
+
+        .dots {
+            position: absolute;
+            bottom: 18px;
+            left: 40px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+
+        .mini-contact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+        }
+
+        .mini-contact-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        .mini-contact-text a {
+            color: #232323;
+            text-decoration: none;
+            transition: color 0.14s;
+        }
+
+        .mini-contact-text a:hover {
+            color: #3ca1e8;
+            text-decoration: underline;
+        }
+
+        .mini-contact-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            color: #777;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .mini-contact-note svg {
+            flex-shrink: 0;
+        }
+
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .menu-image {
+            margin-top: 5px;
+        }
+
+        .na-link .menu-toggle {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(66, 34, 35, 1);
+            margin-right: 20px;
+        }
+
+        .na-link .menu-toggle span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: #fff;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+
+        /* ===== САЙДБАР + БЛЮР ===== */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(86vw, 420px);
+            height: 100vh;
+            background: #fff;
+            z-index: 1003;
+            box-shadow: -12px 0 28px rgba(0, 0, 0, .18);
+            transition: right .28s ease;
+            padding: 22px 22px 28px;
+            overflow-y: auto
+        }
+
+        .side-menu.active {
+            right: 0
+        }
+
+        .side-menu .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .side-menu .logo img:first-child {
+            width: 220px;
+            flex: 0 0 auto
+        }
+
+        .side-menu .logo img:last-child {
+            width: 80px;
+            height: 60px;
+            margin-left: auto;
+            cursor: pointer
+        }
+
+        /* кнопка закрытия внутри сайдбара */
+        .side-menu ul {
+            list-style: none;
+            margin: 18px 0 0;
+            padding: 0
+        }
+
+        .side-menu li {
+            margin: 0 0 15px
+        }
+
+        .side-menu a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .side-menu .mini-contacts-card {
+            width: auto;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            font-family: Muller-medium;
+            font-size: 16px;
+            color: #422223;
+            font-weight: 500;
+            position: relative;
+            margin-top: 10px
+        }
+
+        .mini-contact-row {
+            display: flex;
+            align-items: center;
+            gap: 13px
+        }
+
+        .mini-contact-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            opacity: .85;
+            margin-top: 2px
+        }
+
+        .mini-contact-text a {
+            color: #422223;
+            text-decoration: none;
+            transition: color .14s
+        }
+
+        .mini-contact-text a:hover {
+            color: #3ca1e8;
+            text-decoration: underline
+        }
+
+        .mini-contact-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            color: #777;
+            font-size: 12px;
+            margin-top: 6px
+        }
+
+        .mini-contact-note svg {
+            flex-shrink: 0
+        }
+
+        /* блюр-подложка */
+        #blur-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .13);
+            backdrop-filter: blur(8px);
+            z-index: 1002;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s
+        }
+
+        #blur-bg.active {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        /* блокировка скролла при открытом меню */
+        body.no-scroll {
+            overflow: hidden
+        }
+
+        /* Контейнер шапки */
+        #mobileHeaderIndex {
+            position: fixed;
+            top: 16px;
+            left: 0;
+            right: 0;
+            z-index: 1006; /* выше старых слоёв */
+            display: flex;
+            justify-content: space-between; /* избранное слева, меню справа */
+            align-items: center;
+            padding: 0 16px;
+        }
+
+        /* ВАЖНО: отменяем fixed у кнопки меню ТОЛЬКО в этом контейнере */
+        #mobileHeaderIndex #mobileMenuBtn {
+            position: static !important;
+            right: auto !important;
+            top: auto !important;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            background: transparent;
+            border: 0;
+        }
+
+        #mobileHeaderIndex #mobileMenuBtn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            display: block;
+        }
+
+        /* Кнопка избранного */
+        #mobileHeaderIndex .header-fav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+            position: relative;
+        }
+
+        #mobileHeaderIndex .header-fav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        #mobileHeaderIndex .fav-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #e53935;
+            color: #fff;
+            font-size: 12px;
+            line-height: 18px;
+            text-align: center;
+            z-index: 1;
+        }
+
+
+        .menuuu a {
+            font-family: Muller-medium;
+            font-weight: 500;
+            font-size: 16px;
+
+            opacity: 50%;
+        }
+
+        /* общие фиксы */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            overscroll-behavior-y: none;
+        }
+
+        /* нет «скролл-цепочки» */
+        #blur-bg {
+            touch-action: none;
+        }
+
+        /* бэкдроп не принимает жесты */
+
+        /* скролл у сайдбара разрешён, но без проброса на фон */
+        .side-menu {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain; /* стоп цепочку на краях */
+            touch-action: pan-y; /* только вертикальные жесты */
+        }
+
+        /* правильная блокировка страницы (без «прыжка» наверх) */
+        body.no-scroll {
+            position: fixed;
+            width: 100%;
+            top: var(--lock-top, 0); /* сюда кладём -scrollY */
+            overflow: hidden; /* подстраховка для десктопов */
+        }
+
+        /* чтобы не появлялась горизонтальная прокрутка из-за off-canvas */
+        .side-menu {
+            right: 0;
+            transform: translateX(100%);
+            transition: transform .28s ease;
+        }
+
+        .side-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Сайдбар НЕвидим — полностью «глушим» */
+        .side-menu {
+            right: 0;
+            transform: translateX(100%);
+            opacity: 0;
+            visibility: hidden; /* <- не участвует в отрисовке */
+            pointer-events: none; /* <- не ловит события */
+            overflow: hidden; /* <- нет внутреннего скролла */
+            height: 100vh;
+            transition: transform .28s ease, opacity .2s ease, visibility 0s .28s;
+            /* visibility покажется только после завершения hide-анимации */
+        }
+
+        /* Сайдбар видим — включаем прокрутку только для него */
+        .side-menu.active {
+            transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            overflow-y: auto; /* <- скролл только когда открыт */
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        /* Блюр тоже не ловит события, пока скрыт */
+        #blur-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .13);
+            backdrop-filter: blur(8px);
+            z-index: 1002;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s;
+        }
+
+        #blur-bg.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Подстраховка против гориз. полосы */
+        html, body {
+            overflow-x: hidden;
+        }
+
+
+        .footer-card {
+            cursor: pointer;
+        }
+
+        /* ====== Footer ====== */
+        @font-face {
+            font-family: 'head';
+            src: url("{% static 'font/head.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'namu';
+            src: url("{% static 'font/namu-1750.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'head2';
+            src: url("{% static 'font/head2.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            background: #fafafa;
+            color: #421e23;
+            padding: 60px 0 32px 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-cards {
+            max-width: 1240px;
+            margin: 0 auto 52px auto;
+
+            display: grid;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+
+        @media (min-width: 1110px) {
+            .footer-cards {
+                grid-template-columns: repeat(3, 370px);
+            }
+        }
+
+        /* 2 колонки */
+        @media (max-width: 1110px) and (min-width: 740px) {
+            .footer-cards {
+                grid-template-columns: repeat(2, 370px);
+            }
+        }
+
+        /* 1 колонка */
+        @media (max-width: 739px) {
+            .footer-cards {
+                grid-template-columns: 370px;
+            }
+        }
+
+        /* очень узкие экраны — чтобы не было горизонтального скролла */
+        @media (max-width: 400px) {
+            .footer-cards {
+                grid-template-columns: min(370px, 100% - 32px);
+            }
+        }
+
+        .footer-cards-row {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            min-width: 1200px;
+        }
+
+        .footer-card {
+
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px 0 rgba(51, 51, 51, .03);
+            padding: 32px 18px 18px 35px;
+            width: 100%;
+            min-width: 367px;
+            max-width: 367px;
+            min-height: 388px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow 0.15s;
+        }
+
+        .footer-card--empty {
+            background: none;
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        .footer-card img {
+            display: block;
+            object-fit: contain;
+
+        }
+
+        .footer-card-title {
+            font-size: 22px;
+            font-weight: 500;
+            color: rgba(66, 34, 35, 1);
+            margin-bottom: 20px;
+            line-height: 120%;
+            font-family: 'head';
+            line-height: 100%;
+
+        }
+
+        .footer-card-link {
+            font-family: 'head2';
+            font-weight: 400;
+            font-size: 20px;
+            color: rgba(0, 0, 0, 0.6);
+            text-decoration: underline;
+            text-decoration-thickness: 1px; /* толщина */
+            text-underline-offset: 5px;
+            margin-top: auto;
+            transition: opacity 0.15s;
+        }
+
+        .footer-card-link:hover {
+            opacity: 0.7;
+        }
+
+        .footer-main {
+            display: flex;
+            flex-direction: row;
+
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-title {
+            margin-bottom: 36px;
+        }
+
+        .footer-headline {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px;
+            font-weight: 600;
+            color: #421e23;
+            letter-spacing: 0;
+            line-height: 100%;
+        }
+
+        .footer-desc {
+            font-size: 17px;
+            font-weight: 400;
+            color: #421e23;
+            vertical-align: middle;
+            display: inline;
+            margin-left: 8px;
+        }
+
+        .footer-subdesc {
+            font-size: 15px;
+            color: #421e23;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .footer-extra {
+            font-size: 15px;
+            color: #421e23;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .footer-link {
+            color: #421e23;
+            text-decoration: underline;
+            font-size: 15px;
+            transition: opacity 0.2s;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+
+        .contacts-section {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 40px 0 36px 0;
+            margin: 0 0 40px 0;
+            max-width: 100vw;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px 32px;
+            max-width: 1200px;
+            margin: 0 auto 0 auto;
+        }
+
+        @media (max-width: 739px) {
+            .contacts-grid {
+                grid-template-columns: 370px;
+            }
+        }
+
+
+        .contacts-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 26px 24px 28px 24px;
+            min-height: 340px;
+            max-width: 569px;
+            width: 569px;
+            box-sizing: border-box;
+            box-shadow: 0 1px 6px 0 rgba(51, 51, 51, .04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+        }
+
+        /* Для мобильных — только max-width */
+        @media (max-width: 1200px) {
+            .contacts-card {
+                width: auto; /* убираем фиксированную ширину */
+                max-width: 569px; /* чтобы не вылезало за экран */
+            }
+        }
+
+        .contacts-title {
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: rgba(0, 0, 0, 1);
+            font-family: 'head2';
+        }
+
+        .contacts-body {
+            color: rgba(0, 0, 0, 1);
+            font-family: 'head2';
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 6px;
+
+        }
+
+        .contacts-link {
+            color: rgba(210, 21, 21, 1);
+            font-family: 'Muller-light';
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+
+        .contacts-note {
+            color: rgba(210, 21, 21, 1);
+            font-size: 20px;
+            margin-top: 4px;
+            font-family: 'Muller-light';
+        }
+
+
+        .call {
+            position: relative;
+        }
+
+        .callback-form-fields-grid input::placeholder {
+            position: absolute;
+            left: 22px;
+            top: 32px;
+            font-family: 'head2';
+            font-size: 20px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        textarea::placeholder {
+            position: absolute;
+            left: 37px;
+            top: 137px;
+            font-family: 'head2';
+            font-size: 20px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .callback-form-section {
+            position: relative;
+            max-width: 1440px;
+            min-height: 800px;
+            margin: 36px auto 44px auto;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(60, 60, 60, 0.04);
+            font-family: 'Montserrat', Arial, sans-serif;
+            box-sizing: border-box;
+            padding: 100px;
+        }
+
+        .callback-form-title {
+            position: absolute;
+            left: 139px;
+            top: 138px;
+            font-family: 'namu';
+            font-size: 28px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 1);
+
+            text-align: left;
+            letter-spacing: 0;
+            line-height: 100%;
+        }
+
+        .callback-form-subtitle {
+            position: absolute;
+            left: 136px;
+            top: 211px;
+            font-family: 'head2';
+            color: rgba(129, 129, 129, 1);
+            font-size: 20px;
+            font-weight: 400;
+
+            width: 480px;
+            line-height: 100%;
+        }
+
+        .callback-form-row {
+            display: flex;
+            gap: 48px;
+            position: absolute;
+            left: 135px;
+            top: 387px;
+        }
+
+        .callback-form-fields {
+            flex: 2;
+        }
+
+        .callback-form-fields label {
+            font-size: 1.07rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+            display: block;
+            color: #191919;
+        }
+
+        .callback-form-fields-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px 66px;
+            margin-bottom: 18px;
+        }
+
+        .callback-form-fields input {
+
+            width: 300px;
+            height: 74px;
+
+            border: 1.5px solid #e4e4e4;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            background: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            transition: border .14s;
+        }
+
+        .callback-form-fields input:focus,
+        .callback-form-fields textarea:focus {
+            outline: none;
+            border: 1.5px solid #a4cc6a;
+        }
+
+        .callback-form-fields textarea {
+
+            width: 455px;
+            height: 188px;
+
+            border: 1.5px solid #e4e4e4;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            background: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            resize: vertical;
+            transition: border .14s;
+        }
+
+        .callback-form-info {
+            flex: 1;
+            height: 188px;
+        }
+
+        .callback-form-info label {
+            font-size: 1.07rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #191919;
+            display: block;
+        }
+
+        .callback-form-info textarea {
+
+            height: 188px;
+            width: 455px;
+            border: 1.5px solid #e4e4e4;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            background: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            resize: vertical;
+            margin-bottom: 0;
+            transition: border .14s;
+        }
+
+        .callback-form-info textarea:focus {
+            border: 1.5px solid #a4cc6a;
+            outline: none;
+        }
+
+        .callback-form-bottom {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: 136px;
+            top: 672px;
+            gap: 556px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .callback-form-note {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+            font-weight: 400;
+            font-family: "head2";
+            margin-left: 2px;
+            display: flex;
+            line-height: 100%;
+            align-items: flex-start;
+            gap: 8px;
+            max-width: 520px;
+        }
+
+        .callback-form-note svg {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            margin-top: 1.5px;
+        }
+
+        .callback-form-btn {
+            padding: 13px 38px;
+            background: #328400;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.11rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: auto;
+            box-shadow: 2px 4px 0 #9bc18a;
+            transition: background .16s, box-shadow .16s;
+        }
+
+        .callback-form-btn:hover {
+            background: #246a00;
+            box-shadow: 1px 2px 0 #82a571;
+        }
+
+
+        .papa-con {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: center;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto 48px auto;
+            background: #fafafa;
+            padding: 48px 0;
+        }
+
+        @media (max-width: 1110px) and (min-width: 740px) {
+            .stats-section {
+                grid-template-columns: repeat(2, 370px);
+            }
+        }
+
+        /* 1 колонка */
+        @media (max-width: 739px) {
+            .stats-section {
+                grid-template-columns: 370px;
+            }
+        }
+
+
+        .stats-card {
+            width: 367px;
+            height: 454px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 16px;
+            box-shadow: 0 2px 12px 0 rgba(51, 51, 51, .06);
+            overflow: visible;
+            position: relative;
+
+
+        }
+
+        .stats-png1 {
+
+        }
+
+        .footer-group a {
+            font-family: 'Muller-light';
+
+        }
+
+
+        @media (max-width: 1284px) {
+            .conteiner {
+                display: none !important;
+            }
+
+            #mobileMenuBtn {
+                display: block !important;
+            }
+
+            /* кнопка остаётся */
+        }
+
+
+        /* ====== MOBILE/TABLET ADAPTIVE FOR HERO ====== */
+
+        /* 1) не скрываем главный контейнер на мобилках */
+        @media (max-width: 1284px) {
+            .conteiner {
+                display: block !important;
+                min-width: 0;
+                width: 100%;
+            }
+        }
+
+        /* 2) показываем строку поиска на мобилках (шапку — скрываем, как и было) */
+        @media (max-width: 1024px) {
+            .header {
+                display: none !important;
+            }
+
+            .search-bar {
+                display: block !important;
+                padding: 16px 12px;
+            }
+
+            .search-bar input {
+                width: 100% !important;
+                height: 44px;
+                border-radius: 12px;
+            }
+        }
+
+        /* 3) общие правки для слайдера на узких экранах */
+        @media (max-width: 1280px) {
+            .slider {
+                width: 100%;
+                max-width: 100%;
+                min-height: auto;
+                margin: 10px auto 0;
+                border-radius: 12px;
+            }
+
+            .slides {
+                height: auto;
+            }
+
+            .slide {
+                height: auto;
+                padding: 0px 12px 0px;
+                box-sizing: border-box;
+                background: transparent;
+                display: flex;
+                flex-direction: column; /* текст сверху, картинка снизу */
+                gap: 14px;
+                margin-bottom: -10px;
+            }
+
+            .slide-text {
+                flex: 0 0 auto;
+                min-width: auto;
+                padding: 0 4px;
+            }
+
+            .slide-text .big {
+                font-size: 32px; /* было 80px */
+                line-height: 1.05;
+                margin: 0 0 10px;
+            }
+
+            .slide-text .medium {
+                font-size: 20px; /* было 36px */
+                line-height: 1.1;
+                margin: 0 0 12px;
+            }
+
+            .slide-text .min {
+                font-size: 20px; /* было 16px */
+                line-height: 1.35;
+                margin-top: 14px;
+            }
+
+            .slide-buttons {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .slide-btn {
+                padding: 12px 18px;
+                font-size: 14px;
+                border-radius: 10px;
+            }
+
+            .slide-image,
+            .slide-image2,
+            .slide-image3 {
+                flex: 0 0 auto;
+                width: 100%;
+                height: auto;
+                min-height: 0;
+                justify-content: center;
+                align-items: flex-end;
+                margin: 0;
+                padding: 0;
+
+            }
+
+            .slide-image img,
+            .slide-image2 img,
+            .slide-image3 img {
+                width: 100%;
+                margin: 0;
+                height: auto; /* сохраняем пропорции */
+                min-width: 0;
+                min-height: 0;
+                object-fit: contain; /* аккуратно вписываем кирпич */
+                border-radius: 12px;
+                display: block;
+            }
+
+            /* точки — ближе к низу, не прилипают */
+            .dots {
+                position: static;
+                margin: 10px 12px 14px;
+                justify-content: flex-start;
+            }
+        }
+
+        /* 4) совсем узкие экраны (iPhone SE и т.п.) */
+
+        /* ===== Фиксированный логотип сверху ===== */
+        .mobile-logo-bar {
+
+            height: 60px;
+            background: #422223; /* фон как на скрине */
+            display: none; /* по умолчанию скрыт */
+            align-items: center;
+            padding: 0 16px; /* отступы слева/справа */
+            z-index: 1100; /* поверх всего */
+        }
+
+        .mobile-logo-bar .mobile-logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        /* показываем только на мобильных */
+        @media (max-width: 1024px) {
+            .mobile-logo-bar {
+                display: flex;
+                justify-content: flex-start; /* логотип слева */
+            }
+
+        }
+
+        @media (max-width: 992px) {
+            .dots {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slider,
+            .slides,
+            .slide,
+            .slide-image,
+            .slide-image2,
+            .slide-image3 {
+                height: auto !important; /* контейнер подстраивается под картинку */
+                min-height: 0 !important;
+            }
+        }
+
+        .nav-link {
+            font-size: 16px;
+            font-family: Muller-regular;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 100%;
+        }
+
+        /* === MOBILE FIX: текст сверху, картинка занимает всё оставшееся === */
+        @media (max-width: 1024px) {
+
+            /* слайдер и слайды не фиксированной высоты */
+            .slider {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            /* тянем секцию на экран */
+            .slides {
+                height: auto;
+            }
+
+            .slide {
+                display: grid;
+                grid-template-rows: auto 1fr; /* 1) текст, 2) картинка */
+                height: 100%;
+                padding: 0 12px 12px;
+                box-sizing: border-box;
+            }
+
+            /* текст – по контенту */
+            .slide-text {
+                padding: 0 4px;
+                min-width: 0;
+            }
+
+            /* контейнер картинки — растягиваемся на остаток */
+            .slide-image,
+            .slide-image2,
+            .slide-image3 {
+                min-height: 40vh; /* чтобы не схлопывался; можно 45–60vh под твой вкус */
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* ОЧЕНЬ ВАЖНО: снимаем абсолют и даём заполнять контейнер */
+            .slide-image picture,
+            .slide-image2 picture,
+            .slide-image3 picture,
+            .slide-image img,
+            .slide-image2 img,
+            .slide-image3 img {
+                position: static !important;
+                display: block;
+                width: 100%;
+                height: 100%;
+                min-width: 0;
+                min-height: 0;
+                object-fit: cover; /* заполняем, лишнее — кадрируется */
+                border-radius: 0 0 12px 12px;
+                margin: 0;
+            }
+        }
+
+        /* делаем точки круглыми и заметными */
+        #carouselExampleSlidesOnly .carousel-indicators [data-bs-target] {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgb(32, 31, 31);
+            opacity: 1;
+        }
+
+        #carouselExampleSlidesOnly .carousel-indicators .active {
+            background-color: rgba(105, 102, 102, 0.67);
+        }
+
+    </style>
 </head>
 <body>
-  <!-- Фиксированный логотип сверху -->
+<!-- Фиксированный логотип сверху -->
 <div class="mobile-logo-bar">
-  <a href="/" class="mobile-logo">
-    <img src="{% static 'imgfolder/logo.svg' %}" alt="Современные фасады">
-  </a>
+    <a href="/" class="mobile-logo">
+        <img src="{% static 'imgfolder/logo.svg' %}" alt="Современные фасады">
+    </a>
 </div>
 
-  <nav class="side-menu" id="sideMenu">
-  <div class="logo img" id="closemenu" aria-label="Закрыть меню" role="button" tabindex="0">
-    <img style="min-width:229px; height:113px" src="/static/imgfolder/image-Photoroom%20(40)%203.png" alt="Логотип">
-  </div>
+<nav class="side-menu" id="sideMenu">
+    <div class="logo img" id="closemenu" aria-label="Закрыть меню" role="button" tabindex="0">
+        <img style="min-width:229px; height:113px" src="/static/imgfolder/image-Photoroom%20(40)%203.png" alt="Логотип">
+    </div>
 
-  <ul class="menuuu">
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong></li>
-    <li style="margin-bottom:30px"><a href="{% url 'about' %}">О нас</a></li>
+    <ul class="menuuu">
+        <li><strong
+                style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong>
+        </li>
+        <li style="margin-bottom:30px"><a href="{% url 'about' %}">О нас</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%" href="{% url 'catalog_all' %}">Продукция</strong></li>
-      <li><a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a></li>
-      
- <li><a href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Керамический облицовочный кирпич</a></li>
-    <li><a href="{% url 'catalog_category' 'clinker_tiles' %}">Клинкерная плитка</a></li>
-<li><a href="{% url 'catalog_category' 'paving_stones' %}">Брусчатка</a></li>
-<li><a href="{% url 'catalog_category' 'bolt_brick' %}">Ригельный кирпич</a></li>
-<li><a href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Навесные вентилируемые системы</a></li>
-    <li><a href="{% url 'catalog_category' 'fasad-decors' %}">Архитектурные фасадные декоры</a></li>
-<li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
+        <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%"
+                    href="{% url 'catalog_all' %}">Продукция</strong></li>
+        <li><a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
-    <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
+        <li><a href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Керамический облицовочный кирпич</a></li>
+        <li><a href="{% url 'catalog_category' 'clinker_tiles' %}">Клинкерная плитка</a></li>
+        <li><a href="{% url 'catalog_category' 'paving_stones' %}">Брусчатка</a></li>
+        <li><a href="{% url 'catalog_category' 'bolt_brick' %}">Ригельный кирпич</a></li>
+        <li><a href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Навесные вентилируемые системы</a></li>
+        <li><a href="{% url 'catalog_category' 'fasad-decors' %}">Архитектурные фасадные декоры</a></li>
+        <li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши партнеры</strong></li>
-    <li style="margin-bottom:70px"><a href="{% url 'about' %}#manufactors">Дилеры заводов</a></li>
+        <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши
+            объекты</strong></li>
+        <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
-    <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
-  </ul>
+        <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши
+            партнеры</strong></li>
+        <li style="margin-bottom:70px"><a href="{% url 'about' %}#manufactors">Дилеры заводов</a></li>
 
-  <!-- Контакты -->
-  <div class="mini-contacts-card">
-    <div class="mini-contact-row">
+        <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong>
+        </li>
+        <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
+    </ul>
+
+    <!-- Контакты -->
+    <div class="mini-contacts-card">
+        <div class="mini-contact-row">
       <span class="mini-contact-icon">
         <img style="width:60px;height:60px" src="{% static 'imgfolder/location.png' %}" alt="Локация">
       </span>
-      <span class="mini-contact-text" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer">Пермь, Газеты Звезда,<br>13, 4 этаж</span>
-    </div>
-    <div class="mini-contact-row">
+            <span class="mini-contact-text" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'"
+                  style="cursor: pointer">Пермь, Газеты Звезда,<br>13, 4 этаж</span>
+        </div>
+        <div class="mini-contact-row">
       <span class="mini-contact-icon">
         <img style="width:60px;height:60px" src="{% static 'imgfolder/phone.png' %}" alt="Телефон">
       </span>
-      <span class="mini-contact-text"><a href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a></span>
-    </div>
-    <div class="mini-contact-row">
+            <span class="mini-contact-text"><a
+                    href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a></span>
+        </div>
+        <div class="mini-contact-row">
       <span class="mini-contact-icon">
-        <img style="width:60px;height:60px" src="{% static 'imgfolder/message.png' %}" alt="Связь">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/ico_contact/Group 308.png' %}" alt="Связь">
       </span>
-      <span class="mini-contact-text">
+            <span class="mini-contact-text">
         <a style="color:#575757" href="https://t.me/sovremennye_fasady" target="_blank">Написать нам в Telegram</a><br>
         <a style="color:#575757" href="http://wa.me/79519401249" target="_blank">Написать нам на Whatsapp</a>
       </span>
+        </div>
+        <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/ico_contact/Group 310.png' %}" alt="Связь">
+      </span>
+            <span class="mini-contact-text">
+        <a style="color:#575757" href="https://t.me/evrofacad" target="_blank">Telegram-канал</a><br>
+      </span>
+        </div>
+        <div class="mini-contact-row">
+      <span class="mini-contact-icon">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/ico_contact/Group 313.png' %}" alt="Связь">
+      </span>
+            <span class="mini-contact-text">
+        <a style="color:#575757" href="https://vk.com/evrofasadperm" target="_blank">Мы в ВКонтакте</a><br>
+      </span>
+        </div>
+        <div class="mini-contact-note">
+            <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"
+                 style="width:17px;height:17px;vertical-align:middle">
+                <circle cx="8" cy="8" r="7"/>
+                <line x1="8" y1="4" x2="8" y2="8"/>
+                <circle cx="8" cy="11" r="1" fill="#aaa"/>
+            </svg>
+            <span>Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.</span>
+        </div>
+        <div style="height: 50px"></div>
     </div>
-    <div class="mini-contact-note">
-      <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16" style="width:17px;height:17px;vertical-align:middle"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
-      <span>Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.</span>
-    </div>
-      <div style="height: 50px"></div>
-  </div>
 </nav>
 
 <!-- Блюр -->
@@ -1588,295 +1942,322 @@ textarea::placeholder{
 <!-- Кнопка для мобильной версии -->
 <!-- ======= МОБИЛЬНЫЙ ХЕДЕР ======= -->
 <div id="mobileHeader">
-  <!-- Кнопка избранного -->
-  <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
-    <img src="{% static 'imgfolder/bol2.svg' %}" alt="Избранное" class="header-fav-icon">
-    <span class="fav-badge" data-fav-count></span>
-  </a>
+    <!-- Кнопка избранного -->
+    <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
+        <img src="{% static 'imgfolder/bol2.svg' %}" alt="Избранное" class="header-fav-icon">
+        <span class="fav-badge" data-fav-count></span>
+    </a>
 
-  <!-- Кнопка меню -->
-  <button id="mobileMenuBtn" aria-label="Открыть меню">
-    <img src="{% static 'imgfolder/Group 306.png' %}" alt="Меню">
-  </button>
+    <!-- Кнопка меню -->
+    <button id="mobileMenuBtn" aria-label="Открыть меню">
+        <img src="{% static 'imgfolder/Group 306.png' %}" alt="Меню">
+    </button>
 </div>
 
 <style>
-  #mobileHeader {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 1005;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  /* отменяем fixed у кнопки меню внутри контейнера */
-  #mobileHeader #mobileMenuBtn {
-    position: static !important;
-    width: 48px;
-    height: 48px;
-    border: none;
-    background: transparent;
-    padding: 0;
-  }
-  #mobileHeader #mobileMenuBtn img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-  }
-
-  /* кнопка избранного */
-  #mobileHeader .header-fav-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,.15);
-    position: relative;
-  }
-  #mobileHeader .header-fav-icon { width: 24px; height: 24px; }
-  #mobileHeader .fav-badge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #e53935;
-    color: #fff;
-    font-size: 12px;
-    line-height: 18px;
-    text-align: center;
-    font-family: Muller-medium, sans-serif;
-  }
-
-  /* === адаптив === */
-  @media (min-width: 1025px) {
     #mobileHeader {
-      display: none !important; /* скрываем на ПК */
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 1005;
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
-  }
+
+    /* отменяем fixed у кнопки меню внутри контейнера */
+    #mobileHeader #mobileMenuBtn {
+        position: static !important;
+        width: 48px;
+        height: 48px;
+        border: none;
+        background: transparent;
+        padding: 0;
+    }
+
+    #mobileHeader #mobileMenuBtn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 10px;
+    }
+
+    /* кнопка избранного */
+    #mobileHeader .header-fav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+        position: relative;
+    }
+
+    #mobileHeader .header-fav-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    #mobileHeader .fav-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e53935;
+        color: #fff;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        font-family: Muller-medium, sans-serif;
+    }
+
+    /* === адаптив === */
+    @media (min-width: 1025px) {
+        #mobileHeader {
+            display: none !important; /* скрываем на ПК */
+        }
+    }
 </style>
 
 
-  <div class="papa-con">
-  <div class="conteiner">
-    
-    <!-- Боковое меню -->
-<!-- ======= САЙДМЕНЮ ======= -->
+<div class="papa-con">
+    <div class="conteiner">
+
+        <!-- Боковое меню -->
+        <!-- ======= САЙДМЕНЮ ======= -->
 
 
-    <!-- Header -->
-    <header >
-      <div class="header">
-        
-      <na class="na">
-        <ul class="na-list">
-          <div class="logo img">
-            <img src="{% static 'imgfolder/logo.svg' %}" alt="">
-          </div>
+        <!-- Header -->
+        <header>
+            <div class="header">
+
+                <na class="na">
+                    <ul class="na-list">
+                        <div class="logo img">
+                            <img src="{% static 'imgfolder/logo.svg' %}" alt="">
+                        </div>
 
 
-          <li><a href="{% url 'catalog_all' %}" class="na-link ">Продукция</a></li>
-           <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
-          <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
-          <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
-          <li><a href="{{ site_settings.phone_href }}" class="nav-link">{{ site_settings.phone }}<br><p class="a">номер для связи</p></a></li>
-          <li><a href="mailto:{{ site_settings.email }}" class="nav-link">{{ site_settings.email }}<br><p class="a">электронная почта</p></a></li>
+                        <li><a href="{% url 'catalog_all' %}" class="na-link ">Продукция</a></li>
+                        <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
+                        <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
+                        <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
+                        <li><a href="{{ site_settings.phone_href }}" class="nav-link">{{ site_settings.phone }}<br>
+                            <p class="a">номер для связи</p></a></li>
+                        <li><a href="mailto:{{ site_settings.email }}" class="nav-link">{{ site_settings.email }}<br>
+                            <p class="a">электронная почта</p></a></li>
 
 
-          <li class="header-fav">
-  <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
-    <img src="{% static 'imgfolder/bol.svg' %}" alt="Избранное" class="header-fav-icon">
-    <span class="fav-badge" data-fav-count></span>
-  </a>
-</li>
+                        <li class="header-fav">
+                            <a href="#" class="header-fav-btn" data-open-favorites aria-label="Открыть избранное">
+                                <img src="{% static 'imgfolder/bol.svg' %}" alt="Избранное" class="header-fav-icon">
+                                <span class="fav-badge" data-fav-count></span>
+                            </a>
+                        </li>
 
-          <li class="na-link">
-            <button class="menu-toggle" id="menuToggle" style="border: none">
-              <img src="{% static 'imgfolder/menu.svg' %}" alt="" class="menu-image">
-            </button>
-          </li>
-        </ul>
-      </na>
-      </div>
-      
-    </header>
-
-    <!-- Search -->
-{#    <div class="search-bar">#}
-{#      <input id="search" type="search" list="search-suggestions" autocomplete="off"/>#}
-{#      <datalist id="search-suggestions">#}
-{#        <option value="Кирпич">#}
-{#        <option value="фасад">#}
-{#        <option value="камень">#}
-{#      </datalist>#}
-{#    </div>#}
-<form class="search-bar" action="{% url 'product_search' %}" method="get" role="search">
-  <input
-    id="search"
-    type="search"
-    name="q"
-    list="search-suggestions"
-    placeholder="Поиск по каталогу…"
-    autocomplete="off"
-    aria-label="Поиск по товарам"
-    value="{{ request.GET.q|default_if_none:'' }}"
-  />
-{#  <datalist id="search-suggestions">#}
-{#    <option value="Кирпич">#}
-{#    <option value="фасад">#}
-{#    <option value="камень">#}
-{#  </datalist>#}
-
-  <!-- Кнопка не обязательна, но удобна: -->
-{#  <button type="submit" class="search-button" aria-label="Найти">Найти</button>#}
-</form>
-
-    <!-- Slider -->
-    <div class="slider">
-      <div class="slides">
-        <div class="slide">
-          <div class="slide-text">
-            <h2 class="big">НОВИНКА<br><div style="height: 5px;"></div><p class="medium">Коллекция Halb от RECKE</p> </h2>
-            <div class="slide-buttons">
-              <button class="slide-btn white">Узнать подробнее</button>
-              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;" data-modal-target="#contact-modal">Оставить заявку</a>
+                        <li class="na-link">
+                            <button class="menu-toggle" id="menuToggle" style="border: none">
+                                <img src="{% static 'imgfolder/menu.svg' %}" alt="" class="menu-image">
+                            </button>
+                        </li>
+                    </ul>
+                </na>
             </div>
-            <p class="min">Представьте фасады, играющие переливами света<br> и тени благодаря обновленным текстурам, где каждый<br> кирпич рассказывает свою историю, создавая<br> неповторимую атмосферу</p>
-          </div>
-          <div class="slide-image">
-            <img src="{% static 'imgfolder\png12.webp' %}" alt="">
-          </div>
-        </div>
-        <div class="slide">
-          <div class="slide-text">
-            <h2 class="big">фавориты<br><div style="height: 5px;"></div><p class="medium">хранитель времени</p> </h2>
-            <div class="slide-buttons">
-              <button class="slide-btn white" onclick="location.href='https://modernfasad.ru/p/86/'"><p>Узнать подробнее</p></button>
-              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
+
+        </header>
+
+        <!-- Search -->
+        {#    <div class="search-bar">#}
+        {#      <input id="search" type="search" list="search-suggestions" autocomplete="off"/>#}
+        {#      <datalist id="search-suggestions">#}
+        {#        <option value="Кирпич">#}
+        {#        <option value="фасад">#}
+        {#        <option value="камень">#}
+        {#      </datalist>#}
+        {#    </div>#}
+        <form class="search-bar" action="{% url 'product_search' %}" method="get" role="search">
+            <input
+                    id="search"
+                    type="search"
+                    name="q"
+                    list="search-suggestions"
+                    placeholder="Поиск по каталогу…"
+                    autocomplete="off"
+                    aria-label="Поиск по товарам"
+                    value="{{ request.GET.q|default_if_none:'' }}"
+            />
+            {#  <datalist id="search-suggestions">#}
+            {#    <option value="Кирпич">#}
+            {#    <option value="фасад">#}
+            {#    <option value="камень">#}
+            {#  </datalist>#}
+
+            <!-- Кнопка не обязательна, но удобна: -->
+            {#  <button type="submit" class="search-button" aria-label="Найти">Найти</button>#}
+        </form>
+
+        <!-- Slider -->
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <div class="slide-text">
+                        <h2 class="big">НОВИНКА<br>
+                            <div style="height: 5px;"></div>
+                            <p class="medium">Коллекция Halb от RECKE</p></h2>
+                        <div class="slide-buttons">
+                            <button class="slide-btn white">Узнать подробнее</button>
+                            <a href="#callback-form" class="slide-btn green"
+                               style="text-decoration: none; color: inherit;" data-modal-target="#contact-modal">Оставить
+                                заявку</a>
+                        </div>
+                        <p class="min">Представьте фасады, играющие переливами света<br> и тени благодаря обновленным
+                            текстурам, где каждый<br> кирпич рассказывает свою историю, создавая<br> неповторимую
+                            атмосферу</p>
+                    </div>
+                    <div class="slide-image">
+                        <img src="{% static 'imgfolder\png12.webp' %}" alt="">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-text">
+                        <h2 class="big">фавориты<br>
+                            <div style="height: 5px;"></div>
+                            <p class="medium">хранитель времени</p></h2>
+                        <div class="slide-buttons">
+                            <button class="slide-btn white" onclick="location.href='https://modernfasad.ru/p/86/'"><p>
+                                Узнать подробнее</p></button>
+                            <a href="#callback-form" class="slide-btn green"
+                               style="text-decoration: none; color: inherit;">Оставить заявку</a>
+                        </div>
+                        <p class="min">Кирпич, наполненный духом вулкана Сагынды.<br>
+                            Его спокойный оттенок символизирует надежность <br>
+                            и долговечность, которые он приносит в дом</p>
+                    </div>
+                    <div class="slide-image2">
+                        <img src="{% static 'imgfolder/png22.webp' %}" alt="">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-text">
+                        <h2 class="big">фавориты<br>
+                            <div style="height: 5px;"></div>
+                            <p class="medium">Скрябин керамикс, 54</p></h2>
+                        <div class="slide-buttons">
+                            <button class="slide-btn white" onclick="location.href='https://modernfasad.ru/p/34/'">
+                                Узнать подробнее
+                            </button>
+                            <a href="#callback-form" class="slide-btn green"
+                               style="text-decoration: none; color: inherit;">Оставить заявку</a>
+                        </div>
+                        <p class="min">Кирпич ручной формовки, который идеально <br>
+                            подойдет под вашу идею</p>
+                    </div>
+                    <div class="slide-image3">
+                        <picture>
+                            <!-- мобильная версия -->
+                            <source media="(max-width: 1024px)" srcset="{% static 'imgfolder/png33.webp' %}">
+                            <!-- десктопная версия (по умолчанию) -->
+                            <img src="{% static 'imgfolder/png3.webp' %}" alt="">
+                        </picture>
+                    </div>
+                </div>
             </div>
-            <p class="min">Кирпич, наполненный духом вулкана Сагынды.<br> 
-              Его спокойный оттенок символизирует надежность <br>
-              и долговечность, которые он приносит в дом</p>
-          </div>
-          <div class="slide-image2" >
-            <img src="{% static 'imgfolder/png22.webp' %}" alt="" >
-          </div>
-        </div>
-        <div class="slide">
-          <div class="slide-text">
-            <h2 class="big">фавориты<br><div style="height: 5px;"></div><p class="medium">Скрябин керамикс, 54</p></h2>
-            <div class="slide-buttons">
-              <button class="slide-btn white" onclick="location.href='https://modernfasad.ru/p/34/'">Узнать подробнее</button>
-              <a href="#callback-form" class="slide-btn green" style="text-decoration: none; color: inherit;">Оставить заявку</a>
+            <!-- Dots -->
+            <div class="dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
             </div>
-            <p class="min">Кирпич ручной формовки, который идеально <br>
-              подойдет под вашу идею</p>
-          </div>
-          <div class="slide-image3">
-            <picture>
-    <!-- мобильная версия -->
-    <source media="(max-width: 1024px)" srcset="{% static 'imgfolder/png33.webp' %}">
-    <!-- десктопная версия (по умолчанию) -->
-    <img src="{% static 'imgfolder/png3.webp' %}" alt="">
-  </picture>
-          </div>
         </div>
-      </div>
-      <!-- Dots -->
-      <div class="dots">
-        <span class="dot active" data-index="0"></span>
-        <span class="dot" data-index="1"></span>
-        <span class="dot" data-index="2"></span>
-      </div>
     </div>
-  </div>
 
-  <div class="footer-wrapper">
-    <div class="footer-cards">
-     
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'face-brick' %}'">
-          <div class="footer-card-title">Клинкерный<br>облицовочный кирпич</div>
-          <img src="{% static 'imgfolder/f1.webp' %}" alt="Клинкерный облицовочный кирпич">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'face-brick' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'ceramic_facing_brick' %}'">
-          <div class="footer-card-title">Керамический<br>облицовочный кирпич</div>
-          <img src="{% static 'imgfolder/f2.webp' %}" alt="Керамический облицовочный кирпич">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clinker_tiles' %}'">
-          <div class="footer-card-title">Клинкерная плитка<br>и плитка под кирпич</div>
-          <img src="{% static 'imgfolder/f3.webp' %}" alt="Клинкерная плитка">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'clinker_tiles' %}">Перейти к разделу</a>
-        </div>
-      
-      
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'paving_stones' %}'">
-          <div class="footer-card-title">Брусчатка</div>
-          <img src="{% static 'imgfolder/f4.webp' %}" alt="Брусчатка">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'paving_stones' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'bolt_brick' %}'">
-          <div class="footer-card-title">Ригельный кирпич</div>
-          <img src="{% static 'imgfolder/f5.webp' %}" alt="Ригельный кирпич">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'bolt_brick' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'mounted_ventilated_systems' %}'">
-          <div class="footer-card-title">Навесные<br>вентилируемые системы</div>
-          <img src="{% static 'imgfolder/f6.webp' %}" alt="Навесные вентилируемые системы">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Перейти к разделу</a>
-        </div>
-      
-      
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'fasad-decors' %}'">
-          <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
-          <img src="{% static 'imgfolder/f7.webp' %}" alt="Архитектурные фасадные декоры" style="height: 237px;">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'fasad-decors' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'hyper-pressed_brick' %}'">
-          <div class="footer-card-title">Гиперпрессованный<br>кирпич</div>
-          <img src="{% static 'imgfolder/f8.webp' %}" alt="Гиперпрессованный кирпич">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'krov-materials' %}'">
-          <div class="footer-card-title">Кровельные<br>материалы</div>
-          <img src="{% static 'imgfolder/f9.webp' %}" alt="Кровельные материалы">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'krov-materials' %}">Перейти к разделу</a>
-        </div>
-      
-      
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'keram-blocks' %}'">
-          <div class="footer-card-title">Керамические блоки</div>
-          <img src="{% static 'imgfolder/f10.webp' %}" alt="Керамические блоки">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'keram-blocks' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clad-mixes' %}'">
-          <div class="footer-card-title">Кладочные смеси</div>
-          <img src="{% static 'imgfolder/f11.webp' %}" alt="Кладочные смеси">
-          <a class="footer-card-link" href="{% url 'catalog_category' 'clad-mixes' %}">Перейти к разделу</a>
-        </div>
-        <div class="footer-card footer-card--empty"></div>
-      </div>
-    
+    <div class="footer-wrapper">
+        <div class="footer-cards">
 
-    {% include 'description_item.html' %}
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'face-brick' %}'">
+                <div class="footer-card-title">Клинкерный<br>облицовочный кирпич</div>
+                <img src="{% static 'imgfolder/f1.webp' %}" alt="Клинкерный облицовочный кирпич">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'face-brick' %}">Перейти к разделу</a>
+            </div>
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'ceramic_facing_brick' %}'">
+                <div class="footer-card-title">Керамический<br>облицовочный кирпич</div>
+                <img src="{% static 'imgfolder/f2.webp' %}" alt="Керамический облицовочный кирпич">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Перейти к
+                    разделу</a>
+            </div>
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clinker_tiles' %}'">
+                <div class="footer-card-title">Клинкерная плитка<br>и плитка под кирпич</div>
+                <img src="{% static 'imgfolder/f3.webp' %}" alt="Клинкерная плитка">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'clinker_tiles' %}">Перейти к разделу</a>
+            </div>
 
-  
-    <div class="stats-section">
-      <div class="stats-card">
-        <div style="position: absolute;
+
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'paving_stones' %}'">
+                <div class="footer-card-title">Брусчатка</div>
+                <img src="{% static 'imgfolder/f4.webp' %}" alt="Брусчатка">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'paving_stones' %}">Перейти к разделу</a>
+            </div>
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'bolt_brick' %}'">
+                <div class="footer-card-title">Ригельный кирпич</div>
+                <img src="{% static 'imgfolder/f5.webp' %}" alt="Ригельный кирпич">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'bolt_brick' %}">Перейти к разделу</a>
+            </div>
+            <div class="footer-card"
+                 onclick="location.href='{% url 'catalog_category' 'mounted_ventilated_systems' %}'">
+                <div class="footer-card-title">Навесные<br>вентилируемые системы</div>
+                <img src="{% static 'imgfolder/f6.webp' %}" alt="Навесные вентилируемые системы">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Перейти к
+                    разделу</a>
+            </div>
+
+
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'fasad-decors' %}'">
+                <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
+                <img src="{% static 'imgfolder/f7.webp' %}" alt="Архитектурные фасадные декоры" style="height: 237px;">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'fasad-decors' %}">Перейти к разделу</a>
+            </div>
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'hyper-pressed_brick' %}'">
+                <div class="footer-card-title">Гиперпрессованный<br>кирпич</div>
+                <img src="{% static 'imgfolder/f8.webp' %}" alt="Гиперпрессованный кирпич">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Перейти к
+                    разделу</a>
+            </div>
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'krov-materials' %}'">
+                <div class="footer-card-title">Кровельные<br>материалы</div>
+                <img src="{% static 'imgfolder/f9.webp' %}" alt="Кровельные материалы">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'krov-materials' %}">Перейти к разделу</a>
+            </div>
+
+
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'keram-blocks' %}'">
+                <div class="footer-card-title">Керамические блоки</div>
+                <img src="{% static 'imgfolder/f10.webp' %}" alt="Керамические блоки">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'keram-blocks' %}">Перейти к разделу</a>
+            </div>
+            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clad-mixes' %}'">
+                <div class="footer-card-title">Кладочные смеси</div>
+                <img src="{% static 'imgfolder/f11.webp' %}" alt="Кладочные смеси">
+                <a class="footer-card-link" href="{% url 'catalog_category' 'clad-mixes' %}">Перейти к разделу</a>
+            </div>
+            <div class="footer-card footer-card--empty"></div>
+        </div>
+
+
+        {% include 'description_item.html' %}
+
+
+        <div class="stats-section">
+            <div class="stats-card">
+                <div style="position: absolute;
                     top: 60px; 
                     left: 145px;">
-          <img style="width: 162; height: 189px;" src="{% static 'imgfolder/status1.png' %}" alt="">
-        </div>
-        <div style="display: flex;
+                    <img style="width: 162; height: 189px;" src="{% static 'imgfolder/status1.png' %}" alt="">
+                </div>
+                <div style="display: flex;
                     position: absolute;
                     align-items: center;;
                     top: 222px; 
@@ -1885,9 +2266,9 @@ textarea::placeholder{
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-          25
-        </div>
-        <div style="position: absolute;
+                    25
+                </div>
+                <div style="position: absolute;
                     top: 305px; 
                     left: 25px;
                     width: 330px;
@@ -1897,16 +2278,17 @@ textarea::placeholder{
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-          являемся официальными дилерами 22 заводов-производителей, включая такие заводы, как ЛСР, Ликолор и Скрябин Керамикс
-        </div>
-      </div>
-      <div class="stats-card">
-        <div style="position: absolute;
+                    являемся официальными дилерами 22 заводов-производителей, включая такие заводы, как ЛСР, Ликолор и
+                    Скрябин Керамикс
+                </div>
+            </div>
+            <div class="stats-card">
+                <div style="position: absolute;
                     top: 37px; 
                     left: 156px; ">
-          <img style="width: 188px;" src="{% static 'imgfolder/status2.png' %}" alt="">
-        </div>
-        <div style="display: flex;
+                    <img style="width: 188px;" src="{% static 'imgfolder/status2.png' %}" alt="">
+                </div>
+                <div style="display: flex;
                     position: absolute;
                     align-items: center;;
                     top: 222px; 
@@ -1915,9 +2297,9 @@ textarea::placeholder{
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-           +1500
-        </div>
-        <div style="position: absolute;
+                    +1500
+                </div>
+                <div style="position: absolute;
                     top: 305px; 
                     left: 20px;
                     width: 350px;
@@ -1927,16 +2309,17 @@ textarea::placeholder{
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-          реализовали около 1500 проектов, среди которых — такие значимые объекты, как Пермская художественная галерея, гостиница, ЖК «UNO»
-        </div>
-      </div>
-      <div class="stats-card">
-        <div style="position: absolute;
+                    реализовали около 1500 проектов, среди которых — такие значимые объекты, как Пермская художественная
+                    галерея, гостиница, ЖК «UNO»
+                </div>
+            </div>
+            <div class="stats-card">
+                <div style="position: absolute;
                     top: 41px; 
                     left: 115px;">
-          <img src="{% static 'imgfolder/status3.png' %}" alt="">
-        </div>
-        <div style="display: flex;
+                    <img src="{% static 'imgfolder/status3.png' %}" alt="">
+                </div>
+                <div style="display: flex;
                     position: absolute;
                     align-items: center;
                     top: 222px;
@@ -1945,9 +2328,9 @@ textarea::placeholder{
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-          >300
-        </div>
-        <div style="position: absolute;
+                    >300
+                </div>
+                <div style="position: absolute;
                     top: 305px; 
                     left: 31px;
                     width: 333px;
@@ -1957,397 +2340,422 @@ textarea::placeholder{
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-          в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать из более, чем 300 позиций товаров
+                    в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать из более, чем 300
+                    позиций товаров
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-                                                              <!--КАРУСЕЛЬ-->
+        <!--КАРУСЕЛЬ-->
 
-<!-- Требуется Bootstrap 5 (css/js) в base.html -->
+        <!-- Требуется Bootstrap 5 (css/js) в base.html -->
 
-<!-- Заголовок (десктоп-стили оставлены инлайном) -->
-<div class="gallery-page-title"
-     style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
-  <p>Галерея объектов</p>
-</div>
-
-<!-- Слайдер -->
-<div id="carouselExampleSlidesOnly" class="carousel slide"
-     data-bs-interval="false" data-bs-touch="true" data-bs-pause="hover"
-     style="width:auto;height:auto;">
-
-
-  <!-- ТОЧКИ -->
-  <div class="carousel-indicators" style="margin-bottom: 24px;">
-    <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Слайд 1"></button>
-    <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="1" aria-label="Слайд 2"></button>
-  </div>
-
-
-  <div class="carousel-inner">
-
-    <!-- СЛАЙД 1 -->
-    <div class="carousel-item active">
-      <div class="collage"
-           style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
-
-        <div class="tile" style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
-          <img src="{% static 'imgfolder/gal1.webp' %}" alt="gal1">
+        <!-- Заголовок (десктоп-стили оставлены инлайном) -->
+        <div class="gallery-page-title"
+             style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
+            <p>Галерея объектов</p>
         </div>
 
-        <div class="tile" style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
-          <img src="{% static 'imgfolder/gal2.webp' %}" alt="gal2">
+        <!-- Слайдер -->
+        <div id="carouselExampleSlidesOnly" class="carousel slide"
+             data-bs-interval="false" data-bs-touch="true" data-bs-pause="hover"
+             style="width:auto;height:auto;">
+
+
+            <!-- ТОЧКИ -->
+            <div class="carousel-indicators" style="margin-bottom: 24px;">
+                <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Слайд 1"></button>
+                <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="1"
+                        aria-label="Слайд 2"></button>
+            </div>
+
+
+            <div class="carousel-inner">
+
+                <!-- СЛАЙД 1 -->
+                <div class="carousel-item active">
+                    <div class="collage"
+                         style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
+
+                        <div class="tile"
+                             style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
+                            <img src="{% static 'imgfolder/gal1.webp' %}" alt="gal1">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
+                            <img src="{% static 'imgfolder/gal2.webp' %}" alt="gal2">
+                        </div>
+
+                        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
+                            <img src="{% static 'imgfolder/gal3.webp' %}" alt="gal3">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 514px;">
+                            <img src="{% static 'imgfolder/gal4.webp' %}" alt="gal4">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 514px;">
+                            <img src="{% static 'imgfolder/gal5.webp' %}" alt="gal5">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 421px; height: 360px; position: absolute; top: 659px; left: 514px;">
+                            <img src="{% static 'imgfolder/gal6.webp' %}" alt="gal6">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
+                            <img src="{% static 'imgfolder/gal7.webp' %}" alt="gal7">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
+                            <img src="{% static 'imgfolder/gal8.webp' %}" alt="gal8">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- СЛАЙД 2 -->
+                <div class="carousel-item">
+                    <div class="collage"
+                         style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
+
+                        <div class="tile"
+                             style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal9.webp' %}" alt="gal9">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal10.webp' %}" alt="gal10">
+                        </div>
+
+                        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal11.webp' %}" alt="gal11">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 516.3px;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal12.webp' %}" alt="gal12">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 516.3px;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal13.webp' %}" alt="gal13">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 421px; height: 360px; position: absolute; top: 659px; left: 516.3px;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal14.webp' %}" alt="gal14">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal15.webp' %}" alt="gal15">
+                        </div>
+
+                        <div class="tile"
+                             style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
+                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                 src="{% static 'imgfolder/gal16.webp' %}" alt="gal16">
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- Стрелки -->
+            <button class="carousel-control-prev" type="button"
+                    data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev" aria-label="Назад">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button"
+                    data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next" aria-label="Вперёд">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+
         </div>
 
-        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
-          <img src="{% static 'imgfolder/gal3.webp' %}" alt="gal3">
-        </div>
+        <!-- АДАПТИВ ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ -->
+        <style>
+            /* базовое: убираем baseline-зазор */
+            .carousel .collage img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
 
-        <div class="tile" style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 514px;">
-          <img src="{% static 'imgfolder/gal4.webp' %}" alt="gal4">
-        </div>
+            /* планшеты и телефоны — превращаем коллаж в сетку 2 колонки */
+            @media (max-width: 992px) {
+                .carousel .collage {
+                    width: 100% !important;
+                    height: auto !important;
+                    margin: 0 auto 20px !important;
+                    padding: 0 12px 12px;
+                    position: static !important;
 
-        <div class="tile" style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 514px;">
-          <img src="{% static 'imgfolder/gal5.webp' %}" alt="gal5">
-        </div>
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 12px;
+                    justify-items: stretch;
+                    align-items: stretch;
+                }
 
-        <div class="tile" style="width: 421px; height: 360px; position: absolute; top: 659px; left: 514px;">
-          <img src="{% static 'imgfolder/gal6.webp' %}" alt="gal6">
-        </div>
+                .carousel .collage .tile {
+                    position: static !important;
+                    width: 100% !important;
+                    height: auto !important;
+                }
 
-        <div class="tile" style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
-          <img src="{% static 'imgfolder/gal7.webp' %}" alt="gal7">
-        </div>
+                .carousel .collage .tile img {
+                    width: 100%;
+                    height: auto; /* сохраняем пропорции */
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+                    border-radius: 10px;
+                    object-fit: cover;
+                }
+            }
 
-        <div class="tile" style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
-          <img src="{% static 'imgfolder/gal8.webp' %}" alt="gal8">
-        </div>
+            /* очень узкие телефоны — одна колонка */
+            @media (max-width: 576px) {
+                .carousel .collage {
+                    grid-template-columns: 1fr;
+                    gap: 10px;
+                    padding: 0 10px 12px;
+                }
 
-      </div>
-    </div>
+                /* поджимаем заголовок */
+                .gallery-page-title, .gallery-page-title p {
+                    font-size: 18px !important;
+                    margin: 0 10px 10px !important;
+                }
+            }
 
-    <!-- СЛАЙД 2 -->
-    <div class="carousel-item">
-      <div class="collage"
-           style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
+            /* Если нужно ровнять карточки по высоте на мобиле, можно отмечать нужные .tile классом .crop */
+            /* @media (max-width: 992px){
+                 .carousel .collage .tile.crop{ aspect-ratio: 4 / 3; }
+                 .carousel .collage .tile.crop img{ height: 100%; object-fit: cover; }
+               } */
+            /* телефоны: 1 колонка */
+            @media (max-width: 576px) {
+                .carousel .collage {
+                    width: 100% !important;
+                    height: auto !important;
+                    margin: 0 auto 20px !important;
+                    padding: 0 10px 12px;
+                    position: static !important;
+                    display: grid !important;
+                    grid-template-columns: 1fr;
+                    gap: 10px;
+                }
 
-        <div class="tile" style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal9.webp' %}" alt="gal9">
-        </div>
+                .carousel .collage .tile {
+                    position: static !important;
+                    width: 100% !important;
+                    height: auto !important;
+                    aspect-ratio: auto;
+                }
 
-        <div class="tile" style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal10.webp' %}" alt="gal10">
-        </div>
+                .carousel .collage .tile img {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    border-radius: 10px;
+                    object-fit: cover;
+                }
+            }
 
-        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal11.webp' %}" alt="gal11">
-        </div>
+            /* ПЛАНШЕТЫ: РОВНО 4 × 2 */
+            @media (min-width: 768px) and (max-width: 1199.98px) {
+                .carousel .collage {
+                    width: 100% !important;
+                    height: auto !important;
+                    margin: 0 auto 20px !important;
+                    padding: 0 12px 12px;
+                    position: static !important;
 
-        <div class="tile" style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 516.3px;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal12.webp' %}" alt="gal12">
-        </div>
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr); /* 4 колонки */
+                    grid-template-rows: repeat(4, 1fr); /* 2 ряда */
+                    gap: 12px;
+                    align-items: stretch;
+                    justify-items: stretch;
+                }
 
-        <div class="tile" style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 516.3px;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal13.webp' %}" alt="gal13">
-        </div>
+                .carousel .collage .tile {
+                    position: static !important;
+                    width: 100% !important;
+                    height: auto !important;
+                    aspect-ratio: 4 / 3; /* одинаковая высота карточек */
+                }
 
-        <div class="tile" style="width: 421px; height: 360px; position: absolute; top: 659px; left: 516.3px;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal14.webp' %}" alt="gal14">
-        </div>
+                .carousel .collage .tile img {
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+                }
+            }
 
-        <div class="tile" style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal15.webp' %}" alt="gal15">
-        </div>
+            /* базовое: убираем baseline-зазор у картинок (на всех экранах) */
+            .carousel .collage img {
+                display: block;
+            }
 
-        <div class="tile" style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
-          <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);" src="{% static 'imgfolder/gal16.webp' %}" alt="gal16">
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-  <!-- Стрелки -->
-<button class="carousel-control-prev" type="button"
-        data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev" aria-label="Назад">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-</button>
-<button class="carousel-control-next" type="button"
-        data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next" aria-label="Вперёд">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-</button>
-
-</div>
-
-<!-- АДАПТИВ ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ -->
-<style>
-  /* базовое: убираем baseline-зазор */
-  .carousel .collage img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:10px;
-  }
-
-  /* планшеты и телефоны — превращаем коллаж в сетку 2 колонки */
-  @media (max-width: 992px){
-    .carousel .collage{
-      width: 100% !important;
-      height: auto !important;
-      margin: 0 auto 20px !important;
-      padding: 0 12px 12px;
-      position: static !important;
-
-      display: grid !important;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      justify-items: stretch;
-      align-items: stretch;
-    }
-    .carousel .collage .tile{
-      position: static !important;
-      width: 100% !important;
-      height: auto !important;
-    }
-    .carousel .collage .tile img{
-      width: 100%;
-      height: auto;              /* сохраняем пропорции */
-      box-shadow: 0 2px 8px rgba(0,0,0,.12);
-      border-radius: 10px;
-      object-fit: cover;
-    }
-  }
-
-  /* очень узкие телефоны — одна колонка */
-  @media (max-width: 576px){
-    .carousel .collage{
-      grid-template-columns: 1fr;
-      gap: 10px;
-      padding: 0 10px 12px;
-    }
-    /* поджимаем заголовок */
-    .gallery-page-title, .gallery-page-title p{
-      font-size: 18px !important;
-      margin: 0 10px 10px !important;
-    }
-  }
-
-  /* Если нужно ровнять карточки по высоте на мобиле, можно отмечать нужные .tile классом .crop */
-  /* @media (max-width: 992px){
-       .carousel .collage .tile.crop{ aspect-ratio: 4 / 3; }
-       .carousel .collage .tile.crop img{ height: 100%; object-fit: cover; }
-     } */
-      /* телефоны: 1 колонка */
-@media (max-width: 576px){
-  .carousel .collage{
-    width:100% !important; height:auto !important;
-    margin:0 auto 20px !important; padding:0 10px 12px;
-    position:static !important;
-    display:grid !important;
-    grid-template-columns: 1fr;
-    gap:10px;
-  }
-  .carousel .collage .tile{
-    position:static !important; width:100% !important; height:auto !important;
-    aspect-ratio:auto;
-  }
-  .carousel .collage .tile img{ width:100%; height:auto; display:block; border-radius:10px; object-fit:cover; }
-}
-
-/* ПЛАНШЕТЫ: РОВНО 4 × 2 */
-@media (min-width: 768px) and (max-width: 1199.98px){
-  .carousel .collage{
-    width:100% !important; height:auto !important;
-    margin:0 auto 20px !important; padding:0 12px 12px;
-    position:static !important;
-
-    display:grid !important;
-    grid-template-columns: repeat(2, 1fr);   /* 4 колонки */
-    grid-template-rows: repeat(4, 1fr);      /* 2 ряда */
-    gap:12px;
-    align-items:stretch; justify-items:stretch;
-  }
-  .carousel .collage .tile{
-    position:static !important;
-    width:100% !important; height:auto !important;
-    aspect-ratio: 4 / 3;                     /* одинаковая высота карточек */
-  }
-  .carousel .collage .tile img{
-    width:100%; height:100%;
-    display:block; object-fit:cover;
-    border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.12);
-  }
-}
-
-/* базовое: убираем baseline-зазор у картинок (на всех экранах) */
-.carousel .collage img{ display:block; }
-
-</style>
+        </style>
 
 
-      
+        <style>
+            @media (max-width: 1200px) and (min-width: 701px) {
+                .rail {
+                    width: 700px;
+                }
+            }
+
+            @media (max-width: 700px) and (min-width: 500px) {
+                .rail {
+                    width: 500px;
+                }
+            }
+
+            @media (max-width: 500px) {
+                .rail {
+                    width: 350px;
+                }
+            }
+        </style>
+
+
+        {#      {% include "stories.html" %}#}
+
+        <section class="article-slider-wrap" style="max-width: 1200px">
+            <div class=""><h2 class="h2">Статьи</h2></div>
+            {% articles_slider limit=0 %}
+        </section>
+        <script src="{% static 'articles/slider.js' %}"></script>
+        {% include 'contact_main_form.html' %}
+        <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
+
+     
      
 
-
-      <style >
-         @media (max-width: 1200px) and (min-width: 701px){
-  .rail { width: 700px;  }
-    }
-          @media (max-width: 700px) and (min-width: 500px){
-  .rail { width: 500px;  }
-    }
-  @media (max-width: 500px){
-  .rail { width: 350px;  }
-    }
-      </style>
-      
-      
-{#      {% include "stories.html" %}#}
-      
-      <section class="article-slider-wrap" style="max-width: 1200px">
-  <div class=""><h2 class="h2">Статьи</h2></div>
-  {% articles_slider limit=0 %}
-    </section>
-<script src="{% static 'articles/slider.js' %}"></script>
- {% include 'contact_main_form.html' %}
-    <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
-
-<div class="contacts-section" id="contacts-main">
-  <div class="contacts-grid">
-    <div class="contacts-card">
-      <div class="contacts-title">Расположение</div>
-      <div class="contacts-body">
-        <div >
-          
-        </div>
-        Газеты Звезда, 13, 4 этаж <br>
-        <span class="contacts-link"><b>ТЦ ЗВЕЗДА</b></span>
-      </div>
+        <h1 style="color: RGB(250, 250, 250)">Современные фасады</h1>
     </div>
-    <div class="contacts-card">
-      <div class="contacts-title">Режим работы</div>
-      <div class="contacts-body">
-        пн–пт 09:00–18:00 <br>
-        <span class="contacts-note">В выходные по согласованию</span>
-      </div>
-    </div>
-    <div class="contacts-card">
-      <div class="contacts-title">Контактная информация</div>
-      <div class="contacts-body">
-        <a style="text-decoration: none;color: inherit;" href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a>
-        <div class="contacts-note">Приём звонков: с 9:00–18:00</div>
-      </div>
-    </div>
-    <div class="contacts-card" onclick="window.open('https://yandex.ru/maps/-/CHtYJN-Y')" style="cursor: pointer">
-      <div class="contacts-title">Карта с указанием адреса офиса</div>
-      <div class="contacts-body">
-        2ГИС<br>        
-        
-    
 
-
-        <a class="contacts-link" style="text-decoration: none;" href="https://go.2gis.com/CIzER" target="_blank">Как до нас добраться</a>
-      </div>
-    </div>
-  </div>
 </div>
-
-      <h1 style="color: RGB(250, 250, 250)">Современные фасады</h1>
-  </div>
-      
-  </div>
+ {% include 'contacts.html' %}
 {% include 'footer.html' %}
-  <!-- Scripts -->
-  <script >
-    document.addEventListener('DOMContentLoaded', function() {
-  const slides = document.querySelector('.slides');
-  const dots = document.querySelectorAll('.dot');
-  let currentIndex = 0;
+<!-- Scripts -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const slides = document.querySelector('.slides');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
 
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      currentIndex = parseInt(dot.dataset.index);
-      updateSlide();
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentIndex = parseInt(dot.dataset.index);
+                updateSlide();
+            });
+        });
+
+        function updateSlide() {
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentIndex].classList.add('active');
+        }
+
+        updateSlide();
+
+        // АВТОПРОКРУТКА КАЖДЫЕ 5 СЕКУНД
+        setInterval(function () {
+            currentIndex = (currentIndex + 1) % dots.length;
+            updateSlide();
+        }, 10000);
+
+        // ====== МЕНЮ ======
+        const sideMenu = document.getElementById('sideMenu');
+        const blurBg = document.getElementById('blur-bg');
+        const headerBtn = document.getElementById('menuToggle');    // кнопка в шапке
+        const mobileBtn = document.getElementById('mobileMenuBtn'); // мобильная кнопка
+        const closeBar = document.getElementById('closemenu');     // клик по шапке сайдбара
+
+        function openMenu() {
+            if (!sideMenu || !blurBg) return;
+            sideMenu.classList.add('active');
+            blurBg.classList.add('active');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenu() {
+            if (!sideMenu || !blurBg) return;
+            sideMenu.classList.remove('active');
+            blurBg.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+
+        function toggleMenu() {
+            if (!sideMenu) return;
+            sideMenu.classList.contains('active') ? closeMenu() : openMenu();
+        }
+
+        [headerBtn, mobileBtn].forEach(btn => {
+            if (btn) btn.addEventListener('click', toggleMenu);
+        });
+        if (closeBar) closeBar.addEventListener('click', closeMenu);
+        if (blurBg) blurBg.addEventListener('click', closeMenu);
+
+        window.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeMenu();
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) closeMenu();
+        });
     });
-  });
-
-  function updateSlide() {
-    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[currentIndex].classList.add('active');
-  }
-
-  updateSlide();
-
-  // АВТОПРОКРУТКА КАЖДЫЕ 5 СЕКУНД
-  setInterval(function() {
-    currentIndex = (currentIndex + 1) % dots.length;
-    updateSlide();
-  }, 10000);
-
-      // ====== МЕНЮ ======
-  const sideMenu  = document.getElementById('sideMenu');
-  const blurBg    = document.getElementById('blur-bg');
-  const headerBtn = document.getElementById('menuToggle');    // кнопка в шапке
-  const mobileBtn = document.getElementById('mobileMenuBtn'); // мобильная кнопка
-  const closeBar  = document.getElementById('closemenu');     // клик по шапке сайдбара
-
-  function openMenu(){
-    if (!sideMenu || !blurBg) return;
-    sideMenu.classList.add('active');
-    blurBg.classList.add('active');
-    document.body.classList.add('no-scroll');
-  }
-  function closeMenu(){
-    if (!sideMenu || !blurBg) return;
-    sideMenu.classList.remove('active');
-    blurBg.classList.remove('active');
-    document.body.classList.remove('no-scroll');
-  }
-  function toggleMenu(){
-    if (!sideMenu) return;
-    sideMenu.classList.contains('active') ? closeMenu() : openMenu();
-  }
-
-  [headerBtn, mobileBtn].forEach(btn => {
-    if (btn) btn.addEventListener('click', toggleMenu);
-  });
-  if (closeBar) closeBar.addEventListener('click', closeMenu);
-  if (blurBg)   blurBg.addEventListener('click', closeMenu);
-
-  window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 1024) closeMenu(); });
-});
-  </script>
-  {% include "contact_modal.html" %}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+</script>
+{% include "contact_modal.html" %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
-  {% block extra_js %}{% endblock %}
+{% block extra_js %}{% endblock %}
 
 <!-- Шторка избранного -->
 <div id="favorites-drawer" aria-hidden="true">
-  <div class="drawer-overlay" data-close-favorites></div>
-  <aside class="drawer-panel" role="dialog" aria-label="Избранное">
-    <div class="drawer-head">
-      <div class="drawer-title">Избранное</div>
-      <button class="drawer-close" data-close-favorites aria-label="Закрыть">×</button>
-    </div>
-    <div class="drawer-body" id="favorites-list"></div>
-  </aside>
+    <div class="drawer-overlay" data-close-favorites></div>
+    <aside class="drawer-panel" role="dialog" aria-label="Избранное">
+        <div class="drawer-head">
+            <div class="drawer-title">Избранное</div>
+            <button class="drawer-close" data-close-favorites aria-label="Закрыть">×</button>
+        </div>
+        <div class="drawer-body" id="favorites-list"></div>
+    </aside>
 </div>
 
 <!-- Менеджер избранного -->
 <script src="{% static 'js/favorites.js' %}"></script>
 
 <script>
-  // если страница не использует общий base.html, руками дёрнем синхронизацию
-  document.addEventListener('DOMContentLoaded', function () {
-    if (window.SFFavorites) {
-      document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-    }
-  });
+    // если страница не использует общий base.html, руками дёрнем синхронизацию
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.SFFavorites) {
+            document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+        }
+    });
 </script>
 
 </body>
