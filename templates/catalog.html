@@ -943,7 +943,7 @@
       <div class="card">
         <div class="img-wrap">
           ${img
-                        ? `<a href="${href}" aria-label="${name}">
+                        ? `<a href="${href}" aria-label="${name}" target="_blank">
                  <img src="${img}" alt="${name}">
                </a>`
                         : `<div class="s-img skeleton"></div>`}
@@ -956,7 +956,7 @@
         </div>
 
         <div class="body">
-          <h3 class="name"><a href="${href}">${name}</a></h3>
+          <h3 class="name"><a href="${href}" target="_blank">${name}</a></h3>
           <a class="price-link" href="${href}" target="_blank" rel="noopener">перейти к товару</a>
         </div>
 
