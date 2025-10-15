@@ -737,7 +737,12 @@
                 hasNext: false,
                 isLoading: false
             };
-
+            const listState = {
+  page: 1,
+  perPage: 20,      // <-- 20 на страницу
+  hasNext: false,
+  isLoading: false
+};
 
             const $filters = document.getElementById("filters");
             const $grid = document.getElementById("grid");
@@ -903,76 +908,61 @@
                 const id = item?.id ?? item?.pk;
                 return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';
             }
+            function appendCards(items){
+  if (!items || !items.length) return;
+  const frag = document.createElement("div");
+  frag.innerHTML = renderCardsToHtml(items); // используем ту же верстку
+  // аккуратно добавим
+  [...frag.children].forEach(node => $grid.appendChild(node));
+  // уведомим менеджер избранного, если есть
+  if (window.SFFavorites) document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+}
 
-            function renderCards(items) {
-                if (!items || !items.length) {
-                    $grid.innerHTML = "";
-                    $empty.style.display = "block";
-                    return;
-                }
-                $empty.style.display = "none";
-
-                // нормализация входящих значений на всякий случай
-                const normalizeTag = (val) => {
-                    const raw = String(val || "").trim().toLowerCase();
-                    const map = {
-                        "favorite": "favorite", "фаворит": "favorite",
-                        "sale": "sale", "акция": "sale",
-                        "new": "new", "новинка": "new",
-                    };
-                    return map[raw] || "";
-                };
-
-                const badgeMeta = {
-                    favorite: {label: "фаворит", cls: "badge--favorite"},
-                    sale: {label: "акция", cls: "badge--sale"},
-                    new: {label: "новинка", cls: "badge--new"},
-                };
-
-                $grid.innerHTML = items.map(card => {
-                    const name = escapeHtml(card.name || "");
-                    const img = escapeHtml(card.card_image || card.image || "");
-                    const href = getProductUrl(card);
-                    const id = card.id ?? card.pk;
-
-                    // читаем метку с бэка: promo_tag (или на всякий fallback badge)
-                    const key = normalizeTag(card.promo_tag || card.badge);
-                    const badge = key ? badgeMeta[key] : null;
-
-                    return `
+// небольшая выносная функция, чтобы re-use разметки
+function renderCardsToHtml(items){
+  const normalizeTag = (val) => {
+    const raw = String(val || "").trim().toLowerCase();
+    const map = { "favorite":"favorite","фаворит":"favorite","sale":"sale","акция":"sale","new":"new","новинка":"new" };
+    return map[raw] || "";
+  };
+  const badgeMeta = {
+    favorite: {label: "фаворит", cls: "badge--favorite"},
+    sale: {label: "акция", cls: "badge--sale"},
+    new: {label: "новинка", cls: "badge--new"},
+  };
+  return items.map(card => {
+    const name = escapeHtml(card.name || "");
+    const img = escapeHtml(card.card_image || card.image || "");
+    const href = getProductUrl(card);
+    const id = card.id ?? card.pk;
+    const key = normalizeTag(card.promo_tag || card.badge);
+    const badge = key ? badgeMeta[key] : null;
+    return `
       <div class="card">
         <div class="img-wrap">
-          ${img
-                        ? `<a href="${href}" aria-label="${name}" target="_blank">
-                 <img src="${img}" alt="${name}">
-               </a>`
-                        : `<div class="s-img skeleton"></div>`}
-
+          ${img ? `<a href="${href}" aria-label="${name}" target="_blank"><img src="${img}" alt="${name}"></a>` : `<div class="s-img skeleton"></div>`}
           ${badge ? `
             <div class="badge ${badge.cls}">
-  <img class="badge__icon" src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
-  <p>${badge.label}</p>
-</div>` : ``}
+              <img class="badge__icon" src="{% static 'imgfolder/icons/lightningflash_102700 (1) 1.svg' %}" alt="">
+              <p>${badge.label}</p>
+            </div>` : ``}
         </div>
-
         <div class="body">
           <h3 class="name"><a href="${href}" target="_blank">${name}</a></h3>
           <a class="price-link" href="${href}" target="_blank" rel="noopener">перейти к товару</a>
         </div>
-
         <div class="foot">
-          <button
-            class="icon-btn heart"
-            type="button"
-            title="В избранное"
-            data-fav-btn
-            data-label-add="В избранное"
-            data-label-remove="В избранном"
-            data-product-id="${id}"
-            data-product-name="${escapeAttr(card.name || '')}"
-            data-product-image="${escapeAttr(img)}"
-            data-product-url="${href}"
-            aria-pressed="false">
+          <button class="icon-btn heart"
+                  type="button"
+                  title="В избранное"
+                  data-fav-btn
+                  data-label-add="В избранное"
+                  data-label-remove="В избранном"
+                  data-product-id="${id}"
+                  data-product-name="${escapeAttr(card.name || '')}"
+                  data-product-image="${escapeAttr(img)}"
+                  data-product-url="${href}"
+                  aria-pressed="false">
             <img src="{% static '/imgfolder/icons/heart_ico-cropped.svg' %}" alt="">
           </button>
           <button class="icon-btn tg-ico" title="написать" type="button" onclick="window.location.href='${href}'">
@@ -980,13 +970,17 @@
           </button>
         </div>
       </div>`;
-                }).join("");
-
-                // Сообщаем менеджеру избранного, что появились новые кнопки
-                if (window.SFFavorites) {
-                    document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-                }
-            }
+  }).join("");
+}
+            function renderCards(items) {
+  if (!items || !items.length) {
+    $grid.innerHTML = "";
+    $empty.style.display = "block";
+    return;
+  }
+  $empty.style.display = "none";
+  $grid.innerHTML = renderCardsToHtml(items);
+}
 
             function renderFilters(groups) {
                 groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
@@ -1053,13 +1047,45 @@
 
             // data loaders
             async function loadCategoryName() {
-                if (isSearch) {
-                    const qHuman = (q || "").trim();
-                    const title = qHuman ? `Поиск: ${qHuman}` : "Поиск";
-                    $title.textContent = title;
-                    $crumb.textContent = title;
-                    return;
-                }
+                async function loadMoreUniversal(){
+  if (isSearch){
+    if (!searchState.hasNext || searchState.isLoading) return;
+    searchState.isLoading = true;
+    $spinner.style.display = "block";
+    try {
+      searchState.page += 1;
+      await loadProducts({append: true});
+    } finally {
+      searchState.isLoading = false;
+      $spinner.style.display = "none";
+      $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+    }
+  } else {
+    if (!listState.hasNext || listState.isLoading) return;
+    listState.isLoading = true;
+    $spinner.style.display = "block";
+    try {
+      listState.page += 1;
+      await loadProducts({append: true});
+    } finally {
+      listState.isLoading = false;
+      $spinner.style.display = "none";
+      $loadMore.style.display = listState.hasNext ? "inline-block" : "none";
+    }
+  }
+}
+
+// кнопка
+$loadMore.addEventListener("click", loadMoreUniversal);
+
+// автоподгрузка при прокрутке (если поддерживается)
+if ('IntersectionObserver' in window && $sentinel) {
+  const io = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) loadMoreUniversal();
+  }, {root: null, rootMargin: "400px 0px 400px 0px", threshold: 0});
+  io.observe($sentinel);
+}
+
                 if (apiSlug === "all") return;
                 try {
                     const res = await fetch(urlFor(epCategoryCat, apiSlug), {credentials: "same-origin"});
@@ -1103,58 +1129,63 @@
             }
 
             async function loadProducts({append = false} = {}) {
-                renderSkeletonCards();
-                try {
-                    let items = [];
-                    if (isSearch) {
-                        // /api/categories/search/products/?q=...
-                        if (!append) {
-                            searchState.page = 1;
-                        }
-                        const qstr = buildQuery(true); // ?q=...&sort=... (если есть)
-                        const sep = qstr ? "&" : "?";
-                        const url = epSearchProducts + qstr + `${sep}page=${searchState.page}&per_page=${searchState.perPage}`;
+  if (!append) renderSkeletonCards();
 
-                        const res = await fetch(url, {credentials: "same-origin"});
-                        if (!res.ok) throw new Error("products(search) " + res.status);
-                        const data = await res.json();
-                        // поддерживаем формат { items: [...], ... }
-                        items = Array.isArray(data) ? data : (data.items || data.results || []);
-                    } else {
-                        // обычный каталог
-                        const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
-                        const url = base + buildQuery();
-                        const res = await fetch(url, {credentials: "same-origin"});
-                        if (!res.ok) throw new Error("products " + res.status);
-                        const data = await res.json();
-                        const pageItems = Array.isArray(data) ? data : (data.items || data.results || []);
-                        searchState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
-                        items = pageItems;
-                    }
+  try {
+    let items = [];
+    let url = "";
+    if (isSearch) {
+      // поиск
+      if (!append) searchState.page = 1;
+      const qstr = buildQuery(true); // ?q=...&sort=...
+      const sep = qstr ? "&" : "?";
+      url = epSearchProducts + qstr + `${sep}page=${searchState.page}&per_page=${searchState.perPage}`;
+    } else {
+      // обычный каталог
+      if (!append) listState.page = 1;
+      const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
+      const qstr = buildQuery(false);
+      const sep = qstr ? "&" : "?";
+      url = base + qstr + `${sep}page=${listState.page}&per_page=${listState.perPage}`;
+    }
 
-                    if (state.sort === "name_asc" || state.sort === "name_desc") {
-                        items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
-                        if (state.sort === "name_desc") items.reverse();
-                    }
-                    renderCards(items);
-                    if (isSearch && append) {
-                        // дополнение
-                        appendCards(items);
-                    } else {
-                        // полная перерисовка
-                        renderCards(items);
-                    }
+    const res = await fetch(url, {credentials: "same-origin"});
+    if (!res.ok) throw new Error("products " + res.status);
+    const data = await res.json();
 
-                    // управление UI подгрузки (только в поиске)
-                    if (isSearch) {
-                        $loadWrap.style.display = "block";
-                        $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
-                    }
-                } catch (e) {
-                    console.error("products load error:", e);
-                    renderCards([]);
-                }
-            }
+    const pageItems = Array.isArray(data) ? data : (data.items || data.results || []);
+    items = pageItems;
+
+    // клиентская сортировка по имени (если выбрана)
+    if (state.sort === "name_asc" || state.sort === "name_desc") {
+      items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
+      if (state.sort === "name_desc") items.reverse();
+    }
+
+    // отрисовка
+    if (append) {
+      appendCards(items);
+    } else {
+      renderCards(items);
+    }
+
+    // переключатели подгрузки
+    if (isSearch) {
+      searchState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
+      $loadWrap.style.display = "block";
+      $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+    } else {
+      listState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
+      $loadWrap.style.display = "block";
+      $loadMore.style.display = listState.hasNext ? "inline-block" : "none";
+    }
+
+  } catch (e) {
+    console.error("products load error:", e);
+    if (!append) renderCards([]);
+  }
+}
+
 
             function buildQueryForAllSafe() {
                 // теперь полная строка запроса, как для категорий

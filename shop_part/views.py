@@ -32,6 +32,39 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import Product  # проверь импорт
+# views.py (добавьте рядом с остальными вспомогательными функциями)
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+def _paginate(request, qs, default_per_page=20):
+    """Удобная пагинация для API: page, per_page -> dict с items и мета."""
+    try:
+        per_page = int(request.GET.get("per_page", default_per_page))
+    except ValueError:
+        per_page = default_per_page
+    try:
+        page = int(request.GET.get("page", 1))
+    except ValueError:
+        page = 1
+
+    paginator = Paginator(qs, per_page)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # если страница вне диапазона — отдаём последнюю
+        page_obj = paginator.page(paginator.num_pages)
+
+    return {
+        "page_obj": page_obj,
+        "meta": {
+            "page": page_obj.number,
+            "pages": paginator.num_pages,
+            "total": paginator.count,
+            "has_next": page_obj.has_next(),
+            "has_prev": page_obj.has_previous(),
+        }
+    }
 
 
 class SimilarProductsAPIView(APIView):
@@ -375,17 +408,26 @@ class CategoryFiltersAPIView(APIView):
         return Response(result)
 
 
+LIGHT_SELECT = (
+    "manufacturer", "category", "color", "product_type", "type_material",
+    "frosen_defend", "strength_grade", "water_resistance"
+)
+
 class CategoryProductsAPIView(generics.ListAPIView):
     """
-    GET /api/categories/<category_key>/products/?manufacturer=1,2&format=5&package_weight_kg=25
-    Возвращает [{id, name, card_image}, ...] с учётом ТОЛЬКО включённых фильтров категории.
+    GET /api/categories/<category_key>/products/?page=1&per_page=20
+    Фильтры остаются как были. Отдаём "{items:[...], meta:{...}}".
     """
     serializer_class = ProductInCatSerializer
 
     def get_queryset(self):
         cat = _get_category(self.kwargs["category_key"])
         enabled = set(cat.filters_enabled or [])
-        qs = Product.objects.filter(category=cat).distinct()
+        qs = (Product.objects
+              .filter(category=cat)
+              .select_related(*LIGHT_SELECT)
+              .prefetch_related("formats", "emptiness")
+              .distinct())
 
         for key in enabled:
             cfg = FILTER_DEFS.get(key)
@@ -422,8 +464,20 @@ class CategoryProductsAPIView(generics.ListAPIView):
                 except ValueError:
                     pass
 
-        return qs.order_by('-priority', '-id')
+        ordering = self.request.query_params.get("ordering")
+        if ordering:
+            qs = qs.order_by(ordering)
+        else:
+            qs = qs.order_by('-priority', '-id')
+        return qs
 
+    def list(self, request, *args, **kwargs):
+        data = _paginate(request, self.get_queryset(), default_per_page=20)
+        ser = self.get_serializer(data["page_obj"].object_list, many=True, context={"request": request})
+        return Response({
+            "items": ser.data,
+            **data["meta"]
+        })
     def get_serializer_context(self):
         ctx = super().get_serializer_context()
         ctx["request"] = self.request
@@ -499,12 +553,31 @@ class CatalogView(TemplateView):
 
 from django.db.models import Q, Count
 
+def _paginate_all_products(request, qs, default_per_page=20):
+    per_page = int(request.GET.get("per_page", default_per_page))
+    page = int(request.GET.get("page", 1))
+    paginator = Paginator(qs, per_page)
+    try:
+        page_obj = paginator.page(page)
+    except (PageNotAnInteger, EmptyPage):
+        page_obj = paginator.page(1)
+    return page_obj, {
+        "page": page_obj.number,
+        "pages": paginator.num_pages,
+        "total": paginator.count,
+        "has_next": page_obj.has_next(),
+        "has_prev": page_obj.has_previous(),
+    }
 
 class AllProductsAPIView(generics.ListAPIView):
     serializer_class = ProductInCatSerializer
 
     def get_queryset(self):
-        qs = Product.objects.all().distinct()
+        qs = (Product.objects.all()
+              .select_related("manufacturer","category","color","product_type","type_material",
+                              "frosen_defend","strength_grade","water_resistance")
+              .prefetch_related("formats","emptiness")
+              .distinct())
 
         # применяем все поддерживаемые ключи из FILTER_DEFS, если они есть в запросе
         for key, cfg in FILTER_DEFS.items():
@@ -545,13 +618,13 @@ class AllProductsAPIView(generics.ListAPIView):
 
         # серверная сортировка (совместимо с фронтом)
         ordering = self.request.query_params.get("ordering")
-        if ordering:
-            qs = qs.order_by(ordering)
-        else:
-            qs = qs.order_by('-priority', '-id')
+        return qs.order_by(ordering) if ordering else qs.order_by('-priority', '-id')
 
-        return qs
-
+    def list(self, request, *args, **kwargs):
+        qs = self.get_queryset()
+        page_obj, meta = _paginate_all_products(request, qs, default_per_page=20)
+        ser = self.get_serializer(page_obj.object_list, many=True, context={"request": request})
+        return Response({"items": ser.data, **meta})
 
 from collections import defaultdict
 from django.db.models import Count
