@@ -33,7 +33,8 @@ class GalleryInline(admin.TabularInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [GalleryInline, ]
-    list_display = ('name', 'card_image', 'type_material', 'description', 'promo_tag')
+    list_display = ('name','priority', 'card_image', 'type_material', 'description', 'promo_tag')
+    list_editable = ('priority',)
     search_fields = (
         "name",
         "description",

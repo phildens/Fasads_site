@@ -212,9 +212,16 @@ class Product(models.Model):
         verbose_name="Похожие товары (ручной выбор)"
     )
 
+    priority = models.PositiveIntegerField(
+        default=0,
+        db_index=True,
+        verbose_name="Приоритет сортировки (чем больше — выше)"
+    )
+
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+        ordering = ("-priority", "-id")
 
     def __str__(self):
         name = self.name

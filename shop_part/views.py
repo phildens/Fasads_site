@@ -130,7 +130,7 @@ def api_search_products(request):
         # без запроса возвращаем пусто, чтобы не грузить всё подряд
         qs = qs.none()
 
-    qs = qs.order_by("-id")
+    qs = qs.order_by('-priority', '-id')
 
     # пагинация
     page = request.GET.get("page", 1)
@@ -422,7 +422,7 @@ class CategoryProductsAPIView(generics.ListAPIView):
                 except ValueError:
                     pass
 
-        return qs
+        return qs.order_by('-priority', '-id')
 
     def get_serializer_context(self):
         ctx = super().get_serializer_context()
@@ -548,7 +548,7 @@ class AllProductsAPIView(generics.ListAPIView):
         if ordering:
             qs = qs.order_by(ordering)
         else:
-            qs = qs.order_by("-id")
+            qs = qs.order_by('-priority', '-id')
 
         return qs
 
