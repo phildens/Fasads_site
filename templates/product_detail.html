@@ -590,260 +590,254 @@
             z-index: 1;
         }
 
-        /* плавная анимация */
-        .spec {
-            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-        }
-
-        /* увелечение плитки поверх контента (hover или .expanded) */
-        .spec-wrapper:hover .spec,
-        .spec-wrapper.expanded .spec {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale(1.12);
-            z-index: 1000; /* выше всего локально */
-            width: max-content; /* пусть растёт по тексту */
-            min-width: 220px; /* базовый размер всплывашки */
-            max-width: 360px; /* чтобы не разъезжалась слишком */
-            padding: 14px 12px;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
-        }
-
-        /* показать полный текст внутри всплывшей карточки */
-        .spec-wrapper:hover .spec__label,
-        .spec-wrapper:hover .spec__value,
-        .spec-wrapper.expanded .spec__label,
-        .spec-wrapper.expanded .spec__value {
-            display: block;
-            -webkit-line-clamp: initial;
-            overflow: visible;
-            white-space: normal;
-        }
-
-
-        /* базовая плоскость */
-        .specs {
-            position: relative;
-            z-index: 0;
-        }
-
-        .spec-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* когда плитка раскрыта (hover на десктопе или .expanded на мобиле) —
-           поднимаем весь wrapper выше соседей */
-        .spec-wrapper:hover,
-        .spec-wrapper.expanded {
-            z-index: 1001; /* >, чем у неактивных */
-        }
-
-        /* сама «всплывашка» тоже на верхнем слое */
-        .spec-wrapper:hover .spec,
-        .spec-wrapper.expanded .spec {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale(1.12);
-            z-index: 1002; /* поверх всего в секции */
-            width: max-content;
-            min-width: 220px;
-            max-width: 360px;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
-        }
-
-
-        /* короткая версия внутри плитки */
-        .spec__label {
-            /* было: display:-webkit-box; -webkit-line-clamp:2; overflow:hidden; ... */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-
-            white-space: normal; /* разрешаем обычные переносы */
-            overflow-wrap: anywhere; /* ломать длинные слова при необходимости */
-            word-break: break-word; /* запасной вариант для старых браузеров */
-            hyphens: auto; /* расставлять переносы по слогам */
-        }
-
-        /* во всплывающей/увеличенной карточке показываем полный текст */
-        .spec-wrapper:hover .spec__label,
-        .spec-wrapper.expanded .spec__label {
-            display: block;
-            -webkit-line-clamp: initial;
-            overflow: visible;
-            white-space: normal;
-            overflow-wrap: anywhere;
-            word-break: break-word;
-            hyphens: auto;
-        }
-
-        /* в обычной плитке: как было (обрезаем до 3 строк) */
-        .spec__value {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            white-space: normal;
-            overflow-wrap: anywhere;
-            word-break: break-word;
-        }
-
-        /* во всплывшей/увеличенной карточке показываем всё + уважаем \n */
-        .spec-wrapper:hover .spec__value,
-        .spec-wrapper.expanded .spec__value {
-            display: block;
-            -webkit-line-clamp: initial;
-            overflow: visible;
-            white-space: pre-line; /* <<< \n => перенос строки */
-        }
-
-        /* базовые слои */
-        .specs {
-            position: relative;
-            overflow: visible;
-            z-index: 0;
-        }
-
-        .spec-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
-        .spec {
-            transition: transform .18s ease, box-shadow .18s ease;
-        }
-
-        /* ---------- Десктоп: всплытие внутри грид ---------- */
-        @media (min-width: 721px) {
-            .spec-wrapper:hover {
-                z-index: 1001;
-            }
-
-            .spec-wrapper:hover .spec {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%) scale(1.12);
-                z-index: 1002;
-                width: max-content;
-                min-width: 220px;
-                max-width: 360px;
-                max-height: 70vh;
-                overflow: auto;
-                padding: 14px 12px;
-                box-shadow: 0 12px 36px rgba(0, 0, 0, .25);
-            }
-
-            .spec-wrapper:hover .spec__label,
-            .spec-wrapper:hover .spec__value {
-                display: block;
-                -webkit-line-clamp: initial;
-                overflow: visible;
-                white-space: pre-line;
-            }
-        }
-
-        /* ---------- Мобильные: отдельный поповер, фиксированный к вьюпорту ---------- */
-        @media (max-width: 720px) {
-            /* фоновая «прокладка», чтобы клики вне поповера его закрывали и ничего не блокировалось */
-            .specs.has-popover::before {
-                content: "";
-                position: fixed;
-                inset: 0;
-                z-index: 1500;
-                background: transparent;
-            }
-
-            .spec-wrapper.expanded {
-                z-index: 1600;
-            }
-
-            /* выше прокладки */
-            .spec-wrapper.expanded .spec {
-                position: fixed;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%); /* без scale */
-                z-index: 1601;
-                width: auto;
-                max-width: min(92vw, 520px); /* НЕ вылезаем за экран */
-                max-height: 75vh; /* умещаемся по высоте */
-                padding: 16px 14px;
-                box-shadow: 0 14px 40px rgba(0, 0, 0, .28);
-                overflow: auto; /* вертикальный скролл внутри при очень длинном тексте */
-            }
-
-            .spec-wrapper.expanded .spec__label,
-            .spec-wrapper.expanded .spec__value {
-                display: block;
-                -webkit-line-clamp: initial;
-                overflow: visible;
-                white-space: pre-line;
-            }
-        }
-
-    </style>
-    <style>
-/* ====== ХАР-КИ: всплывашка и мобильный поповер ====== */
-
-/* базовый слой */
-.product-page{ position:relative; }
-.specs{ position:relative; overflow:visible; z-index:0; }
-.spec-wrapper{ position:relative; z-index:1; }
-.spec{ transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
-
-/* короткие тексты в плитке */
-.spec__label{
-  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
-  white-space:normal; overflow-wrap:anywhere; word-break:break-word; hyphens:auto;
+ /* 1) База: обёртка и карточка */
+.specs{
+  position: relative;
+  overflow: visible;   /* уже есть, но важно сохранить */
+  z-index: 0;
 }
-.spec__value{
-  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
-  white-space:normal; overflow-wrap:anywhere; word-break:break-word; hyphens:auto;
+.spec-wrapper{
+  position: relative;
+  width: 98px;
+  height: 98px;
+  overflow: visible;   /* чтобы расширенная плитка не обрезалась */
+  z-index: 1;
+}
+.spec{
+  position: absolute;  /* <-- фиксируем внутри wrapper'а */
+  inset: 0;            /* занимает ровно 98×98 в своём wrapper’е */
+  transform-origin: top left;   /* <-- растём из своего места */
+  transform: scale(1);          /* исходное состояние */
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  /* остальная твоя стилизация: бордеры, фон и т.д. */
 }
 
-/* ----- Десктоп (>=721px): всплытие внутри грида ----- */
+/* 2) Десктоп: раскрытие без смены якоря (НЕТ left:50%/top:50%/translate) */
 @media (min-width: 721px){
-  .spec-wrapper:hover{ z-index:1001; }
-  .spec-wrapper:hover .spec{
-    position:absolute; left:50%; top:50%; transform:translate(-50%, -50%) scale(1.12);
-    z-index:1002; width:max-content; min-width:220px; max-width:360px; max-height:70vh; overflow:auto;
-    padding:14px 12px; box-shadow:0 12px 36px rgba(0,0,0,.25);
+  .spec-wrapper:hover,
+  .spec-wrapper.expanded{ z-index: 1001; }
+
+  .spec-wrapper:hover .spec,
+  .spec-wrapper.expanded .spec{
+    /* НИКАКИХ left/top/translate больше */
+    transform: scale(1.12);           /* плавное увеличение на месте */
+    box-shadow: 0 12px 36px rgba(0,0,0,.25);
+    width: max-content;               /* можно дать больше места тексту */
+    min-width: 220px;                 /* чтобы было удобно читать */
+    max-width: 360px;
+    padding: 14px 12px;
   }
+
+  /* показываем полный текст в раскрытии */
   .spec-wrapper:hover .spec__label,
-  .spec-wrapper:hover .spec__value{
-    display:block; -webkit-line-clamp:initial; overflow:visible; white-space:pre-line;
+  .spec-wrapper:hover .spec__value,
+  .spec-wrapper.expanded .spec__label,
+  .spec-wrapper.expanded .spec__value{
+    display: block;
+    -webkit-line-clamp: initial;
+    overflow: visible;
+    white-space: pre-line;
   }
 }
 
-/* ----- Мобайл (<=720px): фиксированный поповер по центру ----- */
-@media (max-width: 720px){
-  /* нативный горизонтальный свайп */
-  .specs{ overflow-x:auto; overflow-y:visible; scroll-snap-type:x mandatory;
-          -webkit-overflow-scrolling:touch; touch-action: pan-x; }
 
-  /* чтобы содержимое плитки не перехватывало свайп, пока она не открыта */
-  .spec-wrapper .spec{ pointer-events:none; }
-  .spec-wrapper.expanded .spec{ pointer-events:auto; }
-
-  /* «прокладка» — позволяет закрывать по тапу вне поповера */
-  .specs.has-popover::before{
-    content:""; position:fixed; inset:0; z-index:1500; background:transparent;
+      @media (max-width: 720px){
+  /* контейнер-лента остаётся скроллимым и не обрезает всплывашку */
+  .specs{
+    overflow: visible;
   }
 
-  .spec-wrapper.expanded{ z-index:1600; }
+  /* когда карточка раскрыта — поднимаем её выше всех слоёв на странице */
+  .spec-wrapper.expanded{
+    z-index: 9999; /* поверх всего */
+    position: relative; /* опорный контекст для абсолютной карточки */
+  }
+
   .spec-wrapper.expanded .spec{
-    position:fixed; left:50%; top:50%; transform:translate(-50%, -50%);
-    z-index:1601; width:auto; max-width:min(92vw, 520px); max-height:75vh; overflow:auto;
-    padding:16px 14px; box-shadow:0 14px 40px rgba(0,0,0,.28);
+    position: absolute;   /* остаётся “привязанной” к своей плитке */
+    inset: 0;             /* растёт из исходного места */
+    transform-origin: top left;
+    transform: scale(1.14);            /* можно 1.12–1.2 по вкусу */
+    width: max-content;
+    min-width: 220px;
+    max-width: min(520px, 92vw);       /* не шире экрана */
+    max-height: 80vh;                  /* не выше экрана */
+    overflow: auto;                    /* скролл внутри при длинном тексте */
+    box-shadow: 0 14px 40px rgba(0,0,0,.28);
+    background: #fff;                  /* если нужно перекрывать фон */
   }
+
+  /* полный текст в раскрытии */
+  .spec-wrapper.expanded .spec__label,
+  .spec-wrapper.expanded .spec__value{
+    display: block;
+    -webkit-line-clamp: initial;
+    overflow: visible;
+    white-space: pre-line;
+  }
+
+  /* (опционально) чтобы свайп по ленте не конфликтовал с вертикальным скроллом внутри карточки */
+  .specs{ touch-action: pan-x; }
+}
+
+        @media (max-width: 720px){
+  .specs{
+    display: flex;                  /* ← было grid, надо flex */
+    gap: 12px;
+    overflow-x: auto;               /* горизонтальный скролл */
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;  /* инерция на iOS */
+    scroll-snap-type: x mandatory;  /* опционально: прилипаем к карточкам */
+    touch-action: pan-x;            /* явное разрешение свайпа по X */
+    overscroll-behavior-x: contain; /* не дёргать страницу на краях */
+    padding: 26px 12px 20px 1px;
+    margin: 6px 0 8px;
+  }
+  .spec-wrapper{
+    flex: 0 0 98px;                 /* ширина одного «слайда» */
+    width: 98px; height: 98px;
+    scroll-snap-align: start;
+    margin-left: 13px;
+  }
+  .spec{ width: 98px; height: 98px; padding: 10px 8px; }
+}
+/* вариант А: полностью выключить на мобилке */
+/* 1) Контейнер с карточками должен быть выше текста ниже */
+.specs{
+  position: relative;
+  z-index: 50;        /* > чем у .desc (auto == 0) */
+  overflow: visible;  /* чтобы расширение не обрезалось */
+}
+
+/* 2) Соседям НЕ даём более высокий z-index */
+.desc,
+#right-col,
+.green-card,
+.similar,
+.gallery { z-index: auto; position: relative; } /* лишь на всякий случай */
+
+/* 3) Раскрытую карточку поднимаем ещё выше внутри своего контекста */
+.spec-wrapper.expanded{ z-index: 1000; position: relative; }
+.spec-wrapper.expanded .spec{ z-index: 1001; }  /* поверх соседних плиток */
+
+        
+        /* ===== Мобилка: горизонтальная лента со свайпом ===== */
+@media (max-width: 720px){
+  .specs{
+    display: flex;                  /* лента */
+    gap: 12px;
+    padding: 26px 12px 6px 1px;
+    margin: 6px 0 8px;
+min-height: 160px; /* можно подстроить под нужный размер */
+  padding-bottom: 40px; 
+    overflow-x: auto;               /* свайп по X */
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;            /* явно разрешаем горизонтальный жест */
+    overscroll-behavior-x: contain;
+    position: relative;
+    z-index: 50;                    /* выше .desc, но не мешает скроллу */
+  }
+
+  .spec-wrapper{
+    flex: 0 0 98px;
+    width: 98px; height: 98px;
+    margin-left: 13px;
+    scroll-snap-align: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Карточка растет "из места", но не блокирует свайп, пока закрыта */
+  .spec{
+    position: absolute; inset: 0;
+    transform-origin: top left;
+    transform: scale(1);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    pointer-events: none;           /* ВАЖНО: свайпидем ленту, пока не открыта */
+  }
+
+  /* Открытая карточка — над всем, и уже кликабельна/скроллится */
+  .spec-wrapper.expanded{ z-index: 9999; }
+  .spec-wrapper.expanded .spec{
+    pointer-events: auto;           /* разрешаем взаимодействие с контентом */
+    transform: scale(1.14);
+    width: max-content;
+    min-width: 220px;
+    max-width: min(520px, 92vw);
+    max-height: 80vh;
+    overflow: auto;
+    background: #fff;
+    box-shadow: 0 14px 40px rgba(0,0,0,.28);
+  }
+
   .spec-wrapper.expanded .spec__label,
   .spec-wrapper.expanded .spec__value{
     display:block; -webkit-line-clamp:initial; overflow:visible; white-space:pre-line;
+  }
+
+  /* Любые "прокладки" не должны перехватывать жесты */
+  .specs.has-popover::before{ content: none !important; }
+  /* Если очень нужно оставить ::before, то минимум: */
+  /* .specs.has-popover::before{ pointer-events: none; } */
+}
+
+/* Соседям не поднимай z-index выше 50 */
+.desc, #right-col, .green-card, .similar, .gallery{
+  position: relative; z-index: auto;
+}
+@media (max-width: 720px){
+  .specs{
+    display: flex;
+    gap: 12px;
+    /* было: padding: 26px 12px 6px 1px;  — 1px мало */
+    padding: 26px 12px 6px 24px;   /* ← запас слева, чтобы «i» не резалось */
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+
+    /* чтобы прилипающие карточки учитывали этот запас */
+    scroll-padding-left: 24px;
+  }
+
+  .spec-wrapper{
+    flex: 0 0 98px;
+    width: 98px; height: 98px;
+    scroll-snap-align: start;
+    margin-left: 12px;            /* обычный зазор между карточками */
+  }
+
+  /* первая карточка не требует собственного отступа — его даёт padding контейнера */
+  .specs .spec-wrapper:first-child{
+    margin-left: 0;
+  }
+
+  .spec-icon{
+    left: -14px; /* оставляем как есть */
+  }
+}
+.spec__label,
+.spec__value {
+  white-space: normal !important;   /* разрешаем перенос */
+  word-break: break-word !important; /* переносим длинные слова */
+  overflow-wrap: anywhere !important; /* если браузер поддерживает */
+  hyphens: auto;                    /* переносы по слогам (если включены в языке) */
+}
+/* Иконка всегда поверх карточки */
+.spec-icon {
+  position: absolute;
+  z-index: 2000;        /* выше чем .spec (у той максимум 1001–1601) */
+  pointer-events: none; /* чтобы не мешала клику на карточку */
+}
+
+/* Чтобы на мобильных она не "тонулa" при scale карточки */
+@media (max-width: 720px) {
+  .spec-wrapper.expanded .spec-icon {
+    z-index: 2001;      /* ещё выше, если карточка раскрыта */
   }
 }
 </style>
@@ -1311,42 +1305,201 @@
             }
         });
     </script>
-    <script>
-/* Мобильный поповер + не блочим свайп */
-(function enableSpecExpandOnMobile(){
+{#    <script>#}
+{#/* Мобильный поповер + не блочим свайп */#}
+{#(function enableSpecExpandOnMobile(){#}
+{#  const specs = document.getElementById('specs');#}
+{#  if (!specs) return;#}
+{##}
+{#  const isMobile = () => window.matchMedia('(max-width: 720px)').matches;#}
+{##}
+{#  let dragging = false, startX = 0;#}
+{##}
+{#  // различаем свайп и тап#}
+{#  specs.addEventListener('pointerdown', (e) => {#}
+{#    if (!isMobile()) return;#}
+{#    dragging = false;#}
+{#    startX = e.clientX || 0;#}
+{#  });#}
+{#  specs.addEventListener('pointermove', (e) => {#}
+{#    if (!isMobile()) return;#}
+{#    if (Math.abs((e.clientX||0) - startX) > 8) dragging = true;#}
+{#  });#}
+{#  specs.addEventListener('pointerup', () => { if (!isMobile()) return; /* сброс */ });#}
+{##}
+{#  // тап по плитке — открыть/закрыть#}
+{#  specs.addEventListener('click', (e) => {#}
+{#    if (!isMobile()) return;#}
+{#    if (dragging) { dragging = false; return; } // был свайп — не открываем#}
+{#    const wrap = e.target.closest('.spec-wrapper');#}
+{#    if (!wrap) return;#}
+{##}
+{#    const willOpen = !wrap.classList.contains('expanded');#}
+{#    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));#}
+{#    specs.classList.toggle('has-popover', willOpen);#}
+{#    wrap.classList.toggle('expanded', willOpen);#}
+{#  });#}
+{##}
+{#  // клик вне — закрыть#}
+{#  document.addEventListener('click', (e) => {#}
+{#    if (!isMobile()) return;#}
+{#    if (!specs.classList.contains('has-popover')) return;#}
+{#    if (!specs.contains(e.target)) {#}
+{#      specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));#}
+{#      specs.classList.remove('has-popover');#}
+{#    }#}
+{#  });#}
+{##}
+{#  // ESC и ресайз — закрыть#}
+{#  document.addEventListener('keydown', (e) => {#}
+{#    if (!isMobile()) return;#}
+{#    if (e.key === 'Escape'){#}
+{#      specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));#}
+{#      specs.classList.remove('has-popover');#}
+{#    }#}
+{#  });#}
+{#  window.addEventListener('resize', () => {#}
+{#    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));#}
+{#    specs.classList.remove('has-popover');#}
+{#  });#}
+{#})();#}
+{#</script>#}
+
+{#    <script>#}
+{#        (function enableSpecExpandOnMobile() {#}
+{#            const specs = document.getElementById('specs');#}
+{#            if (!specs) return;#}
+{##}
+{#            const isMobile = () => window.matchMedia('(max-width: 720px)').matches;#}
+{##}
+{#            let dragging = false, startX = 0;#}
+{##}
+{#            // различаем свайп и тап#}
+{#            specs.addEventListener('pointerdown', (e) => {#}
+{#                if (!isMobile()) return;#}
+{#                dragging = false;#}
+{#                startX = e.clientX || 0;#}
+{#            });#}
+{#            specs.addEventListener('pointermove', (e) => {#}
+{#                if (!isMobile()) return;#}
+{#                if (Math.abs((e.clientX || 0) - startX) > 8) dragging = true; // порог ~8px#}
+{#            });#}
+{##}
+{#            specs.addEventListener('click', (e) => {#}
+{#                if (!isMobile()) return;#}
+{#                if (dragging) {#}
+{#                    dragging = false;#}
+{#                    return;#}
+{#                } // это был свайп — не открываем#}
+{##}
+{#                const wrap = e.target.closest('.spec-wrapper');#}
+{#                if (!wrap) return;#}
+{##}
+{#                // закрыть другие и открыть текущую#}
+{#                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => {#}
+{#                    if (w !== wrap) w.classList.remove('expanded');#}
+{#                });#}
+{#                const willOpen = !wrap.classList.contains('expanded');#}
+{#                specs.classList.toggle('has-popover', willOpen);#}
+{#                wrap.classList.toggle('expanded', willOpen);#}
+{#            });#}
+{##}
+{#            // клик/тап вне — закрыть#}
+{#            document.addEventListener('click', (e) => {#}
+{#                if (!isMobile()) return;#}
+{#                if (!specs.classList.contains('has-popover')) return;#}
+{#                if (!specs.contains(e.target)) {#}
+{#                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));#}
+{#                    specs.classList.remove('has-popover');#}
+{#                }#}
+{#            });#}
+{##}
+{#            // ESC — закрыть#}
+{#            document.addEventListener('keydown', (e) => {#}
+{#                if (!isMobile()) return;#}
+{#                if (e.key === 'Escape') {#}
+{#                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));#}
+{#                    specs.classList.remove('has-popover');#}
+{#                }#}
+{#            });#}
+{##}
+{#            // ресайз — убрать раскрытие, чтобы ничего не залипало#}
+{#            window.addEventListener('resize', () => {#}
+{#                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));#}
+{#                specs.classList.remove('has-popover');#}
+{#            });#}
+{#        })();#}
+{#    </script>#}
+
+<script>
+/* Мобайл-открытие: 1) доскролливаем плитку ближе к центру; 2) FLIP-анимация, чтобы карточка росла «из своего места» */
+(function attachMobileSpecExpander(){
   const specs = document.getElementById('specs');
   if (!specs) return;
 
-  const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+  const isMobile = () => matchMedia('(max-width: 720px)').matches;
 
-  let dragging = false, startX = 0;
-
-  // различаем свайп и тап
+  let isDragging = false, downX = 0;
   specs.addEventListener('pointerdown', (e) => {
     if (!isMobile()) return;
-    dragging = false;
-    startX = e.clientX || 0;
+    isDragging = false;
+    downX = e.clientX || 0;
   });
   specs.addEventListener('pointermove', (e) => {
     if (!isMobile()) return;
-    if (Math.abs((e.clientX||0) - startX) > 8) dragging = true;
+    if (Math.abs((e.clientX||0) - downX) > 8) isDragging = true;  // отличаем свайп от тапа
   });
-  specs.addEventListener('pointerup', () => { if (!isMobile()) return; /* сброс */ });
 
-  // тап по плитке — открыть/закрыть
   specs.addEventListener('click', (e) => {
     if (!isMobile()) return;
-    if (dragging) { dragging = false; return; } // был свайп — не открываем
+    if (isDragging) { isDragging = false; return; }
+
     const wrap = e.target.closest('.spec-wrapper');
     if (!wrap) return;
 
-    const willOpen = !wrap.classList.contains('expanded');
+    const alreadyOpen = wrap.classList.contains('expanded');
+
+    // закрыть все
     specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
-    specs.classList.toggle('has-popover', willOpen);
-    wrap.classList.toggle('expanded', willOpen);
+    specs.classList.remove('has-popover');
+    if (alreadyOpen) return;
+
+    // 1) центрируем карточку в горизонтальном скролле (для краёв ленты)
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+    // 2) FLIP-анимация: меряем начальный rect (где лежит карточка в ленте) → переводим в fixed центр → анимируем трансформ
+    const card = wrap.querySelector('.spec');
+    if (!card) return;
+
+    // Снимок ДО (вьюпортные координаты)
+    const first = card.getBoundingClientRect();
+
+    // помечаем «будет поповер»
+    specs.classList.add('has-popover');
+
+    // Включаем expanded -> карточка станет fixed и окажется в центре (по CSS)
+    wrap.classList.add('expanded');
+
+    // Снимок ПОСЛЕ (в центре экрана)
+    const last = card.getBoundingClientRect();
+
+    // Вектор от ДО к ПОСЛЕ: столько нужно сместить «назад», чтобы начать анимацию из исходной точки
+    const dx = first.left + first.width/2  - (last.left + last.width/2);
+    const dy = first.top  + first.height/2 - (last.top  + last.height/2);
+    const sx = first.width  / (last.width  || 1);
+    const sy = first.height / (last.height || 1);
+
+    // Стартуем с обратного смещения/масштаба…
+    card.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+    card.style.transition = 'none';
+    // …а в следующем кадре анимируем к нормальному состоянию (translate(-50%,-50%) scale(1) задан в CSS для .expanded)
+    requestAnimationFrame(() => {
+      card.style.transition = 'transform .22s ease, box-shadow .22s ease';
+      card.style.transform = ''; // -> к целевому transform из CSS
+    });
   });
 
-  // клик вне — закрыть
+  // Закрытие по клику вне, ESC и на ресайз
   document.addEventListener('click', (e) => {
     if (!isMobile()) return;
     if (!specs.classList.contains('has-popover')) return;
@@ -1355,88 +1508,19 @@
       specs.classList.remove('has-popover');
     }
   });
-
-  // ESC и ресайз — закрыть
   document.addEventListener('keydown', (e) => {
     if (!isMobile()) return;
-    if (e.key === 'Escape'){
+    if (e.key === 'Escape') {
       specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
       specs.classList.remove('has-popover');
     }
   });
-  window.addEventListener('resize', () => {
+  addEventListener('resize', () => {
     specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
     specs.classList.remove('has-popover');
   });
 })();
 </script>
-
-    <script>
-        (function enableSpecExpandOnMobile() {
-            const specs = document.getElementById('specs');
-            if (!specs) return;
-
-            const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
-
-            let dragging = false, startX = 0;
-
-            // различаем свайп и тап
-            specs.addEventListener('pointerdown', (e) => {
-                if (!isMobile()) return;
-                dragging = false;
-                startX = e.clientX || 0;
-            });
-            specs.addEventListener('pointermove', (e) => {
-                if (!isMobile()) return;
-                if (Math.abs((e.clientX || 0) - startX) > 8) dragging = true; // порог ~8px
-            });
-
-            specs.addEventListener('click', (e) => {
-                if (!isMobile()) return;
-                if (dragging) {
-                    dragging = false;
-                    return;
-                } // это был свайп — не открываем
-
-                const wrap = e.target.closest('.spec-wrapper');
-                if (!wrap) return;
-
-                // закрыть другие и открыть текущую
-                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => {
-                    if (w !== wrap) w.classList.remove('expanded');
-                });
-                const willOpen = !wrap.classList.contains('expanded');
-                specs.classList.toggle('has-popover', willOpen);
-                wrap.classList.toggle('expanded', willOpen);
-            });
-
-            // клик/тап вне — закрыть
-            document.addEventListener('click', (e) => {
-                if (!isMobile()) return;
-                if (!specs.classList.contains('has-popover')) return;
-                if (!specs.contains(e.target)) {
-                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
-                    specs.classList.remove('has-popover');
-                }
-            });
-
-            // ESC — закрыть
-            document.addEventListener('keydown', (e) => {
-                if (!isMobile()) return;
-                if (e.key === 'Escape') {
-                    specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
-                    specs.classList.remove('has-popover');
-                }
-            });
-
-            // ресайз — убрать раскрытие, чтобы ничего не залипало
-            window.addEventListener('resize', () => {
-                specs.querySelectorAll('.spec-wrapper.expanded').forEach(w => w.classList.remove('expanded'));
-                specs.classList.remove('has-popover');
-            });
-        })();
-    </script>
-
 
 
 {% endblock %}
