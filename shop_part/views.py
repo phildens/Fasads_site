@@ -37,17 +37,33 @@ from .models import Product  # проверь импорт
 class SimilarProductsAPIView(APIView):
     """
     GET /api/products/<int:pk>/similar/?limit=8
-    Возвращает [{id, name, card_image}] по той же категории.
+    Возвращает [{id, name, card_image}]:
+      1) Сначала — товары, вручную выбранные в админке (similar_products_manual);
+      2) Если их меньше лимита — добираем из той же категории, исключая дубли и сам товар.
     """
 
     def get(self, request, pk: int):
         limit = int(request.GET.get("limit", 8))
         base = get_object_or_404(Product, pk=pk)
-        qs = (Product.objects
-              .filter(category=base.category)
-              .exclude(id=base.id)
-              .order_by("-id")[:limit])
-        ser = ProductInCatSerializer(qs, many=True, context={"request": request})
+
+        # 1) Ручной список (может быть из любых категорий)
+        manual_qs = base.similar_products_manual.all()
+
+        # 2) Если нужно — добираем из категории
+        items = list(manual_qs[:limit])
+
+        if len(items) < limit and base.category_id:
+            need = limit - len(items)
+            exclude_ids = {base.id, *[p.id for p in items]}
+            fallback_qs = (
+                Product.objects
+                .filter(category_id=base.category_id)
+                .exclude(id__in=exclude_ids)
+                .order_by("-id")[:need]
+            )
+            items.extend(list(fallback_qs))
+
+        ser = ProductInCatSerializer(items, many=True, context={"request": request})
         return Response({"items": ser.data})
 
 

@@ -203,6 +203,14 @@ class Product(models.Model):
         null=True,
         help_text="Отображается как бейдж на карточке: Фаворит / Акция / Новинка"
     )
+    # НОВОЕ: ручной выбор похожих товаров
+    similar_products_manual = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        blank=True,
+        related_name='manually_recommended_for',
+        verbose_name="Похожие товары (ручной выбор)"
+    )
 
     class Meta:
         verbose_name = "Товар"

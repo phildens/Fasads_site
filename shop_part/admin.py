@@ -32,7 +32,7 @@ class GalleryInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [GalleryInline]
+    inlines = [GalleryInline, ]
     list_display = ('name', 'card_image', 'type_material', 'description', 'promo_tag')
     search_fields = (
         "name",
@@ -48,8 +48,6 @@ class ProductAdmin(admin.ModelAdmin):
         "emptiness__name",
         "category__name",
     )
-
-    # В list_filter — только то, что поддерживается (FK/M2M/choices/даты/булевы)
     list_filter = (
         "type_material",
         "manufacturer",
@@ -61,6 +59,24 @@ class ProductAdmin(admin.ModelAdmin):
         "formats",
         "emptiness",
         "category",
+    )
+
+    # НОВОЕ: удобный виджет для выбора похожих
+    filter_horizontal = ('similar_products_manual',)
+
+    # НОВОЕ: выведем поле в форму редактирования
+    fieldsets = (
+        (None, {
+            'fields': (
+                'name', 'card_image', 'description',
+                'manufacturer', 'type_material', 'category',
+                'color', 'frosen_defend', 'strength_grade',
+                'water_resistance', 'product_type',
+                'formats', 'emptiness',
+                'product_price', 'promo_tag',
+                'similar_products_manual',   # ← добавили сюда
+            )
+        }),
     )
 
 
