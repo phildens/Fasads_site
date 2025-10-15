@@ -5,8 +5,7 @@
 
 {% block content %}
     
-{#{% include 'description_item.html' %}#}
-    {% include "description_item.html" with hide_facades_link=True %}
+{% include 'description_item.html' %}
     
      <div class="stats-section">
       <div class="stats-card">
@@ -303,7 +302,7 @@
         <div>
             <div style="height: 26px"></div>
                 <div style="max-height: 107px; width: 1200px; display: flex; justify-content: space-between; align-items: center">
-                    <img src="{% static "imgfolder/image-Photoroom (60) 1.png" %}" alt="" style="width: 186px">
+                    <img src="{% static "imgfolder/logo_white2.svg" %}" alt="" style="width: 186px">
                     
                     <div style="text-align: center; cursor: pointer" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'">
                         <p class="small-h">Пермь, Газеты Звезда, 13, 4 этаж</p>
@@ -339,7 +338,7 @@
                         
                         <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
                         
-                        <p style="width: 574px; font-family: Muller-regular; font-size: 20px; line-height: 100%; letter-spacing: 0%; text-align: right; color: #42222399; ">Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами 
+                        <p style="width: 574px; font-family: Muller-regular; font-size: 20px; line-height: 100%; letter-spacing: 0%; text-align: right; color: #422223; opacity: 70%;">Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами 
 мы формируем облик будущего, превращая смелые
 концепции в осязаемые формы</p>
                         
@@ -372,7 +371,7 @@
 
     <!-- локальная «шапка» для мобайла/планшета: только логотип + бургер -->
     <div class="mr-top">
-      <img src="{% static 'imgfolder/image-Photoroom (60) 1.png' %}" alt="logo" class="mr-logo">
+      <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="logo" class="mr-logo">
       <button class="mr-burger" id="menuToggleMobile">
         
       </button>

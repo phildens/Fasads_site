@@ -76,7 +76,7 @@ padding: 0;}
 }
 .conteiner{background:#422223;width:100%;min-height:7px;min-width:1440px;display:flex;flex-direction:column}
 .header{display:flex;justify-content:center;align-items:center;position:relative;flex-shrink:0}
-.logo img{width:100%;height:auto}
+.logo img{width: 186px;;height:auto}
 .nav-list{display:flex;max-width:1200px;align-items:center;width:1200px;margin:0;padding-top:30px;padding-left:0;flex-wrap:wrap;gap:37px;color:#422223;list-style:none;font-family:'head',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%;letter-spacing:0}
 .nav-list2{display:flex;margin:0;padding-top:30px;flex-wrap:wrap;gap:30px;color:#fff6f3;list-style:none;margin-left:30px;font-family:'head2',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%}
 .nav-link,.nav-link:hover,.nav-link:focus,.nav-link:active{color:#422223;text-decoration:none;padding:0}
@@ -213,7 +213,7 @@ html, body { max-width:100%; overflow-x:hidden; }
 <!-- ======= САЙДМЕНЮ ======= -->
 <nav class="side-menu" id="sideMenu">
   <div class="logo img" id="closemenu" aria-label="Закрыть меню" role="button" tabindex="0">
-    <img style="width: 229px; height: 113px" src="{% static 'imgfolder/image-Photoroom (40) 3.png' %}" alt="Логотип">
+    <img style="width: 229px; height: 113px" src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
     <!-- Дублируем вашу кнопку внутри сайдбара (закрытие) -->
     
   </div>
@@ -249,7 +249,7 @@ html, body { max-width:100%; overflow-x:hidden; }
       <span class="mini-contact-icon">
         <img style="width:60px;height:60px" src="{% static 'imgfolder/location.png' %}" alt="Локация">
       </span>
-      <span class="mini-contact-text" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer">Пермь, Газеты Звезда,<br>13, 4 этаж <br> <br> б-р Гагарина, 67, 2 этаж</span>
+      <span class="mini-contact-text" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'" style="cursor: pointer">Пермь, Газеты Звезда,<br>13, 4 этаж</span>
     </div>
     <div class="mini-contact-row">
       <span class="mini-contact-icon">
@@ -259,29 +259,13 @@ html, body { max-width:100%; overflow-x:hidden; }
     </div>
     <div class="mini-contact-row">
       <span class="mini-contact-icon">
-        <img style="width:60px;height:60px" src="{% static 'imgfolder/ico_contact/Group 308.png' %}" alt="Связь">
+        <img style="width:60px;height:60px" src="{% static 'imgfolder/message.png' %}" alt="Связь">
       </span>
-            <span class="mini-contact-text">
+      <span class="mini-contact-text">
         <a style="color:#575757" href="https://t.me/sovremennye_fasady" target="_blank">Написать нам в Telegram</a><br>
         <a style="color:#575757" href="http://wa.me/79519401249" target="_blank">Написать нам на Whatsapp</a>
       </span>
-        </div>
-        <div class="mini-contact-row">
-      <span class="mini-contact-icon">
-        <img style="width:60px;height:60px" src="{% static 'imgfolder/ico_contact/Group 310.png' %}" alt="Связь">
-      </span>
-            <span class="mini-contact-text">
-        <a style="color:#575757" href="https://t.me/evrofacad" target="_blank">Telegram-канал</a><br>
-      </span>
-        </div>
-        <div class="mini-contact-row">
-      <span class="mini-contact-icon">
-        <img style="width:60px;height:60px" src="{% static 'imgfolder/ico_contact/Group 313.png' %}" alt="Связь">
-      </span>
-            <span class="mini-contact-text">
-        <a style="color:#575757" href="https://vk.com/evrofasadperm" target="_blank">Мы в ВКонтакте</a><br>
-      </span>
-        </div>
+    </div>
     <div class="mini-contact-note">
       <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16" style="width:17px;height:17px;vertical-align:middle"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
       <span>Мы гарантируем полное соблюдение ваших интеллектуальных прав и конфиденциальности предоставленной информации.</span>
@@ -300,7 +284,7 @@ html, body { max-width:100%; overflow-x:hidden; }
     <nav class="nav">
       <ul class="nav-list">
         <a href="{% url 'home' %}" class="logo img">
-    <img src="{% static 'imgfolder/header.png' %}" alt="Логотип">
+    <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
 </a>
         <li><a href="{% url 'catalog_all' %}" class="nav-link" style="font-family: Muller-medium">Продукция</a></li>
         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
