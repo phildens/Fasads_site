@@ -76,7 +76,7 @@ padding: 0;}
 }
 .conteiner{background:#422223;width:100%;min-height:7px;min-width:1440px;display:flex;flex-direction:column}
 .header{display:flex;justify-content:center;align-items:center;position:relative;flex-shrink:0}
-.logo img{width:100%;height:auto}
+.logo img{width: 186px;;height:auto}
 .nav-list{display:flex;max-width:1200px;align-items:center;width:1200px;margin:0;padding-top:30px;padding-left:0;flex-wrap:wrap;gap:37px;color:#422223;list-style:none;font-family:'head',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%;letter-spacing:0}
 .nav-list2{display:flex;margin:0;padding-top:30px;flex-wrap:wrap;gap:30px;color:#fff6f3;list-style:none;margin-left:30px;font-family:'head2',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%}
 .nav-link,.nav-link:hover,.nav-link:focus,.nav-link:active{color:#422223;text-decoration:none;padding:0}
@@ -213,7 +213,7 @@ html, body { max-width:100%; overflow-x:hidden; }
 <!-- ======= САЙДМЕНЮ ======= -->
 <nav class="side-menu" id="sideMenu">
   <div class="logo img" id="closemenu" aria-label="Закрыть меню" role="button" tabindex="0">
-    <img style="width: 229px; height: 113px" src="{% static 'imgfolder/image-Photoroom (40) 3.png' %}" alt="Логотип">
+    <img style="width: 229px; height: 113px" src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
     <!-- Дублируем вашу кнопку внутри сайдбара (закрытие) -->
     
   </div>
@@ -300,7 +300,7 @@ html, body { max-width:100%; overflow-x:hidden; }
     <nav class="nav">
       <ul class="nav-list">
         <a href="{% url 'home' %}" class="logo img">
-    <img src="{% static 'imgfolder/header.png' %}" alt="Логотип">
+    <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
 </a>
         <li><a href="{% url 'catalog_all' %}" class="nav-link" style="font-family: Muller-medium">Продукция</a></li>
         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
