@@ -2256,11 +2256,24 @@
 
         <!-- Требуется Bootstrap 5 (css/js) в base.html -->
 
-        <!-- Заголовок (десктоп-стили оставлены инлайном) -->
-        <div class="gallery-page-title"
-             style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
-            <p>Галерея объектов</p>
-        </div>
+<!-- Заголовок (десктоп-стили оставлены инлайном) -->
+<div class="gallery-page-title"
+     style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
+     <button style="padding: 13px 38px;
+    background: #421e23;
+    
+    color:#421e23;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.11rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: auto;
+    
+    transition: background .16s, box-shadow .16s;"><a href="{% url 'galery' %}?galery_name=galery" style="text-decoration: none;color: #ffffff;">Галерея объектов</a></button>
+  
+</div>
 
         <!-- Слайдер -->
         <div id="carouselExampleSlidesOnly" class="carousel slide"
