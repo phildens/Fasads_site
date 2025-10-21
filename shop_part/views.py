@@ -214,9 +214,10 @@ class ProductListView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-
+from .models import BannerSlide
 def index(request):
-    return render(request, 'index.html')
+    slides = BannerSlide.objects.all()[:3]
+    return render(request, 'index.html', {'banner_slides': slides})
 
 
 def yandex_find(request):

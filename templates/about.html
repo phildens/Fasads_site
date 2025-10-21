@@ -479,7 +479,132 @@
   </div>
       
 </div>
-    
+    <script>
+(function(){
+  const scroller = document.getElementById('slider');
+  if (!scroller) return;
+
+  const EPS = 1;
+
+  // helpers
+  const getGap = (el)=>{
+    const cs = getComputedStyle(el);
+    const g  = cs.columnGap || cs.gap || "0px";
+    const n  = parseFloat(g);
+    return Number.isFinite(n) ? n : 0;
+  };
+  const firstSlide = (el)=> el.querySelector('.slide-car');
+  const stepSize = (el)=>{
+    const s = firstSlide(el);
+    return s ? (s.offsetWidth + getGap(el)) : 240;
+  };
+  const hasOverflow = (el)=> (el.scrollWidth - el.clientWidth) > EPS;
+
+  function ensureWrap(el){
+    if (el.parentElement && el.parentElement.classList.contains('slider-wrap')) {
+      return el.parentElement;
+    }
+    const wrap = document.createElement('div');
+    wrap.className = 'slider-wrap';
+    el.parentNode.insertBefore(wrap, el);
+    wrap.appendChild(el);
+    return wrap;
+  }
+
+  function ensureArrows(wrap){
+    let prev = wrap.querySelector('.slider-nav.prev');
+    let next = wrap.querySelector('.slider-nav.next');
+
+    if(!prev){
+      prev = document.createElement('button');
+      prev.type = 'button';
+      prev.className = 'slider-nav prev';
+      prev.setAttribute('aria-label','Назад');
+      prev.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      wrap.appendChild(prev);
+    }
+    if(!next){
+      next = document.createElement('button');
+      next.type = 'button';
+      next.className = 'slider-nav next';
+      next.setAttribute('aria-label','Вперёд');
+      next.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      wrap.appendChild(next);
+    }
+    return { prev, next };
+  }
+
+  function updateState(){
+    const wrap = ensureWrap(scroller);
+    const { prev, next } = ensureArrows(wrap);
+
+    // Если не переполнен — прячем обе
+    if (!hasOverflow(scroller)) {
+      prev.style.display = 'none';
+      next.style.display = 'none';
+      scroller.classList.remove('has-arrows');
+      return;
+    }
+
+    const max = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+    const atStart = scroller.scrollLeft <= EPS;
+    const atEnd   = scroller.scrollLeft >= (max - EPS);
+
+    prev.disabled = atStart;
+    next.disabled = atEnd;
+
+    const hideBoth = atStart && atEnd;
+    if (hideBoth) {
+      prev.style.display = 'none';
+      next.style.display = 'none';
+      scroller.classList.remove('has-arrows');
+    } else {
+      prev.style.display = '';
+      next.style.display = '';
+      scroller.classList.add('has-arrows');
+    }
+  }
+
+  function waitImages(cb){
+    const imgs = Array.from(scroller.querySelectorAll('img'));
+    if (!imgs.length) { cb(); return; }
+    let left = imgs.length;
+    const done = ()=>{ if(--left <= 0) cb(); };
+    imgs.forEach(img=>{
+      if (img.complete) done();
+      else {
+        img.addEventListener('load', done, { once:true });
+        img.addEventListener('error', done, { once:true });
+      }
+    });
+  }
+
+  // init
+  const wrap = ensureWrap(scroller);
+  const { prev, next } = ensureArrows(wrap);
+
+  function scrollByStep(dir){
+    scroller.scrollBy({ left: dir * stepSize(scroller), behavior: 'smooth' });
+    setTimeout(updateState, 220);
+  }
+
+  [prev, next].forEach(btn=>{
+    btn.addEventListener('click', e=>e.stopPropagation());
+    btn.addEventListener('mousedown', e=>e.stopPropagation());
+    btn.addEventListener('touchstart', e=>e.stopPropagation(), {passive:true});
+  });
+
+  prev.addEventListener('click', ()=>scrollByStep(-1));
+  next.addEventListener('click', ()=>scrollByStep(1));
+  scroller.addEventListener('scroll', updateState, { passive:true });
+
+  const ro = new ResizeObserver(updateState);
+  ro.observe(scroller);
+
+  waitImages(updateState);
+})();
+</script>
+
     <div style="height: 120px"></div>
    <!-- REVIEWS SECTION -->
 <section class="reviews-section">

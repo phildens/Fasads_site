@@ -288,3 +288,14 @@ class SmallGallery(models.Model):
     class Meta:
         verbose_name = 'Фото объекта при открытии'
         verbose_name_plural = ('Фото объекта при открытии')
+
+class BannerSlide(models.Model):
+    title = models.CharField('Заголовок (большой)', max_length=200)
+    subtitle = models.CharField('Подзаголовок (средний)', max_length=200, blank=True)
+    description = models.TextField('Описание', blank=True)
+    image = models.ImageField('Картинка', upload_to='banners/')
+    cta_url = models.URLField('Ссылка для кнопки «Узнать подробнее»')
+    image_mobile = models.ImageField('Картинка (мобильная версия)', upload_to='banners/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title

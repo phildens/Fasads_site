@@ -2008,79 +2008,100 @@
         </form>
 
         <!-- Slider -->
-        <div class="slider">
-            <div class="slides">
-                <div class="slide">
-                    <div class="slide-text">
-                        <h2 class="big">НОВИНКА<br>
-                            <div style="height: 5px;"></div>
-                            <p class="medium">Коллекция Halb от RECKE</p></h2>
-                        <div class="slide-buttons">
-                            <button class="slide-btn white">Узнать подробнее</button>
-                            <a href="#callback-form" class="slide-btn green"
-                               style="text-decoration: none; color: inherit;" data-modal-target="#contact-modal">Оставить
-                                заявку</a>
-                        </div>
-                        <p class="min">Представьте фасады, играющие переливами света<br> и тени благодаря обновленным
-                            текстурам, где каждый<br> кирпич рассказывает свою историю, создавая<br> неповторимую
-                            атмосферу</p>
-                    </div>
-                    <div class="slide-image">
-                        <img src="{% static 'imgfolder\png12.webp' %}" alt="">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-text">
-                        <h2 class="big">фавориты<br>
-                            <div style="height: 5px;"></div>
-                            <p class="medium">хранитель времени</p></h2>
-                        <div class="slide-buttons">
-                            <button class="slide-btn white" onclick="location.href='https://modernfasad.ru/p/86/'"><p>
-                                Узнать подробнее</p></button>
-                            <a href="#callback-form" class="slide-btn green"
-                               style="text-decoration: none; color: inherit;">Оставить заявку</a>
-                        </div>
-                        <p class="min">Кирпич, наполненный духом вулкана Сагынды.<br>
-                            Его спокойный оттенок символизирует надежность <br>
-                            и долговечность, которые он приносит в дом</p>
-                    </div>
-                    <div class="slide-image2">
-                        <img src="{% static 'imgfolder/png22.webp' %}" alt="">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-text">
-                        <h2 class="big">фавориты<br>
-                            <div style="height: 5px;"></div>
-                            <p class="medium">Скрябин керамикс, 54</p></h2>
-                        <div class="slide-buttons">
-                            <button class="slide-btn white" onclick="location.href='https://modernfasad.ru/p/34/'">
-                                Узнать подробнее
-                            </button>
-                            <a href="#callback-form" class="slide-btn green"
-                               style="text-decoration: none; color: inherit;">Оставить заявку</a>
-                        </div>
-                        <p class="min">Кирпич ручной формовки, который идеально <br>
-                            подойдет под вашу идею</p>
-                    </div>
-                    <div class="slide-image3">
-                        <picture>
-                            <!-- мобильная версия -->
-                            <source media="(max-width: 1024px)" srcset="{% static 'imgfolder/png33.webp' %}">
-                            <!-- десктопная версия (по умолчанию) -->
-                            <img src="{% static 'imgfolder/png3.webp' %}" alt="">
-                        </picture>
-                    </div>
-                </div>
-            </div>
-            <!-- Dots -->
-            <div class="dots">
-                <span class="dot active" data-index="0"></span>
-                <span class="dot" data-index="1"></span>
-                <span class="dot" data-index="2"></span>
-            </div>
+<div class="slider">
+  <div class="slides">
+    {% for s in banner_slides %}
+      <div class="slide">
+        <div class="slide-text">
+          <h2 class="big">
+            {{ s.title|safe }}
+            <div style="height: 5px;"></div>
+            {% if s.subtitle %}
+              <p class="medium">{{ s.subtitle|safe }}</p>
+            {% endif %}
+          </h2>
+
+          <div class="slide-buttons">
+            <button class="slide-btn white" onclick="location.href='{{ s.cta_url }}'">
+              Узнать подробнее
+            </button>
+            <a href="#callback-form" class="slide-btn green"
+               style="text-decoration: none; color: inherit;"
+               data-modal-target="#contact-modal">Оставить заявку</a>
+          </div>
+
+          {% if s.description %}
+            <p class="min">{{ s.description|safe|linebreaksbr }}</p>
+          {% endif %}
         </div>
-    </div>
+
+        <div class="slide-image">
+  {% if s.image_mobile %}
+    <picture>
+      <source media="(max-width: 1024px)" srcset="{{ s.image_mobile.url }}">
+      <img src="{{ s.image.url }}" alt="{{ s.title }}">
+    </picture>
+  {% else %}
+      <img src="{{ s.image.url }}" alt="{{ s.title }}">
+  {% endif %}
+</div>
+      </div>
+    {% endfor %}
+  </div>
+<style>/* стрелки по умолчанию скрыты (на десктопе) */
+.hero-arrow {
+  display: none;
+}
+
+/* показываем и оформляем только на мобайле/планшете */
+@media (max-width: 1024px) {
+  .hero-arrow {
+    position: absolute;
+    top: 70%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(33,33,33,.55);
+    color: #fff;
+    display: flex;           /* включаем только здесь */
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .hero-arrow:active { transform: translateY(-50%) scale(.98); }
+
+  .hero-arrow.prev { left: 8px; }
+  .hero-arrow.next { right: 8px; }
+
+  /* если стрелок быть не должно — принудительно скрываем */
+  .hero-arrow.is-hidden { display: none !important; }
+  
+}
+
+</style>
+  <button class="hero-arrow prev" type="button" aria-label="Предыдущий">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button class="hero-arrow next" type="button" aria-label="Следующий">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 6 15 12 9 18" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="dots">
+    {% for _ in banner_slides %}
+      <span class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+    {% endfor %}
+  </div>
+</div>
 
     <div class="footer-wrapper">
         <div class="footer-cards">
@@ -2584,9 +2605,56 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const slides = document.querySelector('.slides');
+        
         const dots = document.querySelectorAll('.dot');
         let currentIndex = 0;
+        // ===== СТРЕЛКИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ =====
+  const sliderRoot = document.querySelector('.slider');
+  const prevBtn = sliderRoot.querySelector('.hero-arrow.prev');
+  const nextBtn = sliderRoot.querySelector('.hero-arrow.next');
 
+  // если слайдов меньше 2 — скрываем стрелки
+  const slidesCount = dots.length || sliderRoot.querySelectorAll('.slide').length;
+  const hideArrows = slidesCount < 2;
+  if (hideArrows) {
+    prevBtn.classList.add('is-hidden');
+    nextBtn.classList.add('is-hidden');
+  }
+
+  // листалка по стрелкам
+  function go(delta) {
+    if (slidesCount < 2) return;
+    currentIndex = (currentIndex + delta + slidesCount) % slidesCount;
+    updateSlide();
+  }
+  if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+
+  // свайп жесты на мобайле (очень лёгкие)
+  let touchX = null, touchY = null;
+  sliderRoot.addEventListener('touchstart', (e) => {
+    const t = e.changedTouches[0];
+    touchX = t.clientX; touchY = t.clientY;
+  }, {passive:true});
+  sliderRoot.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchX;
+    const dy = Math.abs(t.clientY - touchY);
+    // горизонтальный свайп без сильного вертикального движения
+    if (Math.abs(dx) > 40 && dy < 40) go(dx < 0 ? 1 : -1);
+    touchX = touchY = null;
+  }, {passive:true});
+
+  // при ресайзе: если вдруг ширина/макет меняется — переназначим видимость
+  window.addEventListener('resize', () => {
+    const mobile = window.innerWidth <= 1024;
+    // показывать стрелки только на мобайле и когда есть что листать
+    [prevBtn, nextBtn].forEach(btn => {
+      if (!btn) return;
+      btn.classList.toggle('is-hidden', !mobile || slidesCount < 2);
+    });
+  });
         dots.forEach(dot => {
             dot.addEventListener('click', () => {
                 currentIndex = parseInt(dot.dataset.index);

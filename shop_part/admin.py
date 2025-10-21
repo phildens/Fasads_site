@@ -190,3 +190,11 @@ class ContactRequestAdmin(admin.ModelAdmin):
     search_fields = ("first_name", "last_name", "email", "phone", "description")
     list_filter = ("created_at",)
     readonly_fields = ("created_at",)
+
+
+from .models import BannerSlide
+
+@admin.register(BannerSlide)
+class BannerSlideAdmin(admin.ModelAdmin):
+    list_display = ('title', 'subtitle')
+    search_fields = ('title', 'subtitle', 'description')
