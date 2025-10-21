@@ -1,263 +1,264 @@
 {% load static %}
 
 <div class="logos-section" id="manufactors">
-    <div class="logos-inner">
-        <div class="logos-section-title">
-            <p>Мы являемся официальными дилерами 22 заводов-производителей</p>
-        </div>
-
-        <!-- один ряд, горизонтальный слайдер на всех размерах -->
-        <div class="logos-row" id="logos-slider">
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo1.png' %}" alt="Пятый элемент">
-            </div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo2.png' %}" alt="ARHIO"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo3.png' %}"
-                                        alt="Recke Brickerei"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo4.png' %}"
-                                        alt="Laterem Antique"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo5.png' %}"
-                                        alt="Skriaibin Ceramics"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo6.png' %}" alt="ЛСР"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo7.png' %}" alt="Царский Кирпич">
-            </div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo8.png' %}" alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/2.png' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/4.png' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/8.png' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/9.jpg' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/10.png' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/11.jpg' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/14.png' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/17.jpg' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/18.png' %}"
-                                        alt="Ströher"></div>
-            <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/13.jpg' %}"
-                                        alt="Ströher"></div>
-        </div>
+  <div class="logos-inner">
+    <div class="logos-section-title">
+      <p>Мы являемся официальными дилерами 22 заводов-производителей</p>
     </div>
+
+    <!-- Кнопки навигации -->
+    <button class="logos-nav prev" type="button" aria-label="Назад" hidden>
+      <svg viewBox="0 0 24 24" width="24" height="24"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="logos-nav next" type="button" aria-label="Вперёд" hidden>
+      <svg viewBox="0 0 24 24" width="24" height="24"><polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <!-- Горизонтальная лента -->
+    <div class="logos-row" id="logos-slider" aria-label="Логотипы партнёров">
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo1.png' %}" alt="Пятый элемент"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo2.png' %}" alt="ARHIO"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo3.png' %}" alt="Recke Brickerei"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo4.png' %}" alt="Laterem Antique"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo5.png' %}" alt="Skriaibin Ceramics"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo6.png' %}" alt="ЛСР"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo7.png' %}" alt="Царский Кирпич"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/logo8.png' %}" alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/2.png' %}"  alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/4.png' %}"  alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/8.png' %}"  alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/9.jpg' %}"  alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/10.png' %}" alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/11.jpg' %}" alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/14.png' %}" alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/17.jpg' %}" alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/18.png' %}" alt="Ströher"></div>
+      <div class="logo-card"><img draggable="false" src="{% static 'imgfolder/manufactors/13.jpg' %}" alt="Ströher"></div>
+    </div>
+  </div>
 </div>
+
+<style>
+  /* Секция и контейнер */
+  .logos-section{width:100%;max-width:100%;box-sizing:border-box;position:relative}
+  .logos-inner{max-width:1200px;margin:0 auto;padding:0 16px;box-sizing:border-box;position:relative}
+
+  /* Заголовок */
+  .logos-section-title{margin-bottom:24px}
+  .logos-section-title p{
+    margin:0;font-family:Muller-medium;font-weight:500;font-size:24px;line-height:100%;
+    overflow-wrap:anywhere;word-break:break-word;
+  }
+
+  /* Лента */
+  .logos-row{
+    display:flex;gap:24px;overflow-x:auto;overflow-y:visible;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;        /* мягкое прилипание */
+    scrollbar-width:none;padding:8px 48px 12px;  /* запас для стрелок */
+    overscroll-behavior-x:contain;
+  }
+  .logos-row::-webkit-scrollbar{display:none}
+
+  /* Карточки */
+  .logo-card{
+    flex:0 0 auto;width:clamp(220px,23vw,280px);height:clamp(160px,22vw,269px);
+    background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(51,51,51,.04);
+    display:flex;align-items:center;justify-content:center;scroll-snap-align:center;
+    transition:box-shadow .16s;
+  }
+  .logo-card img{
+    max-width:70%;max-height:70%;width:auto;height:auto;object-fit:contain;
+    -webkit-user-drag:none;user-select:none;pointer-events:none;
+  }
+
+  /* Курсор при перетаскивании */
+  .logos-row.dragging{cursor:grabbing}
+
+  /* Стрелки */
+  .logos-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:38px;height:38px;border:none;border-radius:50%;
+    background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.15);
+    color:#222;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    z-index:2; /* выше ленты */
+  }
+  .logos-nav:disabled{opacity:.5;cursor:not-allowed}
+  .logos-nav.prev{left:8px}
+  .logos-nav.next{right:8px}
+
+  /* Узкие экраны — чуть плотнее */
+  @media (max-width:600px){
+    .logos-inner{padding:0 20px}
+    .logos-row{gap:16px;padding:8px 36px 12px}
+    .logo-card{width:clamp(180px,70vw,260px);height:clamp(140px,40vw,240px)}
+  }
+</style>
 
 <script>
 (function () {
-  const slider = document.getElementById('logos-slider');
-  if (!slider) return;
+  const row   = document.getElementById('logos-slider');
+  if (!row) return;
 
-  // --- utils ---
+  const btnPrev = document.querySelector('.logos-nav.prev');
+  const btnNext = document.querySelector('.logos-nav.next');
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ---- helpers ----
+  const getX = (e) => (e.touches && e.touches[0]?.pageX) ?? e.pageX;
+
   function getGap() {
-    const g = getComputedStyle(slider).gap || "0px";
+    const g = getComputedStyle(row).gap || "0px";
     const num = parseFloat(g);
     return Number.isFinite(num) ? num : 0;
   }
-  function firstCard() {
-    return slider.querySelector('.logo-card');
-  }
+  function firstCard() { return row.querySelector('.logo-card'); }
   function cardStep() {
-    const card = firstCard();
-    if (!card) return 0;
-    return card.offsetWidth + getGap();
+    const c = firstCard(); if (!c) return 0;
+    return c.offsetWidth + getGap();
   }
 
-  // --- drag / swipe ---
-  let isDown = false, startX = 0, startLeft = 0;
+  // Показывать стрелки только если есть переполнение
+  function toggleArrows() {
+    const shouldShow = row.scrollWidth > row.clientWidth + 2;
+    btnPrev.hidden = btnNext.hidden = !shouldShow;
+    updateArrowState();
+  }
+  function updateArrowState() {
+    const max = row.scrollWidth - row.clientWidth;
+    btnPrev.disabled = row.scrollLeft <= 0;
+    btnNext.disabled = row.scrollLeft >= max - 1;
+  }
 
-  const getX = (e) => (e.touches && e.touches[0]?.pageX) ?? e.pageX;
+  // temporary disable/enable snap to avoid "jumps"
+  let snapDisabled = false;
+  function disableSnap() {
+    if (snapDisabled) return;
+    row.dataset.snap = row.style.scrollSnapType || '';
+    row.style.scrollSnapType = 'none';
+    snapDisabled = true;
+  }
+  function enableSnapSoon(delay=120) {
+    if (!snapDisabled) return;
+    window.clearTimeout(enableSnapSoon._t);
+    enableSnapSoon._t = window.setTimeout(() => {
+      row.style.scrollSnapType = row.dataset.snap || 'x proximity';
+      snapDisabled = false;
+    }, delay);
+  }
 
-  function onPointerDown(e) {
-    isDown = true;
-    slider.classList.add('dragging');
+  // ---- drag / swipe ----
+  let isDown=false, startX=0, startLeft=0, moved=false;
+
+  function onDown(e){
+    isDown = true; moved = false;
+    row.classList.add('dragging');
     startX = getX(e);
-    startLeft = slider.scrollLeft;
+    startLeft = row.scrollLeft;
     pauseAutoplay();
+    disableSnap();
   }
-  function onPointerMove(e) {
+  function onMove(e){
     if (!isDown) return;
-    slider.scrollLeft = startLeft + (startX - getX(e));
+    const dx = getX(e) - startX;
+    if (Math.abs(dx) > 0) moved = true;
+    row.scrollLeft = startLeft - dx;
+    updateArrowState();
   }
-  function onPointerUp() {
+  function onUp(){
     if (!isDown) return;
     isDown = false;
-    slider.classList.remove('dragging');
+    row.classList.remove('dragging');
+    // Имитируем лёгкий "докат" — вернём snap чуть позже
+    enableSnapSoon(150);
     resumeAutoplaySoon();
   }
 
-  slider.addEventListener('mousedown', onPointerDown);
-  window.addEventListener('mousemove', onPointerMove);
-  window.addEventListener('mouseup', onPointerUp);
-  slider.addEventListener('touchstart', onPointerDown, { passive: true });
-  slider.addEventListener('touchmove', onPointerMove,  { passive: true });
-  slider.addEventListener('touchend', onPointerUp);
+  row.addEventListener('mousedown', onDown);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onUp);
+  row.addEventListener('touchstart', onDown, {passive:true});
+  row.addEventListener('touchmove',  onMove, {passive:true});
+  row.addEventListener('touchend',   onUp);
 
-  // --- горизонтальный скролл колесом мыши ---
-  slider.addEventListener('wheel', (e) => {
-    // превращаем вертикальную прокрутку в горизонтальную
+  // Горизонтальный скролл колёсиком
+  row.addEventListener('wheel', (e) => {
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
       e.preventDefault();
-      slider.scrollLeft += e.deltaY;
-      pauseAutoplay();
-      resumeAutoplaySoon();
+      disableSnap();
+      row.scrollLeft += e.deltaY;
+      updateArrowState();
+      enableSnapSoon(180);
+      pauseAutoplay(); resumeAutoplaySoon();
     }
   }, { passive: false });
 
-  // --- автопрокрутка ---
-  let autoTimer = null, resumeTimer = null;
-
-  function tick() {
-    const step = cardStep();
-    if (!step) return;
-
-    const maxScroll = slider.scrollWidth - slider.clientWidth;
-    const next = (slider.scrollLeft + step >= maxScroll - 2) ? 0 : (slider.scrollLeft + step);
-    slider.scrollTo({ left: next, behavior: 'smooth' });
+  // ---- arrows ----
+  function scrollByStep(dir=1) {
+    const step = cardStep() || 200;
+    disableSnap();
+    row.scrollBy({ left: dir * step, behavior: 'smooth' });
+    enableSnapSoon(260);
+    pauseAutoplay(); resumeAutoplaySoon();
+    // обновим состояние чуть позже
+    setTimeout(updateArrowState, 280);
   }
+  btnPrev.addEventListener('click', () => scrollByStep(-1));
+  btnNext.addEventListener('click', () => scrollByStep(1));
 
-  function startAutoplay() {
+  // Клавиатура
+  row.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByStep(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); scrollByStep(1);  }
+  });
+  row.tabIndex = 0; // чтобы ловить фокус и стрелки
+
+  // ---- autoplay ----
+  let autoTimer=null, resumeTimer=null;
+  function tick(){
+    const step = cardStep(); if (!step) return;
+    const max = row.scrollWidth - row.clientWidth;
+    const next = (row.scrollLeft + step >= max - 2) ? 0 : (row.scrollLeft + step);
+    disableSnap();
+    row.scrollTo({ left: next, behavior: 'smooth' });
+    enableSnapSoon(260);
+    setTimeout(updateArrowState, 300);
+  }
+  function startAutoplay(){
     if (reduceMotion || autoTimer) return;
-    autoTimer = setInterval(tick, 2500); // скорость листалки: 2.5c между шагами
+    autoTimer = setInterval(tick, 2800);
   }
-  function pauseAutoplay() {
-    if (autoTimer) {
-      clearInterval(autoTimer);
-      autoTimer = null;
-    }
-    if (resumeTimer) {
-      clearTimeout(resumeTimer);
-      resumeTimer = null;
-    }
+  function pauseAutoplay(){
+    if (autoTimer){ clearInterval(autoTimer); autoTimer=null; }
+    if (resumeTimer){ clearTimeout(resumeTimer); resumeTimer=null; }
   }
-  function resumeAutoplaySoon() {
+  function resumeAutoplaySoon(){
     if (reduceMotion) return;
     if (resumeTimer) clearTimeout(resumeTimer);
     resumeTimer = setTimeout(startAutoplay, 1800);
   }
 
-  // пауза при ховере и когда вкладка скрыта
-  slider.addEventListener('mouseenter', pauseAutoplay);
-  slider.addEventListener('mouseleave', resumeAutoplaySoon);
+  // Пауза при ховере/неактивной вкладке
+  row.addEventListener('mouseenter', pauseAutoplay);
+  row.addEventListener('mouseleave', resumeAutoplaySoon);
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) pauseAutoplay();
-    else resumeAutoplaySoon();
+    if (document.hidden) pauseAutoplay(); else resumeAutoplaySoon();
   });
 
-  // защитимся от перетаскивания изображений
-  slider.querySelectorAll('img').forEach(img => img.setAttribute('draggable', 'false'));
+  // Защита от перетаскивания изображений и ghost-drag
+  row.querySelectorAll('img').forEach(img => {
+    img.setAttribute('draggable','false');
+    img.addEventListener('dragstart', e => e.preventDefault());
+  });
+
+  // Следить за переполнением
+  const ro = new ResizeObserver(() => toggleArrows());
+  ro.observe(row);
+  window.addEventListener('load', toggleArrows);
+  window.addEventListener('resize', toggleArrows);
 
   // старт
   startAutoplay();
-
-  // при ресайзе пересчитываем шаг (gap/ширину)
-  window.addEventListener('resize', () => {
-    pauseAutoplay();
-    // чуть подождём, чтобы лэйаут стабилизировался
-    setTimeout(resumeAutoplaySoon, 100);
-  });
 })();
 </script>
-
-
-<style>
-    /* Секция и контейнер */
-    .logos-section {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        text-align: left;
-    }
-
-    .logos-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 16px;
-        box-sizing: border-box;
-    }
-
-    /* Заголовок */
-    .logos-section-title {
-        margin-bottom: 24px;
-    }
-
-    .logos-section-title p {
-        margin: 0;
-        font-family: Muller-medium;
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 100%;
-        overflow-wrap: anywhere;
-        word-break: break-word;
-    }
-
-    /* --- Слайдер в одну строку на всех размерах --- */
-    .logos-row {
-        display: flex;
-        gap: 24px;
-        overflow-x: auto;
-        overflow-y: visible;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none; /* Firefox */
-        padding: 8px 4px 12px;
-        overscroll-behavior-x: contain;
-    }
-
-    .logos-row::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* WebKit */
-
-    /* Карточки */
-    .logo-card {
-        flex: 0 0 auto; /* не переносится, одна строка */
-        width: clamp(220px, 23vw, 280px);
-        height: clamp(160px, 22vw, 269px);
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 1px 6px rgba(51, 51, 51, .04);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        scroll-snap-align: center;
-        transition: box-shadow .16s;
-    }
-
-    .logo-card img {
-        max-width: 70%;
-        max-height: 70%;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        -webkit-user-drag: none;
-        user-select: none;
-        pointer-events: none;
-    }
-
-    /* Курсор при перетаскивании */
-    .logos-row.dragging {
-        cursor: grabbing;
-    }
-
-    /* Узкие экраны — немного плотнее */
-    @media (max-width: 600px) {
-        .logos-inner {
-            padding: 0 20px;
-        }
-
-        .logos-row {
-            gap: 16px;
-        }
-
-        .logo-card {
-            width: clamp(180px, 70vw, 260px);
-            height: clamp(140px, 40vw, 240px);
-        }
-    }
-</style>

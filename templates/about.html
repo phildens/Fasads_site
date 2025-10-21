@@ -4,7 +4,7 @@
 {% block title %}О нас{% endblock %}
 
 {% block content %}
-    
+
 {#{% include 'description_item.html' %}#}
     {% include "description_item.html" with hide_facades_link=True %}
     
@@ -772,6 +772,27 @@
     
 </div>
 
+<style>
+  /* Обёртка фиксирует стрелки, лента внутри скроллится */
+  .slider-wrap{ position:relative; }
+  .slider{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .slider.has-arrows{ padding:0 44px; box-sizing:border-box; } /* место под стрелки */
+
+  /* Стрелки */
+  .slider-wrap .slider-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:38px; height:38px; border:none; border-radius:50%;
+    background:#fff; color:#222; box-shadow:0 4px 16px rgba(0,0,0,.15);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; z-index:2;
+  }
+  .slider-wrap .slider-nav:disabled{ opacity:.45; cursor:not-allowed; }
+  .slider-wrap .slider-nav.prev{ left:8px; }
+  .slider-wrap .slider-nav.next{ right:8px; }
+
+  .slider::-webkit-scrollbar{ display:none; }
+</style>
+
     
 </div>
     <div class="lb-modal" id="lbModal" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
@@ -784,64 +805,7 @@
 </div>
 
 
-{#    ------код для работы слайдера------#}
-{#<script>#}
-{#    document.addEventListener('DOMContentLoaded', () => {#}
-{#  const slider = document.getElementById('slider');#}
-{#  let isDown     = false;#}
-{#  let startX     = 0;#}
-{#  let scrollLeft = 0;#}
-{##}
-{#  slider.addEventListener('mousedown', e => {#}
-{#    isDown = true;#}
-{#    slider.classList.add('active');#}
-{##}
-{#    // точка клика внутри слайдера#}
-{#    startX     = e.pageX - slider.offsetLeft;#}
-{#    scrollLeft = slider.scrollLeft;#}
-{##}
-{#    // чтобы не выделять ничего#}
-{#    e.preventDefault();#}
-{#  });#}
-{##}
-{#  slider.addEventListener('mouseleave', () => endDrag());#}
-{#  slider.addEventListener('mouseup',     () => endDrag());#}
-{##}
-{#  slider.addEventListener('mousemove', e => {#}
-{#    if (!isDown) return;#}
-{#    const x    = e.pageX - slider.offsetLeft;#}
-{#    const walk = x - startX;#}
-{#    slider.scrollLeft = scrollLeft - walk;#}
-{#  });#}
-{##}
-{#  slider.addEventListener('dragstart', e => {#}
-{#    // блокируем нативный drag картинок#}
-{#    e.preventDefault();#}
-{#  });#}
-{##}
-{#  function endDrag() {#}
-{#    isDown = false;#}
-{#    slider.classList.remove('active');#}
-{#  }#}
-{##}
-{#  // ————— hint при прокрутке страницы —————#}
-{#  const observer = new IntersectionObserver((entries, obs) => {#}
-{#    for (let entry of entries) {#}
-{#      if (entry.isIntersecting) {#}
-{#        // прокрутим чуть вправо и обратно#}
-{#        slider.scrollBy({ left: 80, behavior: 'smooth' });#}
-{#        setTimeout(() => {#}
-{#          slider.scrollTo({ left: 0, behavior: 'smooth' });#}
-{#        }, 600);#}
-{#        obs.disconnect();#}
-{#      }#}
-{#    }#}
-{#  }, { threshold: 0.5 });#}
-{##}
-{#  observer.observe(slider);#}
-{#});#}
-{##}
-{#  </script>#}
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const galleries = Array.from(document.querySelectorAll('.js-lightbox-gallery'));
@@ -934,6 +898,151 @@ document.addEventListener('DOMContentLoaded', function(){
   }, {passive:true});
 });
 </script>
+
+<script>
+(function(){
+  const sliders = Array.from(document.querySelectorAll('.slider.js-lightbox-gallery'));
+  if(!sliders.length) return;
+
+  const EPS = 1; // небольшой допуск для вычисления переполнения
+
+  // === helpers ===
+  const getGap = (el)=>{
+    const cs = getComputedStyle(el);
+    const g  = cs.columnGap || cs.gap || "0px";
+    const n  = parseFloat(g);
+    return Number.isFinite(n) ? n : 0;
+  };
+  const firstSlide = (el)=> el.querySelector('.slide-car');
+  const stepSize = (el)=>{
+    const s = firstSlide(el);
+    return s ? (s.offsetWidth + getGap(el)) : 240;
+  };
+  const hasOverflow = (scroller)=> (scroller.scrollWidth - scroller.clientWidth) > EPS;
+
+  function ensureWrap(slider){
+    if (slider.parentElement && slider.parentElement.classList.contains('slider-wrap')) {
+      return slider.parentElement;
+    }
+    const wrap = document.createElement('div');
+    wrap.className = 'slider-wrap';
+    slider.parentNode.insertBefore(wrap, slider);
+    wrap.appendChild(slider);
+    return wrap;
+  }
+
+  function ensureArrows(wrap){
+    let prev = wrap.querySelector('.slider-nav.prev');
+    let next = wrap.querySelector('.slider-nav.next');
+
+    if(!prev){
+      prev = document.createElement('button');
+      prev.type = 'button';
+      prev.className = 'slider-nav prev';
+      prev.setAttribute('aria-label','Назад');
+      prev.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      wrap.appendChild(prev);
+    }
+    if(!next){
+      next = document.createElement('button');
+      next.type = 'button';
+      next.className = 'slider-nav next';
+      next.setAttribute('aria-label','Вперёд');
+      next.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      wrap.appendChild(next);
+    }
+    return { prev, next };
+  }
+
+  // Ключевая функция: включает/отключает и прячет стрелки
+  function updateState(scroller, wrap){
+    const { prev, next } = ensureArrows(wrap);
+
+    // По умолчанию показываем/включаем — потом поправим
+    prev.style.display = '';
+    next.style.display = '';
+
+    // Если лента НЕ переполнена — вообще прячем обе
+    if (!hasOverflow(scroller)) {
+      prev.style.display = 'none';
+      next.style.display = 'none';
+      scroller.classList.remove('has-arrows');
+      return;
+    }
+
+    // Есть переполнение → вычисляем края
+    const max = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+    const atStart = scroller.scrollLeft <= EPS;
+    const atEnd   = scroller.scrollLeft >= (max - EPS);
+
+    // Дизейблим по краям, но стрелки остаются видимыми,
+    // чтобы пользователь мог листать в другую сторону
+    prev.disabled = atStart;
+    next.disabled = atEnd;
+
+    // Если ПАРАДОКСАЛЬНО обе стороны недоступны (бывает при динамической вёрстке) — скрываем обе
+    const hideBoth = atStart && atEnd;
+    if (hideBoth) {
+      prev.style.display = 'none';
+      next.style.display = 'none';
+      scroller.classList.remove('has-arrows');
+    } else {
+      scroller.classList.add('has-arrows');
+    }
+  }
+
+  // Ждём загрузки картинок внутри конкретного слайдера и только потом считаем размеры
+  function waitImages(slider, cb){
+    const imgs = Array.from(slider.querySelectorAll('img'));
+    if (!imgs.length) { cb(); return; }
+    let left = imgs.length;
+    const done = ()=>{ if(--left <= 0) cb(); };
+
+    imgs.forEach(img=>{
+      if (img.complete) { done(); }
+      else {
+        img.addEventListener('load', done, { once:true });
+        img.addEventListener('error', done, { once:true });
+      }
+    });
+  }
+
+  sliders.forEach((slider)=>{
+    const wrap = ensureWrap(slider);
+    const { prev, next } = ensureArrows(wrap);
+
+    function scrollByStep(dir){
+      slider.scrollBy({ left: dir * stepSize(slider), behavior: 'smooth' });
+      // лёгкая задержка, чтобы scrollLeft обновился
+      setTimeout(()=>updateState(slider, wrap), 220);
+    }
+
+    // Стрелки не должны открывать лайтбокс картинок
+    [prev, next].forEach(btn=>{
+      btn.addEventListener('click', (e)=>{ e.stopPropagation(); });
+      btn.addEventListener('mousedown', (e)=>{ e.stopPropagation(); });
+      btn.addEventListener('touchstart', (e)=>{ e.stopPropagation(); }, {passive:true});
+    });
+
+    prev.addEventListener('click', ()=>scrollByStep(-1));
+    next.addEventListener('click', ()=>scrollByStep(1));
+
+    // Обновляем состояние при скролле и изменении размеров
+    slider.addEventListener('scroll', ()=>updateState(slider, wrap), { passive:true });
+
+    const ro = new ResizeObserver(()=>updateState(slider, wrap));
+    ro.observe(slider);
+
+    // ИНИЦИАЛИЗАЦИЯ: после загрузки картинок чтобы верно посчитать scrollWidth
+    waitImages(slider, ()=>updateState(slider, wrap));
+  });
+})();
+</script>
+
+
+
+
+
 
 
 
