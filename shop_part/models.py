@@ -103,11 +103,11 @@ class Color(models.Model):
 
 
 class FrosenDefender(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Марка прочности")
+    name = models.CharField(max_length=100, verbose_name="Морозостойкость")
 
     class Meta:
-        verbose_name = "Марка прочности"
-        verbose_name_plural = "Марка прочности"
+        verbose_name = "Морозостойкость"
+        verbose_name_plural = "Морозостойкость"
 
     def __str__(self):
         return self.name
@@ -125,11 +125,11 @@ class Manufactor(models.Model):
 
 
 class StrengthGrade(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Морозостойкость")
+    name = models.CharField(max_length=100, verbose_name="Марка прочности")
 
     class Meta:
-        verbose_name = "Морозостойкость"
-        verbose_name_plural = "Морозостойкость"
+        verbose_name = "Марка прочности"
+        verbose_name_plural = "Марка прочности"
 
     def __str__(self):
         return self.name
@@ -186,9 +186,9 @@ class Product(models.Model):
     formats = models.ManyToManyField(Format, blank=True, verbose_name="Форматы")
     color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Цвет")
     frosen_defend = models.ForeignKey(FrosenDefender, on_delete=models.SET_NULL, null=True, blank=True,
-                                      verbose_name="Марка прочности")
+                                      verbose_name="Морозостойкость")
     strength_grade = models.ForeignKey(StrengthGrade, on_delete=models.SET_NULL, null=True, blank=True,
-                                       verbose_name="Морозостойкость")
+                                       verbose_name="Марка прочности")
     water_resistance = models.ForeignKey(WaterResistance, on_delete=models.SET_NULL, null=True, blank=True,
                                          verbose_name="Водопоглощение")
     emptiness = models.ManyToManyField(Emptiness, blank=True, verbose_name="Пустотность")

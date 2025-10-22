@@ -38,15 +38,15 @@ class FrosenDefenderChar(FrosenDefender):
     class Meta:
         proxy = True
         app_label = 'characteristics'
-        verbose_name = "Марка прочности"
-        verbose_name_plural = "Марка прочности"
+        verbose_name = "Морозостойкость"
+        verbose_name_plural = "Морозостойкость"
 
 class StrengthGradeChar(StrengthGrade):
     class Meta:
         proxy = True
         app_label = 'characteristics'
-        verbose_name = "Морозостойкость"
-        verbose_name_plural = "Морозостойкость"
+        verbose_name = "Марка прочности"
+        verbose_name_plural = "Марка прочности"
 
 class WaterResistanceChar(WaterResistance):
     class Meta:

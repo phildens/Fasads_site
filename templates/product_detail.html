@@ -1118,7 +1118,7 @@ min-height: 160px; /* можно подстроить под нужный раз
                         value: p => (p.formats || []).map(x => x?.name).filter(Boolean).join('\n')
                     },
                     {
-                        key: 'strength_grade', label: p => p.strength_grade?.field_name || 'Марка прочности',
+                        key: 'strength_grade', label: p => p.strength_grade?.field_name || 'Морозостойкость',
                         value: p => p.strength_grade?.name
                     },
                     {
