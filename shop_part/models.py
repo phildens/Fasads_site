@@ -293,9 +293,9 @@ class BannerSlide(models.Model):
     title = models.CharField('Заголовок (большой)', max_length=200)
     subtitle = models.CharField('Подзаголовок (средний)', max_length=200, blank=True)
     description = models.TextField('Описание', blank=True)
-    image = models.ImageField('Картинка', upload_to='banners/')
+    image = models.ImageField('Картинка', upload_to='hero_slides/')
     cta_url = models.URLField('Ссылка для кнопки «Узнать подробнее»')
-    image_mobile = models.ImageField('Картинка (мобильная версия)', upload_to='banners/', blank=True, null=True)
+    image_mobile = models.ImageField('Картинка (мобильная версия)', upload_to='hero_slides/', blank=True, null=True)
 
     def __str__(self):
         return self.title
