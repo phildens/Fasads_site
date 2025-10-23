@@ -217,19 +217,11 @@ class ProductListView(ListAPIView):
 from .models import BannerSlide
 def index(request):
     slides = BannerSlide.objects.all()[:3]
-
-    # добавляем абсолютные URL к каждому слайду
     for s in slides:
-        if s.image:
-            s.image_url = request.build_absolute_uri(s.image.url)
-        else:
-            s.image_url = ''
-        if s.image_mobile:
-            s.image_mobile_url = request.build_absolute_uri(s.image_mobile.url)
-        else:
-            s.image_mobile_url = ''
-
+        s.image_url = request.build_absolute_uri(s.image.url)
+        s.image_mobile_url = request.build_absolute_uri(s.image_mobile.url) if s.image_mobile else ''
     return render(request, 'index.html', {'banner_slides': slides})
+
 
 
 

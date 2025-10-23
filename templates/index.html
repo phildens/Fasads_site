@@ -2038,11 +2038,11 @@
         <div class="slide-image">
   {% if s.image_mobile %}
     <picture>
-      <source media="(max-width: 1024px)" srcset="{{ s.image_mobile.url }}">
-      <img src="{{ s.image.url }}" alt="{{ s.title }}">
+      <source media="(max-width: 1024px)" srcset="{{ s.image_mobile_url }}">
+      <img src="{{ s.image_url }}" alt="{{ s.title }}">
     </picture>
   {% else %}
-      <img src="{{ s.image.url }}" alt="{{ s.title }}">
+      <img src="{{ s.image_url }}" alt="{{ s.title }}">
   {% endif %}
 </div>
       </div>
