@@ -1140,9 +1140,14 @@ min-height: 160px; /* можно подстроить под нужный раз
                 ];
 
                 const attrs = [];
+                
                 for (const f of fieldMap) {
                     const val = f.value(prod);
-                    const text = (typeof val === 'string' ? val.trim() : val);
+                    if (f.key == "formats") {
+                         text = (typeof val === 'string' ? val.replaceAll(' ', '').replaceAll('\n', "; ").trim() : val.replaceAll('\n', "; "));
+                    } else {
+                        text = (typeof val === 'string' ? val.replaceAll('\n', "; ").trim() : val.replaceAll('\n', "; "));
+                    }
                     if (text) attrs.push({
                         label: (typeof f.label === 'function' ? f.label(prod) : f.label),
                         value: text
