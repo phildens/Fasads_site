@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_css %}
-     <meta name="description"
+    <meta name="description"
           content="Идея создания компании Современные фасады возникла в 2009 году тогда мы начали заниматься поставками клинкерного кирпича Керамейя.">
 
 {% endblock %}
@@ -9,12 +9,12 @@
 
 {% block content %}
 
-{#{% include 'description_item.html' %}#}
+    {#{% include 'description_item.html' %}#}
     {% include "description_item.html" with hide_facades_link=True %}
-    
-     <div class="stats-section">
-      <div class="stats-card">
-        <div style="position: absolute;
+
+    <div class="stats-section">
+        <div class="stats-card">
+            <div style="position: absolute;
                     top: 60px; 
                     left: 145px;">
           <img style="width: 162; height: 189px;" src="{% static 'imgfolder/status1.png' %}" alt="">
@@ -47,9 +47,9 @@
         <div style="position: absolute;
                     top: 37px; 
                     left: 156px; ">
-          <img style="width: 188px;" src="{% static 'imgfolder/status2.png' %}" alt="">
-        </div>
-        <div style="display: flex;
+                <img style="width: 188px;" src="{% static 'imgfolder/status2.png' %}" alt="">
+            </div>
+            <div style="display: flex;
                     position: absolute;
                     align-items: center;;
                     top: 222px; 
@@ -77,9 +77,9 @@
         <div style="position: absolute;
                     top: 41px; 
                     left: 115px;">
-          <img src="{% static 'imgfolder/status3.png' %}" alt="">
-        </div>
-        <div style="display: flex;
+                <img src="{% static 'imgfolder/status3.png' %}" alt="">
+            </div>
+            <div style="display: flex;
                     position: absolute;
                     align-items: center;
                     top: 222px;
@@ -88,9 +88,9 @@
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-          >300
-        </div>
-        <div style="position: absolute;
+                >300
+            </div>
+            <div style="position: absolute;
                     top: 305px; 
                     left: 31px;
                     width: 333px;
@@ -106,14 +106,14 @@
     </div>
 
     <div class="about-features-block" style="display: flex; justify-content: center;">
-      <!-- все в центр -->
+        <!-- все в центр -->
 
-<div style="display: flex; justify-content: center;">
-  <!-- блок с таблицей -->
-  <div>
-    <!-- основные принцыпы -->
-    <div class="info_holder">
-      <h5 class="mini-headr">Основные принципы</h5>
+        <div style="display: flex; justify-content: center;">
+            <!-- блок с таблицей -->
+            <div>
+                <!-- основные принцыпы -->
+                <div class="info_holder">
+                    <h5 class="mini-headr">Основные принципы</h5>
 
       <div class="feature-grid">
         <!-- Первая строка -->
@@ -122,10 +122,10 @@
           <p>Мы придерживаемся стабильной ценовой <br> политики, чтобы вы всегда знали, что получаете <br> лучшее предложение</p>
         </div>
 
-        <div class="column small descript highlight-bottom halfm">
-          <h3>Непревзойденное качество</h3>
-          <p>Наша цель - предоставить материалы, которые будут радовать вас долгие годы</p>
-        </div>
+                        <div class="column small descript highlight-bottom halfm">
+                            <h3>Непревзойденное качество</h3>
+                            <p>Наша цель - предоставить материалы, которые будут радовать вас долгие годы</p>
+                        </div>
 
         <div class="column small descript highlight-bottom halfm">
           <h3>Разнообразие решений</h3>
@@ -137,33 +137,33 @@
           <p>Мы понимаем, как важно время, и стремимся доставить все точно в срок</p>
         </div>
 
-        <!-- Вторая строка кортинки домов -->
-         <div class="feature-scroller">
-          <div class="images-strip">
-        <div class="column highlight-right" style="height: 206px">
-          <img src="{% static 'imgfolder/about_first_row/image 88.png' %}" alt="">
-        </div>
-        <div class="column highlight-right" style="height: 206px">
-          <img src="{% static 'imgfolder/about_first_row/image 85.png' %}" alt="">
-        </div>
-        <div class="column" style="height: 206px">
-          <img src="{% static 'imgfolder/about_first_row/image 86.png' %}" alt="">
-        </div>
-        <div class="column" style="height: 206px">
-          <img src="{% static 'imgfolder/about_first_row/image 87.png' %}" alt="">
-        </div>
-        </div>
-        </div>
-        <!-- третья строка почему выбирают нас -->
-        <div class="column minheight ">
-          <div style="height: 64px"></div>
-          <h5 class="mini-headr">Почему выбирают нас</h5>
-        </div>
-        <div class="column minheight highlight-right "></div>
-        <div class="column minheight highlight-right "></div>
-        <div class="column minheight "></div>
-      </div>
-    </div>
+                        <!-- Вторая строка кортинки домов -->
+                        <div class="feature-scroller">
+                            <div class="images-strip">
+                                <div class="column highlight-right" style="height: 206px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 88.png' %}" alt="">
+                                </div>
+                                <div class="column highlight-right" style="height: 206px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 85.png' %}" alt="">
+                                </div>
+                                <div class="column" style="height: 206px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 86.png' %}" alt="">
+                                </div>
+                                <div class="column" style="height: 206px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 87.png' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- третья строка почему выбирают нас -->
+                        <div class="column minheight ">
+                            <div style="height: 64px"></div>
+                            <h5 class="mini-headr">Почему выбирают нас</h5>
+                        </div>
+                        <div class="column minheight highlight-right "></div>
+                        <div class="column minheight highlight-right "></div>
+                        <div class="column minheight "></div>
+                    </div>
+                </div>
 
     <!-- вторая таблица -->
     <div class="info_holder">
@@ -197,12 +197,12 @@
           <p style="width: 241px">Мы не скрываем <br>достоинства и <br>недостатки нашего продукта и смело можем рассказать о трудностях с которыми вы можете столкнуться при выкладке, например, как избежать высылов</p>
         </div>
 
-        <div class="column halfm descript medium">
-          <div class="mg-head-about-top">
-            <h3>Визуализация проекта</h3>
-          </div>
-          <p>Предоставляем бесплатный 3D-макет объекта при заказе от определенного объема товара</p>
-        </div>
+                        <div class="column halfm descript medium">
+                            <div class="mg-head-about-top">
+                                <h3>Визуализация проекта</h3>
+                            </div>
+                            <p>Предоставляем бесплатный 3D-макет объекта при заказе от определенного объема товара</p>
+                        </div>
 
         <div class="column halfm descript medium">
           <div class="mg-head-about-top">
@@ -211,1016 +211,1171 @@
           <p>Выгодные условия сотрудничества благодаря статусу официальных дилеров 22 производственных предприятий</p>
         </div>
 
-        <div class="column highlight-right halfm descript medium">
-          <div class="mg-head-about-top">
-            <h3>Сервисная поддержка</h3>
-          </div>
-          <p>Наши специалисты на связи даже после завершения сделки</p>
-        </div>
+                        <div class="column highlight-right halfm descript medium">
+                            <div class="mg-head-about-top">
+                                <h3>Сервисная поддержка</h3>
+                            </div>
+                            <p>Наши специалисты на связи даже после завершения сделки</p>
+                        </div>
 
-        {# Картинки2#}
+                        {# Картинки2#}
 
-        <div class="feature-scroller">
-          <div class="images-strip">
-        <div class="column highlight-right" style="height: 200px">
-          <img src="{% static 'imgfolder/about_first_row/image 92.png' %}" alt="">
-        </div>
-        <div class="column " style="height: 200px">
-          <img src="{% static 'imgfolder/about_first_row/image 89.png' %}" alt="">
-        </div>
-        <div class="column" style="height: 200px">
-          <img src="{% static 'imgfolder/about_first_row/image 90.png' %}" alt="">
-        </div>
-        <div class="column highlight-right" style="height: 200px">
-          <img src="{% static 'imgfolder/about_first_row/image 91.png' %}" alt="">
-        </div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-    <div style="height: 130px"></div>
-    </div>
-    
-<div class="callback-form-section" id="callback-form" >
-<div id="form-alert"
-     class="alert d-none"
-     role="alert"
-     aria-live="polite"
-     style="max-width: 720px; margin-top:14px"></div>
-  <p style="position: absolute;left: 135px;top: 94px;font-family: 'head2';font-size: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.7);">Оставить заявку</p>
-  <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
-  <div class="callback-form-subtitle">
-    Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре.<br>
-    Наши специалисты найдут решение даже для самых смелых архитектурных решений
-  </div>
-
-
-
-     <form method="post" id="contact-form" action="{% url 'contact_request_create' %}">
-    <div class="callback-form-row">
-      <div class="callback-form-fields">
-        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения о заявителе</label>
-        <div class="callback-form-fields-grid">
-          <input type="text" class="call" placeholder="Имя" name="name" required>
-          <input type="email" placeholder="Email" name="email">
-          <input type="text" placeholder="Фамилия" name="surname">
-          <input type="text" placeholder="Телефон" name="phone" required>
-        </div>
-      </div>
-      <div class="callback-form-info">
-        <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Информация о проекте</label>
-        <textarea placeholder="Краткое описание" name="about"></textarea>
-      </div>
-    </div>
-    <div class="callback-form-bottom">
-      <div class="callback-form-note">
-        <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
-        Мы гарантируем полное соблюдение ваших <br>интеллектуальных прав на разработку<br> и конфиденциальности предоставленной информации.
-      </div>
-      <button type="submit" class="callback-form-btn">Оставить заявку</button>
-    </div>
-  </form>
-
-</div>
-</div>
-    <script>
-(function () {
-  const form  = document.getElementById('contact-form');
-  const btn   = form.querySelector('.callback-form-btn');
-  const alertBox = document.getElementById('form-alert');
-
-  function showAlert(type, html, autohideMs = 6000) {
-    alertBox.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger');
-    alertBox.innerHTML = html;
-    alertBox.classList.remove('d-none');
-    alertBox.scrollIntoView({behavior:'smooth', block:'center'});
-
-    if (autohideMs) {
-      clearTimeout(alertBox._t);
-      alertBox._t = setTimeout(() => alertBox.classList.add('d-none'), autohideMs);
-    }
-  }
-
-  function fieldErrorsToHTML(errorsObj) {
-    // errorsObj = {first_name:["Обязательное поле."], email:["Некорректный email."], …}
-    const items = [];
-    for (const [field, msgs] of Object.entries(errorsObj || {})) {
-      msgs.forEach(m => items.push(`<li><strong>${field}</strong>: ${m}</li>`));
-    }
-    return items.length ? `<ul style="margin:0; padding-left:18px">${items.join('')}</ul>` : '';
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        credentials: 'same-origin',
-        // если вернёте CSRF-проверку — раскомментируйте строку ниже:
-        // headers: { 'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value },
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.ok) {
-        showAlert('success', 'Спасибо! Ваша заявка успешно отправлена.');
-        form.reset();
-      } else {
-        const details = fieldErrorsToHTML(data.errors);
-        showAlert('error', `Не удалось отправить форму. ${details || 'Проверьте поля и попробуйте ещё раз.'}`);
-      }
-    } catch (err) {
-      showAlert('error', 'Ошибка соединения. Проверьте интернет и попробуйте ещё раз.');
-    } finally {
-      btn.disabled = false;
-    }
-  });
-})();
-</script>
-    <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
-
-<style>
-/* лёгкая подсветка ошибок полей, не мешает вашему дизайну */
-#callback-form input.has-error,
-#callback-form textarea.has-error { border-color:#E64646 !important; }
-</style>
-    
-    
-    
-{#    Наша миссия#}
-<div class="mission-desktop" style="height: 800px; background-color: white; display: flex;  justify-content: center;  border-radius: 16px">
-    <div>
-    <div style="height: 800px; background-color: white; display: flex;  justify-content: center;  border-radius: 16px">
-        <div>
-            <div style="height: 26px"></div>
-                <div style="max-height: 107px; width: 1200px; display: flex; justify-content: space-between; align-items: center">
-                    <img src="{% static "imgfolder/logo_white2.svg" %}" alt="" style="width: 186px">
-                    
-                    <div style="text-align: center; cursor: pointer" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'">
-                        <p class="small-h">Пермь, Газеты Звезда, 13, 4 этаж</p>
-                        <p class="small-h">Пермь, б-р Гагарина, 67, 2 этаж</p>
-                        <p class="small-under">адреса шоу-румов</p>
-                    </div>
-                    <div style="text-align: center; cursor: pointer" onclick="location.href='tel:+7(951)940-12-49'">
-                        <p class="small-h">+7 (951) 940-12-49</p>
-                        <p class="small-under">номер для связи</p>
-                    </div>
-                    <div style="text-align: center; cursor: pointer" onclick="location.href='mailto: info@modernfasad.ru'">
-                        <p class="small-h"> info@modernfasad.ru</p>
-                        <p class="small-under">электронная почта</p>
-                    </div>
-                    <div style="text-align: center; cursor: pointer" onclick="window.open('https://yandex.ru/maps/-/CHtYJN-Y')">
-                        <p class="small-h">Как до нас доехать</p>
-                        <p class="small-under">карта с указанием адреса</p>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center">
-                        
-                        
-                        <button class="menu-toggle" id="menuToggle" style="border: none; background:none" href="#menuToggle">
-                        
-                        </button>
-                    </div>
-                
-                </div>
-                <div style="height: 110px"></div>
-        
-                <div style="display: flex; justify-content: center; align-items: center">
-                    <div style="display: flex; flex-direction: column; align-items: flex-end">
-                        <p style="width: 584px; font-weight: 500; font-family: Muller-medium; font-size: 20px; color: #422223; opacity:60%; text-align: right">Мы не просто поставляем материалы – мы помогаем воплощать самые смелые идеи в реальность и создавать облик города.  Архитектура должна быть не просто функциональной, но и вдохновляющей. Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в него частичку своей души и профессионализма.</p>
-                        
-                        <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
-                        
-                        <p style="width: 574px; font-family: Muller-regular; font-size: 20px; line-height: 100%; letter-spacing: 0%; text-align: right; color: #42222399; ">Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами 
-мы формируем облик будущего, превращая смелые
-концепции в осязаемые формы</p>
-                        
-                        <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
-                        
-                        <p style="width: 434px ;font-size: 18px; font-family: Muller-medium; line-height: 100%; letter-spacing: 0%; color: black; opacity: 60%; font-weight: 500; text-align: right">Руководитель ООО «Современные фасады» Светлана Олеговна Алтухова</p>
-                        
-                    </div>
-                    <div style="width: 25px"></div>
-                    <div style="display: flex; height: 390px">
-                        <p style=" font-weight: 300; font-size: 28px; line-height: 100%;letter-spacing: 0; color: #422223; font-family: namu">«</p>
-                        <div>
-                            <p style="width: 482px; font-weight: 300; font-size: 28px; line-height: 120%;letter-spacing: 0%; color: #422223; font-family: namu; text-transform: uppercase; font-style: 1750;">Наша миссия — превращать мечты об идеальной архитектуре в реальность, делая мир вокруг нас красивее и уютнее.Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в него частичку своей души и профессионализма.»</p>
-                        <div style="height: 27px"></div>
-                            <button style="cursor: pointer; margin-right: 17px ;font-family: Muller-medium; font-size: 16px; line-height: 100%; letter-spacing: 0%; width: 197px; height: 60px; border-radius: 16px; background-color: #F5F5F5; color: #2B292F; border: none"; onclick="window.location.href='/catalog/'">Перейти в каталог</button>
-                        <button class="ll" style="font-family: Muller-medium; font-weight: 500;  font-size: 16px; width: 197px; height: 60px; border-radius: 16px; background-color: #327F00; color: #FFF6F3; border: none; box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.25); cursor: pointer " class="btn" data-modal-target="#contact-modal">Оставить заявку</button>
+                        <div class="feature-scroller">
+                            <div class="images-strip">
+                                <div class="column highlight-right" style="height: 200px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 92.png' %}" alt="">
+                                </div>
+                                <div class="column " style="height: 200px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 89.png' %}" alt="">
+                                </div>
+                                <div class="column" style="height: 200px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 90.png' %}" alt="">
+                                </div>
+                                <div class="column highlight-right" style="height: 200px">
+                                    <img src="{% static 'imgfolder/about_first_row/image 91.png' %}" alt="">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div style="height: 130px"></div>
+    </div>
+
+    <div class="callback-form-section" id="callback-form">
+        <div id="form-alert"
+             class="alert d-none"
+             role="alert"
+             aria-live="polite"
+             style="max-width: 720px; margin-top:14px"></div>
+        <p style="position: absolute;left: 135px;top: 94px;font-family: 'head2';font-size: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.7);">
+            Оставить заявку</p>
+        <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
+        <div id="form-alert"
+             class="alert d-none"
+             role="alert"
+             aria-live="polite"
+             style="max-width: 720px; margin-top:14px"></div>
+    </div>
+    <div class="callback-form-subtitle">
+        Подберем материалы максимально подходящие под ваш проект по стилю, форме и фактуре.<br>
+        Наши специалисты найдут решение даже для самых смелых архитектурных решений
+    </div>
+
+
+    <form method="post" id="contact-form" action="{% url 'contact_request_create' %}">
+        <div class="callback-form-row">
+            <div class="callback-form-fields">
+                <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения
+                    о заявителе</label>
+                <div class="callback-form-fields-grid">
+                    <input type="text" class="call" placeholder="Имя" name="name" required>
+                    <input type="email" placeholder="Email" name="email">
+                    <input type="text" placeholder="Фамилия" name="surname">
+                    <input type="text" placeholder="Телефон" name="phone" required>
+                </div>
+            </div>
+
+
+            <div class="callback-form-info">
+                <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Информация
+                    о проекте</label>
+                <textarea placeholder="Краткое описание" name="about"></textarea>
+            </div>
+        </div>
+
+
+        <div class="callback-form-bottom">
+            <div class="callback-form-note">
+                <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="7"/>
+                    <line x1="8" y1="4" x2="8" y2="8"/>
+                    <circle cx="8" cy="11" r="1" fill="#aaa"/>
+                </svg>
+                Мы гарантируем полное соблюдение ваших <br>интеллектуальных прав на разработку<br> и
+                конфиденциальности предоставленной информации.
+            </div>
+            <button type="submit" class="callback-form-btn">Оставить заявку</button>
+        </div>
+    </form>
+    </div>
+    <script>
+        (function () {
+            const form = document.getElementById('contact-form');
+            const btn = form.querySelector('.callback-form-btn');
+            const alertBox = document.getElementById('form-alert');
+
+            function showAlert(type, html, autohideMs = 6000) {
+                alertBox.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger');
+                alertBox.innerHTML = html;
+                alertBox.classList.remove('d-none');
+                alertBox.scrollIntoView({behavior: 'smooth', block: 'center'});
+
+                if (autohideMs) {
+                    clearTimeout(alertBox._t);
+                    alertBox._t = setTimeout(() => alertBox.classList.add('d-none'), autohideMs);
+                }
+            }
+
+            function fieldErrorsToHTML(errorsObj) {
+                // errorsObj = {first_name:["Обязательное поле."], email:["Некорректный email."], …}
+                const items = [];
+                for (const [field, msgs] of Object.entries(errorsObj || {})) {
+                    msgs.forEach(m => items.push(`<li><strong>${field}</strong>: ${m}</li>`));
+                }
+                return items.length ? `<ul style="margin:0; padding-left:18px">${items.join('')}</ul>` : '';
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btn.disabled = true;
+
+                try {
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        credentials: 'same-origin',
+                        // если вернёте CSRF-проверку — раскомментируйте строку ниже:
+                        // headers: { 'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value },
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok && data.ok) {
+                        showAlert('success', 'Спасибо! Ваша заявка успешно отправлена.');
+                        form.reset();
+                    } else {
+                        const details = fieldErrorsToHTML(data.errors);
+                        showAlert('error', `Не удалось отправить форму. ${details || 'Проверьте поля и попробуйте ещё раз.'}`);
+                    }
+                } catch (err) {
+                    showAlert('error', 'Ошибка соединения. Проверьте интернет и попробуйте ещё раз.');
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        })();
+    </script>
+    <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
+
+    <style>
+        /* лёгкая подсветка ошибок полей, не мешает вашему дизайну */
+        #callback-form input.has-error,
+        #callback-form textarea.has-error {
+            border-color: #E64646 !important;
+        }
+    </style>
+
+
+
+    {#    Наша миссия#}
+    <div class="mission-desktop"
+         style="height: 800px; background-color: white; display: flex;  justify-content: center;  border-radius: 16px">
+        <div>
+            <div style="height: 800px; background-color: white; display: flex;  justify-content: center;  border-radius: 16px">
+                <div>
+                    <div style="height: 26px"></div>
+                    <div style="max-height: 107px; width: 1200px; display: flex; justify-content: space-between; align-items: center">
+                        <img src="{% static "imgfolder/logo_white2.svg" %}" alt="" style="width: 186px">
+
+                        <div style="text-align: center; cursor: pointer"
+                             onclick="location.href='https://yandex.ru/maps/-/CLCuAJ4K'">
+                            <p class="small-h">Пермь, б-р Гагарина, 67, 2 этаж</p>
+                            <p class="small-h">Пермь, Газеты Звезда, 13, 4 этаж</p>
+                            <p class="small-under">адреса шоу-румов</p>
+                        </div>
+                        <div style="text-align: center; cursor: pointer" onclick="location.href='tel:+7(951)940-12-49'">
+                            <p class="small-h">+7 (951) 940-12-49</p>
+                            <p class="small-under">номер для связи</p>
+                        </div>
+                        <div style="text-align: center; cursor: pointer"
+                             onclick="location.href='mailto: info@modernfasad.ru'">
+                            <p class="small-h"> info@modernfasad.ru</p>
+                            <p class="small-under">электронная почта</p>
+                        </div>
+                        <div style="text-align: center; cursor: pointer"
+                             onclick="window.open('https://yandex.ru/maps/-/CHtYJN-Y')">
+                            <p class="small-h">Как до нас доехать</p>
+                            <p class="small-under">карта с указанием адреса</p>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center">
+
+
+                            <button class="menu-toggle" id="menuToggle" style="border: none; background:none"
+                                    href="#menuToggle">
+
+                            </button>
+                        </div>
+
+                    </div>
+                    <div style="height: 110px"></div>
+
+                    <div style="display: flex; justify-content: center; align-items: center">
+                        <div style="display: flex; flex-direction: column; align-items: flex-end">
+                            <p style="width: 584px; font-weight: 500; font-family: Muller-medium; font-size: 20px; color: #422223; opacity:60%; text-align: right">
+                                Мы не просто поставляем материалы – мы помогаем воплощать самые смелые идеи в реальность
+                                и создавать облик города. Архитектура должна быть не просто функциональной, но и
+                                вдохновляющей. Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в
+                                него частичку своей души и профессионализма.</p>
+
+                            <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
+
+                            <p style="width: 574px; font-family: Muller-regular; font-size: 20px; line-height: 100%; letter-spacing: 0%; text-align: right; color: #42222399; ">
+                                Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими
+                                партнёрами
+                                мы формируем облик будущего, превращая смелые
+                                концепции в осязаемые формы</p>
+
+                            <div style="height: 1px; width: 484px; background-color: black; opacity: 50%; margin-top: 38px; margin-bottom: 38px"></div>
+
+                            <p style="width: 434px ;font-size: 18px; font-family: Muller-medium; line-height: 100%; letter-spacing: 0%; color: black; opacity: 60%; font-weight: 500; text-align: right">
+                                Руководитель ООО «Современные фасады» Светлана Олеговна Алтухова</p>
+
+                        </div>
+                        <div style="width: 25px"></div>
+                        <div style="display: flex; height: 390px">
+                            <p style=" font-weight: 300; font-size: 28px; line-height: 100%;letter-spacing: 0; color: #422223; font-family: namu">
+                                «</p>
+                            <div>
+                                <p style="width: 482px; font-weight: 300; font-size: 28px; line-height: 120%;letter-spacing: 0%; color: #422223; font-family: namu; text-transform: uppercase; font-style: 1750;">
+                                    Наша миссия — превращать мечты об идеальной архитектуре в реальность, делая мир
+                                    вокруг нас красивее и уютнее.Именно поэтому мы тщательно подбираем облицовочный
+                                    материал, вкладывая в него частичку своей души и профессионализма.»</p>
+                                <div style="height: 27px"></div>
+                                <button style="cursor: pointer; margin-right: 17px ;font-family: Muller-medium; font-size: 16px; line-height: 100%; letter-spacing: 0%; width: 197px; height: 60px; border-radius: 16px; background-color: #F5F5F5; color: #2B292F; border: none"
+                                        ; onclick="window.location.href='/catalog/'">Перейти в каталог
+                                </button>
+                                <button class="ll"
+                                        style="font-family: Muller-medium; font-weight: 500;  font-size: 16px; width: 197px; height: 60px; border-radius: 16px; background-color: #327F00; color: #FFF6F3; border: none; box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.25); cursor: pointer "
+                                        class="btn" data-modal-target="#contact-modal">Оставить заявку
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    {# ----- НОВЫЙ адаптивный блок для телефона и планшета ----- #}
+    <section class="mission-responsive">
+        <div class="mr-wrap">
+
+            <!-- локальная «шапка» для мобайла/планшета: только логотип + бургер -->
+            <div class="mr-top">
+                <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="logo" class="mr-logo">
+                <button class="mr-burger" id="menuToggleMobile">
+
+                </button>
+            </div>
+
+            <!-- большая цитата -->
+            <blockquote class="mr-quote">
+                « НАША МИССИЯ — ПРЕВРАЩАТЬ МЕЧТЫ ОБ ИДЕАЛЬНОЙ АРХИТЕКТУРЕ В РЕАЛЬНОСТЬ,
+                ДЕЛАЯ МИР ВОКРУГ НАС КРАСИВЕЕ И УЮТНЕЕ. ИМЕННО ПОЭТОМУ МЫ ТЩАТЕЛЬНО ПОДБИРАЕМ
+                ОБЛИЦОВОЧНЫЙ МАТЕРИАЛ, ВКЛАДЫВАЯ В НЕГО ЧАСТИЧКУ СВОЕЙ ДУШИ И ПРОФЕССИОНАЛИЗМА. »
+            </blockquote>
+            <hr class="mr-sep">
+            <!-- текст 1 -->
+            <p class="mr-p mr-p1">
+                Мы не просто поставляем материалы – мы помогаем воплощать самые смелые идеи в реальность
+                и создавать облик города. Архитектура должна быть не просто функциональной, но и вдохновляющей.
+                Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в него частичку своей
+                души и профессионализма.
+            </p>
+
+            <hr class="mr-sep">
+
+            <!-- текст 2 -->
+            <p class="mr-p mr-p2">
+                Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами
+                мы формируем облик будущего, превращая смелые концепции в осязаемые формы
+            </p>
+            <hr class="mr-sep">
+            <!-- КНОПКИ ДОЛЖНЫ БЫТЬ ЗДЕСЬ: между «Мы верим…» и «Руководитель ООО…» -->
+            <div class="mr-actions">
+                <button type="button" class="mr-btn mr-btn--ghost" onclick="window.location.href='/catalog/'">Перейти в
+                    каталог
+                </button>
+                <button type="button" class="mr-btn mr-btn--primary ll" data-modal-target="#contact-modal">Оставить
+                    заявку
+                </button>
+            </div>
+
+            <!-- Руководитель -->
+            <p class="mr-lead">
+                Руководитель ООО «Современные фасады»<br>
+                Светлана Олеговна Алтухова
+            </p>
+        </div>
+    </section>
+
+
+
+
+
+    <div style="height: 150px"></div>
+
+
+
+
+
+
+
+    {#-----слайдер партнеры-----#}
+
+
+    <div style="display: flex; justify-content: center;">
+        <div>
+            <h4 class="mini-headr">Мы сотрудничаем с ведущими девелоперами</h4>
+
+            <div class="slider" id="slider">
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 134px"
+                            src="{% static 'imgfolder/partners images/image-Photoroom (71) 4.png' %}"
+                            alt="1"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 38px"
+                            src="{% static 'imgfolder/partners images/image 96-1.png' %}"
+                            alt="2"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 45px"
+                            src="{% static 'imgfolder/partners images/image 96.png' %}"
+                            alt="3"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="width: 140px"
+                            src="{% static 'imgfolder/partners images/NOVA-_1_ 4.png' %}"
+                            alt="4"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            src="{% static 'imgfolder/partners images/Группа-компаний-Альфа-_1_ 4.png' %}"
+                            alt="5"
+                    />
+                </div>
+                <div class="slide-car"><img draggable="false"
+                                            src="{% static 'imgfolder/manufactors/alpha_invest.jpg' %}"
+                                            alt="alpha_invest"></div>
+                <div class="slide-car"><img draggable="false" src="{% static 'imgfolder/manufactors/dream_sity.png' %}"
+                                            alt="dream_sity"></div>
+                <div class="slide-car"><img draggable="false" src="{% static 'imgfolder/manufactors/kortros.jpg' %}"
+                                            alt="kortros"></div>
+                <div class="slide-car"><img draggable="false"
+                                            src="{% static 'imgfolder/manufactors/main_industry.jpg' %}"
+                                            alt="main_industry"></div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        (function () {
+            const scroller = document.getElementById('slider');
+            if (!scroller) return;
+
+            const EPS = 1;
+
+            // helpers
+            const getGap = (el) => {
+                const cs = getComputedStyle(el);
+                const g = cs.columnGap || cs.gap || "0px";
+                const n = parseFloat(g);
+                return Number.isFinite(n) ? n : 0;
+            };
+            const firstSlide = (el) => el.querySelector('.slide-car');
+            const stepSize = (el) => {
+                const s = firstSlide(el);
+                return s ? (s.offsetWidth + getGap(el)) : 240;
+            };
+            const hasOverflow = (el) => (el.scrollWidth - el.clientWidth) > EPS;
+
+            function ensureWrap(el) {
+                if (el.parentElement && el.parentElement.classList.contains('slider-wrap')) {
+                    return el.parentElement;
+                }
+                const wrap = document.createElement('div');
+                wrap.className = 'slider-wrap';
+                el.parentNode.insertBefore(wrap, el);
+                wrap.appendChild(el);
+                return wrap;
+            }
+
+            function ensureArrows(wrap) {
+                let prev = wrap.querySelector('.slider-nav.prev');
+                let next = wrap.querySelector('.slider-nav.next');
+
+                if (!prev) {
+                    prev = document.createElement('button');
+                    prev.type = 'button';
+                    prev.className = 'slider-nav prev';
+                    prev.setAttribute('aria-label', 'Назад');
+                    prev.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                    wrap.appendChild(prev);
+                }
+                if (!next) {
+                    next = document.createElement('button');
+                    next.type = 'button';
+                    next.className = 'slider-nav next';
+                    next.setAttribute('aria-label', 'Вперёд');
+                    next.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                    wrap.appendChild(next);
+                }
+                return {prev, next};
+            }
+
+            function updateState() {
+                const wrap = ensureWrap(scroller);
+                const {prev, next} = ensureArrows(wrap);
+
+                // Если не переполнен — прячем обе
+                if (!hasOverflow(scroller)) {
+                    prev.style.display = 'none';
+                    next.style.display = 'none';
+                    scroller.classList.remove('has-arrows');
+                    return;
+                }
+
+                const max = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+                const atStart = scroller.scrollLeft <= EPS;
+                const atEnd = scroller.scrollLeft >= (max - EPS);
+
+                prev.disabled = atStart;
+                next.disabled = atEnd;
+
+                const hideBoth = atStart && atEnd;
+                if (hideBoth) {
+                    prev.style.display = 'none';
+                    next.style.display = 'none';
+                    scroller.classList.remove('has-arrows');
+                } else {
+                    prev.style.display = '';
+                    next.style.display = '';
+                    scroller.classList.add('has-arrows');
+                }
+            }
+
+            function waitImages(cb) {
+                const imgs = Array.from(scroller.querySelectorAll('img'));
+                if (!imgs.length) {
+                    cb();
+                    return;
+                }
+                let left = imgs.length;
+                const done = () => {
+                    if (--left <= 0) cb();
+                };
+                imgs.forEach(img => {
+                    if (img.complete) done();
+                    else {
+                        img.addEventListener('load', done, {once: true});
+                        img.addEventListener('error', done, {once: true});
+                    }
+                });
+            }
+
+            // init
+            const wrap = ensureWrap(scroller);
+            const {prev, next} = ensureArrows(wrap);
+
+            function scrollByStep(dir) {
+                scroller.scrollBy({left: dir * stepSize(scroller), behavior: 'smooth'});
+                setTimeout(updateState, 220);
+            }
+
+            [prev, next].forEach(btn => {
+                btn.addEventListener('click', e => e.stopPropagation());
+                btn.addEventListener('mousedown', e => e.stopPropagation());
+                btn.addEventListener('touchstart', e => e.stopPropagation(), {passive: true});
+            });
+
+            prev.addEventListener('click', () => scrollByStep(-1));
+            next.addEventListener('click', () => scrollByStep(1));
+            scroller.addEventListener('scroll', updateState, {passive: true});
+
+            const ro = new ResizeObserver(updateState);
+            ro.observe(scroller);
+
+            waitImages(updateState);
+        })();
+    </script>
+
+    <div style="height: 120px"></div>
+    <!-- REVIEWS SECTION -->
+    <section class="reviews-section">
+        <div class="container-1200">
+            <h4 class="mini-headr">Что о нас говорят клиенты</h4>
+
+            <section class="reviews">
+                <!-- На десктопе: grid; На мобиле: горизонтальный слайдер -->
+                <div class="reviews-grid js-reviews-track">
+
+                    <!-- КАРТОЧКА -->
+                    <article class="review-card">
+                        <div class="review-top">
+                            <h3 class="review-name">Сергей Галкин</h3>
+                            <time class="review-date" datetime="2022-08-13">от 13.08.2022</time>
+                        </div>
+                        <div class="review-bottom-row">
+                            <p class="review-bottom">Неплохой выбор неординарного кирпича, качествен . . .</p>
+                            <a class="review-cta" target="_blank"
+                               rel="noopener noreferrer"
+                               href="https://2gis.ru/reviews/70000001062605281/review/35318036"
+                               aria-label="Читать отзыв">
+                                <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка"
+                                     style="width:66px;height:50px">
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- КАРТОЧКА -->
+                    <article class="review-card">
+                        <div class="review-top">
+                            <h3 class="review-name">Елена Павлова</h3>
+                            <time class="review-date" datetime="2022-09-08">от 8.09.2022</time>
+                        </div>
+                        <div class="review-bottom-row">
+                            <p class="review-bottom">В январе 2022 г. при выборе кирпича для облицовки дома пол . .
+                                .</p>
+                            <a class="review-cta" target="_blank"
+                               rel="noopener noreferrer"
+                               href="https://2gis.ru/reviews/70000001062605281/review/36628812"
+                               aria-label="Читать отзыв">
+                                <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка"
+                                     style="width:66px;height:50px">
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- КАРТОЧКА -->
+                    <article class="review-card">
+                        <div class="review-top">
+                            <h3 class="review-name">Ирина Шишкина</h3>
+                            <time class="review-date" datetime="2024-08-07">от 7.08.2024</time>
+                        </div>
+                        <div class="review-bottom-row">
+                            <p class="review-bottom">Большое спасибо за помощь в выборе кирпича облиц . . .</p>
+                            <a class="review-cta" target="_blank"
+                               rel="noopener noreferrer"
+                               href="https://2gis.ru/reviews/70000001062605281/review/102806417"
+                               aria-label="Читать отзыв">
+                                <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка"
+                                     style="width:66px;height:50px">
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- КАРТОЧКА -->
+                    <article class="review-card">
+                        <div class="review-top">
+                            <h3 class="review-name">Елена Бурдина</h3>
+                            <time class="review-date" datetime="2024-11-13">от 13.11.2024</time>
+                        </div>
+                        <div class="review-bottom-row">
+                            <p class="review-bottom">Большой выбор кирпичей, клинкерной плитки, брусчат . . .</p>
+                            <a class="review-cta" target="_blank"
+                               rel="noopener noreferrer"
+                               href="https://2gis.ru/perm/firm/70000001062605281/tab/reviews/review/121688193"
+                               aria-label="Читать отзыв">
+                                <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка"
+                                     style="width:66px;height:50px">
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- КАРТОЧКА -->
+                    <article class="review-card">
+                        <div class="review-top">
+                            <h3 class="review-name">Тимофей Москотин</h3>
+                            <time class="review-date" datetime="2025-04-11">от 11.04.2025</time>
+                        </div>
+                        <div class="review-bottom-row">
+                            <p class="review-bottom">Покупали кирпич в прошлом году, все вовремя привезли, бой мин . .
+                                .</p>
+                            <a class="review-cta" target="_blank"
+                               rel="noopener noreferrer"
+                               href="https://2gis.ru/perm/firm/70000001062605281/tab/reviews/review/151408206"
+                               aria-label="Читать отзыв">
+                                <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка"
+                                     style="width:66px;height:50px">
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- КАРТОЧКА -->
+                    <article class="review-card">
+                        <div class="review-top">
+                            <h3 class="review-name">Владимир Малышевский</h3>
+                            <time class="review-date" datetime="2025-04-18">от 18.04.2025</time>
+                        </div>
+                        <div class="review-bottom-row">
+                            <p class="review-bottom">Хорошая, ответственная компания. Рекомендую . . .</p>
+                            <a class="review-cta" target="_blank"
+                               rel="noopener noreferrer"
+                               href="https://yandex.ru/maps/org/14652097326/reviews?reviews%5BpublicId%5D=7n3z48zpw4m9mbxx9yq93e5bv0&si=fzdkvxv3af7df5wawp0bjxvner&utm_source=review"
+                               aria-label="Читать отзыв">
+                                <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка"
+                                     style="width:66px;height:50px">
+                            </a>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <script>
+        /* Автопрокрутка + свайп/drag без кнопок — активируется только на мобиле */
+        (function () {
+            const track = document.querySelector('.js-reviews-track');
+            if (!track) return;
+
+            const mq = window.matchMedia('(max-width: 900px)');
+
+            /* --- Drag с мышью (и тач тоже работает нативным скроллом) --- */
+            let isDown = false, startX = 0, startLeft = 0;
+
+            function px(e) {
+                return e.touches ? e.touches[0].clientX : e.clientX;
+            }
+
+            const onDown = (e) => {
+                if (!mq.matches) return;        // только в режиме слайдера
+                isDown = true;
+                track.classList.add('is-dragging');
+                startX = px(e);
+                startLeft = track.scrollLeft;
+                stopAuto();
+            };
+            const onMove = (e) => {
+                if (!isDown) return;
+                const x = px(e);
+                track.scrollLeft = startLeft - (x - startX);
+            };
+            const onUp = () => {
+                if (!isDown) return;
+                isDown = false;
+                track.classList.remove('is-dragging');
+                snapToNearest();
+                resumeAuto();
+            };
+
+            track.addEventListener('pointerdown', onDown, {passive: true});
+            window.addEventListener('pointermove', onMove, {passive: true});
+            window.addEventListener('pointerup', onUp);
+            track.addEventListener('touchstart', stopAuto, {passive: true});
+            track.addEventListener('touchend', resumeAuto, {passive: true});
+            track.addEventListener('mouseenter', stopAuto);
+            track.addEventListener('mouseleave', resumeAuto);
+
+            /* --- Автоплей --- */
+            let timer = null;
+            let current = 0;
+            const interval = 4000;
+
+            function cards() {
+                return Array.from(track.querySelectorAll('.review-card'));
+            }
+
+            function cardOffsetLeft(el) {
+                const padLeft = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+                return el.offsetLeft - track.offsetLeft - padLeft;
+            }
+
+            function scrollToIndex(i) {
+                const c = cards();
+                if (!c[i]) return;
+                track.scrollTo({left: cardOffsetLeft(c[i]), behavior: 'smooth'});
+            }
+
+            function snapToNearest() {
+                const c = cards();
+                const left = track.scrollLeft;
+                let best = 0, bestDelta = Infinity;
+                c.forEach((el, i) => {
+                    const target = cardOffsetLeft(el);
+                    const d = Math.abs(target - left);
+                    if (d < bestDelta) {
+                        bestDelta = d;
+                        best = i;
+                    }
+                });
+                current = best;
+                scrollToIndex(best);
+            }
+
+            function startAuto() {
+                if (!mq.matches) return;     // автоплей только на мобиле
+                stopAuto();
+                timer = setInterval(() => {
+                    const c = cards();
+                    current = (current + 1) % c.length;
+                    scrollToIndex(current);
+                }, interval);
+            }
+
+            function stopAuto() {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+
+            function resumeAuto() {
+                if (!timer && mq.matches) startAuto();
+            }
+
+            startAuto();
+            window.addEventListener('resize', () => {
+                stopAuto();
+                startAuto();
+            });
+        })();
+    </script>
+
+
+
+    <div style="height: 120px"></div>
+
+
+
+
+
+    {#    ------Сертификаты------#}
+    <div style="display: flex; justify-content: center;">
+        <div style="width: 1200px">
+            <h4 class="mini-headr">Сертификаты</h4>
+            <div class="slider js-lightbox-gallery">
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 156px"
+                            src="{% static 'imgfolder/sertificats/sert1.png' %}"
+                            alt="Сертификат 1"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 173px"
+                            src="{% static 'imgfolder/sertificats/sert2.png' %}"
+                            alt="Сертификат 2"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 163px"
+                            src="{% static 'imgfolder/sertificats/srt3.png' %}"
+                            alt="Сертификат 3"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="width: 118px"
+                            src="{% static 'imgfolder/sertificats/sret4.png' %}"
+                            alt="Сертификат 4"
+                    />
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    {#    ------Награды------#}
+    <div style="display: flex; justify-content: center;">
+        <div style="width: 1200px">
+            <h4 class="mini-headr">Награды</h4>
+            <div class="slider js-lightbox-gallery">
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 151px"
+                            src="{% static 'imgfolder/prises/sert1.png' %}"
+                            alt="Награда 1"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 155px"
+                            src="{% static 'imgfolder/prises/Scan 2.png' %}"
+                            alt="Награда 2"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 200px"
+                            src="{% static 'imgfolder/prises/sert3.png' %}"
+                            alt="Награда 3"
+                    />
+                </div>
+                <div class="slide-car">
+                    <img
+                            draggable="false"
+                            style="height: 184px"
+                            src="{% static 'imgfolder/prises/sert4.png' %}"
+                            alt="Награда 4"
+                    />
+                </div>
+
+                <div class="slide-car">
+                    <img
+                            draggable="false" ,
+                            style="height: 130px"
+                            src="{% static 'imgfolder/prises/prize6.png' %}"
+                            alt="Награда 5"
+                    />
+                </div>
+            </div>
+
+        </div>
+
+        <style>
+            /* Обёртка фиксирует стрелки, лента внутри скроллится */
+            .slider-wrap {
+                position: relative;
+            }
+
+            .slider {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .slider.has-arrows {
+                padding: 0 44px;
+                box-sizing: border-box;
+            }
+
+            /* место под стрелки */
+
+            /* Стрелки */
+            .slider-wrap .slider-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 38px;
+                height: 38px;
+                border: none;
+                border-radius: 50%;
+                background: #fff;
+                color: #222;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, .15);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 2;
+            }
+
+            .slider-wrap .slider-nav:disabled {
+                opacity: .45;
+                cursor: not-allowed;
+            }
+
+            .slider-wrap .slider-nav.prev {
+                left: 8px;
+            }
+
+            .slider-wrap .slider-nav.next {
+                right: 8px;
+            }
+
+            .slider::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+
+
+    </div>
+    <div class="lb-modal" id="lbModal" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
+        <button class="lb-close" id="lbClose" aria-label="Закрыть">×</button>
+        <button class="lb-prev" id="lbPrev" aria-label="Предыдущее">‹</button>
+        <button class="lb-next" id="lbNext" aria-label="Следующее">›</button>
+        <div class="lb-stage" id="lbStage">
+            <img id="lbImage" alt="">
         </div>
     </div>
-    </div>
-    
-    
-</div>
 
-{# ----- НОВЫЙ адаптивный блок для телефона и планшета ----- #}
-<section class="mission-responsive">
-  <div class="mr-wrap">
 
-    <!-- локальная «шапка» для мобайла/планшета: только логотип + бургер -->
-    <div class="mr-top">
-      <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="logo" class="mr-logo">
-      <button class="mr-burger" id="menuToggleMobile">
-        
-      </button>
-    </div>
 
-    <!-- большая цитата -->
-    <blockquote class="mr-quote">
-      « НАША МИССИЯ — ПРЕВРАЩАТЬ МЕЧТЫ ОБ ИДЕАЛЬНОЙ АРХИТЕКТУРЕ В РЕАЛЬНОСТЬ,
-      ДЕЛАЯ МИР ВОКРУГ НАС КРАСИВЕЕ И УЮТНЕЕ. ИМЕННО ПОЭТОМУ МЫ ТЩАТЕЛЬНО ПОДБИРАЕМ
-      ОБЛИЦОВОЧНЫЙ МАТЕРИАЛ, ВКЛАДЫВАЯ В НЕГО ЧАСТИЧКУ СВОЕЙ ДУШИ И ПРОФЕССИОНАЛИЗМА. »
-    </blockquote>
-    <hr class="mr-sep">
-    <!-- текст 1 -->
-    <p class="mr-p mr-p1">
-      Мы не просто поставляем материалы – мы помогаем воплощать самые смелые идеи в реальность
-      и создавать облик города. Архитектура должна быть не просто функциональной, но и вдохновляющей.
-      Именно поэтому мы тщательно подбираем облицовочный материал, вкладывая в него частичку своей
-      души и профессионализма.
-    </p>
-
-    <hr class="mr-sep">
-
-    <!-- текст 2 -->
-    <p class="mr-p mr-p2">
-      Мы верим, что архитектура должна вдохновлять, современных шедевров. Вместе с нашими партнёрами
-      мы формируем облик будущего, превращая смелые концепции в осязаемые формы
-    </p>
-    <hr class="mr-sep">
-    <!-- КНОПКИ ДОЛЖНЫ БЫТЬ ЗДЕСЬ: между «Мы верим…» и «Руководитель ООО…» -->
-    <div class="mr-actions">
-      <button type="button" class="mr-btn mr-btn--ghost" onclick="window.location.href='/catalog/'">Перейти в каталог</button>
-      <button type="button" class="mr-btn mr-btn--primary ll" data-modal-target="#contact-modal">Оставить заявку</button>
-    </div>
-
-    <!-- Руководитель -->
-    <p class="mr-lead">
-      Руководитель ООО «Современные фасады»<br>
-      Светлана Олеговна Алтухова
-    </p>
-  </div>
-</section>
-
-    
-    
-    
-    
-    <div style="height: 150px"></div>
-    
-    
-    
-    
-    
-    
-    
-{#-----слайдер партнеры-----#}
-    
-    
-{#      <div style="display: flex; justify-content: center;">#}
-  <div>
-{#    <h4 class="mini-headr">мы сотрудничаем с ведущими девелоперами</h4>#}
-
-    <div class="slider" id="slider">
-{#      <div class="slide-car">#}
-{#        <img#}
-{#          draggable="false"#}
-{#          style="height: 134px"#}
-{#          src="{% static 'imgfolder/partners images/image-Photoroom (71) 4.png' %}"#}
-{#          alt="1"#}
-{#        />#}
-{#      </div>#}
-{#      <div class="slide-car">#}
-{#        <img#}
-{#          draggable="false"#}
-{#          style="height: 38px"#}
-{#          src="{% static 'imgfolder/partners images/image 96-1.png' %}"#}
-{#          alt="2"#}
-{#        />#}
-{#      </div>#}
-{#      <div class="slide-car">#}
-{#        <img#}
-{#          draggable="false"#}
-{#          style="height: 45px"#}
-{#          src="{% static 'imgfolder/partners images/image 96.png' %}"#}
-{#          alt="3"#}
-{#        />#}
-{#      </div>#}
-{#      <div class="slide-car">#}
-{#        <img#}
-{#          draggable="false"#}
-{#          style="width: 140px"#}
-{#          src="{% static 'imgfolder/partners images/NOVA-_1_ 4.png' %}"#}
-{#          alt="4"#}
-{#        />#}
-{#      </div>#}
-{#      <div class="slide-car">#}
-{#        <img#}
-{#          draggable="false"#}
-{#          src="{% static 'imgfolder/partners images/Группа-компаний-Альфа-_1_ 4.png' %}"#}
-{#          alt="5"#}
-{#        />#}
-{#      </div>#}
-        
-    </div>
-  </div>
-      
-</div>
     <script>
-(function(){
-  const scroller = document.getElementById('slider');
-  if (!scroller) return;
+        document.addEventListener('DOMContentLoaded', function () {
+            const galleries = Array.from(document.querySelectorAll('.js-lightbox-gallery'));
+            if (!galleries.length) return;
 
-  const EPS = 1;
+            const modal = document.getElementById('lbModal');
+            const stage = document.getElementById('lbStage');
+            const imgEl = document.getElementById('lbImage');
+            const btnClose = document.getElementById('lbClose');
+            const btnPrev = document.getElementById('lbPrev');
+            const btnNext = document.getElementById('lbNext');
 
-  // helpers
-  const getGap = (el)=>{
-    const cs = getComputedStyle(el);
-    const g  = cs.columnGap || cs.gap || "0px";
-    const n  = parseFloat(g);
-    return Number.isFinite(n) ? n : 0;
-  };
-  const firstSlide = (el)=> el.querySelector('.slide-car');
-  const stepSize = (el)=>{
-    const s = firstSlide(el);
-    return s ? (s.offsetWidth + getGap(el)) : 240;
-  };
-  const hasOverflow = (el)=> (el.scrollWidth - el.clientWidth) > EPS;
+            // если чего-то нет — не падаем, а выходим
+            if (!modal || !stage || !imgEl || !btnClose || !btnPrev || !btnNext) {
+                console.error('Lightbox: разметка модалки не найдена или неполная.');
+                return;
+            }
 
-  function ensureWrap(el){
-    if (el.parentElement && el.parentElement.classList.contains('slider-wrap')) {
-      return el.parentElement;
-    }
-    const wrap = document.createElement('div');
-    wrap.className = 'slider-wrap';
-    el.parentNode.insertBefore(wrap, el);
-    wrap.appendChild(el);
-    return wrap;
-  }
+            const data = new Map();
+            galleries.forEach(gal => {
+                const items = Array.from(gal.querySelectorAll('.slide-car img'))
+                    .map(i => ({src: i.getAttribute('data-full') || i.src, alt: i.alt || ''}))
+                    .filter(x => x.src);
+                data.set(gal, {items, index: 0});
+            });
 
-  function ensureArrows(wrap){
-    let prev = wrap.querySelector('.slider-nav.prev');
-    let next = wrap.querySelector('.slider-nav.next');
+            let currentGallery = null;
 
-    if(!prev){
-      prev = document.createElement('button');
-      prev.type = 'button';
-      prev.className = 'slider-nav prev';
-      prev.setAttribute('aria-label','Назад');
-      prev.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      wrap.appendChild(prev);
-    }
-    if(!next){
-      next = document.createElement('button');
-      next.type = 'button';
-      next.className = 'slider-nav next';
-      next.setAttribute('aria-label','Вперёд');
-      next.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      wrap.appendChild(next);
-    }
-    return { prev, next };
-  }
+            galleries.forEach(gal => {
+                gal.addEventListener('click', (e) => {
+                    const img = e.target.closest('img');
+                    if (!img || !img.closest('.slide-car')) return;
 
-  function updateState(){
-    const wrap = ensureWrap(scroller);
-    const { prev, next } = ensureArrows(wrap);
+                    currentGallery = gal;
+                    const pack = data.get(gal);
+                    const clickedSrc = img.getAttribute('data-full') || img.src;
+                    const idx = pack.items.findIndex(x => x.src === clickedSrc);
+                    pack.index = idx >= 0 ? idx : 0;
+                    show(pack.items[pack.index]);
+                    open();
+                }, true);
+            });
 
-    // Если не переполнен — прячем обе
-    if (!hasOverflow(scroller)) {
-      prev.style.display = 'none';
-      next.style.display = 'none';
-      scroller.classList.remove('has-arrows');
-      return;
-    }
+            function open() {
+                modal.setAttribute('aria-hidden', 'false');
+                document.documentElement.style.overflow = 'hidden';
+            }
 
-    const max = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
-    const atStart = scroller.scrollLeft <= EPS;
-    const atEnd   = scroller.scrollLeft >= (max - EPS);
+            function close() {
+                modal.setAttribute('aria-hidden', 'true');
+                document.documentElement.style.overflow = '';
+            }
 
-    prev.disabled = atStart;
-    next.disabled = atEnd;
+            function show(item) {
+                imgEl.src = '';
+                requestAnimationFrame(() => {
+                    imgEl.alt = item.alt || '';
+                    imgEl.src = item.src;
+                });
+            }
 
-    const hideBoth = atStart && atEnd;
-    if (hideBoth) {
-      prev.style.display = 'none';
-      next.style.display = 'none';
-      scroller.classList.remove('has-arrows');
-    } else {
-      prev.style.display = '';
-      next.style.display = '';
-      scroller.classList.add('has-arrows');
-    }
-  }
+            function move(delta) {
+                if (!currentGallery) return;
+                const pack = data.get(currentGallery);
+                if (!pack.items.length) return;
+                pack.index = (pack.index + delta + pack.items.length) % pack.items.length;
+                show(pack.items[pack.index]);
+            }
 
-  function waitImages(cb){
-    const imgs = Array.from(scroller.querySelectorAll('img'));
-    if (!imgs.length) { cb(); return; }
-    let left = imgs.length;
-    const done = ()=>{ if(--left <= 0) cb(); };
-    imgs.forEach(img=>{
-      if (img.complete) done();
-      else {
-        img.addEventListener('load', done, { once:true });
-        img.addEventListener('error', done, { once:true });
-      }
-    });
-  }
+            btnClose.addEventListener('click', close);
+            btnPrev.addEventListener('click', () => move(-1));
+            btnNext.addEventListener('click', () => move(1));
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) close();
+            });
 
-  // init
-  const wrap = ensureWrap(scroller);
-  const { prev, next } = ensureArrows(wrap);
+            window.addEventListener('keydown', (e) => {
+                if (modal.getAttribute('aria-hidden') === 'true') return;
+                if (e.key === 'Escape') close();
+                if (e.key === 'ArrowLeft') move(-1);
+                if (e.key === 'ArrowRight') move(1);
+            });
 
-  function scrollByStep(dir){
-    scroller.scrollBy({ left: dir * stepSize(scroller), behavior: 'smooth' });
-    setTimeout(updateState, 220);
-  }
+            // свайпы
+            let sx = 0, sy = 0, swiping = false;
+            stage.addEventListener('touchstart', (e) => {
+                const t = e.changedTouches[0];
+                sx = t.clientX;
+                sy = t.clientY;
+                swiping = true;
+            }, {passive: true});
+            stage.addEventListener('touchend', (e) => {
+                if (!swiping) return;
+                const t = e.changedTouches[0];
+                const dx = t.clientX - sx, dy = Math.abs(t.clientY - sy);
+                if (Math.abs(dx) > 40 && dy < 40) move(dx < 0 ? 1 : -1);
+                swiping = false;
+            }, {passive: true});
+        });
+    </script>
 
-  [prev, next].forEach(btn=>{
-    btn.addEventListener('click', e=>e.stopPropagation());
-    btn.addEventListener('mousedown', e=>e.stopPropagation());
-    btn.addEventListener('touchstart', e=>e.stopPropagation(), {passive:true});
-  });
-
-  prev.addEventListener('click', ()=>scrollByStep(-1));
-  next.addEventListener('click', ()=>scrollByStep(1));
-  scroller.addEventListener('scroll', updateState, { passive:true });
-
-  const ro = new ResizeObserver(updateState);
-  ro.observe(scroller);
-
-  waitImages(updateState);
-})();
-</script>
-
-{#    <div style="height: 120px"></div>#}
-   <!-- REVIEWS SECTION -->
-<section class="reviews-section">
-  <div class="container-1200">
-    <h4 class="mini-headr">Что о нас говорят клиенты</h4>
-
-    <section class="reviews">
-      <!-- На десктопе: grid; На мобиле: горизонтальный слайдер -->
-      <div class="reviews-grid js-reviews-track">
-
-        <!-- КАРТОЧКА -->
-        <article class="review-card">
-          <div class="review-top">
-            <h3 class="review-name">Сергей Галкин</h3>
-            <time class="review-date" datetime="2022-08-13">от 13.08.2022</time>
-          </div>
-          <div class="review-bottom-row">
-            <p class="review-bottom">Неплохой выбор неординарного кирпича, качествен . . .</p>
-            <a class="review-cta" target="_blank"
-   rel="noopener noreferrer" href="https://2gis.ru/reviews/70000001062605281/review/35318036"  aria-label="Читать отзыв">
-              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
-            </a>
-          </div>
-        </article>
-
-        <!-- КАРТОЧКА -->
-        <article class="review-card">
-          <div class="review-top">
-            <h3 class="review-name">Елена Павлова</h3>
-            <time class="review-date" datetime="2022-09-08">от 8.09.2022</time>
-          </div>
-          <div class="review-bottom-row">
-            <p class="review-bottom">В январе 2022 г. при выборе кирпича для облицовки дома пол . . .</p>
-            <a class="review-cta" target="_blank"
-   rel="noopener noreferrer" href="https://2gis.ru/reviews/70000001062605281/review/36628812" aria-label="Читать отзыв">
-              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
-            </a>
-          </div>
-        </article>
-
-        <!-- КАРТОЧКА -->
-        <article class="review-card">
-          <div class="review-top">
-            <h3 class="review-name">Ирина Шишкина</h3>
-            <time class="review-date" datetime="2024-08-07">от 7.08.2024</time>
-          </div>
-          <div class="review-bottom-row">
-            <p class="review-bottom">Большое спасибо за помощь в выборе кирпича облиц . . .</p>
-            <a class="review-cta" target="_blank"
-   rel="noopener noreferrer" href="https://2gis.ru/reviews/70000001062605281/review/102806417" aria-label="Читать отзыв">
-              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
-            </a>
-          </div>
-        </article>
-
-        <!-- КАРТОЧКА -->
-        <article class="review-card">
-          <div class="review-top">
-            <h3 class="review-name">Елена Бурдина</h3>
-            <time class="review-date" datetime="2024-11-13">от 13.11.2024</time>
-          </div>
-          <div class="review-bottom-row">
-            <p class="review-bottom">Большой выбор кирпичей, клинкерной плитки, брусчат . . .</p>
-            <a class="review-cta" target="_blank"
-   rel="noopener noreferrer" href="https://2gis.ru/perm/firm/70000001062605281/tab/reviews/review/121688193" aria-label="Читать отзыв">
-              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
-            </a>
-          </div>
-        </article>
-
-        <!-- КАРТОЧКА -->
-        <article class="review-card">
-          <div class="review-top">
-            <h3 class="review-name">Тимофей Москотин</h3>
-            <time class="review-date" datetime="2025-04-11">от 11.04.2025</time>
-          </div>
-          <div class="review-bottom-row">
-            <p class="review-bottom">Покупали кирпич в прошлом году, все вовремя привезли, бой мин . . .</p>
-            <a class="review-cta" target="_blank"
-   rel="noopener noreferrer" href="https://2gis.ru/perm/firm/70000001062605281/tab/reviews/review/151408206" aria-label="Читать отзыв">
-              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
-            </a>
-          </div>
-        </article>
-
-        <!-- КАРТОЧКА -->
-        <article class="review-card">
-          <div class="review-top">
-            <h3 class="review-name">Владимир Малышевский</h3>
-            <time class="review-date" datetime="2025-04-18">от 18.04.2025</time>
-          </div>
-          <div class="review-bottom-row">
-            <p class="review-bottom">Хорошая, ответственная компания. Рекомендую . . .</p>
-            <a class="review-cta" target="_blank"
-   rel="noopener noreferrer" href="https://yandex.ru/maps/org/14652097326/reviews?reviews%5BpublicId%5D=7n3z48zpw4m9mbxx9yq93e5bv0&si=fzdkvxv3af7df5wawp0bjxvner&utm_source=review" aria-label="Читать отзыв">
-              <img src="{% static 'imgfolder/Group 296.png' %}" alt="стрелка" style="width:66px;height:50px">
-            </a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-  </div>
-</section>
-    
     <script>
-/* Автопрокрутка + свайп/drag без кнопок — активируется только на мобиле */
-(function(){
-  const track = document.querySelector('.js-reviews-track');
-  if(!track) return;
+        (function () {
+            const sliders = Array.from(document.querySelectorAll('.slider.js-lightbox-gallery'));
+            if (!sliders.length) return;
 
-  const mq = window.matchMedia('(max-width: 900px)');
+            const EPS = 1; // небольшой допуск для вычисления переполнения
 
-  /* --- Drag с мышью (и тач тоже работает нативным скроллом) --- */
-  let isDown = false, startX = 0, startLeft = 0;
-  function px(e){ return e.touches ? e.touches[0].clientX : e.clientX; }
+            // === helpers ===
+            const getGap = (el) => {
+                const cs = getComputedStyle(el);
+                const g = cs.columnGap || cs.gap || "0px";
+                const n = parseFloat(g);
+                return Number.isFinite(n) ? n : 0;
+            };
+            const firstSlide = (el) => el.querySelector('.slide-car');
+            const stepSize = (el) => {
+                const s = firstSlide(el);
+                return s ? (s.offsetWidth + getGap(el)) : 240;
+            };
+            const hasOverflow = (scroller) => (scroller.scrollWidth - scroller.clientWidth) > EPS;
 
-  const onDown = (e) => {
-    if(!mq.matches) return;        // только в режиме слайдера
-    isDown = true;
-    track.classList.add('is-dragging');
-    startX = px(e);
-    startLeft = track.scrollLeft;
-    stopAuto();
-  };
-  const onMove = (e) => {
-    if(!isDown) return;
-    const x = px(e);
-    track.scrollLeft = startLeft - (x - startX);
-  };
-  const onUp = () => {
-    if(!isDown) return;
-    isDown = false;
-    track.classList.remove('is-dragging');
-    snapToNearest();
-    resumeAuto();
-  };
+            function ensureWrap(slider) {
+                if (slider.parentElement && slider.parentElement.classList.contains('slider-wrap')) {
+                    return slider.parentElement;
+                }
+                const wrap = document.createElement('div');
+                wrap.className = 'slider-wrap';
+                slider.parentNode.insertBefore(wrap, slider);
+                wrap.appendChild(slider);
+                return wrap;
+            }
 
-  track.addEventListener('pointerdown', onDown, {passive:true});
-  window.addEventListener('pointermove', onMove, {passive:true});
-  window.addEventListener('pointerup', onUp);
-  track.addEventListener('touchstart', stopAuto, {passive:true});
-  track.addEventListener('touchend', resumeAuto, {passive:true});
-  track.addEventListener('mouseenter', stopAuto);
-  track.addEventListener('mouseleave', resumeAuto);
+            function ensureArrows(wrap) {
+                let prev = wrap.querySelector('.slider-nav.prev');
+                let next = wrap.querySelector('.slider-nav.next');
 
-  /* --- Автоплей --- */
-  let timer = null;
-  let current = 0;
-  const interval = 4000;
+                if (!prev) {
+                    prev = document.createElement('button');
+                    prev.type = 'button';
+                    prev.className = 'slider-nav prev';
+                    prev.setAttribute('aria-label', 'Назад');
+                    prev.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                    wrap.appendChild(prev);
+                }
+                if (!next) {
+                    next = document.createElement('button');
+                    next.type = 'button';
+                    next.className = 'slider-nav next';
+                    next.setAttribute('aria-label', 'Вперёд');
+                    next.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                    wrap.appendChild(next);
+                }
+                return {prev, next};
+            }
 
-  function cards(){ return Array.from(track.querySelectorAll('.review-card')); }
-  function cardOffsetLeft(el){
-    const padLeft = parseFloat(getComputedStyle(track).paddingLeft)||0;
-    return el.offsetLeft - track.offsetLeft - padLeft;
-  }
-  function scrollToIndex(i){
-    const c = cards(); if(!c[i]) return;
-    track.scrollTo({ left: cardOffsetLeft(c[i]), behavior: 'smooth' });
-  }
-  function snapToNearest(){
-    const c = cards();
-    const left = track.scrollLeft;
-    let best = 0, bestDelta = Infinity;
-    c.forEach((el, i) => {
-      const target = cardOffsetLeft(el);
-      const d = Math.abs(target - left);
-      if(d < bestDelta){ bestDelta=d; best=i; }
-    });
-    current = best;
-    scrollToIndex(best);
-  }
-  function startAuto(){
-    if(!mq.matches) return;     // автоплей только на мобиле
-    stopAuto();
-    timer = setInterval(() => {
-      const c = cards();
-      current = (current + 1) % c.length;
-      scrollToIndex(current);
-    }, interval);
-  }
-  function stopAuto(){ if(timer){ clearInterval(timer); timer=null; } }
-  function resumeAuto(){ if(!timer && mq.matches) startAuto(); }
+            // Ключевая функция: включает/отключает и прячет стрелки
+            function updateState(scroller, wrap) {
+                const {prev, next} = ensureArrows(wrap);
 
-  startAuto();
-  window.addEventListener('resize', () => { stopAuto(); startAuto(); });
-})();
-</script>
-    
-    
-    
-    <div style="height: 120px"></div>
-    
-    
-    
-    
-    
-    {#    ------Сертификаты------#}
-<div style="display: flex; justify-content: center;">
-<div style="width: 1200px">
-      <h4 class="mini-headr">Сертификаты</h4>
-    <div class="slider js-lightbox-gallery">
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 156px"
-          src="{% static 'imgfolder/sertificats/sert1.png' %}"
-          alt="Сертификат 1"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 173px"
-          src="{% static 'imgfolder/sertificats/sert2.png' %}"
-          alt="Сертификат 2"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 163px"
-          src="{% static 'imgfolder/sertificats/srt3.png' %}"
-          alt="Сертификат 3"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="width: 118px"
-          src="{% static 'imgfolder/sertificats/sret4.png' %}"
-          alt="Сертификат 4"
-        />
-      </div>
-      
-    </div>
-    
-</div>
-  
-    
-</div>
-    
-     {#    ------Награды------#}
-<div style="display: flex; justify-content: center;">
-<div style="width: 1200px">
-      <h4 class="mini-headr">Награды</h4>
-    <div class="slider js-lightbox-gallery">
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 151px"
-          src="{% static 'imgfolder/prises/sert1.png' %}"
-          alt="Награда 1"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 155px"
-          src="{% static 'imgfolder/prises/Scan 2.png' %}"
-          alt="Награда 2"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 200px"
-          src="{% static 'imgfolder/prises/sert3.png' %}"
-          alt="Награда 3"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 184px"
-          src="{% static 'imgfolder/prises/sert4.png' %}"
-          alt="Награда 4"
-        />
-      </div>
-      
-        <div class="slide-car">
-        <img
-          draggable="false",
-          style="height: 130px"
-          src="{% static 'imgfolder/prises/prize6.png' %}"
-          alt="Награда 5"
-        />
-      </div>
-    </div>
-    
-</div>
+                // По умолчанию показываем/включаем — потом поправим
+                prev.style.display = '';
+                next.style.display = '';
 
-<style>
-  /* Обёртка фиксирует стрелки, лента внутри скроллится */
-  .slider-wrap{ position:relative; }
-  .slider{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
-  .slider.has-arrows{ padding:0 44px; box-sizing:border-box; } /* место под стрелки */
+                // Если лента НЕ переполнена — вообще прячем обе
+                if (!hasOverflow(scroller)) {
+                    prev.style.display = 'none';
+                    next.style.display = 'none';
+                    scroller.classList.remove('has-arrows');
+                    return;
+                }
 
-  /* Стрелки */
-  .slider-wrap .slider-nav{
-    position:absolute; top:50%; transform:translateY(-50%);
-    width:38px; height:38px; border:none; border-radius:50%;
-    background:#fff; color:#222; box-shadow:0 4px 16px rgba(0,0,0,.15);
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer; z-index:2;
-  }
-  .slider-wrap .slider-nav:disabled{ opacity:.45; cursor:not-allowed; }
-  .slider-wrap .slider-nav.prev{ left:8px; }
-  .slider-wrap .slider-nav.next{ right:8px; }
+                // Есть переполнение → вычисляем края
+                const max = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+                const atStart = scroller.scrollLeft <= EPS;
+                const atEnd = scroller.scrollLeft >= (max - EPS);
 
-  .slider::-webkit-scrollbar{ display:none; }
-</style>
+                // Дизейблим по краям, но стрелки остаются видимыми,
+                // чтобы пользователь мог листать в другую сторону
+                prev.disabled = atStart;
+                next.disabled = atEnd;
 
-    
-</div>
-    <div class="lb-modal" id="lbModal" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
-  <button class="lb-close" id="lbClose" aria-label="Закрыть">×</button>
-  <button class="lb-prev"  id="lbPrev"  aria-label="Предыдущее">‹</button>
-  <button class="lb-next"  id="lbNext"  aria-label="Следующее">›</button>
-  <div class="lb-stage" id="lbStage">
-    <img id="lbImage" alt="">
-  </div>
-</div>
+                // Если ПАРАДОКСАЛЬНО обе стороны недоступны (бывает при динамической вёрстке) — скрываем обе
+                const hideBoth = atStart && atEnd;
+                if (hideBoth) {
+                    prev.style.display = 'none';
+                    next.style.display = 'none';
+                    scroller.classList.remove('has-arrows');
+                } else {
+                    scroller.classList.add('has-arrows');
+                }
+            }
 
+            // Ждём загрузки картинок внутри конкретного слайдера и только потом считаем размеры
+            function waitImages(slider, cb) {
+                const imgs = Array.from(slider.querySelectorAll('img'));
+                if (!imgs.length) {
+                    cb();
+                    return;
+                }
+                let left = imgs.length;
+                const done = () => {
+                    if (--left <= 0) cb();
+                };
 
+                imgs.forEach(img => {
+                    if (img.complete) {
+                        done();
+                    } else {
+                        img.addEventListener('load', done, {once: true});
+                        img.addEventListener('error', done, {once: true});
+                    }
+                });
+            }
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const galleries = Array.from(document.querySelectorAll('.js-lightbox-gallery'));
-  if (!galleries.length) return;
+            sliders.forEach((slider) => {
+                const wrap = ensureWrap(slider);
+                const {prev, next} = ensureArrows(wrap);
 
-  const modal   = document.getElementById('lbModal');
-  const stage   = document.getElementById('lbStage');
-  const imgEl   = document.getElementById('lbImage');
-  const btnClose= document.getElementById('lbClose');
-  const btnPrev = document.getElementById('lbPrev');
-  const btnNext = document.getElementById('lbNext');
+                function scrollByStep(dir) {
+                    slider.scrollBy({left: dir * stepSize(slider), behavior: 'smooth'});
+                    // лёгкая задержка, чтобы scrollLeft обновился
+                    setTimeout(() => updateState(slider, wrap), 220);
+                }
 
-  // если чего-то нет — не падаем, а выходим
-  if (!modal || !stage || !imgEl || !btnClose || !btnPrev || !btnNext) {
-    console.error('Lightbox: разметка модалки не найдена или неполная.');
-    return;
-  }
+                // Стрелки не должны открывать лайтбокс картинок
+                [prev, next].forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                    btn.addEventListener('mousedown', (e) => {
+                        e.stopPropagation();
+                    });
+                    btn.addEventListener('touchstart', (e) => {
+                        e.stopPropagation();
+                    }, {passive: true});
+                });
 
-  const data = new Map();
-  galleries.forEach(gal=>{
-    const items = Array.from(gal.querySelectorAll('.slide-car img'))
-      .map(i=>({ src: i.getAttribute('data-full') || i.src, alt: i.alt || '' }))
-      .filter(x=>x.src);
-    data.set(gal, { items, index:0 });
-  });
+                prev.addEventListener('click', () => scrollByStep(-1));
+                next.addEventListener('click', () => scrollByStep(1));
 
-  let currentGallery = null;
+                // Обновляем состояние при скролле и изменении размеров
+                slider.addEventListener('scroll', () => updateState(slider, wrap), {passive: true});
 
-  galleries.forEach(gal=>{
-    gal.addEventListener('click', (e)=>{
-      const img = e.target.closest('img');
-      if(!img || !img.closest('.slide-car')) return;
+                const ro = new ResizeObserver(() => updateState(slider, wrap));
+                ro.observe(slider);
 
-      currentGallery = gal;
-      const pack = data.get(gal);
-      const clickedSrc = img.getAttribute('data-full') || img.src;
-      const idx = pack.items.findIndex(x=>x.src===clickedSrc);
-      pack.index = idx >= 0 ? idx : 0;
-      show(pack.items[pack.index]);
-      open();
-    }, true);
-  });
-
-  function open(){
-    modal.setAttribute('aria-hidden','false');
-    document.documentElement.style.overflow = 'hidden';
-  }
-  function close(){
-    modal.setAttribute('aria-hidden','true');
-    document.documentElement.style.overflow = '';
-  }
-  function show(item){
-    imgEl.src = '';
-    requestAnimationFrame(()=>{
-      imgEl.alt = item.alt || '';
-      imgEl.src = item.src;
-    });
-  }
-  function move(delta){
-    if(!currentGallery) return;
-    const pack = data.get(currentGallery);
-    if(!pack.items.length) return;
-    pack.index = (pack.index + delta + pack.items.length) % pack.items.length;
-    show(pack.items[pack.index]);
-  }
-
-  btnClose.addEventListener('click', close);
-  btnPrev .addEventListener('click', ()=>move(-1));
-  btnNext .addEventListener('click', ()=>move(1));
-  modal.addEventListener('click', (e)=>{ if(e.target === modal) close(); });
-
-  window.addEventListener('keydown', (e)=>{
-    if(modal.getAttribute('aria-hidden')==='true') return;
-    if(e.key==='Escape') close();
-    if(e.key==='ArrowLeft') move(-1);
-    if(e.key==='ArrowRight') move(1);
-  });
-
-  // свайпы
-  let sx=0, sy=0, swiping=false;
-  stage.addEventListener('touchstart', (e)=>{
-    const t = e.changedTouches[0]; sx=t.clientX; sy=t.clientY; swiping=true;
-  }, {passive:true});
-  stage.addEventListener('touchend', (e)=>{
-    if(!swiping) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - sx, dy = Math.abs(t.clientY - sy);
-    if (Math.abs(dx)>40 && dy<40) move(dx<0?1:-1);
-    swiping=false;
-  }, {passive:true});
-});
-</script>
-
-<script>
-(function(){
-  const sliders = Array.from(document.querySelectorAll('.slider.js-lightbox-gallery'));
-  if(!sliders.length) return;
-
-  const EPS = 1; // небольшой допуск для вычисления переполнения
-
-  // === helpers ===
-  const getGap = (el)=>{
-    const cs = getComputedStyle(el);
-    const g  = cs.columnGap || cs.gap || "0px";
-    const n  = parseFloat(g);
-    return Number.isFinite(n) ? n : 0;
-  };
-  const firstSlide = (el)=> el.querySelector('.slide-car');
-  const stepSize = (el)=>{
-    const s = firstSlide(el);
-    return s ? (s.offsetWidth + getGap(el)) : 240;
-  };
-  const hasOverflow = (scroller)=> (scroller.scrollWidth - scroller.clientWidth) > EPS;
-
-  function ensureWrap(slider){
-    if (slider.parentElement && slider.parentElement.classList.contains('slider-wrap')) {
-      return slider.parentElement;
-    }
-    const wrap = document.createElement('div');
-    wrap.className = 'slider-wrap';
-    slider.parentNode.insertBefore(wrap, slider);
-    wrap.appendChild(slider);
-    return wrap;
-  }
-
-  function ensureArrows(wrap){
-    let prev = wrap.querySelector('.slider-nav.prev');
-    let next = wrap.querySelector('.slider-nav.next');
-
-    if(!prev){
-      prev = document.createElement('button');
-      prev.type = 'button';
-      prev.className = 'slider-nav prev';
-      prev.setAttribute('aria-label','Назад');
-      prev.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      wrap.appendChild(prev);
-    }
-    if(!next){
-      next = document.createElement('button');
-      next.type = 'button';
-      next.className = 'slider-nav next';
-      next.setAttribute('aria-label','Вперёд');
-      next.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      wrap.appendChild(next);
-    }
-    return { prev, next };
-  }
-
-  // Ключевая функция: включает/отключает и прячет стрелки
-  function updateState(scroller, wrap){
-    const { prev, next } = ensureArrows(wrap);
-
-    // По умолчанию показываем/включаем — потом поправим
-    prev.style.display = '';
-    next.style.display = '';
-
-    // Если лента НЕ переполнена — вообще прячем обе
-    if (!hasOverflow(scroller)) {
-      prev.style.display = 'none';
-      next.style.display = 'none';
-      scroller.classList.remove('has-arrows');
-      return;
-    }
-
-    // Есть переполнение → вычисляем края
-    const max = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
-    const atStart = scroller.scrollLeft <= EPS;
-    const atEnd   = scroller.scrollLeft >= (max - EPS);
-
-    // Дизейблим по краям, но стрелки остаются видимыми,
-    // чтобы пользователь мог листать в другую сторону
-    prev.disabled = atStart;
-    next.disabled = atEnd;
-
-    // Если ПАРАДОКСАЛЬНО обе стороны недоступны (бывает при динамической вёрстке) — скрываем обе
-    const hideBoth = atStart && atEnd;
-    if (hideBoth) {
-      prev.style.display = 'none';
-      next.style.display = 'none';
-      scroller.classList.remove('has-arrows');
-    } else {
-      scroller.classList.add('has-arrows');
-    }
-  }
-
-  // Ждём загрузки картинок внутри конкретного слайдера и только потом считаем размеры
-  function waitImages(slider, cb){
-    const imgs = Array.from(slider.querySelectorAll('img'));
-    if (!imgs.length) { cb(); return; }
-    let left = imgs.length;
-    const done = ()=>{ if(--left <= 0) cb(); };
-
-    imgs.forEach(img=>{
-      if (img.complete) { done(); }
-      else {
-        img.addEventListener('load', done, { once:true });
-        img.addEventListener('error', done, { once:true });
-      }
-    });
-  }
-
-  sliders.forEach((slider)=>{
-    const wrap = ensureWrap(slider);
-    const { prev, next } = ensureArrows(wrap);
-
-    function scrollByStep(dir){
-      slider.scrollBy({ left: dir * stepSize(slider), behavior: 'smooth' });
-      // лёгкая задержка, чтобы scrollLeft обновился
-      setTimeout(()=>updateState(slider, wrap), 220);
-    }
-
-    // Стрелки не должны открывать лайтбокс картинок
-    [prev, next].forEach(btn=>{
-      btn.addEventListener('click', (e)=>{ e.stopPropagation(); });
-      btn.addEventListener('mousedown', (e)=>{ e.stopPropagation(); });
-      btn.addEventListener('touchstart', (e)=>{ e.stopPropagation(); }, {passive:true});
-    });
-
-    prev.addEventListener('click', ()=>scrollByStep(-1));
-    next.addEventListener('click', ()=>scrollByStep(1));
-
-    // Обновляем состояние при скролле и изменении размеров
-    slider.addEventListener('scroll', ()=>updateState(slider, wrap), { passive:true });
-
-    const ro = new ResizeObserver(()=>updateState(slider, wrap));
-    ro.observe(slider);
-
-    // ИНИЦИАЛИЗАЦИЯ: после загрузки картинок чтобы верно посчитать scrollWidth
-    waitImages(slider, ()=>updateState(slider, wrap));
-  });
-})();
-</script>
+                // ИНИЦИАЛИЗАЦИЯ: после загрузки картинок чтобы верно посчитать scrollWidth
+                waitImages(slider, () => updateState(slider, wrap));
+            });
+        })();
+    </script>
 
 
 
