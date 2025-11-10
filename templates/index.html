@@ -1780,7 +1780,7 @@
             объекты</strong></li>
         <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
-       
+
         <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong>
         </li>
         <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
@@ -1989,7 +1989,7 @@
                     type="search"
                     name="q"
                     list="search-suggestions"
-                    placeholder="Поиск по каталогу…"
+                    placeholder="Поиск"
                     autocomplete="off"
                     aria-label="Поиск по товарам"
                     value="{{ request.GET.q|default_if_none:'' }}"
