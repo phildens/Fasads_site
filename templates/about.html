@@ -259,7 +259,7 @@
   </div>
 
 
-        <form>
+         <form method="post" id="contact-form" action="{% url 'contact_request_create' %}">
             <div class="callback-form-row">
                 <div class="callback-form-fields">
                     <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения
@@ -296,9 +296,13 @@
         </form>
     </div>
 <script>
-(function () {
-  const form  = document.getElementById('contact-form');
-  const btn   = form.querySelector('.callback-form-btn');
+document.addEventListener('DOMContentLoaded', () => {
+  // Пытаемся найти по id; если нет — берём по action
+  const form = document.getElementById('contact-form')
+           || document.querySelector('form[action$="contact-request/create/"]');
+  if (!form) return; // нет формы — выходим тихо
+
+  const btn = form.querySelector('.callback-form-btn');
   const alertBox = document.getElementById('form-alert');
 
   function showAlert(type, html, autohideMs = 6000) {
@@ -306,7 +310,6 @@
     alertBox.innerHTML = html;
     alertBox.classList.remove('d-none');
     alertBox.scrollIntoView({behavior:'smooth', block:'center'});
-
     if (autohideMs) {
       clearTimeout(alertBox._t);
       alertBox._t = setTimeout(() => alertBox.classList.add('d-none'), autohideMs);
@@ -314,7 +317,6 @@
   }
 
   function fieldErrorsToHTML(errorsObj) {
-    // errorsObj = {first_name:["Обязательное поле."], email:["Некорректный email."], …}
     const items = [];
     for (const [field, msgs] of Object.entries(errorsObj || {})) {
       msgs.forEach(m => items.push(`<li><strong>${field}</strong>: ${m}</li>`));
@@ -324,17 +326,15 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    btn.disabled = true;
+    btn && (btn.disabled = true);
 
     try {
-      const res = await fetch(form.action, {
+      const res  = await fetch(form.action, {
         method: 'POST',
         body: new FormData(form),
         credentials: 'same-origin',
-        // если вернёте CSRF-проверку — раскомментируйте строку ниже:
-        // headers: { 'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value },
+        // headers: { 'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value }, // если вернёте CSRF
       });
-
       const data = await res.json();
 
       if (res.ok && data.ok) {
@@ -344,14 +344,15 @@
         const details = fieldErrorsToHTML(data.errors);
         showAlert('error', `Не удалось отправить форму. ${details || 'Проверьте поля и попробуйте ещё раз.'}`);
       }
-    } catch (err) {
-      showAlert('error', 'Ошибка соединения. Проверьте интернет и попробуйте ещё раз.');
+    } catch {
+      showAlert('error', 'Ошибка соединения. Попробуйте ещё раз.');
     } finally {
-      btn.disabled = false;
+      btn && (btn.disabled = false);
     }
   });
-})();
+});
 </script>
+
     <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
 
     <style>
