@@ -4,6 +4,7 @@ from shop_part.serializers import ProductSerializer, ProductInCatSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
 from shop_part.models import Category, Product, TypeMaterial, Questions
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
 from django.views.decorators.http import require_POST
 from django.core.validators import validate_email
@@ -251,24 +252,26 @@ class FAQView(ListView):
     context_object_name = "questions"
     queryset = Questions.objects.all().order_by("id")
 
-
+@csrf_exempt
 @require_POST
 def contact_request_create(request):
-    # простая валидация
     data = request.POST
-    # Маппинг: принимаем и "старые" и ваши имена полей
     first_name = (data.get("first_name") or data.get("name") or "").strip()
-    last_name = (data.get("last_name") or data.get("surname") or "").strip()
-    email = (data.get("email") or "").strip()
-    phone = (data.get("phone") or "").strip()
-    description = (data.get("description") or data.get("about") or "").strip()
+    last_name  = (data.get("last_name")  or data.get("surname") or "").strip()
+    email      = (data.get("email") or "").strip()
+    phone      = (data.get("phone") or "").strip()
+    description= (data.get("description") or data.get("about") or "").strip()
 
     errors = {}
     if not first_name:
         errors["first_name"] = ["Обязательное поле."]
-    if not email:
-        errors["email"] = ["Обязательное поле."]
-    else:
+
+    # Требуем хотя бы один способ связи
+    if not (email or phone):
+        errors["contact"] = ["Укажите email или телефон."]
+
+    # Если email есть — проверим формат, но не делаем его обязательным
+    if email:
         try:
             validate_email(email)
         except ValidationError:
@@ -279,12 +282,14 @@ def contact_request_create(request):
 
     ContactRequest.objects.create(
         first_name=first_name,
-        last_name=last_name,
-        email=email,
+        last_name=last_name or None,
+        email=email or None,
         phone=phone,
         description=description,
     )
+
     return JsonResponse({"ok": True})
+
 
 
 from rest_framework.generics import get_object_or_404

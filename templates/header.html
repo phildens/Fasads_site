@@ -236,8 +236,7 @@ html, body { max-width:100%; overflow-x:hidden; }
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши объекты</strong></li>
     <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши партнеры</strong></li>
-    <li style="margin-bottom:70px"><a href="#manufactors">Дилеры заводов</a></li>
+
 
     <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
     <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
@@ -271,7 +270,7 @@ html, body { max-width:100%; overflow-x:hidden; }
         <img style="width:60px;height:60px" src="{% static 'imgfolder/ico_contact/Group 310.png' %}" alt="Связь">
       </span>
             <span class="mini-contact-text">
-        <a style="color:#575757" href="https://t.me/evrofacad" target="_blank">Telegram-канал</a><br>
+        <a style="color:#575757" href="https://t.me/evrofacad/" target="_blank">Telegram-канал</a><br>
       </span>
         </div>
         <div class="mini-contact-row">
@@ -337,11 +336,7 @@ html, body { max-width:100%; overflow-x:hidden; }
     aria-label="Поиск по товарам"
     value="{{ request.GET.q|default_if_none:'' }}"
   />
-  <datalist id="search-suggestions">
-    <option value="Кирпич">
-    <option value="фасад">
-    <option value="камень">
-  </datalist>
+
 
   <!-- Кнопка не обязательна, но удобна: -->
 {#  <button type="submit" class="search-button" aria-label="Найти">Найти</button>#}

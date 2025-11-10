@@ -343,6 +343,7 @@
             width: 56px;
             height: 47px;
         }
+
         .tg-ico img {
             height: 25px;
         }
@@ -559,22 +560,22 @@
         }
 
         /* базовые размеры иконки (как у тебя) */
-.badge__icon {
-  width: 24px;
-  height: 24px;
-  display: block;
-}
+        .badge__icon {
+            width: 24px;
+            height: 24px;
+            display: block;
+        }
 
-/* только для новинки: делаем чёрной */
-.badge--new .badge__icon {
-  filter: brightness(0);      /* превращает белую в чёрную */
-}
+        /* только для новинки: делаем чёрной */
+        .badge--new .badge__icon {
+            filter: brightness(0); /* превращает белую в чёрную */
+        }
 
-/* на всякий случай фиксируем отсутствие фильтра у остальных */
-.badge--favorite .badge__icon,
-.badge--sale .badge__icon {
-  filter: none;
-}
+        /* на всякий случай фиксируем отсутствие фильтра у остальных */
+        .badge--favorite .badge__icon,
+        .badge--sale .badge__icon {
+            filter: none;
+        }
 
 
     </style>
@@ -738,11 +739,11 @@
                 isLoading: false
             };
             const listState = {
-  page: 1,
-  perPage: 20,      // <-- 20 на страницу
-  hasNext: false,
-  isLoading: false
-};
+                page: 1,
+                perPage: 20,      // <-- 20 на страницу
+                hasNext: false,
+                isLoading: false
+            };
 
             const $filters = document.getElementById("filters");
             const $grid = document.getElementById("grid");
@@ -767,14 +768,26 @@
                 manufacturer: "Производитель",
                 color: "Цвет",
                 type_material: "Вид материала",
-                product_type: "Тип товара",
+                product_type: "Категория товара", // было: "Тип товара"
                 frosen_defend: "Морозостойкость",
                 strength_grade: "Марка прочности",
                 water_resistance: "Водопоглощение",
                 format: "Формат",
                 emptiness: "Пустотность"
             };
-
+const CATEGORY_ORDER = [
+  "облицовочный кирпич",
+  "клинкерный кирпич",
+  "кирпич ручной формовки",
+  "ригельный кирпич",
+  "навесные вентилируемые системы (НВФ)",
+  "клинкерная плитка под НВФ",
+  "плитка под кирпич",
+  "брусчатка",
+  "керамические блоки",
+  "смеси",
+  "газоблок"
+];
             // state
             const state = {
                 sort: getParam("sort") || "default",
@@ -908,36 +921,44 @@
                 const id = item?.id ?? item?.pk;
                 return (id != null) ? `/p/${encodeURIComponent(id)}/` : '#';
             }
-            function appendCards(items){
-  if (!items || !items.length) return;
-  const frag = document.createElement("div");
-  frag.innerHTML = renderCardsToHtml(items); // используем ту же верстку
-  // аккуратно добавим
-  [...frag.children].forEach(node => $grid.appendChild(node));
-  // уведомим менеджер избранного, если есть
-  if (window.SFFavorites) document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-}
+
+            function appendCards(items) {
+                if (!items || !items.length) return;
+                const frag = document.createElement("div");
+                frag.innerHTML = renderCardsToHtml(items); // используем ту же верстку
+                // аккуратно добавим
+                [...frag.children].forEach(node => $grid.appendChild(node));
+                // уведомим менеджер избранного, если есть
+                if (window.SFFavorites) document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+            }
 
 // небольшая выносная функция, чтобы re-use разметки
-function renderCardsToHtml(items){
-  const normalizeTag = (val) => {
-    const raw = String(val || "").trim().toLowerCase();
-    const map = { "favorite":"favorite","фаворит":"favorite","sale":"sale","акция":"sale","new":"new","новинка":"new" };
-    return map[raw] || "";
-  };
-  const badgeMeta = {
-    favorite: {label: "фаворит", cls: "badge--favorite"},
-    sale: {label: "акция", cls: "badge--sale"},
-    new: {label: "новинка", cls: "badge--new"},
-  };
-  return items.map(card => {
-    const name = escapeHtml(card.name || "");
-    const img = escapeHtml(card.card_image || card.image || "");
-    const href = getProductUrl(card);
-    const id = card.id ?? card.pk;
-    const key = normalizeTag(card.promo_tag || card.badge);
-    const badge = key ? badgeMeta[key] : null;
-    return `
+            function renderCardsToHtml(items) {
+                const normalizeTag = (val) => {
+                    const raw = String(val || "").trim().toLowerCase();
+                    const map = {
+                        "favorite": "favorite",
+                        "фаворит": "favorite",
+                        "sale": "sale",
+                        "акция": "sale",
+                        "new": "new",
+                        "новинка": "new"
+                    };
+                    return map[raw] || "";
+                };
+                const badgeMeta = {
+                    favorite: {label: "фаворит", cls: "badge--favorite"},
+                    sale: {label: "акция", cls: "badge--sale"},
+                    new: {label: "новинка", cls: "badge--new"},
+                };
+                return items.map(card => {
+                    const name = escapeHtml(card.name || "");
+                    const img = escapeHtml(card.card_image || card.image || "");
+                    const href = getProductUrl(card);
+                    const id = card.id ?? card.pk;
+                    const key = normalizeTag(card.promo_tag || card.badge);
+                    const badge = key ? badgeMeta[key] : null;
+                    return `
       <div class="card">
         <div class="img-wrap">
           ${img ? `<a href="${href}" aria-label="${name}" target="_blank"><img src="${img}" alt="${name}"></a>` : `<div class="s-img skeleton"></div>`}
@@ -970,121 +991,177 @@ function renderCardsToHtml(items){
           </button>
         </div>
       </div>`;
-  }).join("");
-}
+                }).join("");
+            }
+
             function renderCards(items) {
-  if (!items || !items.length) {
-    $grid.innerHTML = "";
-    $empty.style.display = "block";
-    return;
-  }
-  $empty.style.display = "none";
-  $grid.innerHTML = renderCardsToHtml(items);
-}
+                if (!items || !items.length) {
+                    $grid.innerHTML = "";
+                    $empty.style.display = "block";
+                    return;
+                }
+                $empty.style.display = "none";
+                $grid.innerHTML = renderCardsToHtml(items);
+            }
 
             function renderFilters(groups) {
-                groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
-                $filters.innerHTML = "";
-                state.paramMap = {};
-                (groups || []).forEach(group => {
-                    const paramName = String(group.param || group.name || group.key || group.slug || "").trim();
-                    if (!paramName) return;
-                    state.paramMap[group.key || group.name || paramName] = paramName;
-                    const displayTitle =
-                        FILTER_TITLES[paramName] || group.verbose_name || group.title || group.label || group.name || group.key || paramName;
+  // нормализация входа
+  groups = Array.isArray(groups) ? groups : normalizeGroups(groups);
 
-                    const current = state.filters[paramName] || [];
-                    const wrap = document.createElement("div");
-                    wrap.className = "filter-item"; // свернуто по умолчанию
-                    wrap.innerHTML = `
-        <div class="filter-head" role="button" tabindex="0" aria-expanded="false">
-          <h4>${escapeHtml(displayTitle)}</h4>
-          <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="#5a4a48" stroke-width="2"/></svg>
-        </div>
-        <div class="filter-content">
-          <div class="options"></div>
-        </div>`;
-                    const options = wrap.querySelector(".options");
-                    const values = normalizeValues(group.values || group.options || group.items || group.choices || []);
-                    values.forEach(v => {
-                        const val = String(v.value);
-                        const label = escapeHtml(v.label ?? val);
-                        const checked = current.includes(val) ? "checked" : "";
-                        options.insertAdjacentHTML("beforeend",
-                            `<label class="opt">
-             <input type="checkbox" data-param="${escapeAttr(paramName)}" value="${escapeAttr(val)}" ${checked}>
-             <span>${label}</span>
-           </label>`);
-                    });
-                    const head = wrap.querySelector(".filter-head");
-                    head.addEventListener("click", () => {
-                        const isOpen = wrap.classList.toggle("open");
-                        head.setAttribute("aria-expanded", String(isOpen));
-                    });
-                    options.addEventListener("change", e => {
-                        if (e.target && e.target.matches("input[type=checkbox]")) {
-                            const param = e.target.dataset.param;
-                            const val = e.target.value;
-                            const set = new Set(state.filters[param] || []);
-                            if (e.target.checked) set.add(val); else set.delete(val);
-                            state.filters[param] = Array.from(set);
-                            $apply.disabled = false;
-                            applyFiltersDebounced();
-                        }
-                    });
-                    $filters.appendChild(wrap);
-                });
+  // 1) Поднимаем "Категория товара" (product_type) на первое место
+  groups.sort((a, b) => {
+    const pa = String(a.param || a.name || a.key || "").trim();
+    const pb = String(b.param || b.name || b.key || "").trim();
+    if (pa === "product_type") return -1;
+    if (pb === "product_type") return 1;
+    return 0;
+  });
 
-                if (!$filters.children.length) {
-                    $filters.innerHTML = `<div class="filter-item">
-        <div class="filter-head"><h4>Фильтры недоступны</h4></div>
-        <div class="filter-content" style="display:block;padding:12px 16px;color:#9a8f8d">
-          Для этой категории фильтры не настроены.
-        </div>
+  // 2) Жёсткий порядок значений внутри фильтра "Категория товара"
+  const CATEGORY_ORDER = [
+    "облицовочный кирпич",
+    "клинкерный кирпич",
+    "кирпич ручной формовки",
+    "ригельный кирпич",
+    "навесные вентилируемые системы (НВФ)",
+    "клинкерная плитка под НВФ",
+    "плитка под кирпич",
+    "брусчатка",
+    "керамические блоки",
+    "смеси",
+    "газоблок"
+  ];
+  const orderIndex = (label) => {
+    const i = CATEGORY_ORDER.indexOf(String(label || "").toLowerCase());
+    return i === -1 ? Number.POSITIVE_INFINITY : i;
+  };
+
+  $filters.innerHTML = "";
+  state.paramMap = {};
+
+  (groups || []).forEach(group => {
+    const paramName = String(group.param || group.name || group.key || group.slug || "").trim();
+    if (!paramName) return;
+
+    state.paramMap[group.key || group.name || paramName] = paramName;
+
+    // 3) Переименовываем product_type на "Категория товара"
+    const isCategoryFilter = (paramName === "product_type");
+    const displayTitle = isCategoryFilter
+      ? "Категория товара"
+      : (FILTER_TITLES[paramName] || group.verbose_name || group.title || group.label || group.name || group.key || paramName);
+
+    const current = state.filters[paramName] || [];
+    const wrap = document.createElement("div");
+
+    // 4) Делаем "Категория товара" всегда открытым и не сворачиваемым
+    wrap.className = "filter-item" + (isCategoryFilter ? " open always-open" : "");
+    wrap.innerHTML = `
+      <div class="filter-head" role="button" tabindex="0" aria-expanded="${isCategoryFilter ? "true" : "false"}">
+        <h4>${escapeHtml(displayTitle)}</h4>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="#5a4a48" stroke-width="2"/></svg>
+      </div>
+      <div class="filter-content" style="${isCategoryFilter ? "display:block" : ""}">
+        <div class="options"></div>
       </div>`;
-                }
-            }
+
+    const options = wrap.querySelector(".options");
+
+    // 5) Значения фильтра
+    let values = normalizeValues(group.values || group.options || group.items || group.choices || []);
+
+    // сортируем только для "Категория товара" по CATEGORY_ORDER
+    if (isCategoryFilter) {
+      values.sort((a, b) => orderIndex(String(a.label ?? a.value).toLowerCase()) - orderIndex(String(b.label ?? b.value).toLowerCase()));
+    }
+
+    values.forEach(v => {
+      const val = String(v.value);
+      const label = escapeHtml(v.label ?? val);
+      const checked = current.includes(val) ? "checked" : "";
+      options.insertAdjacentHTML(
+        "beforeend",
+        `<label class="opt">
+           <input type="checkbox" data-param="${escapeAttr(paramName)}" value="${escapeAttr(val)}" ${checked}>
+           <span>${label}</span>
+         </label>`
+      );
+    });
+
+    // 6) Обработчики
+    const head = wrap.querySelector(".filter-head");
+    head.addEventListener("click", () => {
+      if (isCategoryFilter) return; // "Категория товара" не сворачиваем
+      const isOpen = wrap.classList.toggle("open");
+      head.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    options.addEventListener("change", e => {
+      if (e.target && e.target.matches("input[type=checkbox]")) {
+        const param = e.target.dataset.param;
+        const val = e.target.value;
+        const set = new Set(state.filters[param] || []);
+        if (e.target.checked) set.add(val); else set.delete(val);
+        state.filters[param] = Array.from(set);
+        $apply.disabled = false;
+        applyFiltersDebounced();
+      }
+    });
+
+    $filters.appendChild(wrap);
+  });
+
+  if (!$filters.children.length) {
+    $filters.innerHTML = `<div class="filter-item">
+      <div class="filter-head"><h4>Фильтры недоступны</h4></div>
+      <div class="filter-content" style="display:block;padding:12px 16px;color:#9a8f8d">
+        Для этой категории фильтры не настроены.
+      </div>
+    </div>`;
+  }
+}
+
 
             // data loaders
             async function loadCategoryName() {
-                async function loadMoreUniversal(){
-  if (isSearch){
-    if (!searchState.hasNext || searchState.isLoading) return;
-    searchState.isLoading = true;
-    $spinner.style.display = "block";
-    try {
-      searchState.page += 1;
-      await loadProducts({append: true});
-    } finally {
-      searchState.isLoading = false;
-      $spinner.style.display = "none";
-      $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
-    }
-  } else {
-    if (!listState.hasNext || listState.isLoading) return;
-    listState.isLoading = true;
-    $spinner.style.display = "block";
-    try {
-      listState.page += 1;
-      await loadProducts({append: true});
-    } finally {
-      listState.isLoading = false;
-      $spinner.style.display = "none";
-      $loadMore.style.display = listState.hasNext ? "inline-block" : "none";
-    }
-  }
-}
+                async function loadMoreUniversal() {
+                    if (isSearch) {
+                        if (!searchState.hasNext || searchState.isLoading) return;
+                        searchState.isLoading = true;
+                        $spinner.style.display = "block";
+                        try {
+                            searchState.page += 1;
+                            await loadProducts({append: true});
+                        } finally {
+                            searchState.isLoading = false;
+                            $spinner.style.display = "none";
+                            $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+                        }
+                    } else {
+                        if (!listState.hasNext || listState.isLoading) return;
+                        listState.isLoading = true;
+                        $spinner.style.display = "block";
+                        try {
+                            listState.page += 1;
+                            await loadProducts({append: true});
+                        } finally {
+                            listState.isLoading = false;
+                            $spinner.style.display = "none";
+                            $loadMore.style.display = listState.hasNext ? "inline-block" : "none";
+                        }
+                    }
+                }
 
 // кнопка
-$loadMore.addEventListener("click", loadMoreUniversal);
+                $loadMore.addEventListener("click", loadMoreUniversal);
 
 // автоподгрузка при прокрутке (если поддерживается)
-if ('IntersectionObserver' in window && $sentinel) {
-  const io = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) loadMoreUniversal();
-  }, {root: null, rootMargin: "400px 0px 400px 0px", threshold: 0});
-  io.observe($sentinel);
-}
+                if ('IntersectionObserver' in window && $sentinel) {
+                    const io = new IntersectionObserver((entries) => {
+                        if (entries[0].isIntersecting) loadMoreUniversal();
+                    }, {root: null, rootMargin: "400px 0px 400px 0px", threshold: 0});
+                    io.observe($sentinel);
+                }
 
                 if (apiSlug === "all") return;
                 try {
@@ -1129,62 +1206,62 @@ if ('IntersectionObserver' in window && $sentinel) {
             }
 
             async function loadProducts({append = false} = {}) {
-  if (!append) renderSkeletonCards();
+                if (!append) renderSkeletonCards();
 
-  try {
-    let items = [];
-    let url = "";
-    if (isSearch) {
-      // поиск
-      if (!append) searchState.page = 1;
-      const qstr = buildQuery(true); // ?q=...&sort=...
-      const sep = qstr ? "&" : "?";
-      url = epSearchProducts + qstr + `${sep}page=${searchState.page}&per_page=${searchState.perPage}`;
-    } else {
-      // обычный каталог
-      if (!append) listState.page = 1;
-      const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
-      const qstr = buildQuery(false);
-      const sep = qstr ? "&" : "?";
-      url = base + qstr + `${sep}page=${listState.page}&per_page=${listState.perPage}`;
-    }
+                try {
+                    let items = [];
+                    let url = "";
+                    if (isSearch) {
+                        // поиск
+                        if (!append) searchState.page = 1;
+                        const qstr = buildQuery(true); // ?q=...&sort=...
+                        const sep = qstr ? "&" : "?";
+                        url = epSearchProducts + qstr + `${sep}page=${searchState.page}&per_page=${searchState.perPage}`;
+                    } else {
+                        // обычный каталог
+                        if (!append) listState.page = 1;
+                        const base = (apiSlug !== "all") ? urlFor(epProductsCat, apiSlug) : epProductsAll;
+                        const qstr = buildQuery(false);
+                        const sep = qstr ? "&" : "?";
+                        url = base + qstr + `${sep}page=${listState.page}&per_page=${listState.perPage}`;
+                    }
 
-    const res = await fetch(url, {credentials: "same-origin"});
-    if (!res.ok) throw new Error("products " + res.status);
-    const data = await res.json();
+                    const res = await fetch(url, {credentials: "same-origin"});
+                    if (!res.ok) throw new Error("products " + res.status);
+                    const data = await res.json();
 
-    const pageItems = Array.isArray(data) ? data : (data.items || data.results || []);
-    items = pageItems;
+                    const pageItems = Array.isArray(data) ? data : (data.items || data.results || []);
+                    items = pageItems;
 
-    // клиентская сортировка по имени (если выбрана)
-    if (state.sort === "name_asc" || state.sort === "name_desc") {
-      items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
-      if (state.sort === "name_desc") items.reverse();
-    }
+                    // клиентская сортировка по имени (если выбрана)
+                    if (state.sort === "name_asc" || state.sort === "name_desc") {
+                        items = items.slice().sort((a, b) => (a.name || "").localeCompare(b.name || "", "ru", {sensitivity: "base"}));
+                        if (state.sort === "name_desc") items.reverse();
+                    }
 
-    // отрисовка
-    if (append) {
-      appendCards(items);
-    } else {
-      renderCards(items);
-    }
+                    // отрисовка
+                    if (append) {
+                        appendCards(items);
+                    } else {
+                        renderCards(items);
+                    }
 
-    // переключатели подгрузки
-    if (isSearch) {
-      searchState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
-      $loadWrap.style.display = "block";
-      $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
-    } else {
-      listState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
-      $loadWrap.style.display = "block";
-      $loadMore.style.display = listState.hasNext ? "inline-block" : "none";
-    }
+                    // переключатели подгрузки
+                    if (isSearch) {
+                        searchState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
+                        $loadWrap.style.display = "block";
+                        $loadMore.style.display = searchState.hasNext ? "inline-block" : "none";
+                    } else {
+                        listState.hasNext = !!(data && (data.has_next || (data.page < data.pages)));
+                        $loadWrap.style.display = "block";
+                        $loadMore.style.display = listState.hasNext ? "inline-block" : "none";
+                    }
 
-  } catch (e) {
-    console.error("products load error:", e);
-    if (!append) renderCards([]);
-  }
-}
+                } catch (e) {
+                    console.error("products load error:", e);
+                    if (!append) renderCards([]);
+                }
+            }
 
 
             function buildQueryForAllSafe() {

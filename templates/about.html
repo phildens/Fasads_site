@@ -28,7 +28,7 @@
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-          25
+          22
         </div>
         <div style="position: absolute;
                     top: 305px; 
@@ -70,7 +70,7 @@
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-          реализовали около 1500 проектов, среди которых — такие значимые объекты, как Пермская художественная галерея, гостиница, ЖК «UNO»
+          реализовали около 1500 проектов, среди которых — такие значимые объекты, как Пермская художественная галерея, ЖК «UNO»
         </div>
       </div>
       <div class="stats-card">
@@ -100,7 +100,7 @@
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-          в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать из более, чем 300 позиций товаров
+          в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать товар более чем из 300 позиций
         </div>
       </div>
     </div>
@@ -118,7 +118,7 @@
       <div class="feature-grid">
         <!-- Первая строка -->
         <div class="column small descript highlight-right highlight-bottom">
-          <h3>Честные и прозрачные цены</h3>
+          <h3>Прозрачные цены</h3>
           <p>Мы придерживаемся стабильной ценовой <br> политики, чтобы вы всегда знали, что получаете <br> лучшее предложение</p>
         </div>
 
@@ -134,7 +134,7 @@
 
         <div class="column small descript highlight-right highlight-bottom halfm">
           <h3>Ценность времени</h3>
-          <p>Мы понимаем, как важно время, и стремимся доставить всё точно в срок, либо заранее сообщим об изменениях</p>
+          <p>Мы понимаем, как важно время, и стремимся доставить все точно в срок</p>
         </div>
 
         <!-- Вторая строка кортинки домов -->
@@ -245,6 +245,11 @@
     </div>
     
 <div class="callback-form-section" id="callback-form" >
+<div id="form-alert"
+     class="alert d-none"
+     role="alert"
+     aria-live="polite"
+     style="max-width: 720px; margin-top:14px"></div>
   <p style="position: absolute;left: 135px;top: 94px;font-family: 'head2';font-size: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.7);">Оставить заявку</p>
   <div class="callback-form-title">ЗАЯВКА НА ОБРАТНЫЙ ЗВОНОК</div>
   <div class="callback-form-subtitle">
@@ -254,32 +259,22 @@
 
 
 
-  <form>
+     <form method="post" id="contact-form" action="{% url 'contact_request_create' %}">
     <div class="callback-form-row">
       <div class="callback-form-fields">
         <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения о заявителе</label>
         <div class="callback-form-fields-grid">
           <input type="text" class="call" placeholder="Имя" name="name" required>
-          <input type="email" placeholder="Email" name="email" required>
+          <input type="email" placeholder="Email" name="email">
           <input type="text" placeholder="Фамилия" name="surname">
           <input type="text" placeholder="Телефон" name="phone" required>
         </div>
       </div>
-
-
-
-
       <div class="callback-form-info">
         <label style="font-size: 22px;font-family: 'head2';font-weight: 400;color: rgba(0, 0, 0, 1);">Информация о проекте</label>
         <textarea placeholder="Краткое описание" name="about"></textarea>
       </div>
     </div>
-
-    
-
-
-
-
     <div class="callback-form-bottom">
       <div class="callback-form-note">
         <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
@@ -288,8 +283,66 @@
       <button type="submit" class="callback-form-btn">Оставить заявку</button>
     </div>
   </form>
+
 </div>
-    
+</div>
+    <script>
+(function () {
+  const form  = document.getElementById('contact-form');
+  const btn   = form.querySelector('.callback-form-btn');
+  const alertBox = document.getElementById('form-alert');
+
+  function showAlert(type, html, autohideMs = 6000) {
+    alertBox.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger');
+    alertBox.innerHTML = html;
+    alertBox.classList.remove('d-none');
+    alertBox.scrollIntoView({behavior:'smooth', block:'center'});
+
+    if (autohideMs) {
+      clearTimeout(alertBox._t);
+      alertBox._t = setTimeout(() => alertBox.classList.add('d-none'), autohideMs);
+    }
+  }
+
+  function fieldErrorsToHTML(errorsObj) {
+    // errorsObj = {first_name:["Обязательное поле."], email:["Некорректный email."], …}
+    const items = [];
+    for (const [field, msgs] of Object.entries(errorsObj || {})) {
+      msgs.forEach(m => items.push(`<li><strong>${field}</strong>: ${m}</li>`));
+    }
+    return items.length ? `<ul style="margin:0; padding-left:18px">${items.join('')}</ul>` : '';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        credentials: 'same-origin',
+        // если вернёте CSRF-проверку — раскомментируйте строку ниже:
+        // headers: { 'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value },
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.ok) {
+        showAlert('success', 'Спасибо! Ваша заявка успешно отправлена.');
+        form.reset();
+      } else {
+        const details = fieldErrorsToHTML(data.errors);
+        showAlert('error', `Не удалось отправить форму. ${details || 'Проверьте поля и попробуйте ещё раз.'}`);
+      }
+    } catch (err) {
+      showAlert('error', 'Ошибка соединения. Проверьте интернет и попробуйте ещё раз.');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
     <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
 
 <style>
@@ -311,14 +364,15 @@
                     
                     <div style="text-align: center; cursor: pointer" onclick="location.href='https://yandex.ru/maps/-/CHtYJN-Y'">
                         <p class="small-h">Пермь, Газеты Звезда, 13, 4 этаж</p>
-                        <p class="small-under">контактный адрес шоу-рума</p>
+                        <p class="small-h">Пермь, б-р Гагарина, 67, 2 этаж</p>
+                        <p class="small-under">адреса шоу-румов</p>
                     </div>
                     <div style="text-align: center; cursor: pointer" onclick="location.href='tel:+7(951)940-12-49'">
                         <p class="small-h">+7 (951) 940-12-49</p>
                         <p class="small-under">номер для связи</p>
                     </div>
-                    <div style="text-align: center; cursor: pointer" onclick="location.href='mailto:evrokrovliof@mail.ru'">
-                        <p class="small-h">evrokrovliof@mail.ru</p>
+                    <div style="text-align: center; cursor: pointer" onclick="location.href='mailto: info@modernfasad.ru'">
+                        <p class="small-h"> info@modernfasad.ru</p>
                         <p class="small-under">электронная почта</p>
                     </div>
                     <div style="text-align: center; cursor: pointer" onclick="window.open('https://yandex.ru/maps/-/CHtYJN-Y')">
@@ -434,50 +488,50 @@
 {#-----слайдер партнеры-----#}
     
     
-      <div style="display: flex; justify-content: center;">
+{#      <div style="display: flex; justify-content: center;">#}
   <div>
-    <h4 class="mini-headr">Мы являемся официальными торговыми партнёрами</h4>
+{#    <h4 class="mini-headr">мы сотрудничаем с ведущими девелоперами</h4>#}
 
     <div class="slider" id="slider">
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 134px"
-          src="{% static 'imgfolder/partners images/image-Photoroom (71) 4.png' %}"
-          alt="1"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 38px"
-          src="{% static 'imgfolder/partners images/image 96-1.png' %}"
-          alt="2"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="height: 45px"
-          src="{% static 'imgfolder/partners images/image 96.png' %}"
-          alt="3"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          style="width: 140px"
-          src="{% static 'imgfolder/partners images/NOVA-_1_ 4.png' %}"
-          alt="4"
-        />
-      </div>
-      <div class="slide-car">
-        <img
-          draggable="false"
-          src="{% static 'imgfolder/partners images/Группа-компаний-Альфа-_1_ 4.png' %}"
-          alt="5"
-        />
-      </div>
+{#      <div class="slide-car">#}
+{#        <img#}
+{#          draggable="false"#}
+{#          style="height: 134px"#}
+{#          src="{% static 'imgfolder/partners images/image-Photoroom (71) 4.png' %}"#}
+{#          alt="1"#}
+{#        />#}
+{#      </div>#}
+{#      <div class="slide-car">#}
+{#        <img#}
+{#          draggable="false"#}
+{#          style="height: 38px"#}
+{#          src="{% static 'imgfolder/partners images/image 96-1.png' %}"#}
+{#          alt="2"#}
+{#        />#}
+{#      </div>#}
+{#      <div class="slide-car">#}
+{#        <img#}
+{#          draggable="false"#}
+{#          style="height: 45px"#}
+{#          src="{% static 'imgfolder/partners images/image 96.png' %}"#}
+{#          alt="3"#}
+{#        />#}
+{#      </div>#}
+{#      <div class="slide-car">#}
+{#        <img#}
+{#          draggable="false"#}
+{#          style="width: 140px"#}
+{#          src="{% static 'imgfolder/partners images/NOVA-_1_ 4.png' %}"#}
+{#          alt="4"#}
+{#        />#}
+{#      </div>#}
+{#      <div class="slide-car">#}
+{#        <img#}
+{#          draggable="false"#}
+{#          src="{% static 'imgfolder/partners images/Группа-компаний-Альфа-_1_ 4.png' %}"#}
+{#          alt="5"#}
+{#        />#}
+{#      </div>#}
         
     </div>
   </div>
@@ -609,7 +663,7 @@
 })();
 </script>
 
-    <div style="height: 120px"></div>
+{#    <div style="height: 120px"></div>#}
    <!-- REVIEWS SECTION -->
 <section class="reviews-section">
   <div class="container-1200">

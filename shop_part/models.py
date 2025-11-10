@@ -249,8 +249,8 @@ class Questions(models.Model):
 # Форма обратной связи
 class ContactRequest(models.Model):
     first_name = models.CharField("Имя", max_length=100)
-    last_name = models.CharField("Фамилия", max_length=100, blank=True)
-    email = models.EmailField("Email")
+    last_name = models.CharField("Фамилия", max_length=100, blank=True, null=True)
+    email = models.EmailField("Email", blank=True, null=True)
     phone = models.CharField("Телефон", max_length=30, blank=True)
     description = models.TextField("Краткое описание", blank=True)
     created_at = models.DateTimeField("Создано", auto_now_add=True)
