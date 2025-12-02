@@ -239,7 +239,7 @@
             font-style: normal;
             font-weight: normal;
         }
-        
+
 
         @font-face {
 
@@ -249,7 +249,7 @@
             font-style: normal;
             font-weight: normal;
         }
-        
+
 
         @font-face {
 
@@ -259,8 +259,8 @@
             font-style: normal;
             font-weight: normal;
         }
-        
-        
+
+
         body {
             margin: 0;
             font-family: "Poppins", sans-serif;
@@ -367,8 +367,6 @@
             /* max-width: 600px; */
         }
 
-
-     
 
         .slider {
             position: relative;
@@ -1841,7 +1839,6 @@
 </nav>
 
 <!-- Блюр -->
-<div id="blur-bg" aria-hidden="true"></div>
 
 <!-- Кнопка для мобильной версии -->
 <!-- ======= МОБИЛЬНЫЙ ХЕДЕР ======= -->
@@ -1935,15 +1932,15 @@
         <!-- ======= САЙДМЕНЮ ======= -->
 
 
-    <!-- Header -->
-    <header >
-      <div class="header">
+        <!-- Header -->
+        <header>
+            <div class="header">
 
-      <na class="na">
-        <ul class="na-list">
-          <div class="logo img">
-            <img src="{% static 'imgfolder/logo_black2.svg' %}" alt="">
-          </div>
+                <na class="na">
+                    <ul class="na-list">
+                        <div class="logo img">
+                            <img src="{% static 'imgfolder/logo_black2.svg' %}" alt="">
+                        </div>
 
 
                         <li><a href="{% url 'catalog_all' %}" class="na-link ">Продукция</a></li>
@@ -2005,184 +2002,200 @@
         </form>
 
         <!-- Slider -->
-<div class="slider">
-  <div class="slides">
-    {% for s in banner_slides %}
-      <div class="slide">
-        <div class="slide-text">
-          <h2 class="big">
-            {{ s.title|safe }}
-            <div style="height: 5px;"></div>
-            {% if s.subtitle %}
-              <p class="medium">{{ s.subtitle|safe }}</p>
-            {% endif %}
-          </h2>
+        <div class="slider">
+            <div class="slides">
+                {% for s in banner_slides %}
+                    <div class="slide">
+                        <div class="slide-text">
+                            <h2 class="big">
+                                {{ s.title|safe }}
+                                <div style="height: 5px;"></div>
+                                {% if s.subtitle %}
+                                    <p class="medium">{{ s.subtitle|safe }}</p>
+                                {% endif %}
+                            </h2>
 
-          <div class="slide-buttons">
-            <button class="slide-btn white" onclick="location.href='{{ s.cta_url }}'">
-              Узнать подробнее
+                            <div class="slide-buttons">
+                                <button class="slide-btn white" onclick="location.href='{{ s.cta_url }}'">
+                                    Узнать подробнее
+                                </button>
+                                <a href="#callback-form" class="slide-btn green"
+                                   style="text-decoration: none; color: inherit;"
+                                   data-modal-target="#contact-modal">Оставить заявку</a>
+                            </div>
+
+                            {% if s.description %}
+                                <p class="min">{{ s.description|safe|linebreaksbr }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="slide-image">
+                            {% if s.image_mobile %}
+                                <picture>
+                                    <source media="(max-width: 1024px)" srcset="{{ s.image_mobile.url }}">
+                                    <img src="{{ s.image.url }}" alt="{{ s.title }}">
+                                </picture>
+                            {% else %}
+                                <img src="{{ s.image.url }}" alt="{{ s.title }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <style>/* стрелки по умолчанию скрыты (на десктопе) */
+            .hero-arrow {
+                display: none;
+            }
+
+            /* показываем и оформляем только на мобайле/планшете */
+            @media (max-width: 1024px) {
+                .hero-arrow {
+                    position: absolute;
+                    top: 70%;
+                    transform: translateY(-50%);
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    border: none;
+                    background: rgba(33, 33, 33, .55);
+                    color: #fff;
+                    display: flex; /* включаем только здесь */
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 5;
+                    backdrop-filter: blur(2px);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+                    cursor: pointer;
+                    touch-action: manipulation;
+                }
+
+                .hero-arrow:active {
+                    transform: translateY(-50%) scale(.98);
+                }
+
+                .hero-arrow.prev {
+                    left: 8px;
+                }
+
+                .hero-arrow.next {
+                    right: 8px;
+                }
+
+                /* если стрелок быть не должно — принудительно скрываем */
+                .hero-arrow.is-hidden {
+                    display: none !important;
+                }
+
+            }
+
+            </style>
+            <button class="hero-arrow prev" type="button" aria-label="Предыдущий">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
-            <a href="#callback-form" class="slide-btn green"
-               style="text-decoration: none; color: inherit;"
-               data-modal-target="#contact-modal">Оставить заявку</a>
-          </div>
+            <button class="hero-arrow next" type="button" aria-label="Следующий">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 6 15 12 9 18" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
 
-          {% if s.description %}
-            <p class="min">{{ s.description|safe|linebreaksbr }}</p>
-          {% endif %}
+            <div class="dots">
+                {% for _ in banner_slides %}
+                    <span class="dot {% if forloop.first %}active{% endif %}"
+                          data-index="{{ forloop.counter0 }}"></span>
+                {% endfor %}
+            </div>
         </div>
 
-        <div class="slide-image">
-  {% if s.image_mobile %}
-    <picture>
-      <source media="(max-width: 1024px)" srcset="{{ s.image_mobile.url }}">
-      <img src="{{ s.image.url }}" alt="{{ s.title }}">
-    </picture>
-  {% else %}
-      <img src="{{ s.image.url }}" alt="{{ s.title }}">
-  {% endif %}
-</div>
-      </div>
-    {% endfor %}
-  </div>
-<style>/* стрелки по умолчанию скрыты (на десктопе) */
-.hero-arrow {
-  display: none;
-}
+        <div class="footer-wrapper">
+            <div class="footer-cards">
 
-/* показываем и оформляем только на мобайле/планшете */
-@media (max-width: 1024px) {
-  .hero-arrow {
-    position: absolute;
-    top: 70%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(33,33,33,.55);
-    color: #fff;
-    display: flex;           /* включаем только здесь */
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-    backdrop-filter: blur(2px);
-    box-shadow: 0 2px 8px rgba(0,0,0,.25);
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-  .hero-arrow:active { transform: translateY(-50%) scale(.98); }
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'face-brick' %}'">
+                    <div class="footer-card-title">Клинкерный<br>облицовочный кирпич</div>
+                    <img src="{% static 'imgfolder/f1.webp' %}" alt="Клинкерный облицовочный кирпич">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'face-brick' %}">Перейти к разделу</a>
+                </div>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'ceramic_facing_brick' %}'">
+                    <div class="footer-card-title">Керамический<br>облицовочный кирпич</div>
+                    <img src="{% static 'imgfolder/f2.webp' %}" alt="Керамический облицовочный кирпич">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Перейти к
+                        разделу</a>
+                </div>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clinker_tiles' %}'">
+                    <div class="footer-card-title">Клинкерная плитка<br>и плитка под кирпич</div>
+                    <img src="{% static 'imgfolder/f3.webp' %}" alt="Клинкерная плитка">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'clinker_tiles' %}">Перейти к
+                        разделу</a>
+                </div>
 
-  .hero-arrow.prev { left: 8px; }
-  .hero-arrow.next { right: 8px; }
 
-  /* если стрелок быть не должно — принудительно скрываем */
-  .hero-arrow.is-hidden { display: none !important; }
-  
-}
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'paving_stones' %}'">
+                    <div class="footer-card-title">Брусчатка</div>
+                    <img src="{% static 'imgfolder/f4.webp' %}" alt="Брусчатка">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'paving_stones' %}">Перейти к
+                        разделу</a>
+                </div>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'bolt_brick' %}'">
+                    <div class="footer-card-title">Ригельный кирпич</div>
+                    <img src="{% static 'imgfolder/f5.webp' %}" alt="Ригельный кирпич">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'bolt_brick' %}">Перейти к разделу</a>
+                </div>
+                <div class="footer-card"
+                     onclick="location.href='{% url 'catalog_category' 'mounted_ventilated_systems' %}'">
+                    <div class="footer-card-title">Навесные<br>вентилируемые системы</div>
+                    <img src="{% static 'imgfolder/f6.webp' %}" alt="Навесные вентилируемые системы">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Перейти
+                        к
+                        разделу</a>
+                </div>
 
-</style>
-  <button class="hero-arrow prev" type="button" aria-label="Предыдущий">
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
-      <polyline points="15 18 9 12 15 6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-  <button class="hero-arrow next" type="button" aria-label="Следующий">
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
-      <polyline points="9 6 15 12 9 18" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
 
-  <div class="dots">
-    {% for _ in banner_slides %}
-      <span class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
-    {% endfor %}
-  </div>
-</div>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'fasad-decors' %}'">
+                    <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
+                    <img src="{% static 'imgfolder/f7.webp' %}" alt="Архитектурные фасадные декоры"
+                         style="height: 237px;">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'fasad-decors' %}">Перейти к разделу</a>
+                </div>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'hyper-pressed_brick' %}'">
+                    <div class="footer-card-title">Гиперпрессованный<br>кирпич</div>
+                    <img src="{% static 'imgfolder/f8.webp' %}" alt="Гиперпрессованный кирпич">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Перейти к
+                        разделу</a>
+                </div>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'krov-materials' %}'">
+                    <div class="footer-card-title">Кровельные<br>материалы</div>
+                    <img src="{% static 'imgfolder/f9.webp' %}" alt="Кровельные материалы">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'krov-materials' %}">Перейти к
+                        разделу</a>
+                </div>
 
-    <div class="footer-wrapper">
-        <div class="footer-cards">
 
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'face-brick' %}'">
-                <div class="footer-card-title">Клинкерный<br>облицовочный кирпич</div>
-                <img src="{% static 'imgfolder/f1.webp' %}" alt="Клинкерный облицовочный кирпич">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'face-brick' %}">Перейти к разделу</a>
-            </div>
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'ceramic_facing_brick' %}'">
-                <div class="footer-card-title">Керамический<br>облицовочный кирпич</div>
-                <img src="{% static 'imgfolder/f2.webp' %}" alt="Керамический облицовочный кирпич">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Перейти к
-                    разделу</a>
-            </div>
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clinker_tiles' %}'">
-                <div class="footer-card-title">Клинкерная плитка<br>и плитка под кирпич</div>
-                <img src="{% static 'imgfolder/f3.webp' %}" alt="Клинкерная плитка">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'clinker_tiles' %}">Перейти к разделу</a>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'keram-blocks' %}'">
+                    <div class="footer-card-title">Керамические блоки</div>
+                    <img src="{% static 'imgfolder/f10.webp' %}" alt="Керамические блоки">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'keram-blocks' %}">Перейти к разделу</a>
+                </div>
+                <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clad-mixes' %}'">
+                    <div class="footer-card-title">Кладочные смеси</div>
+                    <img src="{% static 'imgfolder/f11.webp' %}" alt="Кладочные смеси">
+                    <a class="footer-card-link" href="{% url 'catalog_category' 'clad-mixes' %}">Перейти к разделу</a>
+                </div>
+                <div class="footer-card footer-card--empty"></div>
             </div>
 
 
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'paving_stones' %}'">
-                <div class="footer-card-title">Брусчатка</div>
-                <img src="{% static 'imgfolder/f4.webp' %}" alt="Брусчатка">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'paving_stones' %}">Перейти к разделу</a>
-            </div>
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'bolt_brick' %}'">
-                <div class="footer-card-title">Ригельный кирпич</div>
-                <img src="{% static 'imgfolder/f5.webp' %}" alt="Ригельный кирпич">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'bolt_brick' %}">Перейти к разделу</a>
-            </div>
-            <div class="footer-card"
-                 onclick="location.href='{% url 'catalog_category' 'mounted_ventilated_systems' %}'">
-                <div class="footer-card-title">Навесные<br>вентилируемые системы</div>
-                <img src="{% static 'imgfolder/f6.webp' %}" alt="Навесные вентилируемые системы">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Перейти к
-                    разделу</a>
-            </div>
+            {% include 'description_item.html' %}
 
 
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'fasad-decors' %}'">
-                <div class="footer-card-title">Архитектурные<br>фасадные декоры</div>
-                <img src="{% static 'imgfolder/f7.webp' %}" alt="Архитектурные фасадные декоры" style="height: 237px;">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'fasad-decors' %}">Перейти к разделу</a>
-            </div>
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'hyper-pressed_brick' %}'">
-                <div class="footer-card-title">Гиперпрессованный<br>кирпич</div>
-                <img src="{% static 'imgfolder/f8.webp' %}" alt="Гиперпрессованный кирпич">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Перейти к
-                    разделу</a>
-            </div>
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'krov-materials' %}'">
-                <div class="footer-card-title">Кровельные<br>материалы</div>
-                <img src="{% static 'imgfolder/f9.webp' %}" alt="Кровельные материалы">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'krov-materials' %}">Перейти к разделу</a>
-            </div>
-
-
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'keram-blocks' %}'">
-                <div class="footer-card-title">Керамические блоки</div>
-                <img src="{% static 'imgfolder/f10.webp' %}" alt="Керамические блоки">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'keram-blocks' %}">Перейти к разделу</a>
-            </div>
-            <div class="footer-card" onclick="location.href='{% url 'catalog_category' 'clad-mixes' %}'">
-                <div class="footer-card-title">Кладочные смеси</div>
-                <img src="{% static 'imgfolder/f11.webp' %}" alt="Кладочные смеси">
-                <a class="footer-card-link" href="{% url 'catalog_category' 'clad-mixes' %}">Перейти к разделу</a>
-            </div>
-            <div class="footer-card footer-card--empty"></div>
-        </div>
-
-
-        {% include 'description_item.html' %}
-
-
-        <div class="stats-section">
-            <div class="stats-card">
-                <div style="position: absolute;
+            <div class="stats-section">
+                <div class="stats-card">
+                    <div style="position: absolute;
                     top: 60px;
                     left: 145px;">
-                    <img style="width: 162; height: 189px;" src="{% static 'imgfolder/status1.png' %}" alt="">
-                </div>
-                <div style="display: flex;
+                        <img style="width: 162; height: 189px;" src="{% static 'imgfolder/status1.png' %}" alt="">
+                    </div>
+                    <div style="display: flex;
                     position: absolute;
                     align-items: center;;
                     top: 222px;
@@ -2191,9 +2204,9 @@
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-                    22
-                </div>
-                <div style="position: absolute;
+                        22
+                    </div>
+                    <div style="position: absolute;
                     top: 305px;
                     left: 25px;
                     width: 330px;
@@ -2203,17 +2216,18 @@
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-                    являемся официальными дилерами 22 заводов-производителей, включая такие заводы, как ЛСР, Ликолор и
-                    Скрябин Керамикс
+                        являемся официальными дилерами 22 заводов-производителей, включая такие заводы, как ЛСР, Ликолор
+                        и
+                        Скрябин Керамикс
+                    </div>
                 </div>
-            </div>
-            <div class="stats-card">
-                <div style="position: absolute;
+                <div class="stats-card">
+                    <div style="position: absolute;
                     top: 37px;
                     left: 156px; ">
-                    <img style="width: 188px;" src="{% static 'imgfolder/status2.png' %}" alt="">
-                </div>
-                <div style="display: flex;
+                        <img style="width: 188px;" src="{% static 'imgfolder/status2.png' %}" alt="">
+                    </div>
+                    <div style="display: flex;
                     position: absolute;
                     align-items: center;;
                     top: 222px;
@@ -2222,9 +2236,9 @@
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-                    +1500
-                </div>
-                <div style="position: absolute;
+                        +1500
+                    </div>
+                    <div style="position: absolute;
                     top: 305px;
                     left: 20px;
                     width: 350px;
@@ -2234,17 +2248,18 @@
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-                    реализовали около 1500 проектов, среди которых — такие значимые объекты, как Пермская художественная
-                    галерея, ЖК «UNO»
+                        реализовали около 1500 проектов, среди которых — такие значимые объекты, как Пермская
+                        художественная
+                        галерея, ЖК «UNO»
+                    </div>
                 </div>
-            </div>
-            <div class="stats-card">
-                <div style="position: absolute;
+                <div class="stats-card">
+                    <div style="position: absolute;
                     top: 41px;
                     left: 115px;">
-                    <img src="{% static 'imgfolder/status3.png' %}" alt="">
-                </div>
-                <div style="display: flex;
+                        <img src="{% static 'imgfolder/status3.png' %}" alt="">
+                    </div>
+                    <div style="display: flex;
                     position: absolute;
                     align-items: center;
                     top: 222px;
@@ -2253,9 +2268,9 @@
                     height: 64px;
                     font-family: 'head';
                     font-size: 64px;">
-                    >300
-                </div>
-                <div style="position: absolute;
+                        >300
+                    </div>
+                    <div style="position: absolute;
                     top: 305px;
                     left: 31px;
                     width: 333px;
@@ -2265,18 +2280,19 @@
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
                     line-height: 100%;">
-                    в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать товар более чем из 300 позиций
+                        в нашем офисе вас встретят дружелюбные менеджеры, готовые помочь вам выбрать товар более чем из
+                        300 позиций
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--КАРУСЕЛЬ-->
+            <!--КАРУСЕЛЬ-->
 
-        <!-- Требуется Bootstrap 5 (css/js) в base.html -->
+            <!-- Требуется Bootstrap 5 (css/js) в base.html -->
 
-<!-- Заголовок (десктоп-стили оставлены инлайном) -->
-<div class="gallery-page-title"
-     style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
-     <button style="padding: 13px 38px;
+            <!-- Заголовок (десктоп-стили оставлены инлайном) -->
+            <div class="gallery-page-title"
+                 style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
+                <button style="padding: 13px 38px;
     background: #421e23;
     
     color:#421e23;
@@ -2288,459 +2304,479 @@
     cursor: pointer;
     margin-left: auto;
     
-    transition: background .16s, box-shadow .16s;"><a href="{% url 'galery' %}?galery_name=galery" style="text-decoration: none;color: #ffffff;">Наши объекты</a></button>
-  
-</div>
+    transition: background .16s, box-shadow .16s;"><a href="{% url 'galery' %}?galery_name=galery"
+                                                      style="text-decoration: none;color: #ffffff;">Наши объекты</a>
+                </button>
 
-        <!-- Слайдер -->
-        <div id="carouselExampleSlidesOnly" class="carousel slide"
-             data-bs-interval="false" data-bs-touch="true" data-bs-pause="hover"
-             style="width:auto;height:auto;">
-            <a href="{% url 'galery' %}?galery_name=galery">
-
-            <!-- ТОЧКИ -->
-            <div class="carousel-indicators" style="margin-bottom: 24px;">
-                <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Слайд 1"></button>
-                <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="1"
-                        aria-label="Слайд 2"></button>
             </div>
 
+            <!-- Слайдер -->
+            <div id="carouselExampleSlidesOnly" class="carousel slide"
+                 data-bs-interval="false" data-bs-touch="true" data-bs-pause="hover"
+                 style="width:auto;height:auto;">
+                <a href="{% url 'galery' %}?galery_name=galery">
 
-            <div class="carousel-inner">
+                    <!-- ТОЧКИ -->
+                    <div class="carousel-indicators" style="margin-bottom: 24px;">
+                        <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="0"
+                                class="active"
+                                aria-current="true" aria-label="Слайд 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide-to="1"
+                                aria-label="Слайд 2"></button>
+                    </div>
 
-                <!-- СЛАЙД 1 -->
-                <div class="carousel-item active">
-                    <div class="collage"
-                         style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
 
-                        <div class="tile"
-                             style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
-                            <img src="{% static 'imgfolder/main_gal/sovetskoi.webp' %}" alt="gal1">
+                    <div class="carousel-inner">
+
+                        <!-- СЛАЙД 1 -->
+                        <div class="carousel-item active">
+                            <div class="collage"
+                                 style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
+
+                                <div class="tile"
+                                     style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
+                                    <img src="{% static 'imgfolder/main_gal/sovetskoi.webp' %}" alt="gal1">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
+                                    <img src="{% static 'imgfolder/main_gal/новая художественная гелерея.webp' %}"
+                                         alt="gal2">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
+                                    <img src="{% static 'imgfolder/main_gal/monastirskoi.webp' %}" alt="gal3">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 514px;">
+                                    <img src="{% static 'imgfolder/main_gal/kama.webp' %}" alt="gal4">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 514px;">
+                                    <img src="{% static 'imgfolder/main_gal/дк петропавловский.webp' %}" alt="gal5">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 421px; height: 360px; position: absolute; top: 659px; left: 514px;">
+                                    <img src="{% static 'imgfolder/main_gal/opera.webp' %}" alt="gal6">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
+                                    <img src="{% static 'imgfolder/main_gal/балатовский.webp' %}" alt="gal7">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
+                                    <img src="{% static 'imgfolder/main_gal/дом на вознесенской.webp' %}" alt="gal8">
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div class="tile"
-                             style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
-                            <img src="{% static 'imgfolder/main_gal/новая художественная гелерея.webp' %}" alt="gal2">
-                        </div>
+                        <!-- СЛАЙД 2 -->
+                        <div class="carousel-item">
+                            <div class="collage"
+                                 style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
 
-                        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
-                            <img src="{% static 'imgfolder/main_gal/monastirskoi.webp' %}" alt="gal3">
-                        </div>
+                                <div class="tile"
+                                     style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/бавария.webp' %}" alt="gal9">
+                                </div>
 
-                        <div class="tile"
-                             style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 514px;">
-                            <img src="{% static 'imgfolder/main_gal/kama.webp' %}" alt="gal4">
-                        </div>
+                                <div class="tile"
+                                     style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/gubernia.webp' %}" alt="gal10">
+                                </div>
 
-                        <div class="tile"
-                             style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 514px;">
-                            <img src="{% static 'imgfolder/main_gal/дк петропавловский.webp' %}" alt="gal5">
-                        </div>
+                                <div class="tile"
+                                     style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/vetlan.webp' %}" alt="gal11">
+                                </div>
 
-                        <div class="tile"
-                             style="width: 421px; height: 360px; position: absolute; top: 659px; left: 514px;">
-                            <img src="{% static 'imgfolder/main_gal/opera.webp' %}" alt="gal6">
-                        </div>
+                                <div class="tile"
+                                     style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 516.3px;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/тц на уинской.webp' %}" alt="gal12">
+                                </div>
 
-                        <div class="tile"
-                             style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
-                            <img src="{% static 'imgfolder/main_gal/балатовский.webp' %}" alt="gal7">
-                        </div>
+                                <div class="tile"
+                                     style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 516.3px;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/domingo.webp' %}" alt="gal13">
+                                </div>
 
-                        <div class="tile"
-                             style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
-                            <img src="{% static 'imgfolder/main_gal/дом на вознесенской.webp' %}" alt="gal8">
+                                <div class="tile"
+                                     style="width: 421px; height: 360px; position: absolute; top: 659px; left: 516.3px;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/format.webp' %}" alt="gal14">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/uno.webp' %}" alt="gal15">
+                                </div>
+
+                                <div class="tile"
+                                     style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
+                                    <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
+                                         src="{% static 'imgfolder/main_gal/aqua.webp' %}" alt="gal16">
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
-                </div>
-
-                <!-- СЛАЙД 2 -->
-                <div class="carousel-item">
-                    <div class="collage"
-                         style="width: 1436px; height: 1043px; display: flex; justify-content: center; margin: 0 auto 48px auto; position: relative;">
-
-                        <div class="tile"
-                             style="width: 505.7px; height: 337px; position: absolute; top: 38px; left: 0;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/бавария.webp' %}" alt="gal9">
-                        </div>
-
-                        <div class="tile"
-                             style="width: 504.2px; height: 336px; position: absolute; top: 389px; left: 0;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/gubernia.webp' %}" alt="gal10">
-                        </div>
-
-                        <div class="tile" style="width: 505px; height: 282px; position: absolute; top: 737px; left: 0;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/vetlan.webp' %}" alt="gal11">
-                        </div>
-
-                        <div class="tile"
-                             style="width: 421.66px; height: 281px; position: absolute; top: 38px; left: 516.3px;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/тц на уинской.webp' %}" alt="gal12">
-                        </div>
-
-                        <div class="tile"
-                             style="width: 421.46px; height: 316px; position: absolute; top: 331px; left: 516.3px;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/domingo.webp' %}" alt="gal13">
-                        </div>
-
-                        <div class="tile"
-                             style="width: 421px; height: 360px; position: absolute; top: 659px; left: 516.3px;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/format.webp' %}" alt="gal14">
-                        </div>
-
-                        <div class="tile"
-                             style="width: 485px; height: 323px; position: absolute; top: 38px; left: 950px;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/uno.webp' %}" alt="gal15">
-                        </div>
-
-                        <div class="tile"
-                             style="width: 485px; height: 647px; position: absolute; top: 372px; left: 950px;">
-                            <img style="border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);"
-                                 src="{% static 'imgfolder/main_gal/aqua.webp' %}" alt="gal16">
-                        </div>
-
-                    </div>
-                </div>
-
+                    <!-- Стрелки -->
+                    <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev" aria-label="Назад">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next" aria-label="Вперёд">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                </a>
             </div>
-            <!-- Стрелки -->
-            <button class="carousel-control-prev" type="button"
-                    data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev" aria-label="Назад">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next" type="button"
-                    data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next" aria-label="Вперёд">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
-            </a>
-        </div>
 
-        <!-- АДАПТИВ ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ -->
-        <style>
-            /* базовое: убираем baseline-зазор */
-            .carousel .collage img {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 10px;
-            }
-
-            /* планшеты и телефоны — превращаем коллаж в сетку 2 колонки */
-            @media (max-width: 992px) {
-                .carousel .collage {
-                    width: 100% !important;
-                    height: auto !important;
-                    margin: 0 auto 20px !important;
-                    padding: 0 12px 12px;
-                    position: static !important;
-
-                    display: grid !important;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 12px;
-                    justify-items: stretch;
-                    align-items: stretch;
-                }
-
-                .carousel .collage .tile {
-                    position: static !important;
-                    width: 100% !important;
-                    height: auto !important;
-                }
-
-                .carousel .collage .tile img {
-                    width: 100%;
-                    height: auto; /* сохраняем пропорции */
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
-                    border-radius: 10px;
-                    object-fit: cover;
-                }
-            }
-
-            /* очень узкие телефоны — одна колонка */
-            @media (max-width: 576px) {
-                .carousel .collage {
-                    grid-template-columns: 1fr;
-                    gap: 10px;
-                    padding: 0 10px 12px;
-                }
-
-                /* поджимаем заголовок */
-                .gallery-page-title, .gallery-page-title p {
-                    font-size: 18px !important;
-                    margin: 0 10px 10px !important;
-                }
-            }
-
-            /* Если нужно ровнять карточки по высоте на мобиле, можно отмечать нужные .tile классом .crop */
-            /* @media (max-width: 992px){
-                 .carousel .collage .tile.crop{ aspect-ratio: 4 / 3; }
-                 .carousel .collage .tile.crop img{ height: 100%; object-fit: cover; }
-               } */
-            /* телефоны: 1 колонка */
-            @media (max-width: 576px) {
-                .carousel .collage {
-                    width: 100% !important;
-                    height: auto !important;
-                    margin: 0 auto 20px !important;
-                    padding: 0 10px 12px;
-                    position: static !important;
-                    display: grid !important;
-                    grid-template-columns: 1fr;
-                    gap: 10px;
-                }
-
-                .carousel .collage .tile {
-                    position: static !important;
-                    width: 100% !important;
-                    height: auto !important;
-                    aspect-ratio: auto;
-                }
-
-                .carousel .collage .tile img {
-                    width: 100%;
-                    height: auto;
+            <!-- АДАПТИВ ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ -->
+            <style>
+                /* базовое: убираем baseline-зазор */
+                .carousel .collage img {
                     display: block;
-                    border-radius: 10px;
-                    object-fit: cover;
-                }
-            }
-
-            /* ПЛАНШЕТЫ: РОВНО 4 × 2 */
-            @media (min-width: 768px) and (max-width: 1199.98px) {
-                .carousel .collage {
-                    width: 100% !important;
-                    height: auto !important;
-                    margin: 0 auto 20px !important;
-                    padding: 0 12px 12px;
-                    position: static !important;
-
-                    display: grid !important;
-                    grid-template-columns: repeat(2, 1fr); /* 4 колонки */
-                    grid-template-rows: repeat(4, 1fr); /* 2 ряда */
-                    gap: 12px;
-                    align-items: stretch;
-                    justify-items: stretch;
-                }
-
-                .carousel .collage .tile {
-                    position: static !important;
-                    width: 100% !important;
-                    height: auto !important;
-                    aspect-ratio: 4 / 3; /* одинаковая высота карточек */
-                }
-
-                .carousel .collage .tile img {
                     width: 100%;
                     height: 100%;
-                    display: block;
                     object-fit: cover;
                     border-radius: 10px;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
                 }
-            }
 
-            /* базовое: убираем baseline-зазор у картинок (на всех экранах) */
-            .carousel .collage img {
-                display: block;
-            }
+                /* планшеты и телефоны — превращаем коллаж в сетку 2 колонки */
+                @media (max-width: 992px) {
+                    .carousel .collage {
+                        width: 100% !important;
+                        height: auto !important;
+                        margin: 0 auto 20px !important;
+                        padding: 0 12px 12px;
+                        position: static !important;
 
-        </style>
+                        display: grid !important;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 12px;
+                        justify-items: stretch;
+                        align-items: stretch;
+                    }
 
+                    .carousel .collage .tile {
+                        position: static !important;
+                        width: 100% !important;
+                        height: auto !important;
+                    }
 
-        <style>
-            @media (max-width: 1200px) and (min-width: 701px) {
-                .rail {
-                    width: 700px;
+                    .carousel .collage .tile img {
+                        width: 100%;
+                        height: auto; /* сохраняем пропорции */
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+                        border-radius: 10px;
+                        object-fit: cover;
+                    }
                 }
-            }
 
-            @media (max-width: 700px) and (min-width: 500px) {
-                .rail {
-                    width: 500px;
+                /* очень узкие телефоны — одна колонка */
+                @media (max-width: 576px) {
+                    .carousel .collage {
+                        grid-template-columns: 1fr;
+                        gap: 10px;
+                        padding: 0 10px 12px;
+                    }
+
+                    /* поджимаем заголовок */
+                    .gallery-page-title, .gallery-page-title p {
+                        font-size: 18px !important;
+                        margin: 0 10px 10px !important;
+                    }
                 }
-            }
 
-            @media (max-width: 500px) {
-                .rail {
-                    width: 350px;
+                /* Если нужно ровнять карточки по высоте на мобиле, можно отмечать нужные .tile классом .crop */
+                /* @media (max-width: 992px){
+                     .carousel .collage .tile.crop{ aspect-ratio: 4 / 3; }
+                     .carousel .collage .tile.crop img{ height: 100%; object-fit: cover; }
+                   } */
+                /* телефоны: 1 колонка */
+                @media (max-width: 576px) {
+                    .carousel .collage {
+                        width: 100% !important;
+                        height: auto !important;
+                        margin: 0 auto 20px !important;
+                        padding: 0 10px 12px;
+                        position: static !important;
+                        display: grid !important;
+                        grid-template-columns: 1fr;
+                        gap: 10px;
+                    }
+
+                    .carousel .collage .tile {
+                        position: static !important;
+                        width: 100% !important;
+                        height: auto !important;
+                        aspect-ratio: auto;
+                    }
+
+                    .carousel .collage .tile img {
+                        width: 100%;
+                        height: auto;
+                        display: block;
+                        border-radius: 10px;
+                        object-fit: cover;
+                    }
                 }
+
+                /* ПЛАНШЕТЫ: РОВНО 4 × 2 */
+                @media (min-width: 768px) and (max-width: 1199.98px) {
+                    .carousel .collage {
+                        width: 100% !important;
+                        height: auto !important;
+                        margin: 0 auto 20px !important;
+                        padding: 0 12px 12px;
+                        position: static !important;
+
+                        display: grid !important;
+                        grid-template-columns: repeat(2, 1fr); /* 4 колонки */
+                        grid-template-rows: repeat(4, 1fr); /* 2 ряда */
+                        gap: 12px;
+                        align-items: stretch;
+                        justify-items: stretch;
+                    }
+
+                    .carousel .collage .tile {
+                        position: static !important;
+                        width: 100% !important;
+                        height: auto !important;
+                        aspect-ratio: 4 / 3; /* одинаковая высота карточек */
+                    }
+
+                    .carousel .collage .tile img {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        object-fit: cover;
+                        border-radius: 10px;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+                    }
+                }
+
+                /* базовое: убираем baseline-зазор у картинок (на всех экранах) */
+                .carousel .collage img {
+                    display: block;
+                }
+
+            </style>
+
+
+            <style>
+                @media (max-width: 1200px) and (min-width: 701px) {
+                    .rail {
+                        width: 700px;
+                    }
+                }
+
+                @media (max-width: 700px) and (min-width: 500px) {
+                    .rail {
+                        width: 500px;
+                    }
+                }
+
+                @media (max-width: 500px) {
+                    .rail {
+                        width: 350px;
+                    }
+                }
+            </style>
+
+
+            {#      {% include "stories.html" %}#}
+
+            <section class="article-slider-wrap" style="max-width: 1200px">
+                <div class=""><h2 class="h2">Статьи</h2></div>
+                {% articles_slider limit=0 %}
+            </section>
+            <script src="{% static 'articles/slider.js' %}"></script>
+            {% include 'contact_main_form.html' %}
+            <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
+
+
+            <h1 style="color: RGB(250, 250, 250)">Современные фасады</h1>
+        </div>
+
+    </div>
+    {% include 'contacts.html' %}
+    {% include 'footer.html' %}
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelector('.slides');
+
+            const dots = document.querySelectorAll('.dot');
+            let currentIndex = 0;
+            // ===== СТРЕЛКИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ =====
+            const sliderRoot = document.querySelector('.slider');
+            const prevBtn = sliderRoot.querySelector('.hero-arrow.prev');
+            const nextBtn = sliderRoot.querySelector('.hero-arrow.next');
+
+            // если слайдов меньше 2 — скрываем стрелки
+            const slidesCount = dots.length || sliderRoot.querySelectorAll('.slide').length;
+            const hideArrows = slidesCount < 2;
+            if (hideArrows) {
+                prevBtn.classList.add('is-hidden');
+                nextBtn.classList.add('is-hidden');
             }
-        </style>
 
+            // листалка по стрелкам
+            function go(delta) {
+                if (slidesCount < 2) return;
+                currentIndex = (currentIndex + delta + slidesCount) % slidesCount;
+                updateSlide();
+            }
 
-        {#      {% include "stories.html" %}#}
+            if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+            if (nextBtn) nextBtn.addEventListener('click', () => go(1));
 
-        <section class="article-slider-wrap" style="max-width: 1200px">
-            <div class=""><h2 class="h2">Статьи</h2></div>
-            {% articles_slider limit=0 %}
-        </section>
-        <script src="{% static 'articles/slider.js' %}"></script>
-        {% include 'contact_main_form.html' %}
-        <!-- Скрипт для работы формы>< Скрипт для работы формы! -->
+            // свайп жесты на мобайле (очень лёгкие)
+            let touchX = null, touchY = null;
+            sliderRoot.addEventListener('touchstart', (e) => {
+                const t = e.changedTouches[0];
+                touchX = t.clientX;
+                touchY = t.clientY;
+            }, {passive: true});
+            sliderRoot.addEventListener('touchend', (e) => {
+                if (touchX === null) return;
+                const t = e.changedTouches[0];
+                const dx = t.clientX - touchX;
+                const dy = Math.abs(t.clientY - touchY);
+                // горизонтальный свайп без сильного вертикального движения
+                if (Math.abs(dx) > 40 && dy < 40) go(dx < 0 ? 1 : -1);
+                touchX = touchY = null;
+            }, {passive: true});
 
+            // при ресайзе: если вдруг ширина/макет меняется — переназначим видимость
+            window.addEventListener('resize', () => {
+                const mobile = window.innerWidth <= 1024;
+                // показывать стрелки только на мобайле и когда есть что листать
+                [prevBtn, nextBtn].forEach(btn => {
+                    if (!btn) return;
+                    btn.classList.toggle('is-hidden', !mobile || slidesCount < 2);
+                });
+            });
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    currentIndex = parseInt(dot.dataset.index);
+                    updateSlide();
+                });
+            });
 
+            function updateSlide() {
+                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[currentIndex].classList.add('active');
+            }
 
+            updateSlide();
 
-        <h1 style="color: RGB(250, 250, 250)">Современные фасады</h1>
+            // АВТОПРОКРУТКА КАЖДЫЕ 5 СЕКУНД
+            setInterval(function () {
+                currentIndex = (currentIndex + 1) % dots.length;
+                updateSlide();
+            }, 10000);
+
+            // ====== МЕНЮ ======
+            const sideMenu = document.getElementById('sideMenu');
+            const headerBtn = document.getElementById('menuToggle');
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const closeBar = document.getElementById('closemenu');
+            let blurBg = null;
+
+            function createBlur() {
+                blurBg = document.createElement('div');
+                blurBg.id = 'blur-bg';
+                blurBg.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(blurBg);
+                blurBg.addEventListener('click', closeMenu);
+            }
+
+            function openMenu() {
+                if (!blurBg) createBlur();       // ← создаём только при открытии
+
+                sideMenu.classList.add('active');
+                blurBg.classList.add('active');
+                document.body.classList.add('no-scroll');
+            }
+
+            function closeMenu() {
+                sideMenu.classList.remove('active');
+
+                if (blurBg) {
+                    blurBg.classList.remove('active');
+                    blurBg.remove();             // ← полностью удаляем из DOM
+                    blurBg = null;
+                }
+
+                document.body.classList.remove('no-scroll');
+            }
+
+            function toggleMenu() {
+                sideMenu.classList.contains('active') ? closeMenu() : openMenu();
+            }
+
+// кнопки
+            [headerBtn, mobileBtn].forEach(btn => {
+                if (btn) btn.addEventListener('click', toggleMenu);
+            });
+            if (closeBar) closeBar.addEventListener('click', closeMenu);
+
+            window.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeMenu();
+            });
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 1024) closeMenu();
+            });
+
+        });
+    </script>
+    {% include "contact_modal.html" %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+            crossorigin="anonymous"></script>
+    {% block extra_js %}{% endblock %}
+
+    <!-- Шторка избранного -->
+    <div id="favorites-drawer" aria-hidden="true">
+        <div class="drawer-overlay" data-close-favorites></div>
+        <aside class="drawer-panel" role="dialog" aria-label="Избранное">
+            <div class="drawer-head">
+                <div class="drawer-title">Избранное</div>
+                <button class="drawer-close" data-close-favorites aria-label="Закрыть">×</button>
+            </div>
+            <div class="drawer-body" id="favorites-list"></div>
+        </aside>
     </div>
 
-</div>
- {% include 'contacts.html' %}
-{% include 'footer.html' %}
-<!-- Scripts -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const slides = document.querySelector('.slides');
-        
-        const dots = document.querySelectorAll('.dot');
-        let currentIndex = 0;
-        // ===== СТРЕЛКИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ =====
-  const sliderRoot = document.querySelector('.slider');
-  const prevBtn = sliderRoot.querySelector('.hero-arrow.prev');
-  const nextBtn = sliderRoot.querySelector('.hero-arrow.next');
+    <!-- Менеджер избранного -->
+    <script src="{% static 'js/favorites.js' %}"></script>
 
-  // если слайдов меньше 2 — скрываем стрелки
-  const slidesCount = dots.length || sliderRoot.querySelectorAll('.slide').length;
-  const hideArrows = slidesCount < 2;
-  if (hideArrows) {
-    prevBtn.classList.add('is-hidden');
-    nextBtn.classList.add('is-hidden');
-  }
-
-  // листалка по стрелкам
-  function go(delta) {
-    if (slidesCount < 2) return;
-    currentIndex = (currentIndex + delta + slidesCount) % slidesCount;
-    updateSlide();
-  }
-  if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
-  if (nextBtn) nextBtn.addEventListener('click', () => go(1));
-
-  // свайп жесты на мобайле (очень лёгкие)
-  let touchX = null, touchY = null;
-  sliderRoot.addEventListener('touchstart', (e) => {
-    const t = e.changedTouches[0];
-    touchX = t.clientX; touchY = t.clientY;
-  }, {passive:true});
-  sliderRoot.addEventListener('touchend', (e) => {
-    if (touchX === null) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - touchX;
-    const dy = Math.abs(t.clientY - touchY);
-    // горизонтальный свайп без сильного вертикального движения
-    if (Math.abs(dx) > 40 && dy < 40) go(dx < 0 ? 1 : -1);
-    touchX = touchY = null;
-  }, {passive:true});
-
-  // при ресайзе: если вдруг ширина/макет меняется — переназначим видимость
-  window.addEventListener('resize', () => {
-    const mobile = window.innerWidth <= 1024;
-    // показывать стрелки только на мобайле и когда есть что листать
-    [prevBtn, nextBtn].forEach(btn => {
-      if (!btn) return;
-      btn.classList.toggle('is-hidden', !mobile || slidesCount < 2);
-    });
-  });
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                currentIndex = parseInt(dot.dataset.index);
-                updateSlide();
-            });
+    <script>
+        // если страница не использует общий base.html, руками дёрнем синхронизацию
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.SFFavorites) {
+                document.dispatchEvent(new CustomEvent('sf:favs-changed'));
+            }
         });
-
-        function updateSlide() {
-            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[currentIndex].classList.add('active');
-        }
-
-        updateSlide();
-
-        // АВТОПРОКРУТКА КАЖДЫЕ 5 СЕКУНД
-        setInterval(function () {
-            currentIndex = (currentIndex + 1) % dots.length;
-            updateSlide();
-        }, 10000);
-
-        // ====== МЕНЮ ======
-        const sideMenu = document.getElementById('sideMenu');
-        const blurBg = document.getElementById('blur-bg');
-        const headerBtn = document.getElementById('menuToggle');    // кнопка в шапке
-        const mobileBtn = document.getElementById('mobileMenuBtn'); // мобильная кнопка
-        const closeBar = document.getElementById('closemenu');     // клик по шапке сайдбара
-
-        function openMenu() {
-            if (!sideMenu || !blurBg) return;
-            sideMenu.classList.add('active');
-            blurBg.classList.add('active');
-            document.body.classList.add('no-scroll');
-        }
-
-        function closeMenu() {
-            if (!sideMenu || !blurBg) return;
-            sideMenu.classList.remove('active');
-            blurBg.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        }
-
-        function toggleMenu() {
-            if (!sideMenu) return;
-            sideMenu.classList.contains('active') ? closeMenu() : openMenu();
-        }
-
-        [headerBtn, mobileBtn].forEach(btn => {
-            if (btn) btn.addEventListener('click', toggleMenu);
-        });
-        if (closeBar) closeBar.addEventListener('click', closeMenu);
-        if (blurBg) blurBg.addEventListener('click', closeMenu);
-
-        window.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeMenu();
-        });
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 1024) closeMenu();
-        });
-    });
-</script>
-{% include "contact_modal.html" %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-{% block extra_js %}{% endblock %}
-
-<!-- Шторка избранного -->
-<div id="favorites-drawer" aria-hidden="true">
-    <div class="drawer-overlay" data-close-favorites></div>
-    <aside class="drawer-panel" role="dialog" aria-label="Избранное">
-        <div class="drawer-head">
-            <div class="drawer-title">Избранное</div>
-            <button class="drawer-close" data-close-favorites aria-label="Закрыть">×</button>
-        </div>
-        <div class="drawer-body" id="favorites-list"></div>
-    </aside>
-</div>
-
-<!-- Менеджер избранного -->
-<script src="{% static 'js/favorites.js' %}"></script>
-
-<script>
-    // если страница не использует общий base.html, руками дёрнем синхронизацию
-    document.addEventListener('DOMContentLoaded', function () {
-        if (window.SFFavorites) {
-            document.dispatchEvent(new CustomEvent('sf:favs-changed'));
-        }
-    });
-</script>
+    </script>
 
 </body>
 </html>
