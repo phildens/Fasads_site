@@ -932,15 +932,6 @@ body.no-scroll {
     opacity: 50%;
 }
 
-/* общие фиксы */
-/*html, body {*/
-/*    !*height: 100%;*!*/
-/*    overflow-x: hidden;*/
-/*}*/
-* {
-  outline: 1px solid red;
-}
-
 
 body {
     min-height: 100vh;
