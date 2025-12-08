@@ -355,7 +355,7 @@ body {
     background-color: rgba(66, 34, 35, 1);
     width: 100%;
     min-height: 7px;
-    min-width: 1440px;
+    /*min-width: 1440px;*/
     display: flex;
     flex-direction: column;
 }
