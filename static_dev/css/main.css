@@ -339,9 +339,6 @@
 
 }
 
-html {
-    scroll-behavior: smooth;
-}
 
 p {
     margin: 0;
@@ -936,15 +933,20 @@ body.no-scroll {
 }
 
 /* общие фиксы */
-html, body {
-    height: 100%;
+/*html, body {*/
+/*    !*height: 100%;*!*/
+/*    overflow-x: hidden;*/
+/*}*/
+* {
+  outline: 1px solid red;
+}
+
+
+body {
+    min-height: 100vh;
+    margin: 0;
     overflow-x: hidden;
 }
-
-html {
-    overscroll-behavior-y: none;
-}
-
 /* нет «скролл-цепочки» */
 #blur-bg {
     touch-action: none;
@@ -1015,10 +1017,7 @@ html {
     pointer-events: auto;
 }
 
-/* Подстраховка против гориз. полосы */
-html, body {
-    overflow-x: hidden;
-}
+
 
 
 .footer-card {
