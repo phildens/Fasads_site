@@ -961,12 +961,7 @@ html {
 }
 
 /* правильная блокировка страницы (без «прыжка» наверх) */
-body.no-scroll {
-    position: fixed;
-    width: 100%;
-    top: var(--lock-top, 0); /* сюда кладём -scrollY */
-    overflow: hidden; /* подстраховка для десктопов */
-}
+
 
 /* чтобы не появлялась горизонтальная прокрутка из-за off-canvas */
 .side-menu {
@@ -1564,7 +1559,6 @@ textarea::placeholder {
 @media (max-width: 1284px) {
     .conteiner {
         display: block !important;
-        min-width: 0;
         width: 100%;
     }
 }
