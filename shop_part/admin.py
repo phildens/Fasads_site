@@ -1,7 +1,9 @@
 # shop_part/admin.py
 from django.contrib import admin
 from django import forms
-
+from import_export import resources, fields
+from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
+from import_export.admin import ImportExportModelAdmin
 from .models import Product, FilterKey, Category  # Product остаётся в «Интернет-магазин»
 from .proxies import (
     # характеристики
@@ -9,6 +11,11 @@ from .proxies import (
     ManufactorChar, StrengthGradeChar, WaterResistanceChar, EmptinessChar, ProductTypeChar,
     # галерея
     GalleryProxy, BigGaleryProxy, SmallGalleryProxy
+)
+from .models import (
+    Product, Manufactor, TypeMaterial, Category, Color,
+    FrosenDefender, StrengthGrade, WaterResistance, ProductType,
+    Format, Emptiness, FilterKey
 )
 from .models import Questions, ContactRequest  # куда хотите, можно оставить в «Интернет-магазин»
 from .models import SiteSettings
@@ -30,10 +37,87 @@ class GalleryInline(admin.TabularInline):
     extra = 0
 
 
+# === 1. Создаем "Ресурс" (Схему выгрузки) ===
+class ProductResource(resources.ModelResource):
+    # Настраиваем поля ForeignKey (чтобы выводилось имя, а не ID)
+    manufacturer = fields.Field(
+        column_name='Производитель',
+        attribute='manufacturer',
+        widget=ForeignKeyWidget(Manufactor, 'name')
+    )
+    type_material = fields.Field(
+        column_name='Вид материала',
+        attribute='type_material',
+        widget=ForeignKeyWidget(TypeMaterial, 'name')
+    )
+    category = fields.Field(
+        column_name='Категория',
+        attribute='category',
+        widget=ForeignKeyWidget(Category, 'name')
+    )
+    color = fields.Field(
+        column_name='Цвет',
+        attribute='color',
+        widget=ForeignKeyWidget(Color, 'name')
+    )
+    frosen_defend = fields.Field(
+        column_name='Морозостойкость',
+        attribute='frosen_defend',
+        widget=ForeignKeyWidget(FrosenDefender, 'name')
+    )
+    strength_grade = fields.Field(
+        column_name='Марка прочности',
+        attribute='strength_grade',
+        widget=ForeignKeyWidget(StrengthGrade, 'name')
+    )
+    water_resistance = fields.Field(
+        column_name='Водопоглощение',
+        attribute='water_resistance',
+        widget=ForeignKeyWidget(WaterResistance, 'name')
+    )
+    product_type = fields.Field(
+        column_name='Тип товара',
+        attribute='product_type',
+        widget=ForeignKeyWidget(ProductType, 'name')
+    )
+
+    # Настраиваем поля ManyToMany (список через запятую)
+    formats = fields.Field(
+        column_name='Форматы',
+        attribute='formats',
+        widget=ManyToManyWidget(Format, field='name', separator=', ')
+    )
+    emptiness = fields.Field(
+        column_name='Пустотность',
+        attribute='emptiness',
+        widget=ManyToManyWidget(Emptiness, field='name', separator=', ')
+    )
+
+    # Сюда добавим метод для красивого вывода choices (Promo tag)
+    promo_tag_display = fields.Field(column_name='Метка (Promo)')
+
+    class Meta:
+        model = Product
+        # Список полей, которые будут в Excel (в нужном порядке)
+        fields = (
+            'id', 'name', 'manufacturer', 'type_material', 'category',
+            'product_price', 'promo_tag_display', 'color',
+            'formats', 'emptiness', 'description', 'priority'
+        )
+        export_order = fields
+
+    # Метод для получения человекочитаемого названия метки (Новинка/Акция)
+    def dehydrate_promo_tag_display(self, product):
+        return product.get_promo_tag_display() if product.promo_tag else ""
+
+
+# === 2. Обновляем ProductAdmin ===
+# Меняем admin.ModelAdmin на ImportExportModelAdmin
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ImportExportModelAdmin):
+    resource_class = ProductResource
     inlines = [GalleryInline, ]
-    list_display = ('name','priority', 'card_image', 'type_material', 'description', 'promo_tag')
+    list_display = ('name', 'priority', 'card_image', 'type_material', 'description', 'promo_tag')
     list_editable = ('priority',)
     search_fields = (
         "name",
@@ -75,7 +159,7 @@ class ProductAdmin(admin.ModelAdmin):
                 'water_resistance', 'product_type',
                 'formats', 'emptiness',
                 'product_price', 'promo_tag',
-                'similar_products_manual',   # ← добавили сюда
+                'similar_products_manual',  # ← добавили сюда
             )
         }),
     )
@@ -193,6 +277,7 @@ class ContactRequestAdmin(admin.ModelAdmin):
 
 
 from .models import BannerSlide
+
 
 @admin.register(BannerSlide)
 class BannerSlideAdmin(admin.ModelAdmin):

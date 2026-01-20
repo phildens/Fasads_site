@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "articles",
     'characteristics.apps.CharacteristicsConfig',  # новое
     'gallery.apps.GalleryConfig',
+    'import_export'
 ]
 CKEDITOR_CONFIGS = {
     "article": {
