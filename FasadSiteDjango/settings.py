@@ -87,7 +87,7 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 MIDDLEWARE = [
-    "FasadSiteDjango.middleware.metrika_headers.DisableCoopForMetrikaMiddleware",
+   # "FasadSiteDjango.middleware.metrika_headers.DisableCoopForMetrikaMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
