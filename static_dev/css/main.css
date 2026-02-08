@@ -933,10 +933,14 @@ body.no-scroll {
 }
 
 
+html { overflow-x: clip; }
+@supports not (overflow: clip) {
+  html { overflow-x: hidden; }
+}
+
 body {
     min-height: 100vh;
     margin: 0;
-    overflow-x: hidden;
 }
 /* нет «скролл-цепочки» */
 #blur-bg {

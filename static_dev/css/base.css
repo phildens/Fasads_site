@@ -293,10 +293,15 @@
 html {
     height: auto;
     min-height: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
+@supports not (overflow: clip) {
+  html { overflow-x: hidden; }
+}
+
 body {
     min-height: 100vh;
     margin: 0;
-    overflow: hidden;
+    /* ВАЖНО: не прячем overflow у body глобально.
+       Для блокировки скролла используйте ваш класс body.no-scroll из header.html */
 }

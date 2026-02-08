@@ -155,7 +155,13 @@ padding: 0;}
   font-weight:normal;font-style:normal
 }
 /* ——— убираем горизонтальный скролл и артефакты ——— */
-html, body { max-width: 100%; overflow-x: hidden; }
+/* НЕ задаём overflow-x на body — это ломает Карты скроллинга в Метрике (Chrome) */
+html { max-width: 100%; overflow-x: clip; }
+@supports not (overflow: clip) {
+  html { overflow-x: hidden; } /* запасной вариант */
+}
+
+body { max-width: 100%; }
 body.no-scroll { overflow: hidden; }
 
 /* блюр: только через inset и без 100vw/100vh, чтоб не растягивать страницу */
