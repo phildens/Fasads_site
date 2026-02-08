@@ -87,6 +87,7 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 MIDDLEWARE = [
+    "YOUR_PROJECT.middleware.metrika_headers.DisableCoopForMetrikaMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -94,6 +95,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'FasadSiteDjango.urls'
