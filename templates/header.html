@@ -6,56 +6,11 @@ p {margin: 0;
 padding: 0;}
 @font-face {
 
-  font-family: "Muller-ultralight";
-
-  src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face {
-
-  font-family: "Muller-medium";
-
-  src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face {
-
-  font-family: "Muller-light";
-
-  src: url("{% static 'font/MullerLight.ttf' %}") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face {
-
-  font-family: "Muller-regular";
-
-  src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face {
-
   font-family: "Namu-light";
 
   src: url("{% static 'font/NAMU1750.otf' %}") format("truetype");
   font-style: normal;
   font-weight: normal;
-}
-@font-face {
-    font-family: 'head';
-    src: url("{% static 'font/head.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'head2';
-    src: url("{% static 'font/head2.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-
 }
 @font-face {
     font-family: 'NAMU';
@@ -72,16 +27,16 @@ padding: 0;}
 /* ========= БАЗА/ДЕСКТОП (оставляем вашу стилистику) ========= */
 .a{
   display:flex;flex-direction:column;align-items:center;color:rgba(66,34,35,.6);
-  margin:0;font-family:'head2';font-weight:300;font-size:16px;line-height:100%
+  margin:0;font-family: 'Montserrat';font-weight:300;font-size:16px;line-height:100%
 }
 .conteiner{background:#422223;width:100%;min-height:7px;min-width:1440px;display:flex;flex-direction:column}
 .header{display:flex;justify-content:center;align-items:center;position:relative;flex-shrink:0}
 .logo img{width: 186px;;height:auto}
-.nav-list{display:flex;max-width:1200px;align-items:center;width:1200px;margin:0;padding-top:30px;padding-left:0;flex-wrap:wrap;gap:37px;color:#422223;list-style:none;font-family:'head',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%;letter-spacing:0}
-.nav-list2{display:flex;margin:0;padding-top:30px;flex-wrap:wrap;gap:30px;color:#fff6f3;list-style:none;margin-left:30px;font-family:'head2',Arial,sans-serif;font-weight:400;font-size:16px;line-height:100%}
+.nav-list{display:flex;max-width:1200px;align-items:center;width:1200px;margin:0;padding-top:30px;padding-left:0;flex-wrap:wrap;gap:37px;color:#422223;list-style:none;font-family: 'Montserrat', Arial, sans-serif;font-weight:400;font-size:16px;line-height:100%;letter-spacing:0}
+.nav-list2{display:flex;margin:0;padding-top:30px;flex-wrap:wrap;gap:30px;color:#fff6f3;list-style:none;margin-left:30px;font-family: 'Montserrat', Arial, sans-serif;font-weight:400;font-size:16px;line-height:100%}
 .nav-link,.nav-link:hover,.nav-link:focus,.nav-link:active{color:#422223;text-decoration:none;padding:0}
 .nav-link {
-    font-family: Muller-regular;
+    font-family: Montserrat;
     font-size: 16px;
     
     font-weight: 400;
@@ -109,7 +64,7 @@ padding: 0;}
 .side-menu ul{list-style:none;margin:18px 0 0;padding:0}
 .side-menu li{margin:0 0 15px}
 .side-menu a{text-decoration:none;color:black;font-size:16px;font-weight:500}
-.side-menu .mini-contacts-card{width:auto;background:#fff;display:flex;flex-direction:column;gap:18px;font-family:Muller-medium;font-size:16px;color:#422223;font-weight:500;position:relative;margin-top:10px}
+.side-menu .mini-contacts-card{width:auto;background:#fff;display:flex;flex-direction:column;gap:18px;font-family:Montserrat;font-size:16px;color:#422223;font-weight:500;position:relative;margin-top:10px}
 .mini-contact-row{display:flex;align-items:center;gap:13px}
 .mini-contact-icon img{width:32px;height:32px;object-fit:contain;opacity:.85;margin-top:2px}
 .mini-contact-text a{color:#422223;text-decoration:none;transition:color .14s}
@@ -148,12 +103,6 @@ padding: 0;}
   #blur-bg{transition:none}
 }
 
-/* Подключение вашего шрифта */
-@font-face{
-  font-family:'head';
-  src:url("{% static 'font/head.otf' %}") format('opentype');
-  font-weight:normal;font-style:normal
-}
 /* ——— убираем горизонтальный скролл и артефакты ——— */
 /* НЕ задаём overflow-x на body — это ломает Карты скроллинга в Метрике (Chrome) */
 html { max-width: 100%; overflow-x: clip; }
@@ -225,10 +174,10 @@ html, body { max-width:100%; overflow-x:hidden; }
   </div>
 
   <ul class="menuuu">
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong></li>
+    <li><strong style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong></li>
     <li style="margin-bottom:30px"><a href="{% url 'about' %}">О нас</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Продукция</strong></li>
+    <li><strong style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%">Продукция</strong></li>
     <li><a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a></li>
       
  <li><a href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Керамический облицовочный кирпич</a></li>
@@ -239,12 +188,12 @@ html, body { max-width:100%; overflow-x:hidden; }
     <li><a href="#">Архитектурные фасадные декоры</a></li>
 <li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Галерея объектов</strong></li>
+    <li><strong style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%">Галерея объектов</strong></li>
     <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
 
 
-    <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
+    <li><strong style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%">Помощь</strong></li>
     <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
   </ul>
 
@@ -307,7 +256,7 @@ html, body { max-width:100%; overflow-x:hidden; }
         <a href="{% url 'home' %}" class="logo img">
     <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
 </a>
-        <li><a href="{% url 'catalog_all' %}" class="nav-link" style="font-family: Muller-medium">Продукция</a></li>
+        <li><a href="{% url 'catalog_all' %}" class="nav-link" style="font-family: Montserrat">Продукция</a></li>
         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
         <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
         <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
@@ -418,4 +367,3 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => { if (window.innerWidth > 1024) closeMenu(); });
 });
 </script>
-

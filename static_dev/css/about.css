@@ -45,7 +45,7 @@
 
 /* Заголовки и текст внутри */
 .column h3 {
-  font-family: Muller-medium;
+  font-family: Montserrat;
   margin-top: 0;
   font-size: 22px;
   font-weight: 500;
@@ -63,7 +63,7 @@
   padding-bottom: 44px;
 }
 .column p {
-  font-family: Muller-regular;
+  font-family: Montserrat;
   line-height: 100%;
   font-weight: 400;
   letter-spacing: 0;
@@ -169,7 +169,7 @@
   position: absolute;
   left: 22px;
   top: 32px;
-  font-family: 'head2';
+  font-family: 'Montserrat';
   font-size: 20px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.4);
@@ -178,7 +178,7 @@ textarea::placeholder{
   position: absolute;
   left: 37px;
   top: 137px;
-  font-family: 'head2';
+  font-family: 'Montserrat';
   font-size: 20px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.4);
@@ -213,7 +213,7 @@ textarea::placeholder{
   position: absolute;
   left: 136px;
   top: 211px;
-  font-family: 'head2';
+  font-family: 'Montserrat';
   color: rgba(129, 129, 129, 1);
   font-size: 20px;
   font-weight: 400;
@@ -316,7 +316,7 @@ textarea::placeholder{
   color: rgba(0, 0, 0, 0.7);
   font-size: 14px;
   font-weight: 400;
-  font-family: "head2";
+  font-family: "Montserrat";
   margin-left: 2px;
   display: flex;
   line-height: 100%;
@@ -495,7 +495,7 @@ textarea::placeholder{
 .review-top{ display:grid; gap:8px; align-content:start; }
 .review-name{
   margin:0;
-  font-family:Muller-medium;
+  font-family:Montserrat;
   font-size:22px;
   font-weight:500;
   color:#422223;
@@ -503,7 +503,7 @@ textarea::placeholder{
 }
 .review-date{
   margin:0;
-  font-family:Muller-regular;
+  font-family:Montserrat;
   font-size:18px;
   font-weight:400;
   line-height:100%;
@@ -521,7 +521,7 @@ textarea::placeholder{
 }
 .review-bottom{
   margin:0 0 6px 0;
-  font-family:Muller-regular;
+  font-family:Montserrat;
   font-weight:400;
   font-size:20px;
   line-height:100%;
@@ -578,10 +578,10 @@ textarea::placeholder{
   font-size:16px;
   font-weight:500;
   line-height:100%;
-  font-family:Muller-medium;
+  font-family:Montserrat;
 }
 .small-under{
-  font-family:Muller-light;
+  font-family:Montserrat;
   color:#818181;
   font-weight:300;
   font-size:16px;
@@ -643,7 +643,7 @@ textarea::placeholder{
  
   
   font-weight: 500;
-  font-family: "Muller-medium";
+  font-family: "Montserrat";
   font-size: 16px;
   line-height: 1.25;
   color: rgba(66, 34, 35, 0.6);
@@ -669,7 +669,7 @@ textarea::placeholder{
   height: 34px;
   width: 120px;
   border-radius: 12px;
-  font-family: "Muller-medium";
+  font-family: "Montserrat";
   font-size: 11px;
   cursor: pointer;
   border: none;
@@ -690,7 +690,7 @@ textarea::placeholder{
 /* подпись */
 .mr-lead{
   margin: 29px 0 0 0;
-  font-family:"Muller-medium";
+  font-family:"Montserrat";
   font-size: 14px;
   line-height: 1.25;
   color: #000;

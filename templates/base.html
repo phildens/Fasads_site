@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/about.css' %}">
@@ -33,42 +36,6 @@
     <style>
         body {
             background-color: #F5F5F5;
-        }
-
-        @font-face {
-
-            font-family: "Muller-ultralight";
-
-            src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype");
-            font-style: normal;
-            font-weight: normal;
-        }
-
-        @font-face {
-
-            font-family: "Muller-medium";
-
-            src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype");
-            font-style: normal;
-            font-weight: normal;
-        }
-
-        @font-face {
-
-            font-family: "Muller-light";
-
-            src: url("{% static 'font/MullerLight.ttf' %}") format("truetype");
-            font-style: normal;
-            font-weight: normal;
-        }
-
-        @font-face {
-
-            font-family: "Muller-regular";
-
-            src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype");
-            font-style: normal;
-            font-weight: normal;
         }
     </style>
 </head>
@@ -140,7 +107,7 @@
         font-size: 12px;
         line-height: 18px;
         text-align: center;
-        font-family: Muller-medium, sans-serif;
+        font-family: Montserrat, sans-serif;
     }
     @media (min-width: 1280px) {
         .mobile-header {

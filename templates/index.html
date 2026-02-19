@@ -9,6 +9,9 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Современные фасады</title>
     <meta name="keywords"
@@ -50,34 +53,6 @@
     <style>
 @font-face {
 
-    font-family: "Muller-ultralight";
-
-    src: url("{% static 'font/MullerUltraLight.ttf' %}") format("truetype");
-    font-style: normal;
-    font-weight: normal;
-}
-
-@font-face {
-
-    font-family: "Muller-medium";
-
-    src: url("{% static 'font/MullerMedium.ttf' %}") format("truetype");
-    font-style: normal;
-    font-weight: normal;
-}
-
-@font-face {
-
-    font-family: "Muller-light";
-
-    src: url("{% static 'font/MullerLight.ttf' %}") format("truetype");
-    font-style: normal;
-    font-weight: normal;
-}
-
-
-@font-face {
-
     font-family: "Namu-light";
 
     src: url("{% static 'font/NAMU1750.otf' %}") format("truetype");
@@ -86,21 +61,6 @@
 }
 
 
-@font-face {
-
-    font-family: "Muller-regular";
-
-    src: url("{% static 'font/MullerRegular.ttf' %}") format("truetype");
-    font-style: normal;
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: 'head';
-    src: url("{% static 'font/head.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
 
 @font-face {
     font-family: 'namu';
@@ -109,12 +69,6 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'head2';
-    src: url("{% static 'font/head2.otf' %}") format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
     </style>
 </head>
 <body>
@@ -132,11 +86,11 @@
 
     <ul class="menuuu">
         <li><strong
-                style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong>
+                style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%">Деятельность</strong>
         </li>
         <li style="margin-bottom:30px"><a href="{% url 'about' %}">О нас</a></li>
 
-        <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%"
+        <li><strong style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%"
                     href="{% url 'catalog_all' %}">Продукция</strong></li>
         <li><a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a></li>
 
@@ -148,12 +102,12 @@
         <li><a href="{% url 'catalog_category' 'fasad-decors' %}">Архитектурные фасадные декоры</a></li>
         <li><a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a></li>
 
-        <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Наши
+        <li><strong style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%">Наши
             объекты</strong></li>
         <li style="margin-bottom:30px"><a href="{% url 'galery' %}">Фотографии выполненных объектов</a></li>
 
 
-        <li><strong style="font-family:Muller-medium;font-weight:500;font-size:20px;line-height:100%">Помощь</strong>
+        <li><strong style="font-family:Montserrat;font-weight:500;font-size:20px;line-height:100%">Помощь</strong>
         </li>
         <li style="margin-bottom:30px"><a href="{% url 'about' %}#q">Вопросы-ответы</a></li>
     </ul>
@@ -287,7 +241,7 @@
         font-size: 12px;
         line-height: 18px;
         text-align: center;
-        font-family: Muller-medium, sans-serif;
+        font-family: Montserrat, sans-serif;
     }
 
     /* === адаптив === */
@@ -576,7 +530,7 @@
                     left: 25px;
                     width: 275px;
                     height: 64px;
-                    font-family: 'head';
+                    font-family: 'Montserrat';
                     font-size: 64px;">
                         22
                     </div>
@@ -585,7 +539,7 @@
                     left: 25px;
                     width: 330px;
                     height: 110px;
-                    font-family: 'head2';
+                    font-family: 'Montserrat';
                     font-size: 22px;
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
@@ -608,7 +562,7 @@
                     left: 21px;
                     width: 275px;
                     height: 64px;
-                    font-family: 'head';
+                    font-family: 'Montserrat';
                     font-size: 64px;">
                         +1500
                     </div>
@@ -617,7 +571,7 @@
                     left: 20px;
                     width: 350px;
                     height: 110px;
-                    font-family: 'head2';
+                    font-family: 'Montserrat';
                     font-size: 22px;
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
@@ -640,7 +594,7 @@
                     left: 32px;
                     width: 275px;
                     height: 64px;
-                    font-family: 'head';
+                    font-family: 'Montserrat';
                     font-size: 64px;">
                         >300
                     </div>
@@ -649,7 +603,7 @@
                     left: 31px;
                     width: 333px;
                     height: 110px;
-                    font-family: 'head2';
+                    font-family: 'Montserrat';
                     font-size: 22px;
                     font-weight: 400;
                     color: rgba(0, 0, 0, 0.6);
@@ -665,7 +619,7 @@
 
             <!-- Заголовок (десктоп-стили оставлены инлайном) -->
             <div class="gallery-page-title"
-                 style="margin: 0 auto 0px auto; width: 1188px; font-family: 'head'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
+                 style="margin: 0 auto 0px auto; width: 1188px; font-family: 'Montserrat'; font-size: 24px; color: rgba(66, 34, 35, 1); left: 130px; bottom: 1013px;">
                 <button style="padding: 13px 38px;
     background: #421e23;
     

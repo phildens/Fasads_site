@@ -6,14 +6,14 @@
 }
 .accordion-container button{
     font-size: 20px;
-    font-family: Muller-regular;
+    font-family: Montserrat;
     background-color: #F5F5F5;
 }
 .accordion-panel p {
     margin-left: 10px;
     font-size: 20px;
     background-color: #F5F5F5;
-    font-family: Muller-regular;
+    font-family: Montserrat;
 
 }
 
@@ -94,7 +94,7 @@
 }
 
 .mini-headr {
-    font-family: Muller-medium;
+    font-family: Montserrat;
     font-size: 24px;
     font-weight: 500;
     line-height: 100%;
@@ -190,7 +190,7 @@
       color: #421e23;
     }
     .menuuu a {
-        font-family: Muller-medium;
+        font-family: Montserrat;
         font-weight: 500;
         font-size: 18px;
         color: black;
@@ -284,10 +284,10 @@
   text-align:center; padding:0 5px;
 }
 .drawer-title {
-    font-family: Muller-medium;
+    font-family: Montserrat;
 }
 .fav-title {
-    font-family: Muller-regular;
+    font-family: Montserrat;
 }
 
 html {

@@ -29,7 +29,7 @@
 }
 .footer-top .footer-menu a {
   color: #422223;
-  font-family: Muller-regular;
+  font-family: Montserrat;
   text-decoration: none;
   font-weight: 400;
   transition: color .16s;
@@ -68,14 +68,14 @@
   color: #422223;
 }
 .footer-top .footer-info .footer-info-title {
-  font-family: Muller-medium;
+  font-family: Montserrat;
   /* font-weight: 600; */
   color: #422223;
   font-size: 15px;
 }
 .footer-top .footer-info .footer-info-sub {
   color: #b4b4b4;
-  font-family: Muller-light;
+  font-family: Montserrat;
   font-size: 13px;
   margin-top: 2px;
 }
