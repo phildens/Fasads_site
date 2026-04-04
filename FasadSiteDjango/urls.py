@@ -31,6 +31,7 @@ urlpatterns = [
     # Страница «О нас»
     path('about', views.about, name='about'),
     path('privacy', views.privacy, name='privacy'),
+    path('cookies-policy', views.cookies_policy, name='cookies_policy'),
 
     # Страница одного продукта (рендерит category.html, если надо)
     path('product', views.products, name='product_detail'),

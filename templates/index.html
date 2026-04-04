@@ -1093,6 +1093,165 @@
             integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
             crossorigin="anonymous"></script>
     {% block extra_js %}{% endblock %}
+    <div id="cookie-consent-banner" role="dialog" aria-live="polite" aria-label="Уведомление о cookies">
+        <div class="cookie-consent-inner">
+            <p class="cookie-consent-text">
+                Мы используем файлы cookies. Оставаясь на нашем сайте, вы соглашаетесь с их использованием.
+                <a href="{% url 'cookies_policy' %}">Подробнее</a>
+            </p>
+            <button id="cookie-consent-accept" type="button">OK</button>
+        </div>
+    </div>
+    <style>
+        #cookie-consent-banner {
+            position: fixed;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+        }
+
+        #cookie-consent-banner.is-visible {
+            display: flex;
+        }
+
+        .cookie-consent-inner {
+            width: min(860px, 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: rgba(245, 245, 245, 0.96);
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            border-radius: 14px;
+            padding: 10px 14px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        .cookie-consent-text {
+            margin: 0;
+            color: #3d3d3d;
+            font-family: Montserrat, sans-serif;
+            font-size: 16px;
+            line-height: 1.35;
+        }
+
+        .cookie-consent-text a {
+            color: #3d3d3d;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+        }
+
+        #cookie-consent-accept {
+            border: 1.5px solid #666;
+            border-radius: 999px;
+            background: #ededed;
+            color: #444;
+            font-family: Montserrat, sans-serif;
+            font-size: 24px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            width: 120px;
+            height: 48px;
+            flex: 0 0 auto;
+        }
+
+        #cookie-consent-accept:hover {
+            background: #ffffff;
+        }
+
+        @media (max-width: 900px) {
+            .cookie-consent-inner {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 14px;
+            }
+
+            .cookie-consent-text {
+                font-size: 15px;
+            }
+
+            #cookie-consent-accept {
+                width: 100%;
+                max-width: 180px;
+                height: 44px;
+                align-self: flex-end;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            #cookie-consent-banner {
+                left: 8px;
+                right: 8px;
+                bottom: 8px;
+            }
+
+            .cookie-consent-inner {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .cookie-consent-text {
+                font-size: 13px;
+            }
+
+            #cookie-consent-accept {
+                width: 100%;
+                max-width: none;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+    </style>
+    <script>
+        (function () {
+            var banner = document.getElementById("cookie-consent-banner");
+            var acceptBtn = document.getElementById("cookie-consent-accept");
+            if (!banner || !acceptBtn) return;
+
+            var storageKey = "cookieConsentAccepted";
+            var cookieName = "cookie_consent_accepted";
+
+            function hasConsentCookie() {
+                return document.cookie.split("; ").some(function (item) {
+                    return item.indexOf(cookieName + "=true") === 0;
+                });
+            }
+
+            function setConsentCookie() {
+                var maxAge = 60 * 60 * 24 * 365;
+                document.cookie = cookieName + "=true; path=/; max-age=" + maxAge + "; SameSite=Lax";
+            }
+
+            function isAccepted() {
+                try {
+                    if (window.localStorage.getItem(storageKey) === "true") return true;
+                } catch (e) {}
+                return hasConsentCookie();
+            }
+
+            function storeAccepted() {
+                try {
+                    window.localStorage.setItem(storageKey, "true");
+                } catch (e) {}
+                setConsentCookie();
+            }
+
+            if (!isAccepted()) {
+                banner.classList.add("is-visible");
+            }
+
+            acceptBtn.addEventListener("click", function () {
+                storeAccepted();
+                banner.classList.remove("is-visible");
+            });
+        })();
+    </script>
 
     <!-- Шторка избранного -->
     <div id="favorites-drawer" aria-hidden="true">

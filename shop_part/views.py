@@ -245,6 +245,9 @@ def about(request):
 def privacy(request):
     return render(request, 'privacy.html')
 
+def cookies_policy(request):
+    return render(request, 'cookies_policy.html')
+
 
 class FAQView(ListView):
     model = Questions
