@@ -258,6 +258,63 @@
         font-family: Montserrat, sans-serif;
     }
 
+    .products-dropdown {
+        position: relative;
+        list-style: none;
+    }
+
+    .products-dropdown__toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .products-dropdown__chevron {
+        font-size: 11px;
+        line-height: 1;
+        transition: transform .2s ease;
+    }
+
+    .products-dropdown.open .products-dropdown__chevron {
+        transform: rotate(180deg);
+    }
+
+    .products-dropdown__menu {
+        position: absolute;
+        top: calc(100% + 14px);
+        left: 0;
+        z-index: 1010;
+        display: none;
+        min-width: 320px;
+        padding: 10px 0;
+        background: #fff;
+        border: 1px solid rgba(66, 34, 35, .16);
+        border-radius: 10px;
+        box-shadow: 0 18px 35px rgba(0, 0, 0, .12);
+    }
+
+    .products-dropdown.open .products-dropdown__menu {
+        display: block;
+    }
+
+    .products-dropdown__menu a {
+        display: block;
+        padding: 10px 16px;
+        color: #422223;
+        text-decoration: none;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .products-dropdown__menu a:hover {
+        background: rgba(66, 34, 35, .08);
+    }
+
     /* === адаптив === */
     @media (min-width: 1025px) {
         #mobileHeader {
@@ -285,7 +342,28 @@
                         </div>
 
 
-                        <li><a href="{% url 'catalog_all' %}" class="na-link ">Продукция</a></li>
+                        <li class="products-dropdown">
+                            <button
+                                type="button"
+                                class="na-link products-dropdown__toggle"
+                                aria-expanded="false"
+                                aria-label="Открыть разделы продукции"
+                            >
+                                Продукция
+                                <span class="products-dropdown__chevron">▼</span>
+                            </button>
+                            <div class="products-dropdown__menu">
+                                <a href="{% url 'catalog_all' %}">Весь каталог</a>
+                                <a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a>
+                                <a href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Керамический облицовочный кирпич</a>
+                                <a href="{% url 'catalog_category' 'clinker_tiles' %}">Клинкерная плитка</a>
+                                <a href="{% url 'catalog_category' 'paving_stones' %}">Брусчатка</a>
+                                <a href="{% url 'catalog_category' 'bolt_brick' %}">Ригельный кирпич</a>
+                                <a href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Навесные вентилируемые системы</a>
+                                <a href="{% url 'catalog_category' 'fasad-decors' %}">Архитектурные фасадные декоры</a>
+                                <a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a>
+                            </div>
+                        </li>
                         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
                         <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
                         <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
@@ -1071,6 +1149,34 @@
 
             function toggleMenu() {
                 sideMenu.classList.contains('active') ? closeMenu() : openMenu();
+            }
+
+            const productsDropdown = document.querySelector('.products-dropdown');
+            const productsToggle = productsDropdown?.querySelector('.products-dropdown__toggle');
+
+            if (productsDropdown && productsToggle) {
+                const closeProductsDropdown = () => {
+                    productsDropdown.classList.remove('open');
+                    productsToggle.setAttribute('aria-expanded', 'false');
+                };
+
+                productsToggle.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const isOpen = productsDropdown.classList.toggle('open');
+                    productsToggle.setAttribute('aria-expanded', String(isOpen));
+                });
+
+                document.addEventListener('click', function (event) {
+                    if (!productsDropdown.contains(event.target)) {
+                        closeProductsDropdown();
+                    }
+                });
+
+                window.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        closeProductsDropdown();
+                    }
+                });
             }
 
 // кнопки

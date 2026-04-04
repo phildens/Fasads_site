@@ -32,7 +32,8 @@ padding: 0;}
 .conteiner{background:#422223;width:100%;min-height:7px;min-width:1440px;display:flex;flex-direction:column}
 .header{display:flex;justify-content:center;align-items:center;position:relative;flex-shrink:0}
 .logo img{width: 186px;;height:auto}
-.nav-list{display:flex;max-width:1200px;align-items:center;width:1200px;margin:0;padding-top:30px;padding-left:0;flex-wrap:wrap;gap:37px;color:#422223;list-style:none;font-family: 'Montserrat', Arial, sans-serif;font-weight:400;font-size:16px;line-height:100%;letter-spacing:0}
+.nav-list{display:flex;max-width:1200px;align-items:center;width:1200px;margin:0;padding-top:30px;padding-left:0;flex-wrap:nowrap;gap:37px;color:#422223;list-style:none;font-family: 'Montserrat', Arial, sans-serif;font-weight:400;font-size:16px;line-height:100%;letter-spacing:0}
+.nav-list > li{flex-shrink:0}
 .nav-list2{display:flex;margin:0;padding-top:30px;flex-wrap:wrap;gap:30px;color:#fff6f3;list-style:none;margin-left:30px;font-family: 'Montserrat', Arial, sans-serif;font-weight:400;font-size:16px;line-height:100%}
 .nav-link,.nav-link:hover,.nav-link:focus,.nav-link:active{color:#422223;text-decoration:none;padding:0}
 .nav-link {
@@ -42,7 +43,26 @@ padding: 0;}
     font-weight: 400;
     letter-spacing: 0;
     line-height: 100%;
+    white-space: nowrap;
 }
+.products-dropdown{position:relative;list-style:none}
+.products-dropdown__toggle{
+  display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;
+  color:#422223;font:inherit;line-height:1;white-space:nowrap;padding:0;margin:0
+}
+.products-dropdown__chevron{font-size:11px;line-height:1;transition:transform .2s ease}
+.products-dropdown.open .products-dropdown__chevron{transform:rotate(180deg)}
+.products-dropdown__menu{
+  position:absolute;top:calc(100% + 14px);left:0;z-index:1010;display:none;
+  min-width:320px;padding:10px 0;background:#fff;border:1px solid rgba(66,34,35,.16);
+  border-radius:10px;box-shadow:0 18px 35px rgba(0,0,0,.12)
+}
+.products-dropdown.open .products-dropdown__menu{display:block}
+.products-dropdown__menu a{
+  display:block;padding:10px 16px;color:#422223;text-decoration:none;
+  font-family:'Montserrat',Arial,sans-serif;font-size:14px;line-height:1.2
+}
+.products-dropdown__menu a:hover{background:rgba(66,34,35,.08)}
 
 /* поиск */
 .search-bar{display:flex;justify-content:center;padding:24px 24px 0;flex-shrink:0}
@@ -256,7 +276,29 @@ html, body { max-width:100%; overflow-x:hidden; }
         <a href="{% url 'home' %}" class="logo img">
     <img src="{% static 'imgfolder/logo_white2.svg' %}" alt="Логотип">
 </a>
-        <li><a href="{% url 'catalog_all' %}" class="nav-link" style="font-family: Montserrat">Продукция</a></li>
+        <li class="products-dropdown">
+          <button
+            type="button"
+            class="nav-link products-dropdown__toggle"
+            aria-expanded="false"
+            aria-label="Открыть разделы продукции"
+            style="font-family: Montserrat"
+          >
+            Продукция
+            <span class="products-dropdown__chevron">▼</span>
+          </button>
+          <div class="products-dropdown__menu">
+            <a href="{% url 'catalog_all' %}">Весь каталог</a>
+            <a href="{% url 'catalog_category' 'face-brick' %}">Клинкерный облицовочный кирпич</a>
+            <a href="{% url 'catalog_category' 'ceramic_facing_brick' %}">Керамический облицовочный кирпич</a>
+            <a href="{% url 'catalog_category' 'clinker_tiles' %}">Клинкерная плитка</a>
+            <a href="{% url 'catalog_category' 'paving_stones' %}">Брусчатка</a>
+            <a href="{% url 'catalog_category' 'bolt_brick' %}">Ригельный кирпич</a>
+            <a href="{% url 'catalog_category' 'mounted_ventilated_systems' %}">Навесные вентилируемые системы</a>
+            <a href="{% url 'catalog_category' 'fasad-decors' %}">Архитектурные фасадные декоры</a>
+            <a href="{% url 'catalog_category' 'hyper-pressed_brick' %}">Гиперпрессованный кирпич</a>
+          </div>
+        </li>
         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
         <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
         <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
@@ -358,6 +400,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function toggleMenu(){
     sideMenu.classList.contains('active') ? closeMenu() : openMenu();
+  }
+
+  const productsDropdown = document.querySelector('.products-dropdown');
+  const productsToggle = productsDropdown?.querySelector('.products-dropdown__toggle');
+  if (productsDropdown && productsToggle) {
+    const closeProductsDropdown = () => {
+      productsDropdown.classList.remove('open');
+      productsToggle.setAttribute('aria-expanded', 'false');
+    };
+    const toggleProductsDropdown = (event) => {
+      event.preventDefault();
+      const isOpen = productsDropdown.classList.toggle('open');
+      productsToggle.setAttribute('aria-expanded', String(isOpen));
+    };
+
+    productsToggle.addEventListener('click', toggleProductsDropdown);
+    document.addEventListener('click', (event) => {
+      if (!productsDropdown.contains(event.target)) closeProductsDropdown();
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeProductsDropdown();
+    });
   }
 
   [headerBtn, mobileBtn].forEach(btn => btn && btn.addEventListener('click', toggleMenu));
