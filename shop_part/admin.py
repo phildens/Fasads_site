@@ -281,5 +281,18 @@ from .models import BannerSlide
 
 @admin.register(BannerSlide)
 class BannerSlideAdmin(admin.ModelAdmin):
-    list_display = ('title', 'subtitle')
+    list_display = ('title', 'background_theme', 'image_only')
+    list_filter = ('background_theme', 'image_only')
     search_fields = ('title', 'subtitle', 'description')
+    fieldsets = (
+        ('Вид баннера', {
+            'fields': ('background_theme', 'image_only'),
+        }),
+        ('Текст и кнопка', {
+            'fields': ('title', 'subtitle', 'description', 'cta_url'),
+            'description': 'Для режима "Только картинка" поля можно оставить пустыми.',
+        }),
+        ('Изображения', {
+            'fields': ('image', 'image_mobile'),
+        }),
+    )

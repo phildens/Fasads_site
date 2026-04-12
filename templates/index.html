@@ -425,38 +425,42 @@
         <div class="slider">
             <div class="slides">
                 {% for s in banner_slides %}
-                    <div class="slide">
-                        <div class="slide-text">
-                            <h2 class="big">
-                                {{ s.title|safe }}
-                                <div style="height: 5px;"></div>
+                    <div class="slide slide--{{ s.background_theme }}{% if s.image_only %} slide--image-only{% endif %}">
+                        {% if not s.image_only %}
+                            <div class="slide-text">
+                                {% if s.title %}
+                                    <h2 class="big">{{ s.title|safe }}</h2>
+                                {% endif %}
+
                                 {% if s.subtitle %}
                                     <p class="medium">{{ s.subtitle|safe }}</p>
                                 {% endif %}
-                            </h2>
 
-                            <div class="slide-buttons">
-                                <button class="slide-btn white" onclick="location.href='{{ s.cta_url }}'">
-                                    Узнать подробнее
-                                </button>
-                                <a href="#callback-form" class="slide-btn green"
-                                   style="text-decoration: none; color: inherit;"
-                                   data-modal-target="#contact-modal">Оставить заявку</a>
+                                <div class="slide-buttons">
+                                    {% if s.cta_url %}
+                                        <button class="slide-btn white" onclick="location.href='{{ s.cta_url }}'">
+                                            Узнать подробнее
+                                        </button>
+                                    {% endif %}
+                                    <a href="#callback-form" class="slide-btn green"
+                                       style="text-decoration: none; color: inherit;"
+                                       data-modal-target="#contact-modal">Оставить заявку</a>
+                                </div>
+
+                                {% if s.description %}
+                                    <p class="min">{{ s.description|safe|linebreaksbr }}</p>
+                                {% endif %}
                             </div>
-
-                            {% if s.description %}
-                                <p class="min">{{ s.description|safe|linebreaksbr }}</p>
-                            {% endif %}
-                        </div>
+                        {% endif %}
 
                         <div class="slide-image">
                             {% if s.image_mobile %}
                                 <picture>
                                     <source media="(max-width: 1024px)" srcset="{{ s.image_mobile.url }}">
-                                    <img src="{{ s.image.url }}" alt="{{ s.title }}">
+                                    <img src="{{ s.image.url }}" alt="{{ s.title|default:'Баннер' }}">
                                 </picture>
                             {% else %}
-                                <img src="{{ s.image.url }}" alt="{{ s.title }}">
+                                <img src="{{ s.image.url }}" alt="{{ s.title|default:'Баннер' }}">
                             {% endif %}
                         </div>
                     </div>

@@ -290,12 +290,30 @@ class SmallGallery(models.Model):
         verbose_name_plural = ('Фото объекта при открытии')
 
 class BannerSlide(models.Model):
-    title = models.CharField('Заголовок (большой)', max_length=200)
+    BACKGROUND_BROWN = 'brown'
+    BACKGROUND_LIGHT = 'light'
+    BACKGROUND_CHOICES = (
+        (BACKGROUND_BROWN, 'Коричневый'),
+        (BACKGROUND_LIGHT, 'Светлый'),
+    )
+
+    title = models.CharField('Заголовок (большой)', max_length=200, blank=True)
     subtitle = models.CharField('Подзаголовок (средний)', max_length=200, blank=True)
     description = models.TextField('Описание', blank=True)
+    background_theme = models.CharField(
+        'Цвет фона баннера',
+        max_length=10,
+        choices=BACKGROUND_CHOICES,
+        default=BACKGROUND_BROWN,
+    )
+    image_only = models.BooleanField(
+        'Только картинка',
+        default=False,
+        help_text='Если включено, баннер отображается только как картинка без текста и кнопок.',
+    )
     image = models.ImageField('Картинка', upload_to='hero_slides/')
-    cta_url = models.URLField('Ссылка для кнопки «Узнать подробнее»')
+    cta_url = models.URLField('Ссылка для кнопки «Узнать подробнее»', blank=True)
     image_mobile = models.ImageField('Картинка (мобильная версия)', upload_to='hero_slides/', blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.title or f'Баннер #{self.pk}'
