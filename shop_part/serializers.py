@@ -32,6 +32,7 @@ class ProductInCatSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(serializers.ModelSerializer):
     card_image = serializers.SerializerMethodField()
     images = serializers.SerializerMethodField()
+    gallery_object_id = serializers.SerializerMethodField()
 
     # Вложенные «{id, name}» для FK
     manufacturer = serializers.SerializerMethodField()
@@ -53,7 +54,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "id", "name", "description", "card_image", "images",
             "manufacturer", "type_material", "category", "color",
             "frosen_defend", "strength_grade", "water_resistance",
-            "product_type", "formats", "emptiness","promo_tag",
+            "product_type", "formats", "emptiness", "promo_tag", "gallery_object_id",
         )
 
     def _abs(self, request, file_field):
@@ -74,6 +75,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             if gi.image:
                 urls.append(self._abs(request, gi.image))
         return urls
+
+    def get_gallery_object_id(self, obj):
+        linked_objects = list(obj.biggalery_set.all())
+        if not linked_objects:
+            return None
+        linked_objects.sort(key=lambda item: ((item.position or 0), item.id))
+        return linked_objects[0].id
 
     def get_manufacturer(self, obj):
         return self._fk(obj, "manufacturer", "Производитель")

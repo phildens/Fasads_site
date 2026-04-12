@@ -911,7 +911,9 @@ min-height: 160px; /* можно подстроить под нужный раз
                 <div class="green-card" id="green-card">
                     <div style="margin-bottom:8px">Посмотрите на наши реализованные объекты
                     </div>
-                    <button class="btn bopen-gal" onclick="window.location.href='{% url 'galery' %}'"
+                    <button id="open-gallery-btn"
+                            class="btn bopen-gal"
+                            data-gallery-base-url="{% url 'galery' %}"
                             style="cursor: pointer">Открыть галерею
                     </button>
                 </div>
@@ -1257,6 +1259,20 @@ min-height: 160px; /* можно подстроить под нужный раз
                 }
             }
 
+            function setupGalleryButton(prod) {
+                const openGalleryBtn = document.getElementById('open-gallery-btn');
+                if (!openGalleryBtn) return;
+
+                const baseUrl = openGalleryBtn.dataset.galleryBaseUrl || '{% url "galery" %}';
+                openGalleryBtn.onclick = () => {
+                    const target = new URL(baseUrl, window.location.origin);
+                    if (prod?.gallery_object_id) {
+                        target.searchParams.set('object_id', String(prod.gallery_object_id));
+                    }
+                    window.location.href = target.toString();
+                };
+            }
+
             // Инициализация
             async function init() {
                 try {
@@ -1271,6 +1287,7 @@ min-height: 160px; /* можно подстроить под нужный раз
 
                     // <— Важно: вызываем ПОСЛЕ того, как получили product
                     setupFavorites(product);
+                    setupGalleryButton(product);
 
                     placeForMobile();
                     window.addEventListener('resize', placeForMobile);

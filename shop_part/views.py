@@ -533,7 +533,7 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
         Product.objects
         .select_related("manufacturer", "type_material", "category", "color",
                         "frosen_defend", "strength_grade", "water_resistance", "product_type")
-        .prefetch_related("formats", "emptiness", "images")
+        .prefetch_related("formats", "emptiness", "images", "biggalery_set")
     )
 
     def get_serializer_context(self):

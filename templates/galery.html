@@ -358,6 +358,47 @@
   document.querySelectorAll('.tooltip-text').forEach(el => {
     el.innerHTML = el.textContent.trim().replace(/\s+/g, '\n');
   });
+
+  // Если пришли из карточки товара: скроллим к нужному объекту и коротко подсвечиваем его
+  (function highlightTargetObjectFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const objectId = (params.get('object_id') || '').replace(/[^\d]/g, '');
+    if (!objectId) return;
+
+    const targetCard = document.querySelector(`.gallery-card[data-id="${objectId}"]`);
+    if (!targetCard) return;
+
+    const scrollToCard = (behavior = 'smooth') => {
+      const header = document.querySelector('header');
+      const headerOffset = header ? header.offsetHeight : 0;
+      const top = targetCard.getBoundingClientRect().top + window.pageYOffset - headerOffset - 16;
+      window.scrollTo({top: Math.max(0, top), behavior});
+    };
+
+    const flashCard = () => {
+      targetCard.classList.remove('card-target-flash');
+      void targetCard.offsetWidth;
+      targetCard.classList.add('card-target-flash');
+      targetCard.addEventListener('animationend', () => {
+        targetCard.classList.remove('card-target-flash');
+      }, {once: true});
+    };
+
+    // Первый проход: сразу после рендера
+    scrollToCard('smooth');
+
+    // Второй проход: корректируем позицию после возможного сдвига layout (изображения/шрифты)
+    setTimeout(() => scrollToCard('smooth'), 280);
+    const onLoaded = () => {
+      scrollToCard('auto');
+      flashCard();
+    };
+    if (document.readyState === 'complete') {
+      onLoaded();
+    } else {
+      window.addEventListener('load', onLoaded, {once: true});
+    }
+  })();
                 
             </script>
 
@@ -424,6 +465,22 @@
                     cursor: pointer;
                     overflow: hidden;
                     border-radius: 8px;
+                }
+
+                .gallery-card.card-target-flash {
+                    animation: cardTargetFlash 0.5s ease-out 1;
+                }
+
+                @keyframes cardTargetFlash {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+                    }
+                    20% {
+                        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.95);
+                    }
+                    100% {
+                        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+                    }
                 }
 
                 .card-thumb {
