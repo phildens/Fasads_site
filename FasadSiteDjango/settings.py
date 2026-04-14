@@ -18,6 +18,33 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
+def _env_bool(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _env_list(name: str, default: list[str] | None = None) -> list[str]:
+    value = os.getenv(name)
+    if value is None:
+        return default or []
+
+    value = value.strip()
+    if not value:
+        return []
+
+    if value.startswith("["):
+        try:
+            parsed = json.loads(value)
+            if isinstance(parsed, list):
+                return [str(item).strip() for item in parsed if str(item).strip()]
+        except json.JSONDecodeError:
+            pass
+
+    return [item.strip() for item in value.split(",") if item.strip()]
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
@@ -27,9 +54,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-osykeufd%)o^tok%1c^dmw_bbgf79-76js009c$_$#=gqim3v7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = _env_bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = ['modernfasad.ru', '164.215.97.73', '127.0.0.1', 'localhost', '*']
+ALLOWED_HOSTS = _env_list(
+    "ALLOWED_HOSTS",
+    default=["modernfasad.ru", "164.215.97.73", "127.0.0.1", "localhost", "*"],
+)
 
 # Application definition
 
