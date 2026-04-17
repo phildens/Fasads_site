@@ -54,7 +54,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-osykeufd%)o^tok%1c^dmw_bbgf79-76js009c$_$#=gqim3v7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = _env_bool("DEBUG", default=True)
+DEBUG = _env_bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = _env_list(
     "ALLOWED_HOSTS",
@@ -114,9 +114,10 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 MIDDLEWARE = [
-   # "FasadSiteDjango.middleware.metrika_headers.DisableCoopForMetrikaMiddleware",
+    "FasadSiteDjango.middleware.metrika_headers.DisableCoopForMetrikaMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
