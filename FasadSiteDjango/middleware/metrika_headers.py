@@ -19,6 +19,7 @@ class DisableCoopForMetrikaMiddleware:
                 "Cross-Origin-Opener-Policy",
                 "Cross-Origin-Opener-Policy-Report-Only",
             ):
-                response.pop(header, None)
+                if header in response:
+                    del response[header]
 
         return response
