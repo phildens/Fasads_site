@@ -44,7 +44,36 @@
   flex-direction: row;
   gap: 34px;
   flex-shrink: 0;
+  flex-wrap: nowrap;
   align-items: flex-end;
+}
+
+@media (min-width: 1200px){
+  .footer-top{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+    justify-items: center;
+    align-items: end;
+  }
+
+  .footer-top .footer-menu{
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .footer-top .footer-info-block{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: center;
+    align-items: end;
+    column-gap: 34px;
+  }
+
+  .footer-top .footer-info{
+    margin-right: 0;
+  }
 }
 
 /* мобильная версия */
@@ -64,6 +93,12 @@
   line-height: 1.2;
   margin-right: 10px;
 }
+.footer-top .soc-icons{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
 .footer-info a{
   color: #422223;
 }
@@ -80,6 +115,7 @@
   /* font-weight: 600; */
   color: #422223;
   font-size: 15px;
+  white-space: nowrap;
 }
 .footer-top .footer-info .footer-info-sub {
   color: #b4b4b4;
@@ -164,6 +200,10 @@
   .footer-top .footer-info{
     margin-right: 0;
     min-width: 220px;
+  }
+
+  .footer-top .footer-info .footer-info-title{
+    white-space: normal;
   }
 
   /* — средняя полоса — */
