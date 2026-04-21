@@ -9,7 +9,7 @@
       <div class="c-title">Контактная информация</div>
       <div class="c-row">
         <div class="c-phone-mail">
-          <a class="c-link" href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a>
+          <a class="c-link contact-phone-link" href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a>
           <div class="c-icons">
             <!-- добавь href на нужные страницы -->
             <a class="app-ico" aria-label="Telegram" href="https://t.me/sovremennye_fasady">
@@ -118,17 +118,24 @@
 .c-row p{ margin:0 0 16px 0; }
 .c-row p:last-child{ margin-bottom:0; }
 
-.c-link{ color:#000; text-decoration:none; }
+.c-link{ color:#000; text-decoration:none; display:inline-block; white-space:nowrap; max-width:100%; }
 .c-mail{ display:block; margin-top:8px; }
 .c-accent{ color:#C84A4A; }
 .c-accent-link{ color:#C84A4A; text-decoration:none; cursor:pointer; }
 
-.c-phone-mail{ display:flex; flex-direction:column; gap:6px; position:relative; }
+.c-phone-mail{ display:flex; flex-direction:column; gap:6px; position:relative; padding-right:88px; }
 .c-icons{
   position:absolute; right:0; top:0;
   display:flex; align-items:center; gap:14px;
 }
 .app-ico img{ width:26px; height:26px; display:block; }
+
+.contact-phone-link{
+  opacity:1 !important;
+  filter:none !important;
+  -webkit-mask-image:none !important;
+  mask-image:none !important;
+}
 
 /* Соц. иконки снизу */
 .soc-icons{ display:flex; align-items:center; gap:14px; padding-top:8px; }
@@ -169,5 +176,12 @@
 }
 @media (max-width: 960px){
   .map-embed script{ height:300px !important; }
+}
+@media (max-width: 560px){
+  .c-phone-mail{ padding-right:0; }
+  .c-icons{
+    position:static;
+    margin-top:2px;
+  }
 }
 </style>

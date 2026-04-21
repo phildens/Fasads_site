@@ -67,6 +67,14 @@
 .footer-info a{
   color: #422223;
 }
+.contact-phone-link{
+  display: inline-block;
+  white-space: nowrap;
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
 .footer-top .footer-info .footer-info-title {
   font-family: Montserrat;
   /* font-weight: 600; */

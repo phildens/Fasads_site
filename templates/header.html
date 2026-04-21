@@ -45,6 +45,14 @@ padding: 0;}
     line-height: 100%;
     white-space: nowrap;
 }
+.contact-phone-link{
+  display:inline-block;
+  white-space:nowrap;
+  opacity:1 !important;
+  filter:none !important;
+  -webkit-mask-image:none !important;
+  mask-image:none !important;
+}
 .products-dropdown{position:relative;list-style:none}
 .products-dropdown__toggle{
   display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;
@@ -229,7 +237,7 @@ html, body { max-width:100%; overflow-x:hidden; }
       <span class="mini-contact-icon">
         <img style="width:60px;height:60px" src="{% static 'imgfolder/phone.png' %}" alt="Телефон">
       </span>
-      <span class="mini-contact-text"><a href="tel:{{ site_settings.phone_href }}">{{ site_settings.phone }}</a></span>
+      <span class="mini-contact-text"><a class="contact-phone-link" href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a></span>
     </div>
     <div class="mini-contact-row">
       <span class="mini-contact-icon">
@@ -302,7 +310,7 @@ html, body { max-width:100%; overflow-x:hidden; }
         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
         <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
         <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
-        <li><a href="{{ site_settings.phone_href }}" class="nav-link">{{ site_settings.phone }}<br><p class="a">номер для связи</p></a></li>
+        <li><a href="{{ site_settings.phone_href }}" class="nav-link contact-phone-link">{{ site_settings.phone }}<br><p class="a">номер для связи</p></a></li>
         <li><a href="mailto:{{ site_settings.email }}" class="nav-link">{{ site_settings.email }}<br><p class="a">электронная почта</p></a></li>
 {#        <li><img src="{% static 'imgfolder/bol2.svg' %}" alt=""></li>#}
           <li class="header-fav">
