@@ -62,6 +62,11 @@
             </label>
           </fieldset>
 
+          <label class="cm-consent">
+            <input type="checkbox" name="personal_data_consent" required>
+            <span>Я согласен(на) на обработку персональных данных</span>
+          </label>
+
           <div class="cm-actions">
             <button class="cm-btn" type="submit">
               Отправить <span class="cm-arrow" aria-hidden="true">→</span>
@@ -178,6 +183,20 @@
 }
 
 .cm-field--block{ display:block; }
+.cm-consent{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  color: #3b3b3b;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: 14px;
+}
+.cm-consent input[type="checkbox"]{
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
 .cm-actions{ display:flex; justify-content:flex-end; margin-top: 16px; }
 .cm-btn{
   display:inline-flex; align-items:center; gap: 10px;
@@ -269,6 +288,11 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const submitBtn = form.querySelector('button[type="submit"]');
+    const consentField = form.querySelector('[name="personal_data_consent"]');
+    if (!consentField || !consentField.checked) {
+      showToast("Подтвердите согласие на обработку персональных данных.");
+      return;
+    }
     submitBtn.disabled = true;
 
     const fd = new FormData(form);

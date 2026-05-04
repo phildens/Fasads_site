@@ -264,6 +264,8 @@ def contact_request_create(request):
     email      = (data.get("email") or "").strip()
     phone      = (data.get("phone") or "").strip()
     description= (data.get("description") or data.get("about") or "").strip()
+    consent_raw = (data.get("personal_data_consent") or "").strip().lower()
+    consent = consent_raw in {"on", "1", "true", "yes"}
 
     errors = {}
     if not first_name:
@@ -279,6 +281,8 @@ def contact_request_create(request):
             validate_email(email)
         except ValidationError:
             errors["email"] = ["Некорректный email."]
+    if not consent:
+        errors["personal_data_consent"] = ["Необходимо согласие на обработку персональных данных."]
 
     if errors:
         return JsonResponse({"ok": False, "errors": errors}, status=400)

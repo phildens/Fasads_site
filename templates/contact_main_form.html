@@ -41,6 +41,10 @@
         <svg fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="4" x2="8" y2="8"/><circle cx="8" cy="11" r="1" fill="#aaa"/></svg>
         Мы гарантируем полное соблюдение ваших <br>интеллектуальных прав на разработку<br> и конфиденциальности предоставленной информации.
       </div>
+      <label class="callback-consent">
+        <input type="checkbox" name="personal_data_consent" required>
+        <span>Я согласен(на) на обработку персональных данных</span>
+      </label>
       <button type="submit" class="callback-form-btn">Оставить заявку</button>
     </div>
   </form>
@@ -255,13 +259,28 @@ textarea::placeholder{
 }
 .callback-form-bottom {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   position: absolute;
   left: 136px;
   top: 672px;
-  gap: 556px;
-  flex-wrap: wrap;
+  width: calc(100% - 272px);
+  gap: 18px;
+  flex-wrap: nowrap;
   justify-content: space-between;
+}
+.callback-consent{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 14px;
+  color: #3b3b3b;
+}
+.callback-consent input[type="checkbox"]{
+  width: 18px;
+  height: 18px;
+  margin: 0;
 }
 .callback-form-note {
   color: rgba(0, 0, 0, 0.7);
@@ -274,6 +293,7 @@ textarea::placeholder{
   align-items: flex-start;
   gap: 8px;
   max-width: 520px;
+  margin-right: auto;
 }
 .callback-form-note svg {
   flex-shrink: 0;
@@ -291,7 +311,8 @@ textarea::placeholder{
   font-family: 'Montserrat', Arial, sans-serif;
   font-weight: 500;
   cursor: pointer;
-  margin-left: auto;
+  margin-left: 0;
+  flex-shrink: 0;
   box-shadow: 2px 4px 0 #9bc18a;
   transition: background .16s, box-shadow .16s;
 }
