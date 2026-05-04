@@ -19,6 +19,7 @@ urlpatterns = [
     path("api/categories/search/", views.api_search_category_meta, name="api_search_category_meta"),
     path("api/categories/search/filters/", views.api_search_filters, name="api_search_filters"),
     path("api/categories/search/products/", views.api_search_products, name="api_search_products"),
+    path("api/contact-phone/", views.contact_phone, name="contact_phone"),
     # Админка
     path('admin/', admin.site.urls),
 

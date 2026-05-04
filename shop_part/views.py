@@ -33,6 +33,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import Product  # проверь импорт
+from .models import SiteSettings
 # views.py (добавьте рядом с остальными вспомогательными функциями)
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -247,6 +248,14 @@ def privacy(request):
 
 def cookies_policy(request):
     return render(request, 'cookies_policy.html')
+
+
+def contact_phone(request):
+    s = SiteSettings.load()
+    return JsonResponse({
+        "phone": s.phone or "",
+        "phone_href": s.phone_href or "",
+    })
 
 
 class FAQView(ListView):

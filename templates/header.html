@@ -53,6 +53,14 @@ padding: 0;}
   -webkit-mask-image:none !important;
   mask-image:none !important;
 }
+.phone-reveal-btn{
+  border: 0;
+  background: transparent;
+  color: #422223;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
 .products-dropdown{position:relative;list-style:none}
 .products-dropdown__toggle{
   display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;
@@ -237,7 +245,9 @@ html, body { max-width:100%; overflow-x:hidden; }
       <span class="mini-contact-icon">
         <img style="width:60px;height:60px" src="{% static 'imgfolder/phone.png' %}" alt="Телефон">
       </span>
-      <span class="mini-contact-text"><a class="contact-phone-link" href="{{ site_settings.phone_href }}">{{ site_settings.phone }}</a></span>
+      <span class="mini-contact-text">
+        <button type="button" class="phone-reveal-btn js-reveal-phone">+7(951)940-xx-xx</button>
+      </span>
     </div>
     <div class="mini-contact-row">
       <span class="mini-contact-icon">
@@ -310,7 +320,10 @@ html, body { max-width:100%; overflow-x:hidden; }
         <li><a href="{% url 'galery' %}?galery_name=galery" class="nav-link">Галерея</a></li>
         <li><a href="{% url 'about' %}#q" class="nav-link">Вопросы-ответы</a></li>
         <li><a href="{% url 'home' %}#contacts-main" class="nav-link">Контакты</a></li>
-        <li><a href="{{ site_settings.phone_href }}" class="nav-link contact-phone-link">{{ site_settings.phone }}<br><p class="a">номер для связи</p></a></li>
+        <li>
+          <button type="button" class="nav-link contact-phone-link phone-reveal-btn js-reveal-phone">+7(951)940-xx-xx</button><br>
+          <p class="a">номер для связи</p>
+        </li>
         <li><a href="mailto:{{ site_settings.email }}" class="nav-link">{{ site_settings.email }}<br><p class="a">электронная почта</p></a></li>
 {#        <li><img src="{% static 'imgfolder/bol2.svg' %}" alt=""></li>#}
           <li class="header-fav">
@@ -355,6 +368,63 @@ html, body { max-width:100%; overflow-x:hidden; }
       input.addEventListener('change', () => form.submit());
     }
   });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.js-reveal-phone');
+  if (!buttons.length) return;
+  const hiddenMask = '+7(951)940-xx-xx';
+  let cachedPhone = null;
+  let isRevealed = false;
+
+  const trackOpen = () => {
+    if (typeof window.ym === 'function') {
+      window.ym(105588452, 'reachGoal', 'nomer_open');
+    }
+  };
+
+  const toLinkHtml = (phone, href, classes = '') => {
+    const cls = classes ? ` class="${classes}"` : '';
+    return `<a${cls} href="${href}">${phone}</a>`;
+  };
+
+  const revealAll = (phone, href, sendGoal = false) => {
+    if (isRevealed) return;
+    if (sendGoal) trackOpen();
+    isRevealed = true;
+    buttons.forEach((btn) => {
+      const classes = btn.className.replace('js-reveal-phone', '').replace('phone-reveal-btn', '').trim();
+      btn.outerHTML = toLinkHtml(phone, href, classes || 'contact-phone-link');
+    });
+  };
+
+  const fetchAndReveal = async (sendGoal = false) => {
+    if (isRevealed) return;
+    if (cachedPhone) {
+      revealAll(cachedPhone.phone, cachedPhone.phone_href, sendGoal);
+      return;
+    }
+    try {
+      const res = await fetch('/api/contact-phone/', { credentials: 'same-origin' });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data.phone || !data.phone_href) return;
+      cachedPhone = data;
+      revealAll(data.phone, data.phone_href, sendGoal);
+    } catch (_) {}
+  };
+
+  buttons.forEach((btn) => {
+    btn.textContent = hiddenMask;
+    btn.addEventListener('click', async () => {
+      await fetchAndReveal(true);
+    });
+  });
+
+  setTimeout(() => {
+    fetchAndReveal(false);
+  }, 10000);
+});
 </script>
 
 <!-- ======= МОБИЛЬНАЯ КНОПКА (отдельно от хедера) ======= -->
