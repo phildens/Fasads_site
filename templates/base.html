@@ -36,6 +36,9 @@
 <!-- /Yandex.Metrika counter -->
 
 <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% if turnstile_site_key %}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{% endif %}
 
 
 

@@ -260,6 +260,7 @@
 
 
          <form method="post" id="contact-form" action="{% url 'contact_request_create' %}">
+            {% csrf_token %}
             <div class="callback-form-row">
                 <div class="callback-form-fields">
                     <label style="font-size: 22px;font-family: 'Montserrat';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения
@@ -291,6 +292,15 @@
                     Мы гарантируем полное соблюдение ваших <br>интеллектуальных прав на разработку<br> и
                     конфиденциальности предоставленной информации.
                 </div>
+                <label class="callback-consent">
+                    <input type="checkbox" name="personal_data_consent" required>
+                    <span>Я согласен(на) на обработку персональных данных</span>
+                </label>
+                {% if turnstile_site_key %}
+                <div class="callback-captcha-wrap">
+                    <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}"></div>
+                </div>
+                {% endif %}
                 <button type="submit" class="callback-form-btn">Оставить заявку</button>
             </div>
         </form>
@@ -326,6 +336,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value || '';
+    if ("{{ turnstile_site_key }}" && !turnstileToken) {
+      showAlert('error', 'Подтвердите, что вы не робот.');
+      return;
+    }
     btn && (btn.disabled = true);
 
     try {
@@ -360,6 +375,9 @@ document.addEventListener('DOMContentLoaded', () => {
         #callback-form input.has-error,
         #callback-form textarea.has-error {
             border-color: #E64646 !important;
+        }
+        .callback-captcha-wrap {
+            margin-top: 12px;
         }
     </style>
 

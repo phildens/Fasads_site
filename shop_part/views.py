@@ -16,6 +16,10 @@ from .models import BigGalery
 from django.http import Http404
 from django.db.models import Count
 from django.db.models import Q
+from django.conf import settings
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+import json
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -275,6 +279,7 @@ def contact_request_create(request):
     description= (data.get("description") or data.get("about") or "").strip()
     consent_raw = (data.get("personal_data_consent") or "").strip().lower()
     consent = consent_raw in {"on", "1", "true", "yes"}
+    turnstile_response = (data.get("cf-turnstile-response") or "").strip()
 
     errors = {}
     if not first_name:
@@ -292,6 +297,32 @@ def contact_request_create(request):
             errors["email"] = ["Некорректный email."]
     if not consent:
         errors["personal_data_consent"] = ["Необходимо согласие на обработку персональных данных."]
+
+    turnstile_secret = getattr(settings, "TURNSTILE_SECRET_KEY", "").strip()
+    turnstile_site_key = getattr(settings, "TURNSTILE_SITE_KEY", "").strip()
+    turnstile_enabled = bool(turnstile_secret and turnstile_site_key)
+    if turnstile_enabled:
+        if not turnstile_response:
+            errors["captcha"] = ["Подтвердите, что вы не робот."]
+        else:
+            try:
+                payload = urlencode({
+                    "secret": turnstile_secret,
+                    "response": turnstile_response,
+                    "remoteip": request.META.get("REMOTE_ADDR", ""),
+                }).encode("utf-8")
+                verify_request = Request(
+                    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+                    data=payload,
+                    headers={"Content-Type": "application/x-www-form-urlencoded"},
+                    method="POST",
+                )
+                with urlopen(verify_request, timeout=5) as verify_response:
+                    verify_data = json.loads(verify_response.read().decode("utf-8"))
+                if not verify_data.get("success"):
+                    errors["captcha"] = ["Проверка капчи не пройдена."]
+            except Exception:
+                errors["captcha"] = ["Не удалось проверить капчу. Попробуйте еще раз."]
 
     if errors:
         return JsonResponse({"ok": False, "errors": errors}, status=400)

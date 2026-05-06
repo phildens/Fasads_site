@@ -21,6 +21,7 @@
 
 
   <form method="post" id="contact-form" action="{% url 'contact_request_create' %}">
+    {% csrf_token %}
     <div class="callback-form-row">
       <div class="callback-form-fields">
         <label style="font-size: 22px;font-family: 'Montserrat';font-weight: 400;color: rgba(0, 0, 0, 1);">Сведения о заявителе</label>
@@ -45,6 +46,11 @@
         <input type="checkbox" name="personal_data_consent" required>
         <span>Я согласен(на) на обработку персональных данных</span>
       </label>
+      {% if turnstile_site_key %}
+      <div class="callback-captcha-wrap">
+        <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}"></div>
+      </div>
+      {% endif %}
       <button type="submit" class="callback-form-btn">Оставить заявку</button>
     </div>
   </form>
@@ -86,6 +92,12 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     btn.disabled = true;
+    const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value || '';
+    if ("{{ turnstile_site_key }}" && !turnstileToken) {
+      showAlert('error', 'Подтвердите, что вы не робот.');
+      btn.disabled = false;
+      return;
+    }
 
     try {
       const res = await fetch(form.action, {
@@ -300,6 +312,9 @@ textarea::placeholder{
   width: 18px;
   height: 18px;
   margin-top: 1.5px;
+}
+.callback-captcha-wrap{
+  margin-top: 12px;
 }
 .callback-form-btn {
   padding: 13px 38px;

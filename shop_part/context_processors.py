@@ -13,6 +13,7 @@ def faq_questions(request):
 
 from django.core.cache import cache
 from .models import SiteSettings
+from django.conf import settings
 
 
 def site_settings(request):
@@ -26,4 +27,7 @@ def site_settings(request):
             "phone_href": s.phone_href or "",
         }
         cache.set(cache_key, data, 300)  # 5 минут
-    return {"site_settings": data}
+    return {
+        "site_settings": data,
+        "turnstile_site_key": getattr(settings, "TURNSTILE_SITE_KEY", ""),
+    }

@@ -200,3 +200,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TEMPLATES[0]["OPTIONS"]["context_processors"] += [
     "shop_part.context_processors.faq_questions",
 ]
+
+# Cloudflare Turnstile captcha
+TURNSTILE_SITE_KEY = os.getenv("TURNSTILE_SITE_KEY", "").strip()
+TURNSTILE_SECRET_KEY = os.getenv("TURNSTILE_SECRET_KEY", "").strip()

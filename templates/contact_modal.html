@@ -66,6 +66,11 @@
             <input type="checkbox" name="personal_data_consent" required>
             <span>Я согласен(на) на обработку персональных данных</span>
           </label>
+          {% if turnstile_site_key %}
+          <div class="cm-captcha-wrap">
+            <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}"></div>
+          </div>
+          {% endif %}
 
           <div class="cm-actions">
             <button class="cm-btn" type="submit">
@@ -198,6 +203,7 @@
   margin: 0;
 }
 .cm-actions{ display:flex; justify-content:flex-end; margin-top: 16px; }
+.cm-captcha-wrap{ margin-top: 12px; }
 .cm-btn{
   display:inline-flex; align-items:center; gap: 10px;
   padding: 16px 28px; border-radius:14px; border:0; cursor:pointer;
@@ -291,6 +297,11 @@
     const consentField = form.querySelector('[name="personal_data_consent"]');
     if (!consentField || !consentField.checked) {
       showToast("Подтвердите согласие на обработку персональных данных.");
+      return;
+    }
+    const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value || "";
+    if ("{{ turnstile_site_key }}" && !turnstileToken) {
+      showToast("Подтвердите, что вы не робот.");
       return;
     }
     submitBtn.disabled = true;
