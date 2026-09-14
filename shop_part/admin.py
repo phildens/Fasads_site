@@ -101,7 +101,10 @@ class ProductResource(resources.ModelResource):
         # Список полей, которые будут в Excel (в нужном порядке)
         fields = (
             'id', 'name', 'manufacturer', 'type_material', 'category',
-            'product_price', 'promo_tag_display', 'color',
+            'product_price', 'price', 'old_price', 'currency', 'feed_enabled',
+            'feed_id2', 'custom_label_0', 'custom_label_1', 'custom_label_2',
+            'custom_label_3', 'custom_label_4', 'custom_score',
+            'promo_tag_display', 'color',
             'formats', 'emptiness', 'description', 'priority'
         )
         export_order = fields
@@ -117,7 +120,7 @@ class ProductResource(resources.ModelResource):
 class ProductAdmin(ImportExportModelAdmin):
     resource_class = ProductResource
     inlines = [GalleryInline, ]
-    list_display = ('name', 'priority', 'card_image', 'type_material', 'description', 'promo_tag')
+    list_display = ('name', 'price', 'old_price', 'currency', 'feed_enabled', 'priority', 'promo_tag')
     list_editable = ('priority',)
     search_fields = (
         "name",
@@ -160,6 +163,14 @@ class ProductAdmin(ImportExportModelAdmin):
                 'formats', 'emptiness',
                 'product_price', 'promo_tag',
                 'similar_products_manual',  # ← добавили сюда
+            )
+        }),
+        ('Цена и Яндекс-фид', {
+            'fields': (
+                ('price', 'old_price', 'currency'),
+                'feed_enabled', 'feed_id2',
+                'custom_label_0', 'custom_label_1', 'custom_label_2',
+                'custom_label_3', 'custom_label_4', 'custom_score',
             )
         }),
     )

@@ -3,7 +3,7 @@ from shop_part.models import Product
 from shop_part.serializers import ProductSerializer, ProductInCatSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
 from shop_part.models import Category, Product, TypeMaterial, Questions
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
 from django.views.decorators.http import require_POST
@@ -20,6 +20,9 @@ from django.conf import settings
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 import json
+import csv
+import re
+from django.utils.html import strip_tags
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -228,6 +231,65 @@ def index(request):
 
 def yandex_find(request):
     return render(request, 'yandex_94334ec1e6b86559.html')
+
+
+def yandex_feed(request):
+    """Публичный универсальный CSV-фид товаров для Яндекса."""
+    response = HttpResponse(content_type="text/csv; charset=utf-8")
+    response["Content-Disposition"] = 'inline; filename="yandex-feed.csv"'
+
+    writer = csv.writer(response, lineterminator="\n")
+    writer.writerow([
+        "ID", "ID2", "URL", "Image", "Title", "Description",
+        "Price", "Currency", "Old Price",
+        "custom_label_0", "custom_label_1", "custom_label_2",
+        "custom_label_3", "custom_label_4", "custom_score",
+    ])
+
+    products = (
+        Product.objects.filter(feed_enabled=True)
+        .prefetch_related("images")
+        .order_by("id")
+    )
+    for product in products:
+        product_url = request.build_absolute_uri(
+            reverse("product_client_view", args=[product.pk])
+        )
+        image_file = product.card_image or next(
+            (gallery.image for gallery in product.images.all() if gallery.image),
+            None,
+        )
+        image_url = request.build_absolute_uri(image_file.url) if image_file else ""
+        description = re.sub(r"\s+", " ", strip_tags(product.description or "")).strip()
+        price = str(product.price) if product.price is not None else ""
+        currency = product.currency if product.price is not None else ""
+        old_price = (
+            str(product.old_price)
+            if product.price is not None
+            and product.old_price is not None
+            and product.old_price > product.price
+            else ""
+        )
+
+        writer.writerow([
+            product.pk,
+            product.feed_id2,
+            product_url,
+            image_url,
+            product.name,
+            description,
+            price,
+            currency,
+            old_price,
+            product.custom_label_0,
+            product.custom_label_1,
+            product.custom_label_2,
+            product.custom_label_3,
+            product.custom_label_4,
+            "" if product.custom_score is None else product.custom_score,
+        ])
+
+    return response
 
 
 def products(request):

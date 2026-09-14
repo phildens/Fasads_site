@@ -55,6 +55,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "manufacturer", "type_material", "category", "color",
             "frosen_defend", "strength_grade", "water_resistance",
             "product_type", "formats", "emptiness", "promo_tag", "gallery_object_id",
+            "price", "old_price", "currency",
         )
 
     def _abs(self, request, file_field):

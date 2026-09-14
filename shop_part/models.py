@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 import re
 
 
@@ -174,6 +175,13 @@ class ProductBadge(models.TextChoices):
     NEW = "new", "Новинка"
 
 
+class ProductCurrency(models.TextChoices):
+    RUB = "RUB", "Российский рубль (RUB)"
+    USD = "USD", "Доллар США (USD)"
+    UAH = "UAH", "Украинская гривна (UAH)"
+    KZT = "KZT", "Казахстанский тенге (KZT)"
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название товара")
     card_image = models.ImageField(null=True, blank=True, verbose_name="Фото карточки")
@@ -195,6 +203,27 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name="Тип товара")
     product_price = models.TextField(blank=True, null=True, verbose_name="Прайс лист товара")
+    price = models.DecimalField(
+        "Актуальная цена", max_digits=12, decimal_places=2, blank=True, null=True,
+        validators=[MinValueValidator(0)],
+    )
+    old_price = models.DecimalField(
+        "Старая цена", max_digits=12, decimal_places=2, blank=True, null=True,
+        validators=[MinValueValidator(0)],
+        help_text="Заполняется только для скидки и должна быть выше актуальной цены.",
+    )
+    currency = models.CharField(
+        "Валюта", max_length=3, choices=ProductCurrency.choices,
+        default=ProductCurrency.RUB,
+    )
+    feed_enabled = models.BooleanField("Включать в Яндекс-фид", default=True)
+    feed_id2 = models.CharField("ID2 для Яндекс-фида", max_length=100, blank=True)
+    custom_label_0 = models.CharField("custom_label_0", max_length=175, blank=True)
+    custom_label_1 = models.CharField("custom_label_1", max_length=175, blank=True)
+    custom_label_2 = models.CharField("custom_label_2", max_length=175, blank=True)
+    custom_label_3 = models.CharField("custom_label_3", max_length=175, blank=True)
+    custom_label_4 = models.CharField("custom_label_4", max_length=175, blank=True)
+    custom_score = models.PositiveIntegerField("custom_score", blank=True, null=True)
     promo_tag = models.CharField(
         "Метка товара",
         max_length=16,
@@ -231,6 +260,15 @@ class Product(models.Model):
         if self.product_type:
             name = name + " " + self.product_type.name
         return name
+
+
+    def clean(self):
+        super().clean()
+        if self.old_price is not None:
+            if self.price is None:
+                raise ValidationError({"old_price": "Сначала укажите актуальную цену."})
+            if self.old_price <= self.price:
+                raise ValidationError({"old_price": "Старая цена должна быть выше актуальной."})
 
 
 class Gallery(models.Model):

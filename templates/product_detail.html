@@ -198,6 +198,44 @@
 
         }
 
+        .product-price-label {
+            color: #7b6a68;
+            font-family: Montserrat, Arial, sans-serif;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .product-price-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .product-price-current {
+            color: #422223;
+            font-family: Montserrat, Arial, sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+
+        .product-price-old {
+            color: #8d817f;
+            font-family: Montserrat, Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.15;
+            text-decoration: line-through;
+        }
+
+        .product-price-fallback {
+            color: #422223;
+            font-family: Montserrat, Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.3;
+        }
+
         .wbb {
             height: 49px;
             border-radius: 10px;
@@ -876,10 +914,7 @@ min-height: 160px; /* можно подстроить под нужный раз
             <!-- Правая колонка -->
             <aside id="right-col">
                 <div class="side-card">
-                    <div style="opacity:.85;font-size:14px;margin-bottom:6px">Цена:</div>
-                    <div class="price-individ" style="font-size:16px;" id="price">рассчитывается <br>индивидуально</div>
                     <button class="to-callback btn btn-white wbb" id="">Получить консультацию</button>
-                    <button class="to-callback btn btn-white wbb" id="">Узнать цену</button>
                     <button id="favBtn"
                             class="btn btn-ghost pbb"
                             data-fav-btn
@@ -895,16 +930,12 @@ min-height: 160px; /* можно подстроить под нужный раз
                 </div>
 
                 <div class="call-card">
-                    <div style="font-family: Montserrat;
-                                font-weight: 400;
-                                font-size: 18px;
-                                line-height: 100%;
-                                letter-spacing: 0;
-                                margin-bottom: 31px">
-                        Заказать обратный звонок
+                    <div class="product-price-label">Цена:</div>
+                    <div class="product-price-row" id="price" aria-live="polite">
+                        <span class="product-price-fallback">рассчитывается индивидуально</span>
                     </div>
                     <button class="to-callback btn call-btn" style="cursor: pointer" onclick="" id="moveToTargetBtn">
-                        Заказать звонок
+                        Запросить расчет
                     </button>
                 </div>
 
@@ -1183,7 +1214,42 @@ min-height: 160px; /* можно подстроить под нужный раз
             }
 
             function renderPrice(prod) {
-                $('#price').innerHTML = prod.price_text || 'рассчитывается<br>индивидуально';
+                const container = $('#price');
+                container.innerHTML = '';
+
+                const hasPrice = prod.price !== null && prod.price !== undefined && prod.price !== '';
+                const amount = Number(prod.price);
+                if (!hasPrice || !Number.isFinite(amount)) {
+                    const fallback = el('span', 'product-price-fallback');
+                    fallback.textContent = 'рассчитывается индивидуально';
+                    container.appendChild(fallback);
+                    return;
+                }
+
+                const currency = prod.currency || 'RUB';
+                const format = value => {
+                    try {
+                        return new Intl.NumberFormat('ru-RU', {
+                            style: 'currency',
+                            currency,
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2
+                        }).format(value);
+                    } catch (e) {
+                        return `${value.toLocaleString('ru-RU')} ${currency}`;
+                    }
+                };
+
+                const current = el('span', 'product-price-current');
+                current.textContent = format(amount);
+                container.appendChild(current);
+
+                const oldAmount = Number(prod.old_price);
+                if (Number.isFinite(oldAmount) && oldAmount > amount) {
+                    const old = el('span', 'product-price-old');
+                    old.textContent = format(oldAmount);
+                    container.appendChild(old);
+                }
             }
 
             function normalizeUserText(s) {
