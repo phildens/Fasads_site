@@ -466,10 +466,16 @@ from .models import BannerSlide
 
 @admin.register(BannerSlide)
 class BannerSlideAdmin(admin.ModelAdmin):
-    list_display = ('title', 'background_theme', 'image_only')
-    list_filter = ('background_theme', 'image_only')
+    list_display = ('position', 'title', 'is_active', 'background_theme', 'image_only')
+    list_display_links = ('title',)
+    list_editable = ('position', 'is_active')
+    list_filter = ('is_active', 'background_theme', 'image_only')
     search_fields = ('title', 'subtitle', 'description')
+    ordering = ('position', 'id')
     fieldsets = (
+        ('Публикация', {
+            'fields': ('is_active', 'position'),
+        }),
         ('Вид баннера', {
             'fields': ('background_theme', 'image_only'),
         }),

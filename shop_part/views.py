@@ -225,7 +225,7 @@ class ProductListView(ListAPIView):
 
 from .models import BannerSlide
 def index(request):
-    slides = BannerSlide.objects.all()[:3]
+    slides = BannerSlide.objects.filter(is_active=True).order_by('position', 'id')
     return render(request, 'index.html', {'banner_slides': slides})
 
 

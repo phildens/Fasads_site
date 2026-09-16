@@ -11,7 +11,7 @@ from tablib import Dataset
 from import_export.formats.base_formats import XLSX
 
 from .admin import ProductResource
-from .models import Category, Format, Manufactor, Product
+from .models import BannerSlide, Category, Format, Manufactor, Product
 
 
 class ProductPriceTests(TestCase):
@@ -122,6 +122,51 @@ class ProductDetailPageTests(TestCase):
         self.assertNotIn("Узнать цену", html)
         self.assertNotIn("Заказать обратный звонок", html)
         self.assertNotIn("Заказать звонок", html)
+
+
+class HomeBannerTests(TestCase):
+    def create_banner(self, title, position=0, is_active=True):
+        return BannerSlide.objects.create(
+            title=title,
+            image=f"hero_slides/{title}.webp",
+            position=position,
+            is_active=is_active,
+        )
+
+    def test_home_displays_more_than_three_active_banners_in_position_order(self):
+        self.create_banner("fifth", position=50)
+        self.create_banner("second", position=20)
+        self.create_banner("fourth", position=40)
+        self.create_banner("first", position=10)
+        self.create_banner("third", position=30)
+
+        response = self.client.get(reverse("home"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["banner_slides"].values_list("title", flat=True)),
+            ["first", "second", "third", "fourth", "fifth"],
+        )
+        self.assertContains(response, "data-hero-slide>", count=5)
+
+    def test_home_excludes_inactive_banners(self):
+        self.create_banner("VISIBLE_BANNER_SENTINEL", is_active=True)
+        self.create_banner("INACTIVE_BANNER_SENTINEL", is_active=False)
+
+        response = self.client.get(reverse("home"))
+
+        self.assertContains(response, "VISIBLE_BANNER_SENTINEL")
+        self.assertNotContains(response, "INACTIVE_BANNER_SENTINEL")
+        self.assertContains(response, "data-hero-slide>", count=1)
+
+    def test_home_omits_slider_when_there_are_no_active_banners(self):
+        self.create_banner("hidden", is_active=False)
+
+        response = self.client.get(reverse("home"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "data-hero-slider")
+        self.assertNotContains(response, "data-hero-slide")
 
 
 class ProductExcelImportTests(TestCase):

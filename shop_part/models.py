@@ -352,6 +352,18 @@ class BannerSlide(models.Model):
     image = models.ImageField('Картинка', upload_to='hero_slides/')
     cta_url = models.URLField('Ссылка для кнопки «Узнать подробнее»', blank=True)
     image_mobile = models.ImageField('Картинка (мобильная версия)', upload_to='hero_slides/', blank=True, null=True)
+    position = models.PositiveIntegerField(
+        'Позиция',
+        default=0,
+        db_index=True,
+        help_text='Чем меньше число, тем раньше баннер показывается.',
+    )
+    is_active = models.BooleanField('Показывать на сайте', default=True)
+
+    class Meta:
+        ordering = ('position', 'id')
+        verbose_name = 'Баннер'
+        verbose_name_plural = 'Баннеры'
 
     def __str__(self):
         return self.title or f'Баннер #{self.pk}'

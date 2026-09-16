@@ -466,6 +466,49 @@ body {
     border-radius: 12px;
 }
 
+.hero-arrow {
+    display: none;
+}
+
+.hero-arrow.is-hidden,
+.dots[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 1024px) {
+    .hero-arrow {
+        position: absolute;
+        top: 70%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(33, 33, 33, .55);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+        backdrop-filter: blur(2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
+    .hero-arrow:active {
+        transform: translateY(-50%) scale(.98);
+    }
+
+    .hero-arrow.prev {
+        left: 8px;
+    }
+
+    .hero-arrow.next {
+        right: 8px;
+    }
+}
+
 .slides {
     display: flex;
     transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
@@ -731,6 +774,8 @@ body {
 .dot {
     width: 12px;
     height: 12px;
+    padding: 0;
+    border: 0;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 50%;
     cursor: pointer;
