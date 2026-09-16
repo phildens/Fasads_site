@@ -51,7 +51,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-osykeufd%)o^tok%1c^dmw_bbgf79-76js009c$_$#=gqim3v7'
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    'django-insecure-osykeufd%)o^tok%1c^dmw_bbgf79-76js009c$_$#=gqim3v7',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = _env_bool("DEBUG", default=False)
@@ -60,6 +63,8 @@ ALLOWED_HOSTS = _env_list(
     "ALLOWED_HOSTS",
     default=["modernfasad.ru", "164.215.97.73", "127.0.0.1", "localhost", "*"],
 )
+CSRF_TRUSTED_ORIGINS = _env_list("CSRF_TRUSTED_ORIGINS")
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Application definition
 
@@ -154,7 +159,12 @@ TEMPLATES = [
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"}}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": Path(os.getenv("DATABASE_PATH", BASE_DIR / "db.sqlite3")),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -188,7 +198,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = Path(os.getenv("STATIC_ROOT", BASE_DIR / "static"))
 STATICFILES_DIRS = [BASE_DIR / "static_dev"]
 
 # STORAGES = {
@@ -197,7 +207,7 @@ STATICFILES_DIRS = [BASE_DIR / "static_dev"]
 #     },
 # }
 MEDIA_URL = '/uploads/'
-MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_ROOT = Path(os.getenv("MEDIA_ROOT", BASE_DIR / "uploads"))
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

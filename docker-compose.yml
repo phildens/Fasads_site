@@ -1,0 +1,40 @@
+services:
+  web:
+    build:
+      context: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_PATH: /data/db.sqlite3
+      MEDIA_ROOT: /data/uploads
+      STATIC_ROOT: /app/staticfiles
+    volumes:
+      - ./db.sqlite3:/data/db.sqlite3
+      - ./uploads:/data/uploads
+      - static_files:/app/staticfiles
+    expose:
+      - "8000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./uploads:/srv/uploads:ro
+      - static_files:/srv/static:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  static_files:
+  caddy_data:
+  caddy_config:
