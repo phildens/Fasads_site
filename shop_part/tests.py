@@ -1,12 +1,17 @@
 import csv
 from decimal import Decimal
-from io import StringIO
+from io import BytesIO, StringIO
 
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.urls import reverse
+from openpyxl import load_workbook
+from tablib import Dataset
+from import_export.formats.base_formats import XLSX
 
-from .models import Category, Product
+from .admin import ProductResource
+from .models import Category, Format, Manufactor, Product
 
 
 class ProductPriceTests(TestCase):
@@ -117,3 +122,179 @@ class ProductDetailPageTests(TestCase):
         self.assertNotIn("Узнать цену", html)
         self.assertNotIn("Заказать обратный звонок", html)
         self.assertNotIn("Заказать звонок", html)
+
+
+class ProductExcelImportTests(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name="Кирпич")
+        self.manufacturer = Manufactor.objects.create(name="ЛСР")
+        self.product_format = Format.objects.create(name="250×120×65")
+        self.product = Product.objects.create(
+            name="Исходное название",
+            category=self.category,
+            manufacturer=self.manufacturer,
+            card_image="products/existing.jpg",
+            price=Decimal("100.00"),
+        )
+
+    def dataset_from_rows(self, *rows):
+        resource = ProductResource()
+        headers = [field.column_name for field in resource.get_export_fields()]
+        dataset = Dataset(headers=headers)
+        for row in rows:
+            dataset.append([row.get(header, "") for header in headers])
+        return dataset
+
+    def exported_product_row(self):
+        resource = ProductResource()
+        return resource.export(Product.objects.filter(pk=self.product.pk)).dict[0]
+
+    def test_dry_run_then_atomic_update_preserves_photo_and_clears_blank_field(self):
+        row = self.exported_product_row()
+        row.update({
+            "Название товара": "Обновлённое название",
+            "Производитель": "",
+            "Форматы": self.product_format.name,
+            "Актуальная цена": "125.50",
+        })
+        dataset = self.dataset_from_rows(row)
+        resource = ProductResource()
+
+        preview = resource.import_data(
+            dataset,
+            dry_run=True,
+            use_transactions=True,
+            rollback_on_validation_errors=True,
+        )
+        self.assertFalse(preview.has_errors())
+        self.assertFalse(preview.has_validation_errors())
+        self.product.refresh_from_db()
+        self.assertEqual(self.product.name, "Исходное название")
+
+        result = resource.import_data(
+            dataset,
+            dry_run=False,
+            use_transactions=True,
+            rollback_on_validation_errors=True,
+        )
+        self.assertFalse(result.has_errors())
+        self.assertFalse(result.has_validation_errors())
+
+        self.product.refresh_from_db()
+        self.assertEqual(self.product.name, "Обновлённое название")
+        self.assertIsNone(self.product.manufacturer)
+        self.assertEqual(self.product.price, Decimal("125.50"))
+        self.assertEqual(self.product.card_image.name, "products/existing.jpg")
+        self.assertEqual(list(self.product.formats.values_list("name", flat=True)), ["250×120×65"])
+
+    def test_blank_id_creates_new_product(self):
+        row = {
+            "ID": "",
+            "Название товара": "Новый товар",
+            "Категория": self.category.name,
+            "Валюта": "RUB",
+            "Приоритет": 0,
+            "Включать в Яндекс-фид": "Да",
+        }
+        result = ProductResource().import_data(
+            self.dataset_from_rows(row),
+            dry_run=False,
+            use_transactions=True,
+            rollback_on_validation_errors=True,
+        )
+
+        self.assertFalse(result.has_errors())
+        self.assertFalse(result.has_validation_errors())
+        self.assertTrue(Product.objects.filter(name="Новый товар").exists())
+
+    def test_invalid_row_rolls_back_valid_row(self):
+        valid_row = self.exported_product_row()
+        valid_row["Название товара"] = "Не должно сохраниться"
+        invalid_row = dict(valid_row)
+        invalid_row.update({
+            "ID": "",
+            "Название товара": "Товар с ошибкой",
+            "Категория": "Несуществующая категория",
+        })
+
+        result = ProductResource().import_data(
+            self.dataset_from_rows(valid_row, invalid_row),
+            dry_run=False,
+            use_transactions=True,
+            rollback_on_validation_errors=True,
+        )
+
+        self.assertTrue(result.has_errors() or result.has_validation_errors())
+        self.product.refresh_from_db()
+        self.assertEqual(self.product.name, "Исходное название")
+        self.assertFalse(Product.objects.filter(name="Товар с ошибкой").exists())
+
+    def test_unknown_existing_id_is_rejected(self):
+        row = self.exported_product_row()
+        row["ID"] = 999999
+
+        result = ProductResource().import_data(
+            self.dataset_from_rows(row),
+            dry_run=True,
+            use_transactions=True,
+            rollback_on_validation_errors=True,
+        )
+
+        self.assertTrue(result.has_errors() or result.has_validation_errors())
+
+
+class ProductExcelWorkbookTests(TestCase):
+    def test_admin_download_contains_products_references_and_dropdowns_without_photos(self):
+        category = Category.objects.create(name="Кирпич")
+        Product.objects.create(
+            name="Товар для выгрузки",
+            category=category,
+            card_image="products/hidden-from-excel.jpg",
+        )
+        user = get_user_model().objects.create_superuser(
+            username="excel-admin",
+            email="admin@example.com",
+            password="test-password",
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("admin:shop_part_product_download_update_excel"))
+
+        self.assertEqual(response.status_code, 200)
+        workbook = load_workbook(BytesIO(response.content))
+        self.assertEqual(workbook.sheetnames, ["Товары", "Справочники", "Инструкция"])
+        self.assertEqual(workbook.active.title, "Товары")
+
+        products_sheet = workbook["Товары"]
+        headers = [cell.value for cell in products_sheet[1]]
+        self.assertIn("Название товара", headers)
+        self.assertIn("Категория", headers)
+        self.assertNotIn("Главное фото", headers)
+        self.assertGreaterEqual(len(products_sheet.data_validations.dataValidation), 10)
+        all_values = [cell.value for row in products_sheet.iter_rows() for cell in row]
+        self.assertNotIn("products/hidden-from-excel.jpg", all_values)
+
+        imported_dataset = XLSX().create_dataset(response.content)
+        preview = ProductResource().import_data(
+            imported_dataset,
+            dry_run=True,
+            use_transactions=True,
+            rollback_on_validation_errors=True,
+        )
+        self.assertFalse(preview.has_errors())
+        self.assertFalse(preview.has_validation_errors())
+        self.assertEqual(preview.totals["skip"], 1)
+        self.assertEqual(preview.totals["update"], 0)
+
+    def test_product_admin_changelist_renders_excel_download_button(self):
+        user = get_user_model().objects.create_superuser(
+            username="product-admin",
+            email="product-admin@example.com",
+            password="test-password",
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("admin:shop_part_product_changelist"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Скачать Excel для обновления")

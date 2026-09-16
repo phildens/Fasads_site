@@ -79,6 +79,11 @@ INSTALLED_APPS = [
     'gallery.apps.GalleryConfig',
     'import_export'
 ]
+
+# Импорт товаров выполняется одной транзакцией: при любой ошибке изменения
+# откатываются целиком. Предварительный просмотр остаётся обязательным.
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_SKIP_ADMIN_CONFIRM = False
 CKEDITOR_CONFIGS = {
     "article": {
         "height": 400,
